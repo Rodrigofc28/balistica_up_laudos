@@ -12,7 +12,8 @@ use App\Models\Arma;
 use App\Models\Calibre;
 use App\Models\Marca;
 use App\Models\Origem;
-
+use App\Models\Cadastroarmas;
+use Illuminate\Support\Facades\DB;
 class RevolveresController extends Controller
 {
     public function __construct()
@@ -27,11 +28,22 @@ class RevolveresController extends Controller
      */
     public function create($laudo)
     {
+        //Dados vindo do GDL TABELA tabela_pecas_gdl seleciona tudo quando as rep forem iguais
+        $armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$laudo->rep]);
+        $array_gdl_armas=[];
+        foreach($armasGdl as $armagdl){
+            if($armagdl->tipo_item=="REVÓLVER(ES)"){
+                array_push($array_gdl_armas,$armagdl);
+            }
+        }
+        
         $marcas = Marca::categoria('armas');
         $origens = Origem::all();
-        $calibres = Calibre::whereArma('Revólver');
+        $calibres =Calibre::whereArma('Revólver');
+        
+        $armas = DB::select('select modelo from cadastroarmas ');
         return view('perito.laudo.materiais.armas.revolver.create',
-            compact('laudo', 'marcas', 'origens', 'calibres'));
+            compact('laudo', 'marcas', 'origens', 'calibres','armas','array_gdl_armas'));
     }
 
     /**
@@ -42,7 +54,9 @@ class RevolveresController extends Controller
      */
     public function store(RevolverRequest $request)
     {
+       
         Arma::create($request->all());
+        
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])
             ->with('success', __('flash.create_m', ['model' => 'Revólver']));
@@ -74,7 +88,13 @@ class RevolveresController extends Controller
     {
         $marcas = Marca::marcasWithTrashed('armas', $revolver->marca);
         $origens = Origem::origensWithTrashed($revolver->origem);
+
+        
+        if($revolver->calibre==null){
+            $calibres =[]; 
+        }else{
         $calibres = Calibre::calibresWithTrashed('Revólver', $revolver->calibre);
+        }
         $imagens = $revolver->imagens;
         return view('perito.laudo.materiais.armas.revolver.edit',
             compact('revolver', 'laudo', 'marcas', 'origens', 'calibres', 'imagens'));

@@ -8,7 +8,8 @@ use App\Models\Arma;
 use App\Models\Calibre;
 use App\Models\Marca;
 use App\Models\Origem;
-
+use App\Models\Cadastroarmas;
+use Illuminate\Support\Facades\DB;
 class MetralhadorasController extends Controller
 {
     
@@ -23,11 +24,21 @@ class MetralhadorasController extends Controller
      */
     public function create($laudo)
     {
+        
+        //Dados vindo do GDL TABELA tabela_pecas_gdl seleciona tudo quando as rep forem iguais
+        $armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$laudo->rep]);
+        $array_gdl_armas=[];
+        foreach($armasGdl as $armagdl){
+            if($armagdl->tipo_item=="METRALHADORA(S)"){
+                array_push($array_gdl_armas,$armagdl);
+            }
+        }
         $marcas = Marca::categoria('armas'); // classes do models marca, origem, calibre
         $origens = Origem::all();
-        $calibres = Calibre::whereArma('Metralhadora'); //mudar colocar carabina
+        $calibres = Calibre::whereArma('Metralhadora');
+        $armas = DB::select('select modelo from cadastroarmas '); 
         return view('perito.laudo.materiais.armas.metralhadora.create',
-            compact('laudo', 'marcas', 'origens', 'calibres'));
+            compact('laudo', 'marcas', 'origens', 'calibres','armas','array_gdl_armas'));
     }
         public function show(Arma $metralhadora)
         {
@@ -49,7 +60,11 @@ class MetralhadorasController extends Controller
     {
         $marcas = Marca::marcasWithTrashed('armas', $metralhadora->marca);
         $origens = Origem::origensWithTrashed($metralhadora->origem);
+        if($metralhadora->calibre==null){
+            $calibres =[]; 
+        }else{
         $calibres = Calibre::calibresWithTrashed('Metralhadora', $metralhadora->calibre);
+        }
         $imagens = $metralhadora->imagens;
         return view('perito.laudo.materiais.armas.metralhadora.edit',
             compact('metralhadora', 'laudo', 'marcas', 'origens', 'calibres', 'imagens'));

@@ -29,17 +29,17 @@ class GarruchaRequest extends FormRequest
     {
         return [
             'marca_id' => 'required|integer',
-            'calibre_id' => 'required|integer',
+            'calibre_id' => 'nullable|integer',
             'origem_id' => 'required|integer',
             'laudo_id' => 'required|integer',
             'modelo' => 'nullable',
             'tipo_serie' => 'required|between:5,40',
             'num_serie' => 'nullable',
             'quantidade_raias' => 'required|integer|min:0|max:30',
-            'comprimento_cano' => 'required|between:5,10',
-            'comprimento_total' => 'required|between:5,10',
-            'altura' => 'required|between:5,10',
-            'sistema_percussao' => 'required|between:5,30',
+            'comprimento_cano' => 'required',
+            'comprimento_total' => 'required',
+            'altura' => 'required',
+            'sistema_percussao' => 'required|between:5,50',
             'estado_geral' => 'required|between:2,15',
             'funcionamento' => 'required|between:5,25',
             'sentido_raias' => 'required|between:5,30',
@@ -47,13 +47,13 @@ class GarruchaRequest extends FormRequest
             'tipo_acabamento' => 'required|between:5,40',
             'tipo_arma' => 'required|between:5,30',
             'num_canos' => 'required:max:15',
-            'disposicao_canos' => 'nullable|max: 40',
-            'teclas_gatilho' => 'nullable|max: 25',
-            'chave_abertura' => 'nullable|max: 70',
-            'cao' => 'required|max:40',
-            'placas_laterais' => 'required|max:50',
-            'num_lacre' => 'required',
-            'numeracao_montagem' => 'nullable|max: 50',
+            
+            'diametro_cano'=> 'nullable',
+            'salva_cadastro'=>'nullable',
+           
+            'num_lacre' => 'nullable',
+            'sistema_disparo'=>'required'
+            
         ];
     }
 }

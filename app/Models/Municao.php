@@ -11,7 +11,9 @@ class Municao extends Model
 
     protected $fillable = ['marca_id', 'origem_id', 'calibre_id', 'laudo_id', 'estojo',
         'projetil', 'funcionamento', 'quantidade', 'tipo_municao', 'tipo_projetil',
-        'nao_deflagrado', 'municao_de','lacrecartucho'];
+        'nao_deflagrado', 'municao_de','lacrecartucho','observacao','institutoArma',
+        'coleta','percutidos','lacre_saida','rep_materialColetado','lote',
+        'origem_coletaPerito','funcionamentoCartucho','qtEficiente','qtIneficiente'];
 
     protected $table = 'municoes';
 
@@ -38,6 +40,9 @@ class Municao extends Model
     public function laudo()
     {
         return $this->belongsTo(Laudo::class);
+    }
+    public function imagens(){
+        return $this->hasMany(ImagensMunicoes::class);
     }
 
     /* -- End Relationships -- */

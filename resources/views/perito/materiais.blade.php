@@ -1,10 +1,12 @@
 @extends('layout.component')
 @section('page')
 <div class="col-12">
-    <h4>Selecione o Material</h4>
+    <h4>Selecione o Material /Laudo {{$laudo->laudoEfetConst=='constatacao'?'constatação':'eficiência' }}</h4>
 </div>
 <hr>
-<h5>Armas de fogo</h5>
+
+@if($laudo->laudoEfetConst!='constatacao')
+<h5><strong>Armas de fogo</strong></h5>
 <input type="hidden" name="laudo_id" value="{{$laudo}}">
 <div class="col-12">
     <div class="row border mb-3">
@@ -12,13 +14,15 @@
             @include('shared.block_button', ['col_name' => 'tipo_arma',
             'value' => 'Garrucha', 'route' => 'garruchas.create'])
         </div>
+        
         <div class="col-lg-3 mt-3">
             @include('shared.block_button', ['col_name' => 'tipo_arma',
             'value' => 'Espingarda', 'route' => 'espingardas.create'])
         </div>
+       
         <div class="col-lg-3 mt-3">
             @include('shared.block_button', ['col_name' => 'tipo_arma',
-            'value' => 'Espingarda Artesanal', 'route' => 'espingardas_artesanais.create'])
+            'value' => 'Espingarda mista', 'route' => 'espingardamistas.create'])
         </div>
         <div class="col-lg-3 mt-3">
             @include('shared.block_button', ['col_name' => 'tipo_arma',
@@ -33,44 +37,66 @@
             @include('shared.block_button', ['col_name' => 'tipo_arma',
             'value' => 'Carabina', 'route' => 'carabinas.create'])
         </div>
-     <!--
+     
         <div class="col-lg-3 mt-3">
             @include('shared.block_button', ['col_name' => 'tipo_arma',
-            'value' => 'Arma de Pressão', 'route' => 'metralhadoras.create'])
-        </div>-->
+            'value' => 'Metralhadora', 'route' => 'metralhadoras.create'])
+        </div>
+        <div class="col-lg-3 mt-3">
+            @include('shared.block_button', ['col_name' => 'tipo_arma',
+            'value' => 'Submetralhadora', 'route' => 'submetralhadoras.create'])
+        </div>
+        <div class="col-lg-3 mt-3">
+            @include('shared.block_button', ['col_name' => 'tipo_arma',
+            'value' => 'Fuzil', 'route' => 'fuzils.create'])
+        </div>
+        <div class="col-lg-3 mt-3">
+            @include('shared.block_button', ['col_name' => 'tipo_arma',
+            'value' => 'Pistolete', 'route' => 'pistoletes.create'])
+        </div>
+    
 
     </div>
 </div>
-<h5>Cartucho e Estojo</h5>
+@endif
+<h5><strong>Cartucho/Estojo e Projeteis</strong></h5>
 <div class="col-12">
     <div class="row border mb-3 mt-3">
         <div class="col-lg-3 mt-3">
             @include('shared.block_button', ['col_name' => 'tipo_municao',
-            'value' => 'Cartucho/Estojo Arma Curta ', 'route' => 'armas_curtas.create'])
+            'value' => 'Cartucho/Estojo', 'route' => 'armas_curtas.create'])
         </div>
+
+        <div class="col-lg-3 mt-3">
+            @include('shared.block_button', ['col_name' => 'componente',
+            'value' => 'Projeteis ', 'route' => 'balins_chumbo.create'])
+        </div>
+        <!--
         <div class="col-lg-3 mt-3">
             @include('shared.block_button', ['col_name' => 'tipo_municao',
             'value' => 'Cartucho/Estojo Arma Longa', 'route' => 'armas_longas.create'])
-        </div>
+        </div>-->
     </div>
 </div>
-<h5>Componentes</h5>
+@if($laudo->laudoEfetConst!='constatacao')
+<h5><strong>Armas de pressão/simulacro</strong></h5>
 <div class="col-12">
     <div class="row border mb-3 mt-3">
         <div class="col-lg-3 mt-3">
             @include('shared.block_button', ['col_name' => 'componente',
-            'value' => 'Balins de Chumbo ', 'route' => 'balins_chumbo.create'])
+            'value' => 'Pistola de pressão ', 'route' => 'pressaopistolas.create'])
         </div>
         <div class="col-lg-3 mt-3">
             @include('shared.block_button', ['col_name' => 'componente',
-            'value' => 'Espoletas ', 'route' => 'espoletas.create'])
+            'value' => 'Carabina de pressão ', 'route' => 'pressaocarabinas.create'])
         </div>
         <div class="col-lg-3 mt-3">
             @include('shared.block_button', ['col_name' => 'componente',
-            'value' => 'Pólvora ', 'route' => 'polvora.create'])
+            'value' => 'Simulacro ', 'route' => 'simulacros.create'])
         </div>
     </div>
 </div>
+@endif
 <div class="col-lg-3 mt-2">
     <a class="btn btn-secondary btn-block" href="{{ route('laudos.show', $laudo) }}">
         <i class="fas fa-arrow-circle-left"></i> Voltar ao Laudo</a>

@@ -2,7 +2,10 @@
     <a class="navbar-brand mr-1" href="{{ route('home') }}">Laudos Balísticos</a>
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fa fa-bars"></i>
+        
     </button>
+    <h5 style="color:aliceblue;padding-left:10px"><strong>{{Auth::user()->nome}}</strong></h5>
+    
 </nav>
 
 <div id="wrapper">
@@ -21,12 +24,12 @@
                 <span>Controle</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <a class="dropdown-item" href="{{ route('secoes.index') }}">Seções</a>
+                <a class="dropdown-item" href="{{ route('secoes.index') }}">Unidades</a>
                 <a class="dropdown-item" href="{{ route('diretores.index') }}">Diretores</a>
                 <a class="dropdown-item" href="{{ route('solicitantes.index') }}">Órgãos Solicitantes</a>
                 <a class="dropdown-item" href="{{ route('marcas.index') }}">Marcas</a>
                 <a class="dropdown-item" href="{{ route('calibres.index') }}">Calibres</a>
-                <a class="dropdown-item" href="{{ route('origens.index') }}">Países</a>
+                <a class="dropdown-item" href="{{ route('cadastro_armas.index') }}">Cadastrar modelo</a>
                 <a class="dropdown-item" href="{{ route('users.index') }}">Usuários</a>
             </div>
         </li>
@@ -38,7 +41,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('laudos.index') }}">
                 <i class="fa fa-fw fa-folder-open"></i>
-                <span>Meus Laudos</span></a>
+                <span>Minhas REPS</span></a>
         </li>
         <li class="nav-item admin_reports">
             <a class="nav-link" href="{{ route('admin.relatorios.index') }}">

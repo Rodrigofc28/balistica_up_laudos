@@ -5,16 +5,18 @@
  */
 
 namespace App\Http\Controllers\Admin;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Cargo;
 use App\Models\Secao;
 use App\Models\User;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\cadastrousuario;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
-{
+{   
+    
     public function __construct()
     {
         $this->middleware('auth');
@@ -28,10 +30,10 @@ class UsersController extends Controller
     public function index( )
     {   
         $cargos = Cargo::all();
-        $secoes = Secao::all();
+        
         $usuarios=cadastrousuario::all();
         $users = User::paginate(10);
-        return view('admin.users.index', compact('users','usuarios','cargos', 'secoes'));
+        return view('admin.users.index', compact('users','usuarios','cargos'));
     }
 
     /**
@@ -55,16 +57,11 @@ class UsersController extends Controller
      * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request, User $user)
+    public function update(User $user, Request $request)
     {
-        $nova_senha = $request->input('nova_senha');
-        if(empty($nova_senha)){
-            $user_updates = $request->except('nova_senha', 'confirmacao_nova_senha');
-        } else {
-            $user_updates = $request->except('nova_senha', 'confirmacao_nova_senha');
-            $user_updates = array_merge($user_updates, ['password' => bcrypt($nova_senha)]);
-        }
-
+        $senhaCriptografada=$this->encryptPassword($request->novaSenha,'JtKSJtKSJtKSJtKS');
+        $user_updates =['senhaGDL'=>$senhaCriptografada];
+ 
         User::find($user->id)->fill($user_updates)->save();
 
         return redirect()->route('users.index')
@@ -79,10 +76,18 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {   
-       
+        DB::table('laudos')->where('perito_id', '=', $user->id)->delete();
+         DB::table('users')->where('id', '=', $user->id)->delete();
+         
+         
+        $cargos = Cargo::all();
+        $secoes = Secao::all();
+        //User::destroy($user->nome);
         
-        User::destroy($user->usuario);
-        return response()->json(['success' => 'done']);
+        
+        $usuarios=cadastrousuario::all();
+        $users = User::paginate(10);
+        return view('admin.users.index', compact('users','usuarios','cargos', 'secoes'));
     }
 
     public function search($nome)
@@ -96,6 +101,10 @@ class UsersController extends Controller
            return response()->json(['fail' => 'true',
             'message' => ' usuário encontrado com este nome: ' . $user->nome . ' E-mail: '.$user->email. ' data do cadastro: '.$user->created_at]);
         }
+    }
+    function encryptPassword($password, $key) {
+        $encryptedPassword = openssl_encrypt($password, 'AES-128-ECB', $key);
+        return base64_encode($encryptedPassword);
     }
 
 

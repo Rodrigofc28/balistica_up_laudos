@@ -29,7 +29,9 @@ class MarcaRequest extends FormRequest
     {
         return [
             'nome' => 'required',
-            'categoria' => 'required|min:4'
+            'categoria' => 'required|min:4',
+            'pais_origem' => 'required',
+            'fabricacao' => 'required'
         ];
     }
 }

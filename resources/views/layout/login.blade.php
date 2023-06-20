@@ -12,7 +12,7 @@
         {{--<!-- Styles -->--}}
         <link rel="stylesheet" href="{{ URL::asset('css/sb-admin.css')}}">
     </head>
-    <body class="bg-dark">
+    <body class="bg-dark" >
         <div id="content-wrapper">
            
             <div class="container-fluid">
@@ -20,9 +20,10 @@
                 
                 <div class="copyright text-center text-white">
                 
-                    <span>Copyright © Milena Mognon 2019</span>
+                    <span>Copyright © Rodrigo de Freitas Camargo 2023</span>
                 </div>
             </div>
         </div>
     </body>
+    
 </html>

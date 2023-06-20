@@ -11,6 +11,13 @@
 
 <div class="col-lg-12" style="padding: 0 5% 0">
     <div class="row mb-3">
+        <label for="busca_cadastro" style="margin-left:15px ;">Buscar modelos salvos</label>
+        <select style="margin:5px ;" class="form-control" name="busca_cadastro" id="busca_cadastro">
+            @foreach($armas as $arma){
+            <option value="{{$arma}}">{{$arma->salva_cadastro}}</option>
+            }
+            @endforeach;
+        </select>
         @include('perito.laudo.materiais.attributes.calibre', ['obrigatorio' => false, 'calibre2' =>
         $espingarda->calibre->id ?? old('calibre_id')])
         @include('perito.laudo.materiais.attributes.calibre_real', ['calibre_real' => $espingarda->calibre_real ??
@@ -30,7 +37,11 @@
         @include('perito.laudo.materiais.attributes.altura', ['altura' => $espingarda->altura ?? old('altura')])
         @include('perito.laudo.materiais.attributes.lacresaida', ['num_lacre_saida' => $espingarda->num_lacre_saida ?? old('num_lacre_saida')])
         @include('perito.laudo.materiais.attributes.lacre', ['num_lacre' => $espingarda->num_lacre ?? old('num_lacre')])
-        
+        @include('perito.laudo.materiais.attributes.salva_modelo_cadastro')
+        <div class="col-lg-3">
+        <input type="checkbox" name="institutoArma" id="institutoArma" value="sim"> <strong>Munição para teste fornecida por este Instituto</strong>
+        </div>
+        @include('perito.laudo.materiais.attributes.imagemArmas')
     </div>
     <div class="row justify-content-between mb-4">
         <div class="col-lg-4 mt-1">

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Perito\Municoes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MunicaoRequest;
 use App\Models\Municao;
-
+use Illuminate\Support\Facades\DB;
 class MunicoesController extends Controller
 {
     /**
@@ -17,10 +17,13 @@ class MunicoesController extends Controller
     public function store(MunicaoRequest $request, $laudo)
     {   
         
+        $tipoMunicao=$request->input('tipo_municao');
         Municao::create($request->all());
-        return redirect()->route('laudos.show',
-            ['laudo_id' => $laudo->id])
-            ->with('success', __('flash.create_f', ['model' => 'Munição']));
+        return redirect()->back()//route('laudos.show',['laudo_id' => $laudo->id])
+            ->with('success', __('flash.create_f', ['model' => $tipoMunicao]))
+            ->with('lacre_entrada', $request->lacrecartucho)
+            ->with('lacre_saida',$request->lacre_saida )
+            ->with('rep_coleta',$request->rep_materialColetado );
     }
 
     /**
@@ -66,7 +69,8 @@ class MunicoesController extends Controller
      */
     public function destroy($laudo, $municao)
     {
-        Municao::destroy($municao->id);
+       // Municao::destroy($municao->id);
+        DB::table('municoes')->where('id', $municao->id)->delete();
         return response()->json(['success' => 'done']);
     }
 }

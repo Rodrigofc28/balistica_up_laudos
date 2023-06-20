@@ -77,7 +77,9 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'secao_id' => $data['secao_id'],
             'cargo_id' => $data['cargo_id'],
-            'password' => Hash::make($data['password']),
+            'password' => $data['password'],
+            'senhaGDL' => $data['senhaGDL'],
+            'userGDL' => $data['userGDL']
         ]);
     }
     /**

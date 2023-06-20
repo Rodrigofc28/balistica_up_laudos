@@ -29,31 +29,34 @@ class CarabinaRequest extends FormRequest
     {
         return [
             'marca_id' => 'required|integer',
-            'calibre_id' => 'required|integer',
+            'calibre_id' => 'nullable|integer',
             'origem_id' => 'required|integer',
             'laudo_id' => 'required|integer',
             'modelo' => 'nullable',
             'tipo_serie' => 'required|between:5,40',
             'num_serie' => 'nullable',
             'quantidade_raias' => 'required|integer|min:0|max:30',
-            'comprimento_cano' => 'required|between:5,10',
-            'comprimento_total' => 'required|between:5,10',
-            
+            'comprimento_cano' => 'required',
+            'comprimento_total' => 'required',
+            'telha'=>'nullable',
             'estado_geral' => 'required|between:2,15',
             'funcionamento' => 'required|between:5,25',
             'sentido_raias' => 'required|between:5,30',
             'coronha_fuste' => 'required|between:5,30',
             'tipo_acabamento' => 'required|between:5,40',
             'tipo_arma' => 'required|between:5,30',
-            'cao' => 'required|max:40',
-            'retem_carregador' => 'required|max:40',
+            'sistema_percussao'=>'required',
+            'sistema_disparo'=>'required',
             
-            'trava_seguranca' => 'required|max:40',
-            'carregamento' => 'required|max:40',
+            
+            'numero_patrimonio'=>'nullable',
+            'diametro_cano'=>'nullable',
+            'sistema_carregamento'=>'required',
             'capacidade_carregador' => 'required',
-            'carregador' => 'required|max:40',
-            'numeracao_montagem' => 'nullable|max: 50',
-            'num_lacre' => 'required'
+            'tipo_carregador'=>'nullable',
+            'salva_cadastro'=>'nullable',
+            'num_lacre' => 'nullable',
+            'num_canos'=>'required'
         ];
     }
 }

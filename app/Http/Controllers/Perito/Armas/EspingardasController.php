@@ -12,7 +12,8 @@ use App\Models\Arma;
 use App\Models\Calibre;
 use App\Models\Marca;
 use App\Models\Origem;
-
+use App\Models\Cadastroarmas;
+use Illuminate\Support\Facades\DB;
 class EspingardasController extends Controller
 {
     public function __construct()
@@ -27,11 +28,22 @@ class EspingardasController extends Controller
      */
     public function create($laudo)
     {
+        //Dados vindo do GDL TABELA tabela_pecas_gdl seleciona tudo quando as rep forem iguais
+        $armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$laudo->rep]);
+        $array_gdl_armas=[];
+        foreach($armasGdl as $armagdl){
+            if($armagdl->tipo_item=="ESPINGARDA(S)"){
+                array_push($array_gdl_armas,$armagdl);
+            }
+        }
+        
+        /*  */
         $marcas = Marca::categoria('armas');
         $origens = Origem::all();
         $calibres = Calibre::whereArma('Espingarda');
+        $armas = DB::select('select modelo from cadastroarmas ');
         return view('perito.laudo.materiais.armas.espingarda.create',
-            compact('laudo', 'marcas', 'origens', 'calibres'));
+            compact('laudo', 'marcas', 'origens', 'calibres','armas','array_gdl_armas'));
     }
 
     /**
@@ -74,7 +86,11 @@ class EspingardasController extends Controller
     {
         $marcas = Marca::marcasWithTrashed('armas', $espingarda->marca);
         $origens = Origem::origensWithTrashed($espingarda->origem);
+        if($espingarda->calibre==null){
+            $calibres =[]; 
+        }else{
         $calibres = Calibre::calibresWithTrashed('Espingarda', $espingarda->calibre);
+        }
         $imagens = $espingarda->imagens;
         return view('perito.laudo.materiais.armas.espingarda.edit',
             compact('espingarda', 'laudo', 'marcas', 'origens', 'calibres', 'imagens'));

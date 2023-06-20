@@ -7,8 +7,11 @@ namespace App\Models\Componentes;
 
 class BalinsChumbo
 {
+
+         
     public static function text($componente)
     {
+        
         $quantidade_frascos = converter_numero($componente->quantidade_frascos);
         $material_frasco = Shared::material($componente->material_frascos, $componente->quantidade_frascos);
 

@@ -1,12 +1,12 @@
 @extends('shared.table', ['card_name' => 'Seções',
-'model_name_plural' => 'Seções',
-'model_name_singular' => 'Seção',
+'model_name_plural' => 'Unidades',
+'model_name_singular' => 'Unidade',
 'habilitar_pesquisa' => false,
 'route_create_name' => 'secoes.create',
 'pesquisar' => 'Digite o nome da seção',
 'route_search_name' => 'secoes',
 'dados' => $secoes,
-'ths' => ['Nome']])
+'ths' => ['Cidade']])
 
 @section('table-content')
 @if (count($secoes) > 0)

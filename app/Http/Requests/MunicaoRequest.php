@@ -32,23 +32,28 @@ class MunicaoRequest extends FormRequest
             'calibre_id' => 'required|integer',
             'laudo_id' => 'required|integer',
             'tipo_municao' => 'required|between:5,30',
-            'projetil' => 'required_unless:tipo_municao,estojo|max:40',
-            'estojo' => 'required_unless:tipo_municao,projétil|max:40',
-            'tipo_projetil' => 'required_unless:tipo_municao,estojo|max:40',
+            'projetil' => 'nullable|max:40',
+            'estojo' => 'required|max:40',
+            'tipo_projetil' => 'nullable',
             'nao_deflagrado' => 'nullable',
             'quantidade' => 'required|integer',
-            'funcionamento' => 'required_if:tipo_municao,cartucho|max:40',
-            'lacrecartucho'=> 'nullable'
+            'funcionamento' => 'required',
+            'lacrecartucho'=> 'nullable',
+            'observacao'=>'nullable',
+            'origem_id'=>'nullable',
+            'lacre_saida'=>'nullable',
+            'funcionamentoCartucho'=>'nullable',
+            'lote'=>'nullable'
         ];
     }
 
     public function messages()
     {
         return [
-            'funcionamento.required_if' => 'O campo funcionamento é obrigatório quando o tipo da municão for cartucho.',
-            'tipo_projetil.required_unless' => 'O projétil (tipo) é necessário a menos que o tipo da municao seja estojo.',
-            'projetil.required_unless' => 'O projétil é necessário a menos que o tipo da municão seja estojo.',
-            'estojo.required_unless' => 'O estojo é necessário a menos que o tipo da municão seja projétil.',
+            'funcionamento.required_if' => 'O campo Tipo de Municão é obrigatório.',
+           // 'tipo_projetil.required_unless' => 'O projétil (tipo) é necessário a menos que o tipo da municao seja estojo.',
+            //'projetil.required_unless' => 'O projétil é necessário a menos que o tipo da municão seja estojo.',
+           // 'estojo.required_unless' => 'O estojo é necessário a menos que o tipo da municão seja projétil.',
 
         ];
     }

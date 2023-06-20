@@ -28,18 +28,25 @@ class LaudoRequest extends FormRequest
     public function rules()
     {
         return [
-            'oficio' => 'required',
+            'oficio' => 'nullable',
             'rep' => 'required',
             'data_designacao' => 'required|date_format:"d/m/Y"|after_or_equal:data_solicitacao',
+            'data_recebimento' => 'required|date_format:"d/m/Y"|after_or_equal:data_solicitacao',
             'data_solicitacao' => 'required|date_format:"d/m/Y"|before_or_equal:data_designacao',
-            'secao_id' => 'required',
-            'cidade_id' => 'required',
-            'solicitante_id' => 'required',
+           'data_ocorrencia'=>'nullable|date_format:"d/m/Y"',
+            'secao_id' => 'nullable',
+            'cidade_id' => 'nullable',
+            'solicitante_id' => 'nullable',
             'perito_id' => 'required',
-            'diretor_id' => 'required',
+            'diretor_id' => 'nullable',
             'indiciado' => 'nullable|min:6|max:80',
             'tipo_inquerito' => 'nullable|max:80',
             'inquerito' => 'nullable|max:20',
+            'laudoEfetConst'=>'required',
+            'nomeIncluir'=>'nullable',
+            'material_coletado'=>'nullable',
+            'repExameComplementar'=>'nullable',
+            
         ];
     }
 }

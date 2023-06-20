@@ -12,8 +12,9 @@
 @if (count($solicitantes) > 0)
 @foreach ($solicitantes as $solicitante)
 <tr>
+
     <td> {{ $solicitante->nome }}</td>
-    <td> {{ $solicitante->cidade->nome }}</td>
+    <td> {{ $solicitante->cidade_id }}</td>
     <td>
         <a class="btn btn-primary" href="{{ route('solicitantes.edit', $solicitante) }}">
             <i class="fa fa-fw fa-edit"></i> Editar</a>

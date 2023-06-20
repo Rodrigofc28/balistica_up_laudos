@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Perito\Componentes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ComponenteRequest;
 use App\Models\Componente;
+use Illuminate\Support\Facades\DB;
+use App\Models\Marca;
+use App\Models\Arma;
 
 class ComponentesController extends Controller
 {
@@ -17,9 +20,22 @@ class ComponentesController extends Controller
      */
     public function store(ComponenteRequest $request, $laudo)
     {
-        Componente::create($request->all());
-        return redirect()->route('laudos.show', ['id' => $laudo->id])
-            ->with('success', __('flash.create_m', ['model' => 'Componente']));
+        $requestAderencia=implode(', ',$request->aderencia);
+        $requ=implode(', ',$request->deformacaoAcidental);
+        //$uyt=json_decode ($requ);
+        
+        
+        Componente::create($request->except('aderencia','deformacaoAcidental'));
+       
+        DB::table('componentes')->where('lacrecartucho',$request->lacrecartucho)->update(['deformacaoAcidental'=>$requ]);
+        DB::table('componentes')->where('lacrecartucho',$request->lacrecartucho)->update(['aderencia'=>$requestAderencia]);
+        return redirect()->back()//route('laudos.show', ['id' => $laudo->id])
+            ->with('success', __('flash.create_m', ['model' => 'projéteis']))
+            ->with('lacre_projetil_entrada',$request->lacrecartucho)
+            ->with('lacre_projetil_saida',$request->lacreSaida)
+            ->with('rep_coleta',$request->rep_materialColetado)
+            ->with('detalhe_localizacao',$request->detalharLocalizacao)
+            ->with('origem',$request->origem_coletaPerito);
     }
 
     /**
@@ -31,21 +47,12 @@ class ComponentesController extends Controller
      */
     public function edit($laudo, Componente $componente)
     {
+        
+       
+      
+        return view('perito.laudo.materiais.componentes.balins_chumbo.edit',
+            compact( 'laudo', 'componente'));
 
-        switch ($componente->componente) {
-            case 'Balins de Chumbo':
-                return redirect()->route('balins_chumbo.edit', [$laudo, $componente]);
-                break;
-            case 'Pólvora':
-                return redirect()->route('polvora.edit', [$laudo, $componente]);
-                break;
-            case 'Espoletas':
-                return redirect()->route('espoletas.edit', [$laudo, $componente]);
-                break;
-            default:
-                return redirect()->route('laudos.show', compact('laudo'))
-                    ->with('error', 'Não é possível editar este componente!');
-        }
     }
 
     /**
@@ -57,10 +64,18 @@ class ComponentesController extends Controller
      */
     public function update(ComponenteRequest $request, $laudo, $componente)
     {
-        $updated_componente = $request->all();
+       
+        $requestAderencia=implode('/',$request->aderencia);
+        $requ=implode('/',$request->deformacaoAcidental);
+        
+        $updated_componente = $request->except('deformacaoAcidental','aderencia');
+        
+       
         Componente::find($componente->id)->fill($updated_componente)->save();
+        
+        DB::table('componentes')->where('lacrecartucho',$request->lacrecartucho)->update(['deformacaoAcidental'=>$requ,'aderencia'=>$requestAderencia]);
         return redirect()->route('laudos.show', ['id' => $laudo->id])
-            ->with('success', __('flash.update_m', ['model' => 'Componente']));
+            ->with('success', __('flash.update_m', ['model' => 'Projetil']));
     }
 
     /**
@@ -72,7 +87,8 @@ class ComponentesController extends Controller
      */
     public function destroy($laudo, $componente)
     {
-        Componente::destroy($componente->id);
+       // Componente::destroy($componente->id);
+        DB::table('componentes')->where('id', $componente->id)->delete();
         return response()->json(['success' => 'done']);
     }
 }

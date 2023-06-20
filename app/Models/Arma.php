@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Armas\Submetralhadora;
 use App\Models\Armas\Metralhadora;
 use App\Models\Armas\Espingarda;
 use App\Models\Armas\Carabina;
@@ -26,7 +26,10 @@ class Arma extends Model
         'teclas_gatilho', 'sistema_carregamento', 'sistema_engatilhamento', 'coronha_fuste',
         'chave_abertura', 'tipo_carregador', 'calibre_real', 'bandoleira', 'placas_laterais',
         'cao', 'carregador', 'capacidade_carregador', 'trava_ferrolho', 'trava_gatilho',
-        'trava_seguranca', 'retem_carregador', 'carregamento', 'numeracao_montagem', 'modelo','num_lacre_saida'
+        'trava_seguranca', 'retem_carregador', 'carregamento', 'numeracao_montagem', 'modelo',
+        'num_lacre_saida','coronha','diametro_cano','numero_patrimonio','telha',
+        'sistema_percussao','salva_cadastro','tipo_tambor','tambor_rebate','sistema_disparo','quantidade_canos'
+        ,'rep_materialColetado','origem_coletaPerito','institutoArma','imagemCantoSuperior','imagemCantoInferior','imagemNumSerie','dito_oficio'
     ];
 
     protected $dates = ['deleted_at'];
@@ -73,6 +76,9 @@ class Arma extends Model
                 break;
             case "Metralhadora":
                 return Metralhadora::text($arma);
+                break;
+            case "Submetralhadora":
+                return Submetralhadora::text($arma);
                 break;
             case "Espingarda" || "Espingarda Artesanal":
                 return Espingarda::text($arma);

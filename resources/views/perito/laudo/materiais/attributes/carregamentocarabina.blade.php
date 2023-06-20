@@ -1,12 +1,12 @@
 <div class="col-lg-3">
     <div class="form-group">
-        <label>Carregamento *</label>
+        <label><strong>Carregamento <code>*</code></strong></label>
         <select class="js-single form-control{{ $errors->has('carregamento') ? ' is-invalid' : '' }}"
             name="carregamento">
             @foreach (['Automática', 'Semi-automática','Repetição'] as $carregamento)
             <option value="{{ mb_strtolower($carregamento)}}"
                 {{ (mb_strtolower($carregamento) == mb_strtolower($carregamento2)) ? 'selected=selected' : '' }}>
-                {{$carregamento}}
+                {{mb_strtoupper($carregamento)}}
             </option>
             @endforeach
         </select>

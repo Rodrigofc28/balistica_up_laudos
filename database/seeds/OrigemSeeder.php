@@ -7,7 +7,7 @@ class OrigemSeeder extends Seeder
 {
 
     public function run()
-    {
+    {/*
         $origens = ['Não Aparente' => 'não aparente',
             'EUA' => 'estadunidense',
             'Argentina' => 'argentina',
@@ -25,6 +25,6 @@ class OrigemSeeder extends Seeder
                 'nome' => $origem,
                 'fabricacao' => $extenso,
             ]);
-        }
+        }*/
     }
 }

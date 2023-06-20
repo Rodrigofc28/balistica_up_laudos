@@ -8,7 +8,8 @@ use App\Models\Arma;
 use App\Models\Calibre;
 use App\Models\Marca;
 use App\Models\Origem;
-
+use App\Models\Cadastroarmas;
+use Illuminate\Support\Facades\DB;
 class CarabinasController extends Controller
 {
     
@@ -24,11 +25,24 @@ class CarabinasController extends Controller
      */
     public function create($laudo)
     {
+        
+        //Dados vindo do GDL TABELA tabela_pecas_gdl seleciona tudo quando as rep forem iguais
+        $armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$laudo->rep]);
+        $array_gdl_armas=[];
+        foreach($armasGdl as $armagdl){
+            if($armagdl->tipo_item=="CARABINA(S)"){
+                array_push($array_gdl_armas,$armagdl);
+            }
+        }
         $marcas = Marca::categoria('armas');
         $origens = Origem::all();
+        
         $calibres = Calibre::whereArma('Carabina');
+        
+        $armas = DB::select('select modelo from cadastroarmas ');
+        
         return view('perito.laudo.materiais.armas.carabina.create',
-            compact('laudo', 'marcas', 'origens', 'calibres'));
+            compact('laudo', 'marcas', 'origens', 'calibres','armas','array_gdl_armas'));
     }
 
     /**
@@ -39,6 +53,7 @@ class CarabinasController extends Controller
      */
     public function store(CarabinaRequest $request)
     {
+       
         Arma::create($request->all());
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])
@@ -71,7 +86,11 @@ class CarabinasController extends Controller
     {
         $marcas = Marca::marcasWithTrashed('armas', $carabina->marca);
         $origens = Origem::origensWithTrashed($carabina->origem);
+        if($carabina->calibre==null){
+            $calibres =[]; 
+        }else{
         $calibres = Calibre::calibresWithTrashed('Carabina', $carabina->calibre);
+        }
         $imagens = $carabina->imagens;
         return view('perito.laudo.materiais.armas.carabina.edit',
             compact('carabina', 'laudo', 'marcas', 'origens', 'calibres', 'imagens'));

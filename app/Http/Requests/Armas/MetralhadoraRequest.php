@@ -29,30 +29,38 @@ class MetralhadoraRequest extends FormRequest
     {
         return [
             'marca_id' => 'required|integer',
-            'calibre_id' => 'required|integer',
+            'calibre_id' => 'nullable|integer',
+            'modelo'=>'nullable',
+            'numero_patrimonio'=>'nullable',
             'origem_id' => 'required|integer',
             'laudo_id' => 'required|integer',
             'tipo_serie' => 'required|between:5,40',
             'num_serie' => 'nullable',
-            'comprimento_cano' => 'required|between:5,10',
-            'comprimento_total' => 'required|between:5,10',
-            'sistema_percussao' => 'required|between:5,30',
+            'comprimento_cano' => 'required',
+            'comprimento_total' => 'required',
+            'sistema_percussao' => 'required|between:5,100',
             'estado_geral' => 'required|between:2,25',
             'funcionamento' => 'required|between:5,25',
             'tipo_acabamento' => 'required|between:5,30',
             'tipo_arma' => 'required|between:5,30',
-            'sistema_funcionamento' => 'required|between:5,30',
-            'num_canos' => 'required',
             'disposicao_canos' => 'nullable|max: 40',
-            'teclas_gatilho' => 'nullable|max: 25',
-            'sistema_carregamento' => 'required|between:5,40',
-            'sistema_engatilhamento' => 'required|between: 5,40',
             'coronha_fuste' => 'required|between:5,30',
-            'chave_abertura' => 'nullable|max: 70',
-            'tipo_carregador' => 'nullable|max: 40',
-            'bandoleira' => 'nullable|max: 70',
-            'numeracao_montagem' => 'nullable|max: 50',
-            'num_lacre' => 'required'
+            'sistema_disparo'=>'required',
+            'num_lacre' => 'nullable',
+            'quantidade_raias' => 'required|integer|min:0|max:30',
+            'sentido_raias' => 'required|between:5,30',
+            'telha'=>'nullable',
+            'num_canos'=>'required',
+            'sistema_funcionamento'=>'required',
+            'salva_cadastro'=>'nullable'
         ];
     }
 }
+            
+            
+            
+            
+            
+            
+            
+            

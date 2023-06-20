@@ -14,14 +14,16 @@
     <link rel="stylesheet" href="{{ URL::asset('css/home.css') }}">
 </head>
 
-<body>
+<body onload="funcaoCarregar()">
     <section id="home">
         <div class="home-container">
             <div class="home-logo">
-                <img src="../image/logo-sem-fundo.png" alt="Logo da Policia Científica do Paraná">
+                <img src="../public/image/logo-sem-fundo.png" alt="Logo da Policia Científica do Paraná">
             </div>
 
-            <h1>GLB - Gerador de Laudos Balísticos</h1>
+            
+
+            <h1>Gerador de Laudos Balísticos</h1>
             <div class="actions">
                 @auth
                 <a class="btn-home-page" href="{{ route('dashboard') }}">
@@ -33,21 +35,24 @@
                 </a>
                 @endauth
                  <a href="{{ route('cadastros.index') }}" class="btn-solicita">Solicitar Acesso</a> 
+                 <!-- <a href="{{route('reportar.index')}}" style="color:red">Reporta erro</a> -->
             </div>
             <br>
-            <h5 class="text-white">
-                {{-- <strong>Sistema em desenvolvimento! Para ter acesso, envie um email para
-                        milenamognon@gmail.com
-                    </strong> --}}
-            </h5>
-            <h6 class="text-white">
-                <strong>Melhor Visualizado no navegador Google Chrome</strong>
-            </h6>
+            
+            
+            
         </div>
     </section>
     <footer>
 
     </footer>
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+    <script>
+        function funcaoCarregar(){
+            var elemento = document.getElementById('home');
+            elemento.style.opacity = 3;
+        }
+    </script>
 </body>
 
 </html>

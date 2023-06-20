@@ -15,7 +15,9 @@
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.5",
-        "phpoffice/phpword": "v0.16.*"
+        "phpoffice/phpword": "v0.16.*",
+        "fabpot/goutte": "^3.3",
+        "guzzlehttp/guzzle": "^6.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",

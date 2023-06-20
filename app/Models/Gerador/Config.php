@@ -38,8 +38,8 @@ class Config
                 'marginLeft' => Converter::cmToTwip(3),
                 'marginRight' => Converter::cmToTwip(2),
                 'marginBottom' => Converter::cmToTwip(0),
-                'headerHeight' => Converter::cmToTwip(2.73),
-                'footerHeight' => Converter::cmToTwip(0.35),
+                'headerHeight' => Converter::cmToTwip(4.3),
+                'footerHeight' => Converter::cmToTwip(4),
             )
         );
         return $this->section;
@@ -62,7 +62,7 @@ class Config
 
     public function arial12Underline()
     {
-        return array('bold' => false, 'size' => 12, 'name' => 'Arial', 'underline' => 'single');
+        return array('bold' => false, 'size' => 12, 'name' => 'Arial', 'underline' => 'single','bold' => true);
     }
 
     public function paragraphJustify()
@@ -123,4 +123,9 @@ class Config
     {
         return array('bold' => false, 'size' => 12, 'name' => 'Arial');
     }
+    public function confTabela()
+    {
+        return array('boderTopColor' => '009900');
+    }
+    
 }

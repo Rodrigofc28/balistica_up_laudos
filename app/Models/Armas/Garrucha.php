@@ -13,36 +13,22 @@ class Garrucha extends Model
 {
 
     private static $calibre, $origem, $quantidade_raias, $tipo_acabamento,
-        $serie, $marca, $resultado, $chave_abertura, $teclas_gatilho, $sentido_raias,
-        $numeracao_montagem;
+        $serie, $marca, $resultado, $sentido_raias,$modelo,$comprimentoCano,$comprimentoTotal,
+        $numeracao_montagem,$altura,$cabo,$tipoArma,$numCano,$sistemaInflamacao,$diametroCano,$sistemaDisparo;
 
     public static function text($arma)
     {   
         
-        self::$calibre = $arma->calibre->nome;
-        self::$origem = mb_strtolower($arma->origem->fabricacao);
-        self::$quantidade_raias = converter_numero_raias($arma->quantidade_raias);
-        self::$numeracao_montagem = Shared::numeracao_montagem($arma->numeracao_montagem);
-        self::$sentido_raias = Shared::sentido_raias($arma->sentido_raias);
-        self::$tipo_acabamento = Shared::acabamento($arma->tipo_acabamento);
+      
         self::$serie = Shared::serie($arma->tipo_serie, $arma->num_serie);
-        self::$marca = Shared::marca($arma->marca->nome);
         self::$resultado = Shared::funcionamento($arma->funcionamento);
-        self::$chave_abertura = Shared::chaveAbertura($arma->chave_abertura);
-        self::$teclas_gatilho = Shared::teclasGatilho($arma->teclas_gatilho);
-        $cao=shared::cao($arma->cao);
-
-        $inicio = "$arma->tipo_arma calibre nominal ". self::$calibre.": ";
-        
         if ($arma->num_canos == "dois") {
             $corpo = self::garrucha_dois_canos($arma);
         } else {
             $corpo = self::garrucha_um_cano($arma);
         }
-
-        $fim = "Observação: A garrucha acima descrita devidamente identificada com o lacre nº $arma->num_lacre, permanecerá sob custódia da POLÍCIA CIENTÍFICA DO PARANÁ.";
-
-        $laudo = ['inicio' => $inicio, 'corpo' => $corpo, 'resultado' => self::$resultado, 'fim' => $fim];
+        
+         $laudo = ['corpo' => $corpo, 'resultado' => self::$resultado];
 
         return $laudo;
     }
@@ -50,7 +36,7 @@ class Garrucha extends Model
     private static function garrucha_dois_canos($arma)
     {
         $lacre_saida= shared::num_lacre_saida($arma->num_lacre_saida);
-        $corpo = "Trata-se de uma " . mb_strtolower($arma->tipo_arma) . ", " . self::$serie . "" .self::$numeracao_montagem . ", marca " . self::$marca . ", fabricação " . self::$origem . ", calibre nominal " . self::$calibre . ". A referida arma é dotada de $arma->num_canos canos $arma->disposicao_canos, cães $arma->cao" . "s" . " e sistema de percussão $arma->sistema_percussao, " . self::$teclas_gatilho . ", cabo $arma->cabo com as placas laterais em material $arma->placas_laterais, com chave de abertura e basculação do cano localizada " . self::$chave_abertura . ". " . self::$tipo_acabamento . " e em $arma->estado_geral estado de conservação. A arma possui as seguintes medidas: comprimento total $arma->comprimento_total" . " m; altura: $arma->altura" . " m; cano mede: $arma->comprimento_cano" . " m de comprimento e apresenta internamente " . self::$quantidade_raias . " raias ". self::$sentido_raias ." em $arma->estado_geral estado de conservação. $lacre_saida";
+        $corpo = ['serie'=>self::$serie ] ;
         return $corpo;
     }
 
@@ -58,7 +44,26 @@ class Garrucha extends Model
     {   
         $cao=shared::cao($arma->cao);
         $lacre_saida= shared::num_lacre_saida($arma->num_lacre_saida);
-        $corpo = "Trata-se de uma " . mb_strtolower($arma->tipo_arma) . ", " . self::$serie . "" .self::$numeracao_montagem . ", marca " . self::$marca . ", fabricação " . self::$origem . ", calibre nominal " . self::$calibre . ". A referida arma é dotada de $arma->num_canos cano, $cao e sistema de percussão $arma->sistema_percussao, " . self::$teclas_gatilho . ", cabo $arma->cabo com as placas laterais em material $arma->placas_laterais, com chave de abertura e basculação do cano localizada " . self::$chave_abertura . ". " . self::$tipo_acabamento . " e em $arma->estado_geral estado de conservação. A arma possui as seguintes medidas: comprimento total $arma->comprimento_total" . " m; altura: $arma->altura" . " m; cano mede $arma->comprimento_cano" . " m de comprimento e apresenta internamente " . self::$quantidade_raias . " raias ". self::$sentido_raias ." em $arma->estado_geral estado de conservação. $lacre_saida";
+        $corpo = ['serie'=>self::$serie ] ; 
+           
         return $corpo;
     }
 }
+        
+        
+        
+
+        
+
+       
+    
+
+        
+        
+        
+        
+        
+        
+        
+       
+    

@@ -110,7 +110,7 @@ class Shared extends Model
     public static function funcionamento($funcionamento)
     {
         if ($funcionamento == 'eficiente') {
-            return "Submetida esta arma de fogo a prova de disparo foi observado o funcionamento normal dos seus mecanismos, estando  $funcionamento para a realização de tiros.";
+            return ['texto'=>"Buscando atestar tais atributos da arma, o Perito submeteu-a ao teste de tiro, usando as munições de correspondente calibre encaminhadas para o exame e efetuando disparos  em ação simples e ação dupla. Foram observados os funcionamentos normais dos seus componentes, os quais deflagraram as respectivas cargas de projeção ao serem as espoletas percutidas por uma só vez. Os remanescentes da munição foram devidamente descartados. Nestas condições, verificou-se estar",'textoSublinhado'=>" a arma eficiente para a realização de tiros."];
         }
         if ($funcionamento == 'ineficiente') {
             return "Submetida esta arma de fogo a prova de disparo foi observado o funcionamento dos seus mecanismos, porém a mesma não percutiu eficientemente os estojos a fim de deflagrar a munição, não estando apta para realização de disparos, podendo ainda ser utilizada como instrumento contundente e/ou de intimidação.";

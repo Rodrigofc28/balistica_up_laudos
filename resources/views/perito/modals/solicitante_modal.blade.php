@@ -17,7 +17,7 @@ md
     <select class="js-cidade-modal form-control" name="cidade_id2" id="cidade2" style="width: 100%">
         <option></option>
         @foreach($cidades as $cidade)
-        <option value="{{ $cidade->id }}">
+        <option value="{{ $cidade->nome }}">
             {{$cidade->nome}}
         </option>
         @endforeach

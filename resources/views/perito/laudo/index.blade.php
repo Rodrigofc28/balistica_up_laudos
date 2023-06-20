@@ -1,30 +1,40 @@
-@extends('shared.table', ['card_name' => 'Laudos',
-'model_name_plural' => 'Laudos',
-'model_name_singular' => 'Laudo',
+@extends('shared.tableReps', ['card_name' => 'Laudos',
+'model_name_plural' => 'Reps',
+'model_name_singular' => 'Rep',
 'habilitar_pesquisa' => 'true',
 'pesquisar' => 'Digite o número da REP',
 'route_search_name' => 'laudos',
 'route_create_name' => 'laudos.create',
 'dados' => $laudos,
-'ths' => ['REP', 'Ofício', 'Cidade', 'Órgão Solicitante',]])
+'ths' => ['REP', 'Ofício',  'Status']])
 
 @section('table-content')
-@if (count($laudos) > 0)
-@foreach ($laudos as $laudo)
+<a href="{{route('laudos.atualiza','CONFRONTO')}}">Buscar Reps de EXAME DE CONFRONTO BALÍSTICO</a><br>
+<a href="{{route('laudos.atualiza','EFICIÊNCIA')}}">Buscar Reps de EXAME DE EFICIÊNCIA E PRESTABILIDADE</a>
+
+@if (count($reps) > 0)
+@foreach ($reps as $laudo)
+@php
+$new=json_decode($laudo->envolvidos);
+
+@endphp
+
 <tr>
     <td> {{ $laudo->rep }}</td>
     <td> {{ $laudo->oficio }}</td>
-    <td> {{ $laudo->cidade->nome }}</td>
-    <td> {{ $laudo->solicitante->nome }}</td>
-    <td>
-        <a class="btn btn-primary mt-1" href="{{ route('laudos.show', $laudo) }}">
-            <i class="fa fa-fw fa-eye"></i></a>
-        <a class="btn btn-primary mt-1" href="{{ route('laudos.docx', $laudo) }}">
-            <i class="fa fa-download" aria-hidden="true"></i></a>
-        <button value="{{ route('laudos.destroy', $laudo) }}" class="btn btn-danger delete mt-1">
-            <i class="fa fa-fw fa-trash"></i>
-        </button>
-    </td>
+    
+    
+    <td>{{$laudo->status}}</td>
+     <td>
+        <a class="btn btn-primary mt-1" href="{{ route('laudos.rep',['rep'=>$laudo->rep,'oficio'=>$laudo->oficio,
+            'unidade'=>$laudo->unidade,'orgao'=>$laudo->orgao,'envolvido'=>$new,'cidade'=>$laudo->cidade,
+            'data_solicitacao'=>$laudo->data_solicitacao,'ip'=>$laudo->ip,'bo'=>$laudo->bo,
+            'data_designacao'=>$laudo->data_designacao,'data_recebimento'=>$laudo->dataSoli,'ipOn'=>$laudo->ipOn,'ipPm'=>$laudo->ipPm,'boc'=>$laudo->boc,'ipOnOrgao'=>$laudo->ipOnOrgao,'ipPmOrgao'=>$laudo->ipPmOrgao,
+            'bocOrgao'=>$laudo->bocOrgao,'ipOnCidade'=>$laudo->ipOnCidade,'ipPmCidade'=>$laudo->ipPmCidade,'bocCidade'=>$laudo->bocCidade,'ipAi'=>$laudo->ipAi,'orgaoAi'=>$laudo->orgaoAi,'cidadeAi'=>$laudo->cidadeAi,
+            'cidadeBo'=>$laudo->cidadeBo,'orgaoBo'=>$laudo->orgaBo]) }}">
+            <i class="fa fa-fw fa-file"></i></a>
+       
+    </td> 
 </tr>
 @endforeach
 @else

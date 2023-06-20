@@ -1,6 +1,6 @@
 <div class="col-lg-3">
     <div class="form-group">
-        <label for="calibre_id">Calibre Nominal {{ $obrigatorio ? '*' : '' }}</label>
+        <label for="calibre_id"><strong>Calibre Nominal <code>*</code></strong></label>
         <button type="button" class="btn-cadastro float-right" id="cadastrar_calibre">
             <i class="fas fa-plus" aria-hidden="true"></i> Cadastrar
         </button>

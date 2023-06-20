@@ -16,12 +16,16 @@ Route::get('unauthorized', function () {
 Route::prefix('admin')->middleware('cargo:Administrador')->group(function () {
     Route::resource('solicitantes', 'Admin\OrgaosSolicitantesController')->except(['show']);
     Route::resource('users', 'Admin\UsersController')->except(['show']);
+    
+        
     Route::resource('marcas', 'Admin\MarcasController')->except(['show']);
     Route::resource('calibres', 'Admin\CalibresController')->except(['show']);
     Route::resource('secoes', 'Admin\SecoesController')
         ->parameters(['secoes' => 'secao'])->except(['show']);
     Route::resource('origens', 'Admin\OrigensController')
         ->parameters(['origens' => 'origem'])->except(['show']);
+    Route::resource('cadastro_armas', 'Admin\CadastroarmasController');
+        
     Route::resource('diretores', 'Admin\DiretoresController')
         ->parameters(['diretores' => 'diretor'])->except(['show']);
     Route::get('relatorios/index', 'Admin\RelatoriosController@index')
@@ -31,16 +35,21 @@ Route::prefix('admin')->middleware('cargo:Administrador')->group(function () {
     Route::post('relatorios/create_custom_report', 'Admin\RelatoriosController@create_custom_report')
         ->name('admin.relatorios.personalizados');
 });
+Route::post('users/destroy/{user}', 'Admin\UsersController@destroy')->name('users.destroy');
+Route::post('users/update/{user}', 'Admin\UsersController@update')->name('users.update');
 Route::get('admin/laudos/search/{rep}', 'Admin\LaudosController@search')->name('admin.laudos.search');
 Route::get('admin/users/search/{nome}', 'Admin\UsersController@search')->name('users.search');
 Route::get('admin/laudos', 'Admin\LaudosController@index')->name('admin.laudos.index');
 /* Peritos routes */
 Route::resource('laudos', 'Perito\LaudosController')->except(['edit']);
-
+Route::get('/create/', 'Perito\LaudosController@create')->name('laudos.rep');
+Route::get('/atualiza/{exame}', 'Perito\LaudosController@atualiza')->name('laudos.atualiza');
 Route::get('laudos/search/{rep}', 'Perito\LaudosController@search')->name('laudos.search');
 
 Route::get('laudos/solicitantes/cidade/{cidade_id}',
     'Perito\OrgaosSolicitantesController@filtrar_por_cidade')->name('solicitantes.filtrar');
+
+
 
 Route::post('laudos/armas/{arma}/images', 'Perito\ArmasController@store_image')->name('armas.images');
 Route::delete('laudos/armas/{arma}/images', 'Perito\ArmasController@delete_image')->name('armas.images.delete');
@@ -53,12 +62,21 @@ Route::prefix('laudos/{laudo}')->group(function () {
     Route::resource('espingardas', 'Perito\Armas\EspingardasController');
 
     Route::resource('carabinas', 'Perito\Armas\CarabinasController');
+
     Route::resource('metralhadoras', 'Perito\Armas\MetralhadorasController');
+    Route::resource('submetralhadoras', 'Perito\Armas\SubmetralhadorasController');
+    Route::resource('fuzils', 'Perito\Armas\FuzilsController');
+    Route::resource('pistoletes', 'Perito\Armas\PistoletesController');
+    Route::resource('espingardamistas', 'Perito\Armas\EspingardamistasController');
 
     Route::resource('espingardas_artesanais', 'Perito\Armas\EspingardasArtesanaisController')
         ->parameters(['espingardas_artesanais' => 'espingarda']);
     Route::resource('garruchas', 'Perito\Armas\GarruchasController');
     Route::resource('pistolas', 'Perito\Armas\PistolasController');
+    Route::resource('pressaocarabinas', 'Perito\Armas\PressaoCarabinaController');
+    Route::resource('pressaopistolas', 'Perito\Armas\PressaoPistolaController');
+    
+
     Route::delete('armas/{arma}', 'Perito\ArmasController@destroy')->name('armas.destroy');
 
     Route::resource('municoes', 'Perito\Municoes\MunicoesController')
@@ -75,16 +93,41 @@ Route::prefix('laudos/{laudo}')->group(function () {
 
     Route::resource('componentes/balins_chumbo', 'Perito\Componentes\BalinsChumboController')
         ->parameters(['balins_chumbo' => 'componente'])->only(['create', 'edit']);
-    Route::resource('componentes/espoletas', 'Perito\Componentes\EspoletasController')
-        ->parameters(['espoletas' => 'componente'])->only(['create', 'edit']);
+
+    
+
+    
+        
+
+    Route::resource('componentes/simulacros', 'Perito\Componentes\SimulacroController')
+        ->parameters(['simulacros' => 'componente'])->only(['create', 'edit']);
+
+
     Route::resource('componentes/polvora', 'Perito\Componentes\PolvoraController')
         ->parameters(['polvora' => 'componente'])->only(['create', 'edit']);
 });
 
-Route::post('solicitantes', 'Perito\OrgaosSolicitantesController@store')->name('perito.solicitante.store');
-Route::post('marcas', 'Perito\MarcasController@store')->name('perito.marcas.store');
-Route::post('calibres', 'Perito\CalibresController@store')->name('perito.calibres.store');
-Route::post('origens', 'Perito\OrigensController@store')->name('perito.origens.store');
+Route::get('solicitantes', 'Perito\OrgaosSolicitantesController@store')->name('perito.solicitante.store');
+Route::get('marcas', 'Perito\MarcasController@store')->name('perito.marcas.store');
+Route::get('calibres', 'Perito\CalibresController@store')->name('perito.calibres.store');
+Route::get('origens', 'Perito\OrigensController@store')->name('perito.origens.store');
 Route::resource('cadastros','CadastrarusuarioController');
 Route::post('cadastros.store', 'CadastrarusuarioController@store');
 Route::post('/cadastros/{usuario}', 'CadastrarusuarioController@destroy')->name('cadastros.destroy');
+Route::post('/cadastro_armas/{arma}', 'Admin\CadastroarmasController@store');
+Route::get('/cadastro_armas.edit/{arma}/{cadastro}', 'CadastroarmasController@edit');
+
+Route::post('imagens.store','Perito\CadastrarImagensController@store')->name('imagens');
+Route::get('imagens.destroy/{image}','Perito\CadastrarImagensController@destroy')->name('imagemCartuchoExcluir');
+
+Route::post('imagensProjetil.store','Perito\CadastrarImagensProjetilController@store')->name('imagensProjetil');
+Route::get('imagensProjetil.destroy/{image}','Perito\CadastrarImagensProjetilController@destroy')->name('imagemProjetilExcluir');
+Route::post('imagensEmbalagem.store','Perito\CadastrarImagensEmbalagemController@store')->name('embalagem');
+Route::get('imagensEmbalagem.destroy/{image}','Perito\CadastrarImagensEmbalagemController@destroy')->name('imagemExcluir');
+
+Route::get('reportar.index','ReportaController@index')->name('reportar.index');
+Route::post('/reportar.store','ReportaController@store');
+
+Route::post('buscaGdl.create','buscaGdlController@create')->name('buscaGdl.create');
+
+

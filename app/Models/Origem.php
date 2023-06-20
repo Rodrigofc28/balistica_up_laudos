@@ -10,9 +10,9 @@ class Origem extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'origens';
+    protected $table = 'marcas'; //tabela marcas
 
-    protected $fillable = ['nome', 'fabricacao'];
+    protected $fillable = ['nome', 'categoria','pais_origem','fabricacao']; //campos
 
     public $timestamps = false;
 
@@ -50,6 +50,6 @@ class Origem extends Model
      */
     public function scopeOrigensWithTrashed($query, $used_origem)
     {
-        return $query->whereRaw("nome = '$used_origem->nome' or deleted_at is null ")->get();
+        return $query->whereRaw("pais_origem = '$used_origem->pais_origem' or deleted_at is null ")->get();
     }
 }

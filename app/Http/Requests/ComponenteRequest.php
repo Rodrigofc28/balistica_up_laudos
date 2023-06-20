@@ -28,11 +28,8 @@ class ComponenteRequest extends FormRequest
     public function rules()
     {
         return [
-            'componente' => 'required|max:40',
-            'quantidade_frascos' => 'required|integer',
-            'quantidade' => 'required|max:10',
-            'tamanho' => 'required_if:componente,Espoletas|max:15',
-            'material_frascos' => 'required_unless:quantidade_frascos,0|max:40'
+            'deformacaoAcidental' => 'required',
+            'aderencia' => 'required'
         ];
     }
 }

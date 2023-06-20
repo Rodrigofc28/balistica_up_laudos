@@ -1,9 +1,9 @@
 <div class="col-lg-3">
     <div class="form-group">
-        <label>Nº do Lacre saída *</label>
+        <label><strong>Nº do Lacre saída </strong></label>
         <input class="form-control{{ $errors->has('num_lacre') ? ' is-invalid' : '' }}"
-               name="num_lacre" autocomplete="off" type="text"
-               value="{{ old('num_lacre', $num_lacre) }}" required/>
+               name="num_lacre" autocomplete="off" type="text" id="lacreSaida"
+               value="{{ old('num_lacre', $num_lacre) }}" />
         @include('shared.error_feedback', ['name' => 'lacre'])
     </div>
 </div>

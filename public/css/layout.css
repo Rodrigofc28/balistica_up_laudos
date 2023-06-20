@@ -58,6 +58,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     display: block;
     padding: 10px 15px;
+    
 }
 
 .nav-tabs>li>a {
@@ -73,6 +74,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #fff;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
+    
 }
 
 a {
@@ -157,3 +159,81 @@ label.filtro_span > span {
     font-size: 14px;
     color: black bold;
 }
+#listadeusuario,#listadecadastro{
+    border: 1px solid #bed6c8;
+    border-radius: 5px;
+    width: 300px;
+    display: flex;
+    
+}
+#secao{
+    display: inline-block;
+    margin-left: 50px;
+}
+#main{
+    margin: auto;
+    text-align: center;
+    background-color:#fff;
+    margin-top: 10%;
+    
+}
+
+
+.corpo{
+    background-color: #555;
+}
+
+
+#submitcadastro{
+    
+    border-radius: 5px;
+    border: solid 0px ;
+    height: 55px;
+   
+   
+    
+    
+}
+#submitcadastro:hover{
+    color: rgb(252, 250, 250);
+    background-color: rgb(241, 22, 22);
+    
+}
+#listadeusuario:hover{
+    color: rgb(118, 191, 224);
+    font-weight: bolder;
+}
+#listadecadastro:hover{
+    color: rgb(188, 191, 224);
+    font-weight: bolder;
+    
+}
+#lista{
+    background-color: #eeeef8;
+    
+    height: 200px;
+    width: 600px;
+    margin: auto;
+    border: solid 1px;
+    border-radius: 5px;
+    text-align: center;
+    
+}
+#teste{
+    
+    
+    height: 700px;
+    
+
+}
+
+
+
+
+
+
+
+
+
+
+

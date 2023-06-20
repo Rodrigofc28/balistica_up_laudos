@@ -10,7 +10,7 @@ class Marca extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['nome', 'categoria'];
+    protected $fillable = ['nome', 'categoria','pais_origem','fabricacao'];//campos
 
     public $timestamps = false;
 
@@ -62,6 +62,7 @@ class Marca extends Model
      */
     public function scopeMarcasWithTrashed($query, $categoria, $used_marca)
     {
+        
         return $query->whereRaw("(nome = '$used_marca->nome' and categoria = '$categoria') 
         or categoria = '$categoria'")->get();
     }

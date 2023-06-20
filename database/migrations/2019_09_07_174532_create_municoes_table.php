@@ -17,7 +17,7 @@ class CreateMunicoesTable extends Migration
             $table->increments('id');
             $table->string('tipo_municao', 30)->nullable();
             $table->integer('laudo_id')->unsigned()->nullable();
-            $table->foreign('laudo_id')->references('id')->on('laudos');
+            $table->foreign('laudo_id')->references('id')->on('laudos')->onDelete('cascade');
             $table->integer('marca_id')->unsigned()->nullable();
             $table->foreign('marca_id')->references('id')->on('marcas');
             $table->integer('calibre_id')->unsigned()->nullable();
@@ -29,6 +29,17 @@ class CreateMunicoesTable extends Migration
             $table->string('tipo_projetil',40)->nullable();
             $table->string('nao_deflagrado',40)->nullable();
             $table->string('municao_de', 40)->nullable();
+            $table->string('observacao',50)->nullable();
+            $table->string('institutoArma',200)->nullable();
+            $table->string('coleta',200)->nullable();
+            $table->string('lacre_saida',50)->nullable();
+            $table->string('rep_materialColetado',30)->nullable();
+            $table->string('origem_coletaPerito',50)->nullable();
+            $table->string('lote',20)->nullable();
+            $table->string('funcionamentoCartucho',30)->nullable();
+            $table->integer('origem_id')->unsigned()->nullable();
+            $table->integer('qtEficiente')->nullable();
+            $table->integer('qtIneficiente')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -6,6 +6,6 @@
     </div>
     <hr>
     <div class="col-lg-10 m-auto">
-        <h1>oi</h1>
+        <h1></h1>
     </div>
 @endsection

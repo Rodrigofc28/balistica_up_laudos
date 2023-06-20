@@ -1,13 +1,13 @@
 <div class="col-lg-3">
     <div class="form-group">
-        <label>Funcionamento *</label>
+        <label><strong>Funcionamento <code>*</code> </strong></label>
         <select class="js-single-select form-control{{ $errors->has('funcionamento') ? ' is-invalid' : '' }}"
-                name="funcionamento" id="funcionamento">
+                name="funcionamento" id="funcionamento" required>
             <option value=""></option>
             @foreach (['Eficiente', 'Ineficiente'] as $funcionamento)
                 <option value="{{ mb_strtolower($funcionamento)}}"
                         {{ (mb_strtolower($funcionamento) == mb_strtolower($funcionamento2)) ? 'selected=selected' : '' }}>
-                    {{$funcionamento}}
+                    {{mb_strtoupper($funcionamento)}}
                 </option>
             @endforeach
         </select>

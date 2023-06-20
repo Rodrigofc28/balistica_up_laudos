@@ -13,7 +13,12 @@ class Laudo extends Model
     protected $fillable = [
         'oficio', 'rep', 'data_designacao', 'data_solicitacao',
         'secao_id', 'cidade_id', 'solicitante_id', 'perito_id',
-        'diretor_id', 'indiciado', 'inquerito', 'tipo_inquerito'
+         'indiciado', 'inquerito', 'tipo_inquerito','diretor_id',
+         'laudoEfetConst','nome_vitima','perfil_envolvido','bairro',
+         'num_ip','material_coletado','sinab','data_ocorrencia','boletim_ocorrencia',
+         'nomeIncluir','data_recebimento','rep_exame_complementar','envolvidoGdl',
+         'cidadeGdl','orgaoGdl','unidadeGdl'
+         
     ];
 
     protected $dates = ['deleted_at'];
@@ -46,6 +51,10 @@ class Laudo extends Model
     public function armas()
     {
         return $this->hasMany(Arma::class);
+    }
+    public function imagens()
+    {
+        return $this->hasMany(ImagemEmbalagem::class,'laudo_id', 'id');
     }
 
     public function municoes()
@@ -89,8 +98,13 @@ class Laudo extends Model
     {
         $data_designacao = formatar_data($request->input('data_designacao'));
         $data_solicitacao = formatar_data($request->input('data_solicitacao'));
-        $laudo = $request->except(['data_designacao', 'data_solicitacao']);
-        $laudo_info = array_merge($laudo, ['data_solicitacao' => $data_solicitacao, 'data_designacao' => $data_designacao]);
+        if($request->input('data_ocorrencia')==""){
+            $data_ocorrencia=null; 
+        }else{$data_ocorrencia = formatar_data($request->input('data_ocorrencia'));}
+        
+        $data_recebimento = formatar_data($request->input('data_recebimento'));
+        $laudo = $request->except(['data_designacao', 'data_solicitacao','data_ocorrencia','data_recebimento']);
+        $laudo_info = array_merge($laudo, ['data_solicitacao' => $data_solicitacao, 'data_designacao' => $data_designacao,'data_ocorrencia'=>$data_ocorrencia,'data_recebimento'=>$data_recebimento]);
         return $laudo_info;
     }
 

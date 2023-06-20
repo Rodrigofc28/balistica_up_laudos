@@ -7,6 +7,8 @@
     height: 100vh;
     /* background: url(../img/home-bg.jpg) top center; */
     background-size: cover;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
 }
 
 @media (min-width: 1024px) {
@@ -17,20 +19,21 @@
 
 #home .home-logo {
     margin: 20px;
+   
 }
 
-#home .home-logo img {
+#home .home-logo img { 
     max-width: 100%;
 }
 
 #home .home-container {
     /* background: rgba(0, 0, 0, 0.5); */
 
-    background: -webkit-linear-gradient(#CCCCCC, #000000);
+    /* background: -webkit-linear-gradient(#CCCCCC, #000000);
     background: -o-linear-gradient(#CCCCCC, #000000);
     background: linear-gradient(#CCCCCC, #000000);
     filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr='#CCCCCC', EndColorStr='#000000');
-
+ */
 
     /* Read more: http://www.linhadecodigo.com.br/artigo/3603/css3-gradient-criando-planos-de-fundo-com-efeito-degrade.aspx#ixzz5cDxOgyHf */
     display: table-cell;
@@ -45,7 +48,8 @@
     font-weight: 700;
     line-height: 48px;
     text-transform: uppercase;
-    color: #fff;
+    color: rgb(17, 16, 16);
+    
 }
 
 @media (max-width: 768px) {
@@ -83,9 +87,11 @@
     letter-spacing: 1px;
     display: inline-block;
     padding: 8px 20px;
-    border-radius: 2px;
+   color: black;
     transition: 0.5s;
     margin: 10px;
+    text-decoration: none;
+    border: none;
 }
 
 #home .btn-get-started {
@@ -102,7 +108,7 @@
 
 #home .btn-home-page {
     border: 2px solid #fff;
-    color: #fff;
+    color: rgb(12, 11, 11);
     border-radius: 4px;
 }
 
@@ -110,4 +116,11 @@
     background: rgb(105, 75, 46);
     border: 2px solid rgb(92, 65, 41);
     border-radius: 4px;
+    color: floralwhite
+}
+#home a:hover {
+    background: rgb(105, 75, 46);
+    border: 2px solid rgb(92, 65, 41);
+    border-radius: 4px;
+    color: #fff;
 }

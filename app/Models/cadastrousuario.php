@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class cadastrousuario extends Model
 {
     protected $fillable = [
-        'nome', 'email', 'password','timestamps'
+        'nome', 'email', 'password','userGDL','senhaGDL','timestamps','secao_id'
     ];
 }

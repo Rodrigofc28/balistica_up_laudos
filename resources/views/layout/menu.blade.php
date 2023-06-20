@@ -3,8 +3,10 @@
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fa fa-bars"></i>
     </button>
+    <h5 style="color:aliceblue;padding-left:10px"><strong>{{Auth::user()->nome}}</strong></h5>
+    
 </nav>
-
+<span>rr</span>
 <div id="wrapper">
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
@@ -22,7 +24,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('laudos.index') }}">
                 <i class="fa fa-fw fa-folder-open"></i>
-                <span>Meus Laudos</span></a>
+                <span>Minhas REPS</span></a>
         </li>
 
         <li class="nav-item">

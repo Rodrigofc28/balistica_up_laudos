@@ -2,7 +2,7 @@
 
 Breadcrumbs::register('balins_chumbo.create', function ($breadcrumbs, $laudo) {
     $breadcrumbs->parent('laudos.materiais', $laudo);
-    $breadcrumbs->push('Novos Balins de Chumbo', route('balins_chumbo.create', $laudo));
+    $breadcrumbs->push('Projétil', route('balins_chumbo.create', $laudo));
 });
 
 Breadcrumbs::register('balins_chumbo.edit', function ($breadcrumbs, $laudo, $componente) {

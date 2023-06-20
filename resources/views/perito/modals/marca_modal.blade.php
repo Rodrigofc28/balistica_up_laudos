@@ -17,9 +17,19 @@ md
 
         <label>Tipo: *</label>
         <select class="form-control js-single" name="categoria" id="categoria">
-            <option value="Arma">Arma</option>
-            <option value="Municao">Munição</option>
+            <option value="Armas">Arma</option>
+            <option value="munições">Munição</option>
         </select>
+
+        <label>País: *</label>
+        <input class="form-control mb-2" type="text" id="nome_pais" name="nome" autocomplete="off" />
+
+        <label>Fabricação: * (ex: brasileira/canadense...)</label>
+        <input class="form-control mb-2" type="text" id="fabricacao" name="fabricacao" autocomplete="off" />
+
+
+
+
 
         <p class="obrigatorio mt-2">* Obrigatório</p>
         <div class="row justify-content-between">

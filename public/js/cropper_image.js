@@ -4,7 +4,13 @@ $.ajaxSetup({
     }
 });
 /*-------------- crop da imagem e post com ajax */
+
 $("#uploadCroppedImage").on('click', function () {
+    
+    
+    
+
+
 
     var arma_id = $('#arma_id').val();
     $('#image').cropper('getCroppedCanvas', {

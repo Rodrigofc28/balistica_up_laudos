@@ -49,6 +49,8 @@ $(document).ready(function () {
     });
 });
 
-$(".tamanho").mask('9,999');
+$(".tamanho").mask('999,9');
 $(".quantidade").mask('999,9');
+
+$(".cep").mask('99999999');
 

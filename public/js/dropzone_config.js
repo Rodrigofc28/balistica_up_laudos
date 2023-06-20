@@ -80,6 +80,17 @@ Dropzone.options.myDropzone = {
         // });
 
         this.on("addedfiles", function (files) {
+            let numberOfFiles = myDropzone.files.length;
+            
+            if(numberOfFiles==1){
+            $("#image-info").text('imagem do número de serie da arma')
+            }
+            if(numberOfFiles==2){
+                $("#image-info").text('imagem canto superior da arma') 
+            }
+            if(numberOfFiles==3){
+                $("#image-info").text('imagem canto inferior da arma') 
+            }
             if (files.length > 1) {
                 Swal.fire('Arraste apenas 1 (um) arquivo por vez!');
                 interromper = true;

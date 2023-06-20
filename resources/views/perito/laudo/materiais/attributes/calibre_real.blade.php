@@ -1,6 +1,6 @@
 <div class="col-lg-3">
     <div class="form-group">
-        <label>Calibre Real</label>
+        <label><strong>Calibre Real</strong></label>
         <button type="button" class="btn-cadastro float-right" id="calibre_real_help">
             <i class="fas fa-question" aria-hidden="true"></i>
         </button>

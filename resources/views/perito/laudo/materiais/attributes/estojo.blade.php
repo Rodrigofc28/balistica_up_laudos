@@ -1,12 +1,13 @@
 <div class="col-lg-3">
     <div class="form-group">
-        <label>Estojo</label>
+        <label><strong>Estojo<code>*</code></strong></label>
         <select class="js-single-select form-control{{ $errors->has('estojo') ? ' is-invalid' : '' }}"
                 name="estojo" id="estojo">
+                
             <option value=""></option>
-            @foreach (['Metálico', 'Plástico com Culote Metálico' ,'Papelão com Culote Metálico'] as $estojo)
+            @foreach ([' Latonado', ' Niquelado' ,' Aço','Alumínio','Cobre',' Plástico',' Papelão'] as $estojo)
                 <option value="{{ mb_strtolower($estojo)}}" {{ (mb_strtolower($estojo) == mb_strtolower($estojo2)) ? 'selected=selected' : '' }}>
-                    {{$estojo}}
+                    {{mb_strtoupper($estojo)}}
                 </option>
             @endforeach
         </select>

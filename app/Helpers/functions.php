@@ -23,7 +23,7 @@ function converter_numero(INT $numero)
         '5' => 'cinco', '6' => 'seis', '7' => 'sete', '8' => 'oito', '9' => 'nove',
         '10' => 'dez', '11' => 'onze', '12' => 'doze', '13' => 'treze', '14' => 'quatorze',
         '15' => 'quinze', '16' => 'dezesseis', '17' => 'dezessete', '18' => 'dezoito',
-        '19' => 'dezenove'
+        '19' => 'dezenove', '20'=>'vinte','21'=>'vinte e um','22'=>'vinte e dois'
     ];
 
     $dezena = [
@@ -139,6 +139,25 @@ function armas_route_name($material)
             break;
         case 'Metralhadora':
             return 'metralhadoras';
+            break;
+        case 'Submetralhadora':
+            return 'submetralhadoras';
+            break;
+        case 'Fuzil':
+            return 'fuzils';
+            break;
+        case 'Pistolete':
+            return 'pistoletes';
+            break;
+        case 'Pistola pressao':
+            return 'pressaopistolas';
+            break;
+
+        case 'Carabina Pressão':
+                return 'pressaocarabinas';
+                break;
+        case 'Espingarda mista':
+            return 'espingardamistas';
             break;
         default:
             return 'armas';

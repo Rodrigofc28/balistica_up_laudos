@@ -6,7 +6,7 @@
             <option value=""></option>
             @foreach (['Balins de Chumbo', 'Balote'] as $projetil)
                 <option value="{{ mb_strtolower($projetil)}}" {{ (mb_strtolower($projetil) == mb_strtolower($projetil2)) ? 'selected=selected' : '' }}>
-                    {{$projetil}}
+                    {{mb_strtoupper($projetil)}}
                 </option>
             @endforeach
         </select>

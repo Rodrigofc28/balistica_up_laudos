@@ -12,10 +12,13 @@ use App\Models\Cidade;
 use App\Models\Diretor;
 use App\Models\Gerador\Gerar;
 use App\Models\Laudo;
+use App\Models\Arma;
 use App\Models\OrgaoSolicitante;
 use App\Models\Secao;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
 class LaudosController extends Controller
 {
     public function __construct()
@@ -30,9 +33,17 @@ class LaudosController extends Controller
      */
     public function index()
     {
+
+        $usuariosenhaGdl=User::where('id','=',Auth::id())->get();
+        
+       /*  chmod('C:\xampp\htdocs\laudos_balisticos\app\python',0777);
+        $path=base_path('app\python\requisicao.py');
+        exec('C:/Users/est.rodrigo.fc/AppData/Local/Programs/Python/Python310/python.exe ' .$path.' '.$usuariosenhaGdl[0]->senhaGDL.' '.$usuariosenhaGdl[0]->userGDL); */
         $user = Auth::id();
-        $laudos = Laudo::findMyReps($user);
-        return view('perito.laudo.index', compact('laudos'));
+        $laudos = Laudo::findMyReps($user); 
+        //$reps = DB::select('SELECT * FROM _nome_da_tabela WHERE nome = ?',[$usuariosenhaGdl[0]->userGDL]); 
+        $reps = DB::table('_nome_da_tabela')->where('nome', $usuariosenhaGdl[0]->userGDL)->get();
+        return view('perito.laudo.index', compact('laudos','reps'));
     }
 
     /**
@@ -40,14 +51,25 @@ class LaudosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $secoes = Secao::all();
         $cidades = Cidade::all();
         $diretores = Diretor::all();
+        
+        if(count($request->request)>0){
+            $reps=$request;
+            
+            $armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$reps->rep]);
+           
+        }else{
+            $reps="";
+            $armasGdl="";
+        }
+        
 
         return view('perito.laudo.create',
-            compact('secoes', 'cidades', 'diretores'));
+            compact('secoes', 'cidades', 'diretores','reps','armasGdl'));
     }
 
     /*
@@ -55,9 +77,14 @@ class LaudosController extends Controller
     * @return \Illuminate\Http\Response
     */
     public function store(LaudoRequest $request)
-    {
+    {   
+        
+        $arma=Arma::all();
+        
         $laudo = Laudo::config_laudo_info($request);
+        
         $laudo = Laudo::create($laudo);
+        
         $laudo_id = $laudo->id;
         return redirect()->route('laudos.materiais', compact('laudo_id'));
     }
@@ -77,9 +104,18 @@ class LaudosController extends Controller
         $armas = $laudo->armas;
         $municoes = $laudo->municoes;
         $componentes = $laudo->componentes;
+        
+        $users_img_project = DB::select('select lacrecartucho,lacreSaida, group_concat(id) from componentes where laudo_id = ? group by lacrecartucho,lacreSaida', [$laudo->id]);
+        $obj=(object) $users_img_project;
+
+        $users_img_municoes = DB::select('select lacrecartucho,lacre_saida, group_concat(id),tipo_municao from municoes where laudo_id = ? group by lacrecartucho,lacre_saida,tipo_municao', [$laudo->id]);
+        $objMuni=(object) $users_img_municoes;
+        
+        /* $numero = preg_replace('/^(\d+),\d+$/', '$1', $obj->{1}->{'group_concat(id)'});
+         dd($numero);  */
         return view('perito.laudo.show',
             compact('laudo', 'cidades', 'solicitantes',
-                'diretores', 'secoes', 'armas', 'municoes', 'componentes'));
+                'diretores', 'secoes', 'armas', 'municoes', 'componentes','obj','objMuni'));
     }
 
     /**
@@ -89,9 +125,11 @@ class LaudosController extends Controller
      * @param  Laudo $laudo
      * @return \Illuminate\Http\Response
      */
-    public function update(LaudoRequest $request, $laudo)
+    public function update(Request $request, $laudo)
     {
+        
         $updated_laudo = Laudo::config_laudo_info($request);
+        //dd($updated_laudo,$request->data_ocorrencia);
         Laudo::find($laudo->id)->fill($updated_laudo)->save();
         $laudo_id = $laudo->id;
         return redirect()->route('laudos.show', compact('laudo_id'))
@@ -106,6 +144,7 @@ class LaudosController extends Controller
      */
     public function destroy($laudo)
     {
+        
         Laudo::destroy($laudo->id);
         return response()->json(['success' => 'done']);
     }
@@ -130,14 +169,36 @@ class LaudosController extends Controller
 
     public function search($rep)
     {
-        $rep = str_replace('-', '/', $rep);
-        $laudo = Laudo::where([['rep', $rep], ['perito_id', Auth::id()]])->first();
-        if(empty($laudo)){
+        $repN = str_replace('-', '/', $rep);
+        $rep = DB::table('_nome_da_tabela')
+        ->where('rep', $repN)
+        ->where('perito_id', Auth::id())
+        ->first();
+        if(empty($rep)){
             return response()->json(['fail' => 'true',
-            'message' => 'Nenhum laudo encontrado em este número (' . $rep . ')']);
+            'message' => 'Nenhum laudo encontrado em este número (' . $repN . ')']);
         } else {
             $laudo_id = $laudo->id;
-            return response()->json(['url' => route('laudos.show', $laudo)]);
+            return response()->json(['url' => route('laudos.index', $rep)]);
         }
+    }
+    public function atualiza($a){
+       //chmod("C:/Users/est.rodrigo.fc/AppData/Local/Programs/Python", 777); 
+
+        $usuariosenhaGdl=User::where('id','=',Auth::id())->get();
+        
+        $senhaDescriptografada=$this->decryptPassword($usuariosenhaGdl[0]->senhaGDL,'JtKSJtKSJtKSJtKS');
+        
+        $path=base_path('app\python\atualizarep.py');
+        shell_exec('C:/Users/est.rodrigo.fc/AppData/Local/Programs/Python/Python310/python.exe ' .$path.' '.$senhaDescriptografada.' '.$usuariosenhaGdl[0]->userGDL.' '.$a);
+        //passthru
+        
+        return redirect()->back();
+    }
+    
+    function decryptPassword($encryptedPassword, $key) {
+        $encryptedPassword = base64_decode($encryptedPassword);
+        $decryptedPassword = openssl_decrypt($encryptedPassword, 'AES-128-ECB', $key);
+        return $decryptedPassword;
     }
 }

@@ -1,8 +1,13 @@
 @extends('layout.login')
 @section('content')
-    <div class="container">
+    <div class="container" >
         <div class="card card-login mx-auto mt-5">
-            <div class="card-header">Login</div>
+            
+            <div class="card-header">
+                <img src="../public/image/logo-sem-fundo.png" alt="">
+               <p>POLÍCIA CIENTÍFICA DO PARANÁ</p>
+               
+            </div>
             <div class="card-body">
                 {{ Form::open(['route' => 'login']) }}
                 @include('flash_message')
@@ -26,12 +31,13 @@
                 </div>
                 <div class="text-center">
                     <div class="btn-block">
-                        <a href=" {{ route('home') }}" class="btn btn-secondary">
-                            Voltar
-                        </a>
+                        
                         <button type="submit" class="btn btn-primary">
-                            Login
+                            ENTRAR
                         </button>
+                        <a href=" {{ route('home') }}" class="btn btn-secondary">
+                            VOLTAR
+                        </a>
                     </div>
                 </div>
                 {{ Form::close() }}

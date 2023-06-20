@@ -6,9 +6,10 @@
                 <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
             </div>
             <div class="modal-body">
-                <h5 id="image-info">É possível adicionar até 3 imagens por arma, porém elas devem ser adicionadas
-                    separadamente para realizar o recorte. <br>
-                    <strong>A imagem só será salva na tela de recorte.</strong></h5>
+                <h5 id="image-info"> Adicione 3 imagens por arma, porém elas devem ser adicionadas
+                    separadamente para realizar o recorte   (1º imagem número de série, 2º canto superior, 3º canto inferior). <br>
+                    <!--<strong>A imagem só será salva na tela de recorte.</strong>--></h5>
+                    
                 <form method="post" action="#" enctype="multipart/form-data" class="dropzone" id="my-dropzone">
                     {{ csrf_field() }}
 
@@ -25,7 +26,7 @@
                     <button class="btn btn-block btn-success concluir-upload" data-dismiss="modal">Concluir</button>
                 </div>
                 <div class="col-lg-6">
-                    <a type="button" class="btn btn-default" data-dismiss="modal">Fechar</a>
+                    <a type="button" class="btn btn-secondary btn-block" style="color:white"  data-dismiss="modal">Fechar</a>
                 </div>
             </div>
         </div>

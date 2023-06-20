@@ -17,6 +17,8 @@ class CreateMarcasTable extends Migration
             $table->increments('id');
             $table->string('nome', 50);
             $table->string('categoria', 30);
+            $table->string('pais_origem', 50);
+            $table->string('fabricacao', 50);
             $table->softDeletes();
             $table->index('nome');
         });

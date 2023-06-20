@@ -12,6 +12,7 @@ $(function () {
     });
 
     function filtrar_solicitantes(cidade_id, solicitante) {
+        
         $.ajax('solicitantes/cidade/' + cidade_id, {
             method: "GET",
             processData: false,

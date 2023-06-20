@@ -1,5 +1,5 @@
-<div class="col-lg-{{ $size ?? "4" }} mt-2">
-    <label for="solicitante_id">Órgão Solicitante *</label>
+<div class="col-lg-{{ $size ?? "3" }} mt-2">
+    <label for="solicitante_id"><strong>Órgão Solicitante <code>*</code></strong></label>
     <button type="button" class="btn-cadastro float-right" id="cadastrar_solicitante">
         <i class="fas fa-plus" aria-hidden="true"></i> Cadastrar
     </button>
