@@ -17,6 +17,7 @@
 
 </div>
 <div class="row m-auto">
+    
     @php
     
     if(!empty($reps)){
@@ -69,64 +70,9 @@
      @include('perito.laudo.materiais.attributes.sinab')
     @include('perito.laudo.attributes.material_coletado',[$laudoMaterial="1"])
     
-    @if($reps!="")
-
-        <span id="inqueritosPoliciais" ip="{{$reps->ip}}" orgao="{{$reps->orgao}}" cidade="{{$reps->cidade}}"></span>
-        <span id="inqueritosPoliciais1" ip="{{$reps->ipOn}}" orgao="{{$reps->ipOnOrgao}}" cidade="{{$reps->ipOnCidade}}"></span>
-        <span id="inqueritosPoliciais2" ip="{{$reps->ipPm}}" orgao="{{$reps->ipPmOrgao}}" cidade="{{$reps->ipPmCidade}}"></span>
-        <span id="inqueritosPoliciais3" ip="{{$reps->boc}}" orgao="{{$reps->bocOrgao}}" cidade="{{$reps->bocCidade}}"></span>
-        <span id="inqueritosPoliciais4" ip="{{$reps->bo}}" orgao="{{$reps->orgaBo}}" cidade="{{$reps->cidadeBo}}"></span>
-        <span id="inqueritosPoliciais5" ip="{{$reps->ipAi}}" orgao="{{$reps->orgaoAi}}" cidade="{{$reps->cidadeAi}}"></span>
-    @endif
+    
 </div>
-@if($reps!=""&$armasGdl!="")
 
-    <div style="border:1px solid black;">
-        <div id="tab_gdl" >
-            <strong><p id="titulo">Lista de Envolvidos</p></strong> <br>
-               
-              @php
-                $envolvidoGdl=implode(',',$reps['envolvido'])
-              @endphp
-                <input type="text" hidden name="envolvidoGdl" value="{{$envolvidoGdl}}">
-                @foreach($reps['envolvido'] as $envolvido)
-                    <span>&nbsp;{{$envolvido}}</span><br>
-                @endforeach
-            
-            
-        </div>
-        <div id="tab_gdl" >
-             <hr>  
-            <p  id="titulo"><strong> Cidade / Órgão Solicitante</strong> </p> <br>
-             
-            <span id="cidadeSpan"></span> /
-            <input hidden type="text" name="cidadeGdl" id="cidadeIn" value="">
-            <span id="orgaoSpan"></span> 
-            
-            <input hidden type="text" name="orgaoGdl" id="orgaoIn" value="">
-            
-            
-        </div>
-        <hr>
-        <div id="tab_gdl">
-            <p id="titulo"><strong>Peças</strong></p>
-            @foreach($armasGdl as $armagdl)
-            <div>
-                <p><strong>ITEM:</strong> {{$armagdl->tipo_item}}</p>
-                <p><strong>MARCA:</strong> {{$armagdl->marca}}</p>
-                <p><strong>QUANTIDADE:</strong> {{$armagdl->quantidade}}</p>
-                <p><strong>OBSERVAÇÃO:</strong> {{$armagdl->observacao}}</p>
-                <p><strong>IDENTIFICAÇÃO:</strong> {{$armagdl->identificacao}}</p>
-            </div> 
-            <div>
-                <a href="#">EDITAR</a>
-            </div>   
-                <hr>
-                
-            @endforeach
-        </div>
-    </div>
- @endif
 
 
 <div class="row m-auto">

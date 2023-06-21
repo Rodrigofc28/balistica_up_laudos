@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Armas_Gdl;
 class LaudosController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -57,19 +59,24 @@ class LaudosController extends Controller
         $cidades = Cidade::all();
         $diretores = Diretor::all();
         
-        if(count($request->request)>0){
-            $reps=$request;
-            
-            $armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$reps->rep]);
+        if(count($request->request)>0||session('gdl')==true){
            
+            //Retorna a view create-gdl
+            $reps=$request;
+           
+            $armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$reps->rep]);
+            return view('perito.laudo.create-gdl',
+            compact('secoes', 'cidades', 'diretores','reps','armasGdl'));
+            
         }else{
             $reps="";
             $armasGdl="";
+            return view('perito.laudo.create',
+            compact('secoes', 'cidades', 'diretores','reps','armasGdl'));
         }
         
 
-        return view('perito.laudo.create',
-            compact('secoes', 'cidades', 'diretores','reps','armasGdl'));
+        
     }
 
     /*
@@ -78,6 +85,21 @@ class LaudosController extends Controller
     */
     public function store(LaudoRequest $request)
     {   
+        
+        if(isset($request->request_GDL)){
+            $arma=Arma::all();
+        
+            $laudo = Laudo::config_laudo_info($request);
+            
+            $laudo = Laudo::create($laudo);
+            
+            $laudo_id = $laudo->id;
+            
+            return redirect()->back()->with('laudo_id', $laudo_id)->with('laudo', $laudo);
+
+
+        }
+        
         
         $arma=Arma::all();
         
@@ -89,14 +111,13 @@ class LaudosController extends Controller
         return redirect()->route('laudos.materiais', compact('laudo_id'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Laudo $laudo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Laudo $laudo)
+    
+    public function show(Laudo $laudo,$lacre=null)
     {
+        $lacre=session('lacre');
+        //$armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$laudo->rep]);
+        $armasGdl=Armas_Gdl::all()->where('rep',$laudo->rep);
+        
         $cidades = Cidade::all();
         $secoes = Secao::all();
         $diretores = Diretor::allOrdered();
@@ -113,9 +134,18 @@ class LaudosController extends Controller
         
         /* $numero = preg_replace('/^(\d+),\d+$/', '$1', $obj->{1}->{'group_concat(id)'});
          dd($numero);  */
-        return view('perito.laudo.show',
-            compact('laudo', 'cidades', 'solicitantes',
-                'diretores', 'secoes', 'armas', 'municoes', 'componentes','obj','objMuni'));
+         if(count($armasGdl)==0){
+            return view('perito.laudo.show',
+                compact('laudo', 'cidades', 'solicitantes',
+                    'diretores', 'secoes', 'armas', 'municoes', 'componentes','obj','objMuni'));
+                }
+        else{
+            
+            
+            return view('perito.laudo.show_gdl_laudo',
+                compact('laudo', 'cidades', 'solicitantes',
+                    'diretores', 'secoes', 'armas', 'municoes', 'componentes','obj','objMuni','armasGdl','lacre'));
+        }
     }
 
     /**

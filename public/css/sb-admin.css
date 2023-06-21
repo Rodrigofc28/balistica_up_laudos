@@ -10942,4 +10942,6 @@ body.sidebar-toggled footer.sticky-footer {
 #tab_gdl{
   padding-left: 10px;
   padding-right: 10px;
+  display: grid;
 }
+

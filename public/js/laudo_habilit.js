@@ -108,7 +108,7 @@ $(document).ready(function() {
     
   });
 
-
+console.log($('#laudoGDL').val())
   if($('#laudoGDL').val() != null){
     
     $('#solicitante_id').attr('disabled', true)

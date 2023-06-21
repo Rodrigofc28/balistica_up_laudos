@@ -14,7 +14,7 @@
 <div class="col-8">
     <h4>Visão Geral do Laudo</h4>
    
-   
+   {!!$lacre!!}
       
 </div>
 <hr>
@@ -87,7 +87,7 @@
 <hr>
 
 <div class="col-lg-12">
-    <h4 class="mb-4">Material Periciado: </h4>
+    <h4 class="mb-4">Material Periciado GDL: </h4>
     
     <div style="border:solid 1px #E0E0E0; ">
     
@@ -128,25 +128,44 @@
  
     </div>
     
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover table-striped" id="tabela_pecas">
-            <thead align="center">
-                <tr>
-                    <th>Material</th>
-                    <th>Marca</th>
-                    <th>Calibre</th>
-                    <th>Quantidade</th>
+    <div id="tab_gdl" class="grid-conterner-gdl">
+        <p id="titulo"><strong>Peças</strong></p>
+        @foreach($armasGdl as $armagdl)
+            
+            <div>
+                <p><strong>ITEM:</strong> {{$armagdl->tipo_item}}</p>
+                <p><strong>MARCA:</strong> {{$armagdl->marca}}</p>
+                <p><strong>QUANTIDADE:</strong> {{$armagdl->quantidade}}</p>
+                <p><strong>OBSERVAÇÃO:</strong> {{$armagdl->observacao}}</p>
+                <p><strong>IDENTIFICAÇÃO:</strong> {{$armagdl->identificacao}}</p>
+            </div> 
+            <div>
+                @switch($armagdl->tipo_item)
+                    @case('ESPINGARDA(S)')
+                        
+                            <a href="{{ route("espingardas.create", [$laudo,'item'=>$armagdl,'armas'=>$armasGdl]) }}">EDITAR</a>
+                                @break
+                        
+                    @case('valor2')
+        <!-- Código a ser executado caso $valor seja igual a 'valor2' -->
+                        @break
+
+                    @default
+        <!-- Código a ser executado caso $valor não corresponda a nenhum dos casos anteriores -->
+                @endswitch
+
+                @empty(session('laudo_id'))
                     
-                    <th>Nº do Lacre</th>
-                    <th colspan="2">Ações</th>
-                </tr>
-            </thead>
-            <tbody align="center">
-                @includeWhen(count($armas) > 0, 'perito.laudo.partials.arma')
-                @includeWhen(count($municoes) > 0, 'perito.laudo.partials.municao')
-                @includeWhen(count($componentes) > 0, 'perito.laudo.partials.componente')
-            </tbody>
-        </table>
+                @else
+                    {{--Incluir o Material  --}}
+                    
+                    <a href="{{ route("espingardas.create", [session('laudo'),'item'=>$armagdl,'armas'=>$armasGdl]) }}">EDITAR</a>
+                    
+                @endempty
+            </div>   
+            <hr>
+         
+        @endforeach
     </div>
     
 
@@ -157,12 +176,7 @@
                 <i class="fas fa-arrow-circle-left"></i> Voltar</a>
         </div>
 
-        <div class="col-lg-3 mt-2">
-            <a class="btn btn-success btn-block" href="{{ route('laudos.materiais', $laudo )}}">
-                <i class="fas fa-plus" aria-hidden="true"></i>
-                Adicionar Material
-            </a>
-        </div>
+        
         {{-- <div class="col-lg-3 mt-2">
             <a class="btn btn-success btn-block" href="{{ route('laudos.materiais', $laudo )}}">
         <i class="fas fa-camera" aria-hidden="true"></i>

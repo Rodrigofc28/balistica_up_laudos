@@ -5,14 +5,17 @@
  */
 
 namespace App\Http\Controllers\Perito\Armas;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Armas\EspingardaRequest;
 use App\Models\Arma;
 use App\Models\Calibre;
 use App\Models\Marca;
+use App\Models\Secao;
+use App\Models\Cidade;
 use App\Models\Origem;
 use App\Models\Cadastroarmas;
+
 use Illuminate\Support\Facades\DB;
 class EspingardasController extends Controller
 {
@@ -26,16 +29,13 @@ class EspingardasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($laudo)
+    public function create(Request $request,$laudo)
     {
         //Dados vindo do GDL TABELA tabela_pecas_gdl seleciona tudo quando as rep forem iguais
+      
         $armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$laudo->rep]);
-        $array_gdl_armas=[];
-        foreach($armasGdl as $armagdl){
-            if($armagdl->tipo_item=="ESPINGARDA(S)"){
-                array_push($array_gdl_armas,$armagdl);
-            }
-        }
+        $array_gdl_armas=$request->input('item');
+        
         
         /*  */
         $marcas = Marca::categoria('armas');
@@ -54,6 +54,22 @@ class EspingardasController extends Controller
      */
     public function store(EspingardaRequest $request)
     {
+        $secoes = Secao::all();
+        $cidades = Cidade::all();
+        
+        
+        if(!empty($request->Arma_Gdl)&&$request->Arma_Gdl=="sim"){
+           
+            $lacre=$request->num_lacre_saida;
+            Arma::create($request->all());
+           
+           
+           
+            return redirect()->route('laudos.show',
+            ['laudo_id' => $request->input('laudo_id')])
+            ->with('success', __('flash.create_f', ['model' => 'Espingarda']))
+            ->with('lacre',$lacre);
+        }
         Arma::create($request->all());
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])
