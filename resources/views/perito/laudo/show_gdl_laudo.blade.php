@@ -14,7 +14,7 @@
 <div class="col-8">
     <h4>Visão Geral do Laudo</h4>
    
-   {!!$lacre!!}
+  
       
 </div>
 <hr>
@@ -128,7 +128,7 @@
  
     </div>
     
-    <div id="tab_gdl" class="grid-conterner-gdl">
+    <section id="tab_gdl" class="grid-conterner-gdl">
         <p id="titulo"><strong>Peças</strong></p>
         @foreach($armasGdl as $armagdl)
             
@@ -138,43 +138,39 @@
                 <p><strong>QUANTIDADE:</strong> {{$armagdl->quantidade}}</p>
                 <p><strong>OBSERVAÇÃO:</strong> {{$armagdl->observacao}}</p>
                 <p><strong>IDENTIFICAÇÃO:</strong> {{$armagdl->identificacao}}</p>
+                <p><strong>LACRE DE ENTRADA:</strong> {{$armagdl->lacre_entrada}}</p>
             </div> 
             <div>
-                @switch($armagdl->tipo_item)
-                    @case('ESPINGARDA(S)')
-                        
-                            <a href="{{ route("espingardas.create", [$laudo,'item'=>$armagdl,'armas'=>$armasGdl]) }}">EDITAR</a>
-                                @break
-                        
-                    @case('valor2')
-        <!-- Código a ser executado caso $valor seja igual a 'valor2' -->
-                        @break
+                @if($armagdl->status==null)
+                    @switch($armagdl->tipo_item)
+                        @case('ESPINGARDA(S)')
+                            
+                                <a href="{{ route("espingardas.create", [$laudo,'item'=>$armagdl,'armas'=>$armasGdl]) }}">CADASTRAR</a>
+                                    @break
+                            
+                        @case('valor2')
+            <!-- Código a ser executado caso $valor seja igual a 'valor2' -->
+                            @break
 
-                    @default
-        <!-- Código a ser executado caso $valor não corresponda a nenhum dos casos anteriores -->
-                @endswitch
+                        @default
+            <!-- Código a ser executado caso $valor não corresponda a nenhum dos casos anteriores -->
+                    @endswitch
 
-                @empty(session('laudo_id'))
                     
-                @else
-                    {{--Incluir o Material  --}}
-                    
-                    <a href="{{ route("espingardas.create", [session('laudo'),'item'=>$armagdl,'armas'=>$armasGdl]) }}">EDITAR</a>
-                    
-                @endempty
+                @endif
             </div>   
-            <hr>
-         
+            
+         <hr>
         @endforeach
-    </div>
+    </section>
     
 
 
     <div class="row mb-3">
-        <div class="col-lg-3 mt-2">
+        {{-- <div class="col-lg-3 mt-2">
             <a class="btn btn-secondary btn-block" href="{!! URL::previous() !!}">
                 <i class="fas fa-arrow-circle-left"></i> Voltar</a>
-        </div>
+        </div> --}}
 
         
         {{-- <div class="col-lg-3 mt-2">

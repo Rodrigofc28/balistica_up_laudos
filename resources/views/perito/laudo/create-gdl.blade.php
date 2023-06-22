@@ -14,12 +14,7 @@
 {{ Form::open(['route' => 'laudos.store']) }}
 
 <input hidden value="GDL" name="request_GDL" type="text">
-@empty(session('laudo_id'))
-    <p>A variável  está vazia.</p>
-@else
-    <p>Laudo com REP {{session('laudo')->rep}} salvo com sucesso </p>
-    
-@endempty
+
 
 
 <div class="row m-auto">
@@ -115,7 +110,7 @@
               @endphp
                 <input type="text" hidden name="envolvidoGdl" value="{{$envolvidoGdl}}">
                 @foreach($reps['envolvido'] as $envolvido)
-                    <span>&nbsp;{{$envolvido}}</span><br>
+                    <span>{{$envolvido}}</span>
                 @endforeach
             
             
@@ -124,7 +119,7 @@
              <hr>  
             <p  id="titulo"><strong> Cidade / Órgão Solicitante</strong> </p> <br>
              
-            <span id="cidadeSpan"></span> /
+            <span id="cidadeSpan"></span> 
             <input hidden type="text" name="cidadeGdl" id="cidadeIn" value="">
             <span id="orgaoSpan"></span> 
             
@@ -142,18 +137,9 @@
                 <p><strong>QUANTIDADE:</strong> {{$armagdl->quantidade}}</p>
                 <p><strong>OBSERVAÇÃO:</strong> {{$armagdl->observacao}}</p>
                 <p><strong>IDENTIFICAÇÃO:</strong> {{$armagdl->identificacao}}</p>
+                <p><strong>LACRE DE ENTRADA:</strong> {{$armagdl->lacre_entrada}}</p>
             </div> 
-            <div>
-                
-                @empty(session('laudo_id'))
-                    
-                @else
-                    {{--Incluir o Material  --}}
-                    
-                    <a href="{{ route("espingardas.create", [session('laudo'),'item'=>$armagdl,'armas'=>$armasGdl]) }}">EDITAR</a>
-                    
-                @endempty
-            </div>   
+            
                 <hr>
                 
             @endforeach

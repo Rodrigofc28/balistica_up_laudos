@@ -15,6 +15,7 @@ use App\Models\Secao;
 use App\Models\Cidade;
 use App\Models\Origem;
 use App\Models\Cadastroarmas;
+use App\Models\Armas_Gdl;
 
 use Illuminate\Support\Facades\DB;
 class EspingardasController extends Controller
@@ -32,18 +33,25 @@ class EspingardasController extends Controller
     public function create(Request $request,$laudo)
     {
         //Dados vindo do GDL TABELA tabela_pecas_gdl seleciona tudo quando as rep forem iguais
+      //busca a valor do id correspondente
+      $arma_espingarda_gdl=Armas_Gdl::find($request->id);
       
-        $armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$laudo->rep]);
-        $array_gdl_armas=$request->input('item');
+
+      if ($arma_espingarda_gdl) {
         
+        $arma_espingarda_gdl->status = "Não pendente"; // Corrected assignment
+        // tem que criar a coluna updated_at tipo TIMESTAMP
+        $arma_espingarda_gdl->save(); // Savando no banco de dados
         
+    }
+       
         /*  */
         $marcas = Marca::categoria('armas');
         $origens = Origem::all();
         $calibres = Calibre::whereArma('Espingarda');
         $armas = DB::select('select modelo from cadastroarmas ');
         return view('perito.laudo.materiais.armas.espingarda.create',
-            compact('laudo', 'marcas', 'origens', 'calibres','armas','array_gdl_armas'));
+            compact('laudo', 'marcas', 'origens', 'calibres','armas','arma_espingarda_gdl'));
     }
 
     /**
@@ -60,7 +68,7 @@ class EspingardasController extends Controller
         
         if(!empty($request->Arma_Gdl)&&$request->Arma_Gdl=="sim"){
            
-            $lacre=$request->num_lacre_saida;
+            $id_armas_gdl=$request->id_armas_gdl;
             Arma::create($request->all());
            
            
@@ -68,7 +76,7 @@ class EspingardasController extends Controller
             return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])
             ->with('success', __('flash.create_f', ['model' => 'Espingarda']))
-            ->with('lacre',$lacre);
+            ->with('id_gdl',$id_armas_gdl);
         }
         Arma::create($request->all());
         return redirect()->route('laudos.show',

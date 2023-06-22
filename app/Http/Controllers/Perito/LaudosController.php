@@ -88,14 +88,33 @@ class LaudosController extends Controller
         
         if(isset($request->request_GDL)){
             $arma=Arma::all();
-        
             $laudo = Laudo::config_laudo_info($request);
             
             $laudo = Laudo::create($laudo);
             
             $laudo_id = $laudo->id;
+            $armasGdl=Armas_Gdl::all()->where('rep',$laudo->rep);
+        
+            $cidades = Cidade::all();
+            $secoes = Secao::all();
+            $diretores = Diretor::allOrdered();
+            $solicitantes = OrgaoSolicitante::fromCity($laudo->cidade_id);
+            $armas = $laudo->armas;
+            $municoes = $laudo->municoes;
+            $componentes = $laudo->componentes;
+        
+            $users_img_project = DB::select('select lacrecartucho,lacreSaida, group_concat(id) from componentes where laudo_id = ? group by lacrecartucho,lacreSaida', [$laudo->id]);
+            $obj=(object) $users_img_project;
+
+            $users_img_municoes = DB::select('select lacrecartucho,lacre_saida, group_concat(id),tipo_municao from municoes where laudo_id = ? group by lacrecartucho,lacre_saida,tipo_municao', [$laudo->id]);
+            $objMuni=(object) $users_img_municoes;
+           
+        
             
-            return redirect()->back()->with('laudo_id', $laudo_id)->with('laudo', $laudo);
+            
+            return view('perito.laudo.show_gdl_laudo',
+                compact('laudo', 'cidades', 'solicitantes',
+                    'diretores', 'secoes', 'armas', 'municoes', 'componentes','obj','objMuni','armasGdl'));
 
 
         }
@@ -114,7 +133,7 @@ class LaudosController extends Controller
     
     public function show(Laudo $laudo,$lacre=null)
     {
-        $lacre=session('lacre');
+        $id_gdl_armas=session('id_gdl');
         //$armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$laudo->rep]);
         $armasGdl=Armas_Gdl::all()->where('rep',$laudo->rep);
         
@@ -144,7 +163,7 @@ class LaudosController extends Controller
             
             return view('perito.laudo.show_gdl_laudo',
                 compact('laudo', 'cidades', 'solicitantes',
-                    'diretores', 'secoes', 'armas', 'municoes', 'componentes','obj','objMuni','armasGdl','lacre'));
+                    'diretores', 'secoes', 'armas', 'municoes', 'componentes','obj','objMuni','armasGdl','id_gdl_armas'));
         }
     }
 

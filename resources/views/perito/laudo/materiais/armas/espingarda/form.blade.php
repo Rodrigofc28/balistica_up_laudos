@@ -23,24 +23,24 @@
     <div class="row mb-3">
         {{-- Dados capturados GDL --}}
         
-        @empty($array_gdl_armas)
+        @empty($arma_espingarda_gdl)
         
             @else    
                 <input hidden value="sim" name="Arma_Gdl" type="text">
-                
-                <span hidden lacre="{!!$array_gdl_armas['lacre_entrada']!!}" id="lacre_entrada_gdl" ></span>
-                <span hidden estado_geral="{!!mb_strtolower($array_gdl_armas['estado_geral'])!!}" id="estado_geral_gdl" ></span>
-                <span hidden marca="{!!mb_strtoupper($array_gdl_armas['marca'])!!}" id="marca_gdl" ></span>
-                <span hidden status_serie="{!!mb_strtolower($array_gdl_armas['status_serie'])!!}" id="estado_serie_gdl" ></span>
-                <span hidden num_serie="{!!mb_strtolower($array_gdl_armas['num_serie'])!!}" id="num_serie_gdl" ></span>
-                <span hidden capacidade="{!!mb_strtolower($array_gdl_armas['capacidade'])!!}" id="capacidade_gdl" ></span>
-                <span hidden acabamento="{!!mb_strtolower($array_gdl_armas['acabamento'])!!}" id="acabamento_gdl" ></span>
-                <span hidden patrimonio="{!!mb_strtolower($array_gdl_armas['patrimonio'])!!}" id="patrimonio_gdl" ></span>
-                <span hidden lacre_saida="{!!mb_strtolower($array_gdl_armas['lacre_saida'])!!}" id="lacre_saida_gdl" ></span>
-                <span hidden fabricacao="{!!mb_strtolower($array_gdl_armas['fabricacao'])!!}" id="fabricacao_gdl" ></span>
-                <span hidden modelo="{!!mb_strtolower($array_gdl_armas['modelo'])!!}" id="modelo_gdl" ></span>
-                <span hidden calibreNominal="{!!mb_strtolower($array_gdl_armas['calibre_nominal'])!!}" id="calibre_gdl" ></span>
-                <span hidden funcionamento="{!!mb_strtolower($array_gdl_armas['funcionamento'])!!}" id="funcionamento_gdl" ></span>
+                <input type="text" hidden value="{!!$arma_espingarda_gdl['id']!!}" name="id_armas_gdl" id="">
+                <span hidden lacre="{!!$arma_espingarda_gdl['lacre_entrada']!!}" id="lacre_entrada_gdl" ></span>
+                <span hidden estado_geral="{!!mb_strtolower($arma_espingarda_gdl['estado_geral'])!!}" id="estado_geral_gdl" ></span>
+                <span hidden marca="{!!mb_strtoupper($arma_espingarda_gdl['marca'])!!}" id="marca_gdl" ></span>
+                <span hidden status_serie="{!!mb_strtolower($arma_espingarda_gdl['status_serie'])!!}" id="estado_serie_gdl" ></span>
+                <span hidden num_serie="{!!mb_strtolower($arma_espingarda_gdl['num_serie'])!!}" id="num_serie_gdl" ></span>
+                <span hidden capacidade="{!!mb_strtolower($arma_espingarda_gdl['capacidade'])!!}" id="capacidade_gdl" ></span>
+                <span hidden acabamento="{!!mb_strtolower($arma_espingarda_gdl['acabamento'])!!}" id="acabamento_gdl" ></span>
+                <span hidden patrimonio="{!!mb_strtolower($arma_espingarda_gdl['patrimonio'])!!}" id="patrimonio_gdl" ></span>
+                <span hidden lacre_saida="{!!mb_strtolower($arma_espingarda_gdl['lacre_saida'])!!}" id="lacre_saida_gdl" ></span>
+                <span hidden fabricacao="{!!mb_strtolower($arma_espingarda_gdl['fabricacao'])!!}" id="fabricacao_gdl" ></span>
+                <span hidden modelo="{!!mb_strtolower($arma_espingarda_gdl['modelo'])!!}" id="modelo_gdl" ></span>
+                <span hidden calibreNominal="{!!mb_strtolower($arma_espingarda_gdl['calibre_nominal'])!!}" id="calibre_gdl" ></span>
+                <span hidden funcionamento="{!!mb_strtolower($arma_espingarda_gdl['funcionamento'])!!}" id="funcionamento_gdl" ></span>
                 
         @endempty
         @empty($armas)
