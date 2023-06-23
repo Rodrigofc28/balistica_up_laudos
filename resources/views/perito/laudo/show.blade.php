@@ -11,30 +11,21 @@
 
 @endsection
 @section('page')
-<div class="col-8">
+{{-- <div class="col-8">
     <h4>Visão Geral do Laudo</h4>
    
    
       
-</div>
+</div> --}}
 <hr>
 
-<div id="showLaudo">
+<div id="showLaudo" class="col-lg-12">
         <span><strong>REP:</strong> {{$laudo->rep}}</span><br>
-        <span><strong>OFÍCIO:</strong> {{$laudo->oficio}}</span><br>
-        <span><strong>TIPO DE INQUÉRITO: </strong> {{$laudo->tipo_inquerito}}</span><br>
-        <span><strong>Nº INQUÉRITO: </strong> {{$laudo->inquerito}}</span><br>
-        <span><strong>DATA SOLICITAÇÃO: </strong> {{$laudo->data_solicitacao}}</span><br>
-        <span><strong>DATA DA DESIGNAÇÃO: </strong>{{formatar_data_do_bd( $laudo->data_designacao)}}</span><br>
-        <span><strong>DATA DA OCORRÊNCIA: </strong> {{$laudo->data_ocorrencia!=''?formatar_data_do_bd($laudo->data_ocorrencia):''}}</span><br>
-        <span><strong>DATA DO RECEBIMENTO:</strong> {{formatar_data_do_bd($laudo->data_recebimento)}}</span><br>
-        <span><strong>UNIDADE:</strong>{{empty($laudo->secao->nome)?'':$laudo->secao->nome}}</span><br>
-        <span><strong>ORGÃO SOLICITANTE: </strong>{{@!empty($laudo->solicitante->nome)?$laudo->solicitante->nome:$laudo->orgaoGdl}}</span><br>
-        <span><strong>CIDADE: </strong>{{@!empty($laudo->cidade_id)?$laudo->cidade_id:$laudo->cidadeGdl}}</span><br>
         
-        <span><strong>Nº BOLETIM DE OCORRÊNCIA:</strong> {{$laudo->boletim_ocorrencia}}</span><br>
+        <input type="button" class="btn btn-success" id="btn-edit" value="Editar Informações do cabeçalho">
+       
       </div>
-      <input type="button" id="btn-edit" value="Editar Informações do Laudo"> 
+       
 <div class="col-lg-12" id="editarInformacoes">
     {!! Form::open(['route' => ['laudos.update', $laudo], 'method' => 'patch']) !!}
 
@@ -87,7 +78,7 @@
 <hr>
 
 <div class="col-lg-12">
-    <h4 class="mb-4">Material Periciado: </h4>
+    
     
     <div style="border:solid 1px #E0E0E0; ">
     
@@ -97,11 +88,21 @@
         
             <h4><strong style="padding:10px "> ADICIONAR IMAGENS DA EMBALAGEM RECEBIDA </strong> </h4>
             <input type="text" hidden name="laudo_id" value="{{$laudo->id}}">
-            <span style="padding-right:1%;padding-left:1%;"> <strong>FRENTE</strong> </span><input type="file"  name="fotoEmbalagem[]" multiple="multiple"id="" accept=".jpg, .jpeg, .png">
-            <button type="submit" style="border:solid 0px;background:#007bff;color:white" >enviar </button><br>
-            <input type="text" hidden name="laudo_id" value="{{$laudo->id}}">
-            <span style="padding-right:1.7%;padding-left:1%;"><strong> VERSO</strong></span><input type="file"  name="fotoEmbalagem[]" multiple="multiple"id="" accept=".jpg, .jpeg, .png">
-            <button type="submit" style="border:solid 0px;background:#007bff;color:white" >enviar</button>
+            
+            <div class="input-group mb-2">
+                <button style="border:solid 0px;">FRENTE</button>
+                <button type="submit" style="border:solid 0px;background:#007bff;color:white" >ENVIAR </button>
+                
+                <input type="file" class="form-control" id="inputGroupFile01"name="fotoEmbalagem[]" multiple="multiple"id="" accept=".jpg, .jpeg, .png">
+                
+            </div>
+            <div class="input-group mb-2">
+                <button style="border:solid 0px;">VERSO</button>
+                <button type="submit" style="border:solid 0px;background:#007bff;color:white" >ENVIAR</button>
+                <input type="file" class="form-control" id="inputGroupFile01"name="fotoEmbalagem[]" multiple="multiple"id="" accept=".jpg, .jpeg, .png">
+                
+            </div>
+           
             
            
         </form>

@@ -89,7 +89,7 @@ class LaudosController extends Controller
         if(isset($request->request_GDL)){
             $arma=Arma::all();
             $laudo = Laudo::config_laudo_info($request);
-            
+           
             $laudo = Laudo::create($laudo);
             
             $laudo_id = $laudo->id;
@@ -108,13 +108,11 @@ class LaudosController extends Controller
 
             $users_img_municoes = DB::select('select lacrecartucho,lacre_saida, group_concat(id),tipo_municao from municoes where laudo_id = ? group by lacrecartucho,lacre_saida,tipo_municao', [$laudo->id]);
             $objMuni=(object) $users_img_municoes;
-           
+            
         
+            return redirect()->route('laudos.show',$laudo);
             
             
-            return view('perito.laudo.show_gdl_laudo',
-                compact('laudo', 'cidades', 'solicitantes',
-                    'diretores', 'secoes', 'armas', 'municoes', 'componentes','obj','objMuni','armasGdl'));
 
 
         }

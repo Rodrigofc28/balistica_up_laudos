@@ -34,12 +34,13 @@ class EspingardasController extends Controller
     {
         //Dados vindo do GDL TABELA tabela_pecas_gdl seleciona tudo quando as rep forem iguais
       //busca a valor do id correspondente
+
       $arma_espingarda_gdl=Armas_Gdl::find($request->id);
       
 
       if ($arma_espingarda_gdl) {
         
-        $arma_espingarda_gdl->status = "Não pendente"; // Corrected assignment
+        $arma_espingarda_gdl->status = "CADASTRADO"; // Muda o status para Não pendente
         // tem que criar a coluna updated_at tipo TIMESTAMP
         $arma_espingarda_gdl->save(); // Savando no banco de dados
         
@@ -130,9 +131,38 @@ class EspingardasController extends Controller
      */
     public function update(EspingardaRequest $request, $laudo_id, Arma $espingarda)
     {
+        
         $updated_arma = $request->all();
         Arma::find($espingarda->id)->fill($updated_arma)->save();
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_f', ['model' => 'Espingarda']));
+    }
+
+    
+
+    /**
+     * Show the form for editing the specified resource.
+     *Editando arma tipo espingarda vindo do GDL
+     * @param  \App\Models\Laudo $laudo
+     * @param  $id_arma_gdl
+     * @return \Illuminate\Http\Response
+     */
+    public function edit_gdl($laudo,$id_arma_gdl)
+    {
+        $espingarda=Arma::where('id_armas_gdl',$id_arma_gdl)->first();
+
+
+        $marcas = Marca::marcasWithTrashed('armas', $espingarda->marca);
+        $origens = Origem::origensWithTrashed($espingarda->origem);
+        if($espingarda->calibre==null){
+            $calibres =[]; 
+        }else{
+        $calibres = Calibre::calibresWithTrashed('Espingarda', $espingarda->calibre);
+        }
+        $imagens = $espingarda->imagens;
+        
+        return view('perito.laudo.materiais.armas.espingarda.edit',
+            compact('espingarda', 'laudo', 'marcas', 'origens', 'calibres', 'imagens'));
+        
     }
 }

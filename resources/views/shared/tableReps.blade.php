@@ -2,7 +2,7 @@
 @section('page')
 <div class="col-lg-12">
     <div class="row m-auto">
-        <h3 class="float-left">{{ $model_name_plural }}: </h3>
+        {{-- <h3  class="float-left">{{ $model_name_plural }}: </h3> --}}
     </div>
     
     <div class="table-responsive">

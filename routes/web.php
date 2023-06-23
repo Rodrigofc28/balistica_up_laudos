@@ -53,6 +53,11 @@ Route::get('laudos/solicitantes/cidade/{cidade_id}',
 
 Route::post('laudos/armas/{arma}/images', 'Perito\ArmasController@store_image')->name('armas.images');
 Route::delete('laudos/armas/{arma}/images', 'Perito\ArmasController@delete_image')->name('armas.images.delete');
+/* Passando dois parametros a rota laudo e arma, para ser editado */
+Route::prefix('laudos/{laudo}/{arma}')->group(function () {
+    Route::get('espingardas.edit_gdl', 'Perito\Armas\EspingardasController@edit_gdl')->name('edit_gdl');
+
+});
 
 Route::prefix('laudos/{laudo}')->group(function () {
     Route::get('materiais', 'Perito\LaudosController@materiais')->name('laudos.materiais');
@@ -60,6 +65,9 @@ Route::prefix('laudos/{laudo}')->group(function () {
     Route::resource('revolveres', 'Perito\Armas\RevolveresController')
         ->parameters(['revolveres' => 'revolver']);
     Route::resource('espingardas', 'Perito\Armas\EspingardasController');
+
+    Route::get('espingardas.update_gdl', 'Perito\Armas\EspingardasController@update_gdl')->name('update_gdl');
+    
 
     Route::resource('carabinas', 'Perito\Armas\CarabinasController');
 

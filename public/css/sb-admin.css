@@ -10945,3 +10945,10 @@ body.sidebar-toggled footer.sticky-footer {
   display: grid;
 }
 
+#progress-bar {
+  width: 0%;
+  height: 5px;
+  background-color: blue;
+  transition: width 0.1s ease;
+}
+

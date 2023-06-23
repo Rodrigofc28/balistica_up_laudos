@@ -102,8 +102,12 @@
 @if($reps!=""&$armasGdl!="")
 
     <div style="border:1px solid black;">
+        <button style="border:0px ;">+</button>
+            <button style="border:0px ;">-</button>
         <div id="tab_gdl" >
-            <strong><p id="titulo">Lista de Envolvidos</p></strong> <br>
+            
+            <p id="titulo"><strong>Lista de Envolvidos</strong></p> 
+            
                
               @php
                 $envolvidoGdl=implode(',',$reps['envolvido'])

@@ -29,7 +29,8 @@ class Arma extends Model
         'trava_seguranca', 'retem_carregador', 'carregamento', 'numeracao_montagem', 'modelo',
         'num_lacre_saida','coronha','diametro_cano','numero_patrimonio','telha',
         'sistema_percussao','salva_cadastro','tipo_tambor','tambor_rebate','sistema_disparo','quantidade_canos'
-        ,'rep_materialColetado','origem_coletaPerito','institutoArma','imagemCantoSuperior','imagemCantoInferior','imagemNumSerie','dito_oficio'
+        ,'rep_materialColetado','origem_coletaPerito','institutoArma','imagemCantoSuperior','imagemCantoInferior',
+        'imagemNumSerie','dito_oficio','id_armas_gdl'
     ];
 
     protected $dates = ['deleted_at'];

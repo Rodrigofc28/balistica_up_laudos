@@ -11,30 +11,13 @@
 
 @endsection
 @section('page')
-<div class="col-8">
-    <h4>Visão Geral do Laudo</h4>
-   
-  
-      
-</div>
-<hr>
 
-<div id="showLaudo">
+
+<div id="showLaudo" class="col-lg-12">
         <span><strong>REP:</strong> {{$laudo->rep}}</span><br>
-        <span><strong>OFÍCIO:</strong> {{$laudo->oficio}}</span><br>
-        <span><strong>TIPO DE INQUÉRITO: </strong> {{$laudo->tipo_inquerito}}</span><br>
-        <span><strong>Nº INQUÉRITO: </strong> {{$laudo->inquerito}}</span><br>
-        <span><strong>DATA SOLICITAÇÃO: </strong> {{$laudo->data_solicitacao}}</span><br>
-        <span><strong>DATA DA DESIGNAÇÃO: </strong>{{formatar_data_do_bd( $laudo->data_designacao)}}</span><br>
-        <span><strong>DATA DA OCORRÊNCIA: </strong> {{$laudo->data_ocorrencia!=''?formatar_data_do_bd($laudo->data_ocorrencia):''}}</span><br>
-        <span><strong>DATA DO RECEBIMENTO:</strong> {{formatar_data_do_bd($laudo->data_recebimento)}}</span><br>
-        <span><strong>UNIDADE:</strong>{{empty($laudo->secao->nome)?'':$laudo->secao->nome}}</span><br>
-        <span><strong>ORGÃO SOLICITANTE: </strong>{{@!empty($laudo->solicitante->nome)?$laudo->solicitante->nome:$laudo->orgaoGdl}}</span><br>
-        <span><strong>CIDADE: </strong>{{@!empty($laudo->cidade_id)?$laudo->cidade_id:$laudo->cidadeGdl}}</span><br>
-        
-        <span><strong>Nº BOLETIM DE OCORRÊNCIA:</strong> {{$laudo->boletim_ocorrencia}}</span><br>
+        <input type="button" id="btn-edit" class="btn btn-success" value="Editar cabeçalho do Laudo"> 
       </div>
-      <input type="button" id="btn-edit" value="Editar Informações do Laudo"> 
+      
 <div class="col-lg-12" id="editarInformacoes">
     {!! Form::open(['route' => ['laudos.update', $laudo], 'method' => 'patch']) !!}
 
@@ -87,7 +70,7 @@
 <hr>
 
 <div class="col-lg-12">
-    <h4 class="mb-4">Material Periciado GDL: </h4>
+    
     
     <div style="border:solid 1px #E0E0E0; ">
     
@@ -97,11 +80,19 @@
         
             <h4><strong style="padding:10px "> ADICIONAR IMAGENS DA EMBALAGEM RECEBIDA </strong> </h4>
             <input type="text" hidden name="laudo_id" value="{{$laudo->id}}">
-            <span style="padding-right:1%;padding-left:1%;"> <strong>FRENTE</strong> </span><input type="file"  name="fotoEmbalagem[]" multiple="multiple"id="" accept=".jpg, .jpeg, .png">
-            <button type="submit" style="border:solid 0px;background:#007bff;color:white" >enviar </button><br>
-            <input type="text" hidden name="laudo_id" value="{{$laudo->id}}">
-            <span style="padding-right:1.7%;padding-left:1%;"><strong> VERSO</strong></span><input type="file"  name="fotoEmbalagem[]" multiple="multiple"id="" accept=".jpg, .jpeg, .png">
-            <button type="submit" style="border:solid 0px;background:#007bff;color:white" >enviar</button>
+            <div class="input-group mb-2">
+                <button style="border:solid 0px;">FRENTE</button>
+                <button type="submit" style="border:solid 0px;background:#007bff;color:white" >ENVIAR </button>
+                
+                <input type="file" class="form-control" id="inputGroupFile01"name="fotoEmbalagem[]" multiple="multiple"id="" accept=".jpg, .jpeg, .png">
+                
+            </div>
+            <div class="input-group mb-2">
+                <button style="border:solid 0px;">VERSO</button>
+                <button type="submit" style="border:solid 0px;background:#007bff;color:white" >ENVIAR</button>
+                <input type="file" class="form-control" id="inputGroupFile01"name="fotoEmbalagem[]" multiple="multiple"id="" accept=".jpg, .jpeg, .png">
+                
+            </div>
             
            
         </form>
@@ -112,7 +103,8 @@
         
         @if(isset($laudo->imagens[0]->nome))
        
-       
+       <button>+</button>
+       <button>-</button>
             
             @php
             
@@ -127,58 +119,77 @@
     </div>
  
     </div>
+    <p id="titulo"><strong>Peças</strong></p>
     
-    <section id="tab_gdl" class="grid-conterner-gdl">
-        <p id="titulo"><strong>Peças</strong></p>
+    
+        
+        
         @foreach($armasGdl as $armagdl)
+            <hr>
+                <div id="group_pecas_gdl">
+                    <button class="btn btn-primary">+</button>
+                    <button class="btn btn-primary">-</button>
+                    @if($armagdl->status=="CADASTRAR")
+                    {{-- Cadastrar Arma --}}
+                        @switch($armagdl->tipo_item)
+                            @case('ESPINGARDA(S)')
+                                
+                                    <a class="btn btn-primary " href="{{ route("espingardas.create", [$laudo,'id'=>$armagdl->id,'armas'=>$armasGdl]) }}">CADASTRAR</a>
+                                        @break
+                            
+                            @case('valor2')
+                <!-- Código a ser executado caso $valor seja igual a 'valor2' -->
+                                @break
+
+                            @default
+                <!-- Código a ser executado caso $valor não corresponda a nenhum dos casos anteriores -->
+                        @endswitch
+
+                    
+                    @endif
+                    @if($armagdl->status=="CADASTRADO")
+                    {{-- Editar Arma --}}
+                        @switch($armagdl->tipo_item)
+                            @case('ESPINGARDA(S)')
+                                
+                                    <a class="btn btn-primary " href="{{ route("edit_gdl",[$laudo,$armagdl->id]) }}">EDITAR</a>
+                                        @break
+                            
+                            @case('valor2')
+                <!-- Código a ser executado caso $valor seja igual a 'valor2' -->
+                                @break
+
+                            @default
+                <!-- Código a ser executado caso $valor não corresponda a nenhum dos casos anteriores -->
+                        @endswitch
+
+                    
+                    @endif
             
-            <div>
                 <p><strong>ITEM:</strong> {{$armagdl->tipo_item}}</p>
                 <p><strong>MARCA:</strong> {{$armagdl->marca}}</p>
                 <p><strong>QUANTIDADE:</strong> {{$armagdl->quantidade}}</p>
                 <p><strong>OBSERVAÇÃO:</strong> {{$armagdl->observacao}}</p>
                 <p><strong>IDENTIFICAÇÃO:</strong> {{$armagdl->identificacao}}</p>
                 <p><strong>LACRE DE ENTRADA:</strong> {{$armagdl->lacre_entrada}}</p>
+                <p id="status_pecas" @if($armagdl->status=="CADASTRADO") style="background-color:greenyellow" @else style="background-color:red;color:#fff"  @endif><strong>STATUS:</strong> {{$armagdl->status}}</p>
             </div> 
             <div>
-                @if($armagdl->status==null)
-                    @switch($armagdl->tipo_item)
-                        @case('ESPINGARDA(S)')
-                            
-                                <a href="{{ route("espingardas.create", [$laudo,'item'=>$armagdl,'armas'=>$armasGdl]) }}">CADASTRAR</a>
-                                    @break
-                            
-                        @case('valor2')
-            <!-- Código a ser executado caso $valor seja igual a 'valor2' -->
-                            @break
-
-                        @default
-            <!-- Código a ser executado caso $valor não corresponda a nenhum dos casos anteriores -->
-                    @endswitch
-
-                    
-                @endif
+                
             </div>   
             
          <hr>
         @endforeach
-    </section>
+    
     
 
 
     <div class="row mb-3">
-        {{-- <div class="col-lg-3 mt-2">
+        <div class="col-lg-3 mt-2">
             <a class="btn btn-secondary btn-block" href="{!! URL::previous() !!}">
                 <i class="fas fa-arrow-circle-left"></i> Voltar</a>
-        </div> --}}
+        </div>
 
-        
-        {{-- <div class="col-lg-3 mt-2">
-            <a class="btn btn-success btn-block" href="{{ route('laudos.materiais', $laudo )}}">
-        <i class="fas fa-camera" aria-hidden="true"></i>
-        Adicionar Imagens
-        </a>
-    </div> --}}
     <div class="col-lg-3 mt-2">
         <a class="btn btn-primary btn-block" href="{{ route('laudos.docx', $laudo )}}">
             <i class="fas fa-file-download" aria-hidden="true"></i>

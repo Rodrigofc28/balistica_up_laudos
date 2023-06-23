@@ -9,8 +9,10 @@
 'ths' => ['REP', 'Ofício',  'Status']])
 
 @section('table-content')
-<a href="{{route('laudos.atualiza','CONFRONTO')}}">Buscar Reps de EXAME DE CONFRONTO BALÍSTICO</a><br>
-<a href="{{route('laudos.atualiza','EFICIÊNCIA')}}">Buscar Reps de EXAME DE EFICIÊNCIA E PRESTABILIDADE</a>
+<div id="progress-bar"></div>
+
+<a href="{{route('laudos.atualiza','CONFRONTO')}}"class="btn btn-success" style="width:30%">EXAME DE CONFRONTO BALÍSTICO</a><br>
+<a id="uol" href="{{route('laudos.atualiza','EFICIÊNCIA')}}" class="btn btn-success"style="width:30%">EXAME DE EFICIÊNCIA E PRESTABILIDADE</a>
 
 @if (count($reps) > 0)
 @foreach ($reps as $laudo)
@@ -36,6 +38,21 @@ $new=json_decode($laudo->envolvidos);
        
     </td> 
 </tr>
+<script>
+    var teste = document.getElementById('uol');
+    teste.addEventListener('click', function() {
+        var progressBar = document.getElementById('progress-bar');
+        var progress = 0;
+        var intervalId = setInterval(function() {
+          progress += 1;
+          progressBar.style.width = progress + '%';
+          if (progress >= 100) {
+            clearInterval(intervalId);
+            progressBar.style.display = 'none';
+          }
+        }, 400);
+      });
+</script>
 @endforeach
 @else
 <tr>
