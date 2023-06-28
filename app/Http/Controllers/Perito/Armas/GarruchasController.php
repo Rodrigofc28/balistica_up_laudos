@@ -26,17 +26,11 @@ class GarruchasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($laudo)
+    public function create(Request $request,$laudo)
     {
 
         //Dados vindo do GDL TABELA tabela_pecas_gdl seleciona tudo quando as rep forem iguais
-        $armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$laudo->rep]);
-        $array_gdl_armas=[];
-        foreach($armasGdl as $armagdl){
-            if($armagdl->tipo_item=="GARRUCHA(S)"){
-                array_push($array_gdl_armas,$armagdl);
-            }
-        }
+        $arma_garrucha_gdl=Armas_Gdl::find($request->id);
         $marcas = Marca::categoria('armas');
         
         $armas = DB::select('select modelo from cadastroarmas ');
@@ -44,7 +38,7 @@ class GarruchasController extends Controller
         $origens = Origem::all();
         $calibres = Calibre::whereArma('Garrucha');
         return view('perito.laudo.materiais.armas.garrucha.create',
-            compact('laudo', 'marcas', 'origens', 'calibres','armas','array_gdl_armas'));
+            compact('laudo', 'marcas', 'origens', 'calibres','armas','arma_garrucha_gdl'));
     }
 
     /**
@@ -53,8 +47,16 @@ class GarruchasController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(GarruchaRequest $request)
+    public function store(Request $id_arma_gdl,GarruchaRequest $request)
     {
+        $arma_garrucha_gdl=Armas_Gdl::find($id_arma_gdl->arma);
+        if ($arma_garrucha_gdl) {
+        
+            $arma_garrucha_gdl->status = "CADASTRADO"; // Muda o status para Não pendente
+            // tem que criar a coluna updated_at tipo TIMESTAMP
+            $arma_garrucha_gdl->save(); // Savando no banco de dados
+        
+        }
         Arma::create($request->all());
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])
@@ -111,5 +113,23 @@ class GarruchasController extends Controller
         Arma::find($garrucha->id)->fill($updated_arma)->save();
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_f', ['model' => 'Garrucha']));
+    }
+    public function edit_gdl($laudo,$id_arma_gdl)
+    {
+        $garrucha=Arma::where('id_armas_gdl',$id_arma_gdl)->first();
+
+
+        $marcas = Marca::marcasWithTrashed('armas', $garrucha->marca);
+        $origens = Origem::origensWithTrashed($garrucha->origem);
+        if($garrucha->calibre==null){
+            $calibres =[]; 
+        }else{
+        $calibres = Calibre::calibresWithTrashed('Garrucha', $garrucha->calibre);
+        }
+        $imagens = $garrucha->imagens;
+        
+        return view('perito.laudo.materiais.armas.garrucha.edit',
+            compact('garrucha', 'laudo', 'marcas', 'origens', 'calibres', 'imagens'));
+        
     }
 }

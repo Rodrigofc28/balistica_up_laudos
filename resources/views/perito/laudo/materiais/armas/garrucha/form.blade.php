@@ -3,10 +3,12 @@
 {!! Html::script('js/cabo_material.js') !!} 
 {!! Html::script('js/recorte.js') !!} 
 {!! Html::script('js/sessionGarrucha.js') !!} 
+@if($acao == 'Cadastrar')
 {!! Html::script('js/sessionArmas.js') !!} 
+@endif
 @endsection
 @if ($acao == 'Cadastrar')
-{!! Form::open(['route' => ['garruchas.store', $laudo ], 'files' => true]) !!}
+{!! Form::open(['route' => ['garruchas.store', $laudo,'arma'=>$arma_garrucha_gdl ], 'files' => true]) !!}
 @elseif ($acao == 'Atualizar')
 {!! Form::open(['route' => ['garruchas.update', $laudo, $garrucha], 'method' => 'patch', 'files' => true]) !!}
 @else
@@ -18,7 +20,11 @@
 
 <div class="col-lg-12" style="padding: 0 5% 0">
     <div class="row mb-3">
+        @empty($arma_garrucha_gdl)
         
+        @else
+            @include('perito.laudo.materiais.attributes.atributes_arma_gdl',['name_arma_gdl'=>$arma_garrucha_gdl])
+        @endempty
         {{--Verifica se @armas esta vazio caso não esteja inclui buscar_cadastro_salvo--}}
         @empty($armas)
             @else

@@ -71,7 +71,7 @@
 
 <div class="col-lg-12">
     
-    
+    {{-- IMAGENS EMBALAGENS --}}
     <div style="border:solid 1px #E0E0E0; ">
     
         <form action="{{route('embalagem')}}" method="post"  enctype="multipart/form-data">
@@ -98,92 +98,131 @@
         </form>
     
         <hr>
-        <div>
-        
-        
-        @if(isset($laudo->imagens[0]->nome))
-       
-       <button>+</button>
-       <button>-</button>
-            
-            @php
-            
-                for ($i = 0; $i < count($laudo->imagens); $i++) {
-                    echo '<div style="background-color:#90EE90">    
-                        <img src="' . asset('../public/storage/imagensEmbalagem/' . $laudo->imagens[$i]->nome) . '" style="width:100px;height:100px;padding:10px" alt="">
-                        <strong><a href="' . route('imagemExcluir', $laudo->imagens[$i]) . '" style="color:white">EXCLUIR IMAGEM</a></strong>
-                        </div>';
-                }
-            @endphp
+        @if(count($laudo->imagens)>0)
+            <button id="btnAumentarImg" class="btn btn-primary" >+</button>
+            <button id="btnDiminuirImg" class="btn btn-primary" >-</button>
         @endif
-    </div>
+        <div id="imageHideShow">
+        
+        
+                @if(isset($laudo->imagens[0]->nome))
+            
+            
+                    
+                    @php
+                    
+                        for ($i = 0; $i < count($laudo->imagens); $i++) {
+                            echo '<div style="background-color:#90EE90">    
+                                <img src="' . asset('../public/storage/imagensEmbalagem/' . $laudo->imagens[$i]->nome) . '" style="width:100px;height:100px;padding:10px" alt="">
+                                <strong><a href="' . route('imagemExcluir', $laudo->imagens[$i]) . '" style="color:white">EXCLUIR IMAGEM</a></strong>
+                                </div>';
+                        }
+                    @endphp
+                @endif
+        </div>
  
     </div>
-    <p id="titulo"><strong>Peças</strong></p>
-    
-    
-        
-        
-        @foreach($armasGdl as $armagdl)
-            <hr>
-                <div id="group_pecas_gdl">
-                    <button class="btn btn-primary">+</button>
-                    <button class="btn btn-primary">-</button>
-                    @if($armagdl->status=="CADASTRAR")
-                    {{-- Cadastrar Arma --}}
-                        @switch($armagdl->tipo_item)
-                            @case('ESPINGARDA(S)')
-                                
-                                    <a class="btn btn-primary " href="{{ route("espingardas.create", [$laudo,'id'=>$armagdl->id,'armas'=>$armasGdl]) }}">CADASTRAR</a>
-                                        @break
-                            
-                            @case('valor2')
-                <!-- Código a ser executado caso $valor seja igual a 'valor2' -->
-                                @break
+    {{-- IMAGENS CARTUCHOS E ESTOJOS --}}
+    <div  style="border:solid 1px #E0E0E0; ">
 
-                            @default
-                <!-- Código a ser executado caso $valor não corresponda a nenhum dos casos anteriores -->
-                        @endswitch
-
-                    
-                    @endif
-                    @if($armagdl->status=="CADASTRADO")
-                    {{-- Editar Arma --}}
-                        @switch($armagdl->tipo_item)
-                            @case('ESPINGARDA(S)')
-                                
-                                    <a class="btn btn-primary " href="{{ route("edit_gdl",[$laudo,$armagdl->id]) }}">EDITAR</a>
-                                        @break
-                            
-                            @case('valor2')
-                <!-- Código a ser executado caso $valor seja igual a 'valor2' -->
-                                @break
-
-                            @default
-                <!-- Código a ser executado caso $valor não corresponda a nenhum dos casos anteriores -->
-                        @endswitch
-
-                    
-                    @endif
-            
-                <p><strong>ITEM:</strong> {{$armagdl->tipo_item}}</p>
-                <p><strong>MARCA:</strong> {{$armagdl->marca}}</p>
-                <p><strong>QUANTIDADE:</strong> {{$armagdl->quantidade}}</p>
-                <p><strong>OBSERVAÇÃO:</strong> {{$armagdl->observacao}}</p>
-                <p><strong>IDENTIFICAÇÃO:</strong> {{$armagdl->identificacao}}</p>
-                <p><strong>LACRE DE ENTRADA:</strong> {{$armagdl->lacre_entrada}}</p>
-                <p id="status_pecas" @if($armagdl->status=="CADASTRADO") style="background-color:greenyellow" @else style="background-color:red;color:#fff"  @endif><strong>STATUS:</strong> {{$armagdl->status}}</p>
-            </div> 
-            <div>
+        @php
+            $colecoes=[];
+        @endphp  
+        @foreach ($objMuni as $obj_img)
+            @php
                 
-            </div>   
+                    $numero = preg_replace('/^(\d+),\d+$/', '$1', $obj_img->{'group_concat(id)'});
+                    array_push($colecoes,$numero);
+                    if(!empty($obj_img->lacrecartucho)){
+                        $mensagemImage="ENTRADA $obj_img->lacrecartucho";
+                    }else{
+                        $mensagemImage="SAIDA $obj_img->lacre_saida";
+                    }
+            @endphp
             
-         <hr>
+                <h4><strong style="padding:10px;  ">ADICIONAR IMAGEM {{mb_strtoupper($obj_img->tipo_municao)}} </strong> </h4>
+                
+                <p style="padding-left:1%" > LACRE {{$mensagemImage}} </p>
+            
+            
+                <form action="{{route('imagens')}}" method="post" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <div class="input-group mb-2">
+                            <input type="text" value="{{$numero}}" hidden name="municao_id">
+                            <button type="submit" style="border:solid 0px;background:#007bff;color:white">ENVIAR</button>
+                            <input type="file" class="form-control" style="padding-left:1%" name="image[]" multiple="multiple" id="inputGroupFile01" accept=".jpg, .jpeg, .png">
+                            
+                            
+                        </div>
+                        
+                </form>
+            
+                <hr> 
+            
+        @endforeach
+        @foreach($municoes as $municao)
+            @foreach($colecoes as $colecao )
+                @if(isset($municao->imagens[0]->nome))
+                    @if($colecao==$municao->id)
+                        <div style="background-color:#90EE90">
+                            <img src="{{asset('../public/storage/imagensMunicao/'.$municao->imagens[0]->nome)}}" style="width:100px;height:100px;padding:10px"alt="">
+                            <strong><a href="{{route('imagemCartuchoExcluir',$municao->imagens[0])}}" style="color:white">EXCLUIR IMAGEM</a></strong>
+                            <span><strong>{{$municao->lacrecartucho==''?$municao->lacre_saida:$municao->lacrecartucho}}</strong></span>
+                        </div>
+                    @endif
+                @endif
+            @endforeach
         @endforeach
     
-    
-
-
+    </div>
+    {{-- IMAGENS PROJETIL --}}
+    <div  style="border:solid 1px #E0E0E0; ">
+            
+        
+        
+          @php
+          $colecoes=[];
+          @endphp  
+            @foreach ($obj as $obj_img)
+            <h4><strong style="padding:10px;  ">ADICIONAR IMAGEM PROJÉTIL</strong>  </h4>
+            <p style="padding-left:1%" > LACRE {{$obj_img->lacrecartucho==""?'SAIDA '.$obj_img->lacreSaida:'ENTRADA '.$obj_img->lacrecartucho}}</p>
+        @php
+            
+            $numero = preg_replace('/^(\d+),\d+$/', '$1', $obj_img->{'group_concat(id)'});
+            array_push($colecoes,$numero);
+        @endphp
+            <form action="{{route('imagensProjetil')}}" method="post" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <div class="input-group mb-2">
+                            <input type="text" value="{{$numero}}" hidden name="projetil_id">
+                            <button type="submit" style="border:solid 0px;background:#007bff;color:white">ENVIAR</button>
+                            <input type="file" style="padding-left:1%" class="form-control"  name="image[]" multiple="multiple" id="inputGroupFile01" accept=".jpg, .jpeg, .png">
+                            
+                        </div>
+                        
+                        
+            </form>
+                
+              <hr>      
+            @endforeach
+            @foreach($componentes as $componente)
+                @foreach($colecoes as $colecao )
+                    @if(isset($componente->imagensProjetil[0]->nome))
+                        @if($colecao==$componente->id)
+                            <div style="background-color:#90EE90">
+                                <img src="{{asset('../public/storage/imagensProjetil/'.$componente->imagensProjetil[0]->nome)}}" style="width:100px;height:100px;padding:10px"alt="">
+                                <a href="{{route('imagemProjetilExcluir',$componente->imagensProjetil[0])}}" style="color:white"><strong>EXCLUIR IMAGEM</strong></a>
+                                <span><strong>{{$componente->lacrecartucho}}</strong></span>
+                             </div>
+                        @endif
+                    @endif
+                @endforeach
+            @endforeach
+        
+        </div>
+        
+    <p id="titulo"><strong>Peças</strong></p>
+    @include('perito.laudo.materiais.attributes.lista_pecas_gdl')
     <div class="row mb-3">
         <div class="col-lg-3 mt-2">
             <a class="btn btn-secondary btn-block" href="{!! URL::previous() !!}">
@@ -200,3 +239,7 @@
 </div>
 @include('perito.modals.solicitante_modal')
 @endsection
+        
+        
+
+    

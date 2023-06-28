@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Perito\Armas;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\Armas\MetralhadoraRequest;
 use App\Models\Arma;
 use App\Models\Calibre;
@@ -10,6 +11,7 @@ use App\Models\Marca;
 use App\Models\Origem;
 use App\Models\Cadastroarmas;
 use Illuminate\Support\Facades\DB;
+use App\Models\Armas_Gdl;
 class MetralhadorasController extends Controller
 {
     
@@ -22,23 +24,17 @@ class MetralhadorasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($laudo)
+    public function create(Request $request,$laudo)
     {
-        
+        $arma_metralhadora_gdl=Armas_Gdl::find($request->id);
         //Dados vindo do GDL TABELA tabela_pecas_gdl seleciona tudo quando as rep forem iguais
-        $armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$laudo->rep]);
-        $array_gdl_armas=[];
-        foreach($armasGdl as $armagdl){
-            if($armagdl->tipo_item=="METRALHADORA(S)"){
-                array_push($array_gdl_armas,$armagdl);
-            }
-        }
+        
         $marcas = Marca::categoria('armas'); // classes do models marca, origem, calibre
         $origens = Origem::all();
         $calibres = Calibre::whereArma('Metralhadora');
         $armas = DB::select('select modelo from cadastroarmas '); 
         return view('perito.laudo.materiais.armas.metralhadora.create',
-            compact('laudo', 'marcas', 'origens', 'calibres','armas','array_gdl_armas'));
+            compact('laudo', 'marcas', 'origens', 'calibres','armas','arma_metralhadora_gdl'));
     }
         public function show(Arma $metralhadora)
         {
@@ -92,12 +88,40 @@ class MetralhadorasController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MetralhadoraRequest $request)
+    public function store(Request $id_arma_gdl,MetralhadoraRequest $request)
     {
+        $arma_metralhadora_gdl=Armas_Gdl::find($id_arma_gdl->arma);
+      
+
+        if ($arma_metralhadora_gdl) {
+        
+            $arma_metralhadora_gdl->status = "CADASTRADO"; // Muda o status para Não pendente
+            // tem que criar a coluna updated_at tipo TIMESTAMP
+            $arma_metralhadora_gdl->save(); // Savando no banco de dados
+        
+        }
         Arma::create($request->all());
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])
             ->with('success', __('flash.create_f', ['model' => 'Metralhadora']));
+    }
+    public function edit_gdl($laudo,$id_arma_gdl)
+    {
+        $metralhadora=Arma::where('id_armas_gdl',$id_arma_gdl)->first();
+
+
+        $marcas = Marca::marcasWithTrashed('armas', $metralhadora->marca);
+        $origens = Origem::origensWithTrashed($metralhadora->origem);
+        if($metralhadora->calibre==null){
+            $calibres =[]; 
+        }else{
+        $calibres = Calibre::calibresWithTrashed('Metralhadora', $metralhadora->calibre);
+        }
+        $imagens = $metralhadora->imagens;
+        
+        return view('perito.laudo.materiais.armas.metralhadora.edit',
+            compact('metralhadora', 'laudo', 'marcas', 'origens', 'calibres', 'imagens'));
+        
     }
 
 }

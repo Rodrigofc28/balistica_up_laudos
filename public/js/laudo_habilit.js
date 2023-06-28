@@ -108,18 +108,21 @@ $(document).ready(function() {
     
   });
 
-console.log($('#laudoGDL').val())
-  if($('#laudoGDL').val() != null){
-    
-    $('#solicitante_id').attr('disabled', true)
-    $('#cidade').attr('disabled', true)
+console.log('laudo ffff'+$('#laudoGDL').val())
+  if($('#laudoGDL').val() != ''){
+ 
     $('#eficiencia').prop('checked',true)
-    $('#nome_vitima').attr('disabled',true)
-    $('#perfil_envolvido').attr('disabled',true)
-    $('#indiciado').attr('disabled',true)
-  
+ 
 }
+$('#aumentar').on('click',function(){
+  $('#laudo_campo').show(1000)/*slideDown(1000); aparece de cima pra baixo  */
+  console.log('aumentar')
 
+})
+$('#diminuir').on('click',function(){
+  $('#laudo_campo').slideUp(1000) /* slideUp(1000) desaparece de baixo pra cima */
+  console.log('diminuir')
+})
 //busca cep em desenvolvimento
 $('#buttoncep').on('click',function(e){
      e.preventDefault();

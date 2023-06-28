@@ -1,11 +1,20 @@
 /* Armazena os dados LocalStorage */
 /* Session */
 var marca=$("#marca")
+console.log('Marca: '+marca.val())
 /* captura os dados gdl *****************************************************/
-if($('#marca_gdl').attr('marca')!=null){
+console.log('Marca: ',$('#marca_gdl').attr('marca'))
+
+if($('#marca_gdl').attr('marca')!=''){
+    if($('#marca_gdl').attr('marca')===undefined){
+       
+    }else{
     sessionStorage.setItem('marca_espingarda',$('#marca_gdl').attr('marca'));
     /* pegando o text do elemento e comparando */
     $('#marca option:selected').text(sessionStorage.getItem('marca_espingarda'))
+    sessionStorage.setItem('fabricacao',$('#fabricacao_gdl').attr('fabricacao'));
+    $('#pais').val(sessionStorage.getItem('fabricacao'));
+}
 }
 else{
 marca.on('change',function(){
@@ -14,36 +23,43 @@ marca.on('change',function(){
     sessionStorage.setItem('marca_espingarda',marca.val());
 })
 marca.val(sessionStorage.getItem('marca_espingarda'))
-
+$('#pais').val(sessionStorage.getItem('marca_espingarda'));
 }
 marca.trigger('change');
+console.log('Marca dd: '+marca.val())
 /* Fabricacao ***************************************************************/
+console.log('Fabricacao: '+$('#fabricacao_gdl').attr('fabricacao'))
 
-$('#pais').val(sessionStorage.getItem('marca_espingarda'));
 $('#pais').trigger('change');
 
 /*Modelo*********************************************************************/
 var modelo = $("#modelo")
+console.log('Modelo: '+$('#modelo_gdl').attr('modelo'))
+if($('#modelo_gdl').attr('modelo')!=''){
+    sessionStorage.setItem('modelo_espingarda',$('#modelo_gdl').attr('modelo'));
+}else{
 modelo.on('input',function(){
     sessionStorage.setItem('modelo_espingarda',modelo.val());
 })
+}
 modelo.val(sessionStorage.getItem('modelo_espingarda'))
 /* Status Serie */
 var statusSerie = $("#tipo_serie")
-if($('#estado_serie_gdl').attr('status_serie')!=null){
+console.log('Status Serie: '+$('#estado_serie_gdl').attr('status_serie'))
+if($('#estado_serie_gdl').attr('status_serie')!=''){
     sessionStorage.setItem('statusSerie_espingarda',$('#estado_serie_gdl').attr('status_serie'));
 }
 else{
 statusSerie.on('change',function(){
-    console.log($("#tipo_serie").val())
+    
     sessionStorage.setItem('statusSerie_espingarda',statusSerie.val());
 })}
 statusSerie.val(sessionStorage.getItem('statusSerie_espingarda'))
 statusSerie.trigger('change')
 /* Num Serie *************************************************************/
 var numSerie = $("#num_serie")
-
-if($('#num_serie_gdl').attr('num_serie')!=null){
+console.log('Numero de Serie: '+$('#num_serie_gdl').attr('num_serie'))
+if($('#num_serie_gdl').attr('num_serie')!=''){
     sessionStorage.setItem('numSerie_espingarda',$('#num_serie_gdl').attr('num_serie'));
 }
 else{
@@ -54,6 +70,7 @@ numSerie.on('input',function(){
 numSerie.val(sessionStorage.getItem('numSerie_espingarda'))
 /* Num Patrimonio **********************************************************************/
 var numPatrimonio = $("#numPatrimonio")
+console.log('Patrimonio: '+$('#patrimonio_gdl').attr('patrimonio'))
 if($('#patrimonio_gdl').attr('patrimonio')){
     sessionStorage.setItem('numPatrimonio_espingarda',$('#patrimonio_gdl').attr('patrimonio'));
 }else{
@@ -71,11 +88,15 @@ num_canos.val(sessionStorage.getItem('num_canos_espingarda'))
 num_canos.trigger('change')
 /* Sistema de Carregamento */
 var calibre = $("#calibre")
-
+console.log('Calibre: '+$('#calibre_gdl').attr('calibreNominal'))
+if($('#calibre_gdl').attr('calibreNominal')!=null){
+    sessionStorage.setItem('calibre_espingarda',$('#calibre_gdl').attr('calibreNominal'));
+}else{
 calibre.on('change',function(){
     
     sessionStorage.setItem('calibre_espingarda',calibre.val());
-})
+})}
+
 calibre.val(sessionStorage.getItem('calibre_espingarda'))
 calibre.trigger('change')
 /* Regime de Tiro */
@@ -97,8 +118,8 @@ tipo_carregador.val(sessionStorage.getItem('tipo_carregador_espingarda'))
 tipo_carregador.trigger('change')
 /* Capacidade*************************************************************** */
 var capacidade_carregador = $("#capacidade_carregador")
-
-if($('#capacidade_gdl').attr('capacidade')!=null){
+console.log('Capacidade: '+$('#capacidade_gdl').attr('capacidade'))
+if($('#capacidade_gdl').attr('capacidade')!=''){
     sessionStorage.setItem('capacidade_carregador_espingarda',$('#capacidade_gdl').attr('capacidade'));
 }else{
 capacidade_carregador.on('input',function(){
@@ -124,7 +145,8 @@ sistema_disparo.val(sessionStorage.getItem('sistema_disparo_espingarda'))
 sistema_disparo.trigger('change')
 /* Acabamento **************************************************************************/
 var tipo_acabamento = $("#tipo_acabamento")
-if($('#acabamento_gdl').attr('acabamento')!=null){
+console.log('Acabamento: '+$('#acabamento_gdl').attr('acabamento'))
+if($('#acabamento_gdl').attr('acabamento')!=''){
     sessionStorage.setItem('tipo_acabamento_espingarda',$('#acabamento_gdl').attr('acabamento'));
 }else{
 tipo_acabamento.on('change',function(){
@@ -200,9 +222,9 @@ sentido_raias.trigger('change')
 
 /* Estado Geral ******************************************************************/
 var estado_geral = $("#estado_geral")
-console.log($('#estado_geral_gdl').attr('estado_geral'))
+console.log('Estado Geral: '+$('#estado_geral_gdl').attr('estado_geral'))
 /* Dados vindo gdl se for diferente de null o dado e capturado*/
-if($('#estado_geral_gdl').attr('estado_geral')!=null){
+if($('#estado_geral_gdl').attr('estado_geral')!=''){
     sessionStorage.setItem('estado_geral_espingarda',$('#estado_geral_gdl').attr('estado_geral'));
 }else{
     estado_geral.on('change',function(){
@@ -214,11 +236,17 @@ estado_geral.trigger('change')
 
 /* Funcionamento */
 var funcionamento = $("#funcionamento")
+console.log('Funcionamento: '+$('#funcionamento_gdl').attr('funcionamento'))
+if($('#funcionamento_gdl').val()!=''){
+    sessionStorage.setItem('funcionamento_espingarda',$('#funcionamento_gdl').attr('funcionamento'));
+}else{
 funcionamento.on('change',function(){
     
-    sessionStorage.setItem('funcionamento_espingarda',funcionamento.val());
+    sessionStorage.setItem('funcionamento_espingarda',$('#funcionamento').val());
 })
+}
 funcionamento.val(sessionStorage.getItem('funcionamento_espingarda'))
+
 funcionamento.trigger('change')
 
 /* N° Exame de Coleta */
@@ -232,9 +260,14 @@ var numLacreEntrada = $("#numLacreEntrada")
 
 /* lacre vindo do gdl */
 /* Se for diferente de null a rep captura a rep vindo gdl e armazena na sessão */
-console.log($('#lacre_entrada_gdl').attr('lacre'))
-if($('#lacre_entrada_gdl').attr('lacre')!=null){
-sessionStorage.setItem('numLacreEntrada_espingarda',$('#lacre_entrada_gdl').attr('lacre')); 
+console.log('Lacre de Entrada: '+$('#lacre_entrada_gdl').attr('lacre'))
+if($('#lacre_entrada_gdl').attr('lacre')!=''){
+    if($('#lacre_entrada_gdl').attr('lacre')===undefined){
+        
+         }
+         else{
+            sessionStorage.setItem('numLacreEntrada_espingarda',$('#lacre_entrada_gdl').attr('lacre'));
+         }
 }else{
 numLacreEntrada.on('input',function(){
     sessionStorage.setItem('numLacreEntrada_espingarda',numLacreEntrada.val());
@@ -246,7 +279,8 @@ numLacreEntrada.val(sessionStorage.getItem('numLacreEntrada_espingarda'))
 
 /* N° Lacre de Saida **********************************************************************/
 var lacreSaida = $("#lacreSaida")
-if($('#lacre_saida_gdl').attr('lacre_saida')!=null){
+console.log('Lacre de Saida'+$('#lacre_saida_gdl').attr('lacre_saida'))
+if($('#lacre_saida_gdl').attr('lacre_saida')!=''){
     sessionStorage.setItem('lacreSaida_espingarda',$('#lacre_saida_gdl').attr('lacre_saida'));
 }else{
 lacreSaida.on('input',function(){

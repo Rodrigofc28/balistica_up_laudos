@@ -1,7 +1,8 @@
 @section('js')
 {!! Html::script('js/form_municoes.js') !!}
+@if($acao == 'Cadastrar')
 {!! Html::script('js/sessionCartucho.js') !!}
-
+@endif
 @endsection
 
 @if ($acao == 'Cadastrar')
@@ -18,7 +19,11 @@
 
 <div class="col-lg-12" style="padding: 0 5% 0">
     <div class="row mb-3">
-   
+        @empty($arma_estojo_gdl)
+        
+        @else
+            @include('perito.laudo.materiais.attributes.atributes_arma_gdl',['name_arma_gdl'=>$arma_estojo_gdl])
+        @endempty
         @include('perito.laudo.materiais.attributes.tipo_municao', ['tipo_municao2' => $municao->tipo_municao ??
         old('tipo_municao')])
         @include('perito.laudo.materiais.attributes.marca', ['marca2' => $municao->marca->id ?? old('marca_id')])
@@ -61,6 +66,7 @@
        
     </div>
      @endif
+     
     <div class="row justify-content-between mb-4">
         <div class="col-lg-4 mt-1">
             <a class="btn btn-secondary btn-block" href="{!! URL::previous() !!}">

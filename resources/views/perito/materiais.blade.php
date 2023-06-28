@@ -71,11 +71,8 @@
             @include('shared.block_button', ['col_name' => 'componente',
             'value' => 'Projeteis ', 'route' => 'balins_chumbo.create'])
         </div>
-        <!--
-        <div class="col-lg-3 mt-3">
-            @include('shared.block_button', ['col_name' => 'tipo_municao',
-            'value' => 'Cartucho/Estojo Arma Longa', 'route' => 'armas_longas.create'])
-        </div>-->
+        
+        
     </div>
 </div>
 @if($laudo->laudoEfetConst!='constatacao')

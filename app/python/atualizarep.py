@@ -350,7 +350,7 @@ for listMsl in results:
                                             
                                             #acabamento
                                             try:
-                                                ti_acabamento= driver.find_element(By.ID, 'Content_RepMain_ucParts_ddlItemsConsumedExaminationParts')
+                                                ti_acabamento= driver.find_element(By.ID, 'Content_RepMain_ucParts_rptPartsFields_ddlField_7')
                                                 opcao_selecionada_ti_acabamento = ti_acabamento.find_element(By.CSS_SELECTOR, 'option:checked')
                                                 ti_acabamento = opcao_selecionada_ti_acabamento.text
                                                 print("acabamento ",ti_acabamento)
@@ -368,8 +368,10 @@ for listMsl in results:
                                             
                                             try:
                                                 #Incluindo no banco de dados
-                                                cursor.execute("INSERT INTO tabela_pecas_gdl (tipo_item,rep,perito,lacre_entrada,estado_geral,marca,status_serie,num_serie,modelo,funcionamento,calibre_nominal,fabricacao,lacre_saida,consumida,quantidade,descricao,observacao,capacidade,patrimonio,estojo,lote,acabamento,identificacao) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(tipo_item,rep,perito,lacre_entrada_gdl,estado_geral,marca,status_num_serie,num_serie,modelo_gdl,funcionamento,calibre_Nominal,fabricacaoArmaCartucho,lacre_saida_gdl,consumido,quantidade,descricao,observacao_gdl,capacidade,patrimonio,estojo_gdl,lote_gdl,ti_acabamento,identificacao,))
-                                                conn.commit()
+                                                cursor.execute("SELECT tipo_item,lacre_entrada,descricao,quantidade,consumida,rep,perito,num_serie,marca,funcionamento,status_serie,calibre_nominal,fabricacao,lacre_saida,modelo,observacao,patrimonio,acabamento,lote,estojo,capacidade,identificacao FROM tabela_pecas_gdl WHERE tipo_item = %s AND lacre_entrada = %s AND descricao = %s AND quantidade = %s AND consumida = %s AND rep = %s AND perito = %s AND num_serie = %s AND marca = %s AND estado_geral = %s AND funcionamento = %s AND status_serie = %s AND calibre_nominal = %s AND fabricacao = %s AND lacre_saida = %s AND modelo = %s AND observacao = %s AND patrimonio = %s AND acabamento = %s AND lote = %s AND estojo = %s AND capacidade = %s AND identificacao = %s ", (tipo_item,lacre_entrada_gdl,descricao,quantidade,consumido,rep,perito,num_serie,marca,estado_geral,funcionamento,status_num_serie,calibre_Nominal,fabricacaoArmaCartucho,lacre_saida_gdl,modelo_gdl,observacao_gdl,patrimonio,ti_acabamento,lote_gdl,estojo_gdl,capacidade,identificacao))
+                                                if cursor.fetchone() is None:
+                                                    cursor.execute("INSERT INTO tabela_pecas_gdl (tipo_item,rep,perito,lacre_entrada,estado_geral,marca,status_serie,num_serie,modelo,funcionamento,calibre_nominal,fabricacao,lacre_saida,consumida,quantidade,descricao,observacao,capacidade,patrimonio,estojo,lote,acabamento,identificacao) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(tipo_item,rep,perito,lacre_entrada_gdl,estado_geral,marca,status_num_serie,num_serie,modelo_gdl,funcionamento,calibre_Nominal,fabricacaoArmaCartucho,lacre_saida_gdl,consumido,quantidade,descricao,observacao_gdl,capacidade,patrimonio,estojo_gdl,lote_gdl,ti_acabamento,identificacao,))
+                                                    conn.commit()
                                             except Exception as ex:
                                                 print("erro de conexao", ex)
                                           
@@ -383,6 +385,7 @@ for listMsl in results:
                                     
                                     
                                     #TABELA ENVOLVIDOS
+                                    
                                     tabelaListaEnvolvidos=soup.find('table',{'id':'Content_RepMain_ucInvolved_gridInvolved'})
                                     tdEnvolvidos=tabelaListaEnvolvidos.find_all('td')
                                     gt=[]

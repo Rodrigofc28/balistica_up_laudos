@@ -2,7 +2,9 @@
 @section('js')
 {!! Html::script('js/selectProjeteis.js') !!} 
 {!! Html::script('js/projetil.js') !!}
+@if($acao == 'Cadastrar')
 {!! Html::script('js/sessionProjet.js') !!}
+@endif
 @endsection
 
 
@@ -20,7 +22,11 @@
 
 <div class="col-lg-12" style="padding: 0 5% 0">
     <div class="row mb-3">
-       
+        @empty($arma_projetil_gdl)
+        
+        @else
+            @include('perito.laudo.materiais.attributes.atributes_arma_gdl',['name_arma_gdl'=>$arma_projetil_gdl])
+        @endempty
         @include('perito.laudo.materiais.attributes.tipo_raiamento', ['tipo_raiamento2' =>
         $componente->tipo_raiamento ?? old('tipo_raiamento')])
         @include('perito.laudo.materiais.attributes.tipo_projetil', ['tipo_projetil2' =>

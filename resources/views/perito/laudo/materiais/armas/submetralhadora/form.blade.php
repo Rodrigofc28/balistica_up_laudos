@@ -2,13 +2,14 @@
 
 {!! Html::script('js/cabo_material.js') !!} 
 {!! Html::script('js/recorte.js') !!} 
+@if($acao == 'Cadastrar')
 {!! Html::script('js/sessionSubmetralhadora.js') !!} 
-
+@endif
 @endsection
 
 
 @if ($acao == 'Cadastrar')
-{!! Form::open(['route' => ['submetralhadoras.store', $laudo ], 'files' => true]) !!}
+{!! Form::open(['route' => ['submetralhadoras.store', $laudo ,'arma'=>$arma_espingarda_gdl], 'files' => true]) !!}
 @elseif ($acao == 'Atualizar')
 {!! Form::open(['route' => ['submetralhadoras.update', $laudo, $submetralhadora], 'method' => 'patch', 'files' => true]) !!}
 @else
@@ -21,21 +22,11 @@
 
 <div class="col-lg-12" style="padding: 0 5% 0">
     <div class="row mb-3">
-        @foreach($array_gdl_armas as $submetralhadora_gdl)
-            <span hidden lacre="{!!$submetralhadora_gdl->lacre_entrada!!}" id="lacre_entrada_gdl" ></span>
-            <span hidden estado_geral="{!!mb_strtolower($submetralhadora_gdl->estado_geral)!!}" id="estado_geral_gdl" ></span>
-            <span hidden marca="{!!mb_strtoupper($submetralhadora_gdl->marca)!!}" id="marca_gdl" ></span>
-            <span hidden status_serie="{!!mb_strtolower($submetralhadora_gdl->status_serie)!!}" id="estado_serie_gdl" ></span>
-            <span hidden num_serie="{!!mb_strtolower($submetralhadora_gdl->num_serie)!!}" id="num_serie_gdl" ></span>
-            <span hidden capacidade="{!!mb_strtolower($submetralhadora_gdl->capacidade)!!}" id="capacidade_gdl" ></span>
-            <span hidden acabamento="{!!mb_strtolower($submetralhadora_gdl->acabamento)!!}" id="acabamento_gdl" ></span>
-            <span hidden patrimonio="{!!mb_strtolower($submetralhadora_gdl->patrimonio)!!}" id="patrimonio_gdl" ></span>
-            <span hidden lacre_saida="{!!mb_strtolower($submetralhadora_gdl->lacre_saida)!!}" id="lacre_saida_gdl" ></span>
-            <span hidden fabricacao="{!!mb_strtolower($submetralhadora_gdl->fabricacao)!!}" id="fabricacao_gdl" ></span>
-            <span hidden modelo="{!!mb_strtolower($submetralhadora_gdl->modelo)!!}" id="modelo_gdl" ></span>
-            <span hidden calibreNominal="{!!mb_strtolower($submetralhadora_gdl->calibre_nominal)!!}" id="calibre_gdl" ></span>
-            <span hidden funcionamento="{!!mb_strtolower($submetralhadora_gdl->funcionamento)!!}" id="funcionamento_gdl" ></span>
-        @endforeach 
+        @empty($arma_submetralhadora_gdl)
+        
+        @else
+            @include('perito.laudo.materiais.attributes.atributes_arma_gdl',['name_arma_gdl'=>$arma_submetralhadora_gdl])
+        @endempty
         @empty($armas)
             @else
                 @include('perito.laudo.materiais.attributes.buscar_cadastro_salvo',[$nomeArma='Submetralhadora'])

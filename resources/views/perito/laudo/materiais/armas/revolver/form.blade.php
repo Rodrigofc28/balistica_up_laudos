@@ -1,10 +1,16 @@
 @section('js')
 {!! Html::script('js/cabo_material.js') !!} 
 {!! Html::script('js/recorte.js') !!} 
+@if($acao == 'Cadastrar')
 {!! Html::script('js/sessionRevolver.js') !!} 
+@endif
 @endsection
 @if ($acao == 'Cadastrar')
+{!! Form::open(['route' => ['revolveres.store', $laudo,'arma'=>$arma_revolver_gdl ], 'files' => true]) !!}
+
+@elseif($acao == 'Cadastrar' && $arma_revolver_gdl!='')
 {!! Form::open(['route' => ['revolveres.store', $laudo ], 'files' => true]) !!}
+<h1>ffff</h1>
 @elseif ($acao == 'Atualizar')
 {!! Form::open(['route' => ['revolveres.update', $laudo, $revolver], 'method' => 'patch','files' => true], 'disabled') !!}
 @else
@@ -16,26 +22,12 @@
 
 <div class="col-lg-12" style="padding: 0 5% 0">
     <div class="row mb-3">
-        @php
-        $contador=0
-        @endphp
-        @foreach($array_gdl_armas as $revolver_gdl)
-            
-            <span hidden lacre="{!!$revolver_gdl->lacre_entrada!!}" id="lacre_entrada_gdl" ></span>
-            <span hidden estado_geral="{!!mb_strtolower($revolver_gdl->estado_geral)!!}" id="estado_geral_gdl" ></span>
-            <span hidden marca="{!!mb_strtoupper($revolver_gdl->marca)!!}" id="marca_gdl" ></span>
-            <span hidden status_serie="{!!mb_strtolower($revolver_gdl->status_serie)!!}" id="estado_serie_gdl" ></span>
-            <span hidden num_serie="{!!mb_strtolower($revolver_gdl->num_serie)!!}" id="num_serie_gdl" ></span>
-            <span hidden capacidade="{!!mb_strtolower($revolver_gdl->capacidade)!!}" id="capacidade_gdl" ></span>
-            <span hidden acabamento="{!!mb_strtolower($revolver_gdl->acabamento)!!}" id="acabamento_gdl" ></span>
-            <span hidden patrimonio="{!!mb_strtolower($revolver_gdl->patrimonio)!!}" id="patrimonio_gdl" ></span>
-            <span hidden lacre_saida="{!!mb_strtolower($revolver_gdl->lacre_saida)!!}" id="lacre_saida_gdl" ></span>
-            <span hidden fabricacao="{!!mb_strtolower($revolver_gdl->fabricacao)!!}" id="fabricacao_gdl" ></span>
-            <span hidden modelo="{!!mb_strtolower($revolver_gdl->modelo)!!}" id="modelo_gdl" ></span>
-            <span hidden calibreNominal="{!!mb_strtolower($revolver_gdl->calibre_nominal)!!}" id="calibre_gdl" ></span>
-            <span hidden funcionamento="{!!mb_strtolower($revolver_gdl->funcionamento)!!}" id="funcionamento_gdl" ></span>
-        @endforeach 
-        @empty($armas)
+        @empty($arma_revolver_gdl)
+        
+        @else
+            @include('perito.laudo.materiais.attributes.atributes_arma_gdl',['name_arma_gdl'=>$arma_revolver_gdl])
+        @endempty
+                @empty($armas)
             @else
                 @include('perito.laudo.materiais.attributes.buscar_cadastro_salvo',[$nomeArma='Revólver'])
         @endempty

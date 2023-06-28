@@ -38,13 +38,6 @@ class EspingardasController extends Controller
       $arma_espingarda_gdl=Armas_Gdl::find($request->id);
       
 
-      if ($arma_espingarda_gdl) {
-        
-        $arma_espingarda_gdl->status = "CADASTRADO"; // Muda o status para Não pendente
-        // tem que criar a coluna updated_at tipo TIMESTAMP
-        $arma_espingarda_gdl->save(); // Savando no banco de dados
-        
-    }
        
         /*  */
         $marcas = Marca::categoria('armas');
@@ -61,12 +54,21 @@ class EspingardasController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(EspingardaRequest $request)
+    public function store(Request $id_arma_gdl, EspingardaRequest $request)
     {
+        $arma_espingarda_gdl=Armas_Gdl::find($id_arma_gdl->arma);
+      
+
+        if ($arma_espingarda_gdl) {
+        
+            $arma_espingarda_gdl->status = "CADASTRADO"; // Muda o status para Não pendente
+            // tem que criar a coluna updated_at tipo TIMESTAMP
+            $arma_espingarda_gdl->save(); // Savando no banco de dados
+        
+        }
+
         $secoes = Secao::all();
         $cidades = Cidade::all();
-        
-        
         if(!empty($request->Arma_Gdl)&&$request->Arma_Gdl=="sim"){
            
             $id_armas_gdl=$request->id_armas_gdl;

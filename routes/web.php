@@ -55,8 +55,15 @@ Route::post('laudos/armas/{arma}/images', 'Perito\ArmasController@store_image')-
 Route::delete('laudos/armas/{arma}/images', 'Perito\ArmasController@delete_image')->name('armas.images.delete');
 /* Passando dois parametros a rota laudo e arma, para ser editado */
 Route::prefix('laudos/{laudo}/{arma}')->group(function () {
-    Route::get('espingardas.edit_gdl', 'Perito\Armas\EspingardasController@edit_gdl')->name('edit_gdl');
-
+    Route::get('espingardas.edit_gdl', 'Perito\Armas\EspingardasController@edit_gdl')->name('edit_gdl_espingarda');
+    Route::get('revolveres.edit_gdl', 'Perito\Armas\RevolveresController@edit_gdl')->name('edit_gdl_revolver');
+    Route::get('pistolas.edit_gdl', 'Perito\Armas\PistolasController@edit_gdl')->name('edit_gdl_pistola');
+    Route::get('fuzils.edit_gdl', 'Perito\Armas\FuzilsController@edit_gdl')->name('edit_gdl_fuzil');
+    Route::get('garruchas.edit_gdl', 'Perito\Armas\GarruchasController@edit_gdl')->name('edit_gdl_garrucha');
+    Route::get('metralhadoras.edit_gdl', 'Perito\Armas\MetralhadorasController@edit_gdl')->name('edit_gdl_metralhadora');
+    Route::get('submetralhadoras.edit_gdl', 'Perito\Armas\SubmetralhadorasController@edit_gdl')->name('edit_gdl_submetralhadora');
+    Route::get('pistoletes.edit_gdl', 'Perito\Armas\PistoletesController@edit_gdl')->name('edit_gdl_pistolete');
+    Route::get('carabinas.edit_gdl', 'Perito\Armas\CarabinasController@edit_gdl')->name('edit_gdl_carabina');
 });
 
 Route::prefix('laudos/{laudo}')->group(function () {

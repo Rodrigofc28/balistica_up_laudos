@@ -8,12 +8,14 @@ namespace App\Http\Controllers\Perito\Armas;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Armas\RevolverRequest;
+use Illuminate\Http\Request;
 use App\Models\Arma;
 use App\Models\Calibre;
 use App\Models\Marca;
 use App\Models\Origem;
 use App\Models\Cadastroarmas;
 use Illuminate\Support\Facades\DB;
+use App\Models\Armas_Gdl;
 class RevolveresController extends Controller
 {
     public function __construct()
@@ -26,16 +28,11 @@ class RevolveresController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($laudo)
+    public function create( Request $request, $laudo)
     {
         //Dados vindo do GDL TABELA tabela_pecas_gdl seleciona tudo quando as rep forem iguais
-        $armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$laudo->rep]);
-        $array_gdl_armas=[];
-        foreach($armasGdl as $armagdl){
-            if($armagdl->tipo_item=="REVÓLVER(ES)"){
-                array_push($array_gdl_armas,$armagdl);
-            }
-        }
+        $arma_revolver_gdl=Armas_Gdl::find($request->id);
+        
         
         $marcas = Marca::categoria('armas');
         $origens = Origem::all();
@@ -43,18 +40,29 @@ class RevolveresController extends Controller
         
         $armas = DB::select('select modelo from cadastroarmas ');
         return view('perito.laudo.materiais.armas.revolver.create',
-            compact('laudo', 'marcas', 'origens', 'calibres','armas','array_gdl_armas'));
+            compact('laudo', 'marcas', 'origens', 'calibres','armas','arma_revolver_gdl'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function store(RevolverRequest $request)
+    public function store(Request $id_arma_gdl,RevolverRequest $request)
     {
+       //mudando o status para cadastrado
        
+        $arma_revolver_gdl=Armas_Gdl::find($id_arma_gdl->arma);
+        if ($arma_revolver_gdl!=null) {
+        
+            $arma_revolver_gdl->status = "CADASTRADO"; // Muda o status para Não pendente
+            // tem que criar a coluna updated_at tipo TIMESTAMP
+            $arma_revolver_gdl->save(); // Savando no banco de dados
+            
+        }
+
         Arma::create($request->all());
         
         return redirect()->route('laudos.show',
@@ -114,5 +122,31 @@ class RevolveresController extends Controller
         Arma::find($revolver->id)->fill($updated_arma)->save();
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_m', ['model' => 'Revólver']));
+    }
+    
+    /**
+     * Show the form for editing the specified resource.
+     *Editando arma tipo espingarda vindo do GDL
+     * @param  \App\Models\Laudo $laudo
+     * @param  $id_arma_gdl
+     * @return \Illuminate\Http\Response
+     */
+    public function edit_gdl($laudo,$id_arma_gdl)
+    {
+        $revolver=Arma::where('id_armas_gdl',$id_arma_gdl)->first();
+
+
+        $marcas = Marca::marcasWithTrashed('armas', $revolver->marca);
+        $origens = Origem::origensWithTrashed($revolver->origem);
+        if($revolver->calibre==null){
+            $calibres =[]; 
+        }else{
+        $calibres = Calibre::calibresWithTrashed('Revolver', $revolver->calibre);
+        }
+        $imagens = $revolver->imagens;
+        
+        return view('perito.laudo.materiais.armas.revolver.edit',
+            compact('revolver', 'laudo', 'marcas', 'origens', 'calibres', 'imagens'));
+        
     }
 }

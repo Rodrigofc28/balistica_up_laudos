@@ -101,55 +101,57 @@
 </div>
 @if($reps!=""&$armasGdl!="")
 
-    <div style="border:1px solid black;">
-        <button style="border:0px ;">+</button>
-            <button style="border:0px ;">-</button>
-        <div id="tab_gdl" >
-            
-            <p id="titulo"><strong>Lista de Envolvidos</strong></p> 
-            
-               
-              @php
-                $envolvidoGdl=implode(',',$reps['envolvido'])
-              @endphp
-                <input type="text" hidden name="envolvidoGdl" value="{{$envolvidoGdl}}">
-                @foreach($reps['envolvido'] as $envolvido)
-                    <span>{{$envolvido}}</span>
-                @endforeach
-            
-            
-        </div>
-        <div id="tab_gdl" >
-             <hr>  
-            <p  id="titulo"><strong> Cidade / Órgão Solicitante</strong> </p> <br>
-             
-            <span id="cidadeSpan"></span> 
-            <input hidden type="text" name="cidadeGdl" id="cidadeIn" value="">
-            <span id="orgaoSpan"></span> 
-            
-            <input hidden type="text" name="orgaoGdl" id="orgaoIn" value="">
-            
-            
-        </div>
-        <hr>
-        <div id="tab_gdl" class="grid-conterner-gdl">
-            <p id="titulo"><strong>Peças</strong></p>
-            @foreach($armasGdl as $armagdl)
-            <div>
-                <p><strong>ITEM:</strong> {{$armagdl->tipo_item}}</p>
-                <p><strong>MARCA:</strong> {{$armagdl->marca}}</p>
-                <p><strong>QUANTIDADE:</strong> {{$armagdl->quantidade}}</p>
-                <p><strong>OBSERVAÇÃO:</strong> {{$armagdl->observacao}}</p>
-                <p><strong>IDENTIFICAÇÃO:</strong> {{$armagdl->identificacao}}</p>
-                <p><strong>LACRE DE ENTRADA:</strong> {{$armagdl->lacre_entrada}}</p>
-            </div> 
-            
-                <hr>
-                
-            @endforeach
-        </div>
-    </div>
+    
     {{ Form::close() }}
+    <button id="aumentar" class="btn btn-primary " style="border:0px ;">+</button>
+        <button id="diminuir" class="btn btn-primary " style="border:0px ;">-</button>
+    <div id="laudo_campo" style="border:1px solid black;">
+        
+    <div id="tab_gdl" >
+        
+        <p id="titulo"><strong>Lista de Envolvidos</strong></p> 
+        
+           
+          @php
+            $envolvidoGdl=implode(',',$reps['envolvido'])
+          @endphp
+            <input type="text" hidden name="envolvidoGdl" value="{{$envolvidoGdl}}">
+            @foreach($reps['envolvido'] as $envolvido)
+                <span>{{$envolvido}}</span>
+            @endforeach
+        
+        
+    </div>
+    <div id="tab_gdl" >
+         <hr>  
+        <p  id="titulo"><strong> Cidade / Órgão Solicitante</strong> </p> <br>
+         
+        <span id="cidadeSpan"></span> 
+        <input hidden type="text" name="cidadeGdl" id="cidadeIn" value="">
+        <span id="orgaoSpan"></span> 
+        
+        <input hidden type="text" name="orgaoGdl" id="orgaoIn" value="">
+        
+        
+    </div>
+    <hr>
+    <div id="tab_gdl" class="grid-conterner-gdl">
+        <p id="titulo"><strong>Peças</strong></p>
+        @foreach($armasGdl as $armagdl)
+        <div>
+            <p><strong>ITEM:</strong> {{$armagdl->tipo_item}}</p>
+            <p><strong>MARCA:</strong> {{$armagdl->marca}}</p>
+            <p><strong>QUANTIDADE:</strong> {{$armagdl->quantidade}}</p>
+            <p><strong>OBSERVAÇÃO:</strong> {{$armagdl->observacao}}</p>
+            <p><strong>IDENTIFICAÇÃO:</strong> {{$armagdl->identificacao}}</p>
+            <p><strong>LACRE DE ENTRADA:</strong> {{$armagdl->lacre_entrada}}</p>
+        </div> 
+        
+            <hr>
+            
+        @endforeach
+    </div>
+</div>
  @endif
 
 

@@ -1,12 +1,14 @@
 @section('js')
 {!! Html::script('js/cabo_material.js') !!} 
 {!! Html::script('js/recorte.js') !!}
+@if($acao == 'Cadastrar')
 {!! Html::script('js/sessionFuzil.js') !!}  
+@endif
 @endsection
 
 
 @if ($acao == 'Cadastrar')
-{!! Form::open(['route' => ['fuzils.store', $laudo ], 'files' => true]) !!}
+{!! Form::open(['route' => ['fuzils.store', $laudo,'arma'=>$arma_fuzil_gdl ], 'files' => true]) !!}
 @elseif ($acao == 'Atualizar')
 {!! Form::open(['route' => ['fuzils.update', $laudo, $fuzil], 'method' => 'patch', 'files' => true]) !!}
 @else
@@ -19,21 +21,11 @@
 
 <div class="col-lg-12" style="padding: 0 5% 0">
     <div class="row mb-3">
-        @foreach($array_gdl_armas as $fuzil_gdl)
-        <span hidden lacre="{!!$fuzil_gdl->lacre_entrada!!}" id="lacre_entrada_gdl" ></span>
-        <span hidden estado_geral="{!!mb_strtolower($fuzil_gdl->estado_geral)!!}" id="estado_geral_gdl" ></span>
-        <span hidden marca="{!!mb_strtoupper($fuzil_gdl->marca)!!}" id="marca_gdl" ></span>
-        <span hidden status_serie="{!!mb_strtolower($fuzil_gdl->status_serie)!!}" id="estado_serie_gdl" ></span>
-        <span hidden num_serie="{!!mb_strtolower($fuzil_gdl->num_serie)!!}" id="num_serie_gdl" ></span>
-        <span hidden capacidade="{!!mb_strtolower($fuzil_gdl->capacidade)!!}" id="capacidade_gdl" ></span>
-        <span hidden acabamento="{!!mb_strtolower($fuzil_gdl->acabamento)!!}" id="acabamento_gdl" ></span>
-        <span hidden patrimonio="{!!mb_strtolower($fuzil_gdl->patrimonio)!!}" id="patrimonio_gdl" ></span>
-        <span hidden lacre_saida="{!!mb_strtolower($fuzil_gdl->lacre_saida)!!}" id="lacre_saida_gdl" ></span>
-        <span hidden fabricacao="{!!mb_strtolower($fuzil_gdl->fabricacao)!!}" id="fabricacao_gdl" ></span>
-        <span hidden modelo="{!!mb_strtolower($fuzil_gdl->modelo)!!}" id="modelo_gdl" ></span>
-        <span hidden calibreNominal="{!!mb_strtolower($fuzil_gdl->calibre_nominal)!!}" id="calibre_gdl" ></span>
-        <span hidden funcionamento="{!!mb_strtolower($fuzil_gdl->funcionamento)!!}" id="funcionamento_gdl" ></span>
-    @endforeach
+        @empty($arma_fuzil_gdl)
+        
+        @else
+            @include('perito.laudo.materiais.attributes.atributes_arma_gdl',['name_arma_gdl'=>$arma_fuzil_gdl])
+        @endempty
         @empty($armas)
             @else
             @include('perito.laudo.materiais.attributes.buscar_cadastro_salvo',[$nomeArma='Fuzil'])

@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers\Perito\Componentes;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Componente;
-
+use App\Models\Armas_Gdl;
 class BalinsChumboController extends Controller
 {
     /**
@@ -12,10 +12,11 @@ class BalinsChumboController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($laudo)
+    public function create(Request $request,$laudo)
     {
+        $arma_projetil_gdl=Armas_Gdl::find($request->id);
         return view('perito.laudo.materiais.componentes.balins_chumbo.create',
-            compact('laudo'));
+            compact('laudo','arma_projetil_gdl'));
     }
 
     /**

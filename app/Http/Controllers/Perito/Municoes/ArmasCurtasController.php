@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Perito\Municoes;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Calibre;
 use App\Models\Marca;
 use App\Models\Municao;
-
+use App\Models\Armas_Gdl;
 class ArmasCurtasController extends Controller
 {
     /**
@@ -14,12 +14,13 @@ class ArmasCurtasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($laudo)
+    public function create(Request $request,$laudo)
     {
+        $arma_estojo_gdl=Armas_Gdl::find($request->id);
         $marcas = Marca::categoria('municoes');
         $calibres = Calibre::whereNotArmas(['Espingarda']);
         return view('perito.laudo.materiais.municoes.arma_curta.create',
-            compact('laudo', 'marcas', 'calibres'));
+            compact('laudo', 'marcas', 'calibres','arma_estojo_gdl'));
     }
 
     /**
