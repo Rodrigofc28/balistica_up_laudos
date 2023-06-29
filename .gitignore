@@ -11,4 +11,9 @@ npm-debug.log
 yarn-error.log
 .env
 .env.testing
-/storage
+/storage/app/public/imagens/*
+/storage/app/public/imagensArmas/*
+/storage/app/public/imagensEmbalagem/*
+/storage/app/public/imagensMunicao/*
+/storage/app/public/imagensProjetil/*
+/storage/app/laudos/*
