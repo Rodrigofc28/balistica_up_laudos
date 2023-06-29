@@ -5,31 +5,42 @@ var marca=$("#marca")
 console.log('Marca: '+marca.val())
 /* captura os dados gdl *****************************************************/
 console.log('Marca: ',$('#marca_gdl').attr('marca'))
-
+var valorCorrespondente;
 if($('#marca_gdl').attr('marca')!=''){
     if($('#marca_gdl').attr('marca')===undefined){
        
     }else{
     sessionStorage.setItem('marca_revolver',$('#marca_gdl').attr('marca'));
+    var marcaSelecionada = sessionStorage.getItem('marca_revolver');
+    //percorre todo o option
+    $('#marca option').each(function() {
+        
+        var textoOpcao = $(this).text();
+        var tirraS=textoOpcao.replace(/\s/g,"")//tirar os espaços
+        
+        if (tirraS == marcaSelecionada) {
+        
+            $('#marca').val($(this).val()).trigger('change');
+            $('#pais').val($(this).val()).trigger('change');
+          return false; // Interrompe o loop quando a opção correspondente é encontrada
+        }
+      });
     /* pegando o text do elemento e comparando */
-    $('#marca option:selected').text(sessionStorage.getItem('marca_revolver'))
-    sessionStorage.setItem('fabricacao',$('#fabricacao_gdl').attr('fabricacao'));
-    $('#pais').val(sessionStorage.getItem('fabricacao'));
+    
+
 }
 }
 else{
-marca.on('change',function(){
+    marca.on('change',function(){
     
     /* pegando o value e comparado */
     sessionStorage.setItem('marca_revolver',marca.val());
+    marca.val(sessionStorage.getItem('marca_revolver'))
+    marca.trigger('change');
 })
-marca.val(sessionStorage.getItem('marca_revolver'))
+    
 $('#pais').val(sessionStorage.getItem('marca_revolver'));
 }
-marca.trigger('change');
-console.log('Marca dd: '+marca.val())
-/* Fabricacao ***************************************************************/
-console.log('Fabricacao: '+$('#fabricacao_gdl').attr('fabricacao'))
 
 $('#pais').trigger('change');
 

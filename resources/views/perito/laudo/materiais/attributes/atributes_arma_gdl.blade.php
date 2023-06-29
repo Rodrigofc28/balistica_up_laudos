@@ -13,5 +13,7 @@
 <span hidden modelo="{!!mb_strtolower($name_arma_gdl['modelo'])!!}" id="modelo_gdl" ></span>
 <span hidden calibreNominal="{!!mb_strtolower($name_arma_gdl['calibre_nominal'])!!}" id="calibre_gdl" ></span>
 <span hidden funcionamento="{!!mb_strtolower($name_arma_gdl['funcionamento'])!!}" id="funcionamento_gdl" ></span>
-                
-                
+  {{-- cartuchos/projetil/estojos --}}              
+<span hidden lote="{!!mb_strtolower($name_arma_gdl['lote'])!!}" id="lote_gdl" ></span>  
+<span hidden item="{!!mb_strtolower($name_arma_gdl['tipo_item'])!!}" id="tipo_item_gdl" ></span> 
+<span hidden quantidade="{!!mb_strtolower($name_arma_gdl['quantidade'])!!}" id="quantidade_gdl" ></span> 

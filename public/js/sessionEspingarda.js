@@ -1,36 +1,49 @@
 /* Armazena os dados LocalStorage */
 /* Session */
+
 var marca=$("#marca")
 console.log('Marca: '+marca.val())
 /* captura os dados gdl *****************************************************/
 console.log('Marca: ',$('#marca_gdl').attr('marca'))
-
+var valorCorrespondente;
 if($('#marca_gdl').attr('marca')!=''){
     if($('#marca_gdl').attr('marca')===undefined){
        
     }else{
     sessionStorage.setItem('marca_espingarda',$('#marca_gdl').attr('marca'));
+    var marcaSelecionada = sessionStorage.getItem('marca_espingarda');
+    //percorre todo o option
+    $('#marca option').each(function() {
+        
+        var textoOpcao = $(this).text();
+        var tirraS=textoOpcao.replace(/\s/g,"")//tirar os espaços
+        
+        if (tirraS == marcaSelecionada) {
+        
+            $('#marca').val($(this).val()).trigger('change');
+            $('#pais').val($(this).val()).trigger('change');
+          return false; // Interrompe o loop quando a opção correspondente é encontrada
+        }
+      });
     /* pegando o text do elemento e comparando */
-    $('#marca option:selected').text(sessionStorage.getItem('marca_espingarda'))
-    sessionStorage.setItem('fabricacao',$('#fabricacao_gdl').attr('fabricacao'));
-    $('#pais').val(sessionStorage.getItem('fabricacao'));
+    
+
 }
 }
 else{
-marca.on('change',function(){
+    marca.on('change',function(){
     
     /* pegando o value e comparado */
     sessionStorage.setItem('marca_espingarda',marca.val());
+    marca.val(sessionStorage.getItem('marca_espingarda'))
+    marca.trigger('change');
 })
-marca.val(sessionStorage.getItem('marca_espingarda'))
+    
 $('#pais').val(sessionStorage.getItem('marca_espingarda'));
 }
-marca.trigger('change');
-console.log('Marca dd: '+marca.val())
-/* Fabricacao ***************************************************************/
-console.log('Fabricacao: '+$('#fabricacao_gdl').attr('fabricacao'))
 
 $('#pais').trigger('change');
+
 
 /*Modelo*********************************************************************/
 var modelo = $("#modelo")
@@ -281,7 +294,13 @@ numLacreEntrada.val(sessionStorage.getItem('numLacreEntrada_espingarda'))
 var lacreSaida = $("#lacreSaida")
 console.log('Lacre de Saida'+$('#lacre_saida_gdl').attr('lacre_saida'))
 if($('#lacre_saida_gdl').attr('lacre_saida')!=''){
-    sessionStorage.setItem('lacreSaida_espingarda',$('#lacre_saida_gdl').attr('lacre_saida'));
+    if($('#lacre_saida_gdl').attr('lacre_saida')===undefined){
+
+    }
+    else{
+        sessionStorage.setItem('lacreSaida_espingarda',$('#lacre_saida_gdl').attr('lacre_saida'));
+    }
+    
 }else{
 lacreSaida.on('input',function(){
     sessionStorage.setItem('lacreSaida_espingarda',lacreSaida.val());

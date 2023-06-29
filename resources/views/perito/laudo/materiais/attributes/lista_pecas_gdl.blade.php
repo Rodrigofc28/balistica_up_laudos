@@ -121,11 +121,13 @@
                     
                     
                                     @endif
-                                    @if($armagdl->status=="CADASTRADO")  @else <span id="status_pecas" style="background-color:rgb(141, 145, 137);color:rgb(226, 44, 44)"  ><strong>STATUS: PENDENTE!</strong> </span>@endif
+                                    <span style="color:rgb(14, 14, 14);background-color: rgb(194, 189, 179)">{{$armagdl->tipo_item}}</span>
+                                    @if($armagdl->status=="CADASTRADO")  @else <span id="status_pecas" style="background-color:rgb(194, 189, 179);color:rgb(226, 44, 44)"  ><strong>STATUS: PENDENTE!</strong> </span>@endif
+                                    
                     </div>
                     <hr>
                     <div id="group_pecas_gdl{{$contadorDom}}"   >
-                    <p><strong>ITEM:</strong> {{$armagdl->tipo_item}}</p>
+                    
                     <p><strong>MARCA:</strong> {{$armagdl->marca}}</p>
                     <p><strong>QUANTIDADE:</strong> {{$armagdl->quantidade}}</p>
                     <p><strong>OBSERVAÇÃO:</strong> {{$armagdl->observacao}}</p>

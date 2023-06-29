@@ -1,25 +1,47 @@
 /* Armazena os dados LocalStorage */
 /* Session */
+
 var marca=$("#marca")
+console.log('Marca: '+marca.val())
 /* captura os dados gdl *****************************************************/
-if($('#marca_gdl').attr('marca')!=null){
+console.log('Marca: ',$('#marca_gdl').attr('marca'))
+var valorCorrespondente;
+if($('#marca_gdl').attr('marca')!=''){
+    if($('#marca_gdl').attr('marca')===undefined){
+       
+    }else{
     sessionStorage.setItem('marca_carabina',$('#marca_gdl').attr('marca'));
+    var marcaSelecionada = sessionStorage.getItem('marca_carabina');
+    //percorre todo o option
+    $('#marca option').each(function() {
+        
+        var textoOpcao = $(this).text();
+        var tirraS=textoOpcao.replace(/\s/g,"")//tirar os espaços
+        
+        if (tirraS == marcaSelecionada) {
+        
+            $('#marca').val($(this).val()).trigger('change');
+            $('#pais').val($(this).val()).trigger('change');
+          return false; // Interrompe o loop quando a opção correspondente é encontrada
+        }
+      });
     /* pegando o text do elemento e comparando */
-    $('#marca option:selected').text(sessionStorage.getItem('marca_carabina'))
+    
+
+}
 }
 else{
-marca.on('change',function(){
+    marca.on('change',function(){
     
     /* pegando o value e comparado */
     sessionStorage.setItem('marca_carabina',marca.val());
+    marca.val(sessionStorage.getItem('marca_carabina'))
+    marca.trigger('change');
 })
-marca.val(sessionStorage.getItem('marca_carabina'))
-
-}
-marca.trigger('change');
-/* Fabricacao ***************************************************************/
-
+    
 $('#pais').val(sessionStorage.getItem('marca_carabina'));
+}
+
 $('#pais').trigger('change');
 
 /*Modelo*********************************************************************/

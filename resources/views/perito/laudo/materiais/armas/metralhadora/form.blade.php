@@ -9,7 +9,7 @@
 
 
 @if ($acao == 'Cadastrar')
-{!! Form::open(['route' => ['metralhadoras.store', $laudo,'arma'=>$arma_garrucha_gdl ], 'files' => true]) !!}
+{!! Form::open(['route' => ['metralhadoras.store', $laudo,'arma'=>$arma_metralhadora_gdl ], 'files' => true]) !!}
 @elseif ($acao == 'Atualizar')
 {!! Form::open(['route' => ['metralhadoras.update', $laudo, $metralhadora], 'method' => 'patch', 'files' => true]) !!}
 @else
