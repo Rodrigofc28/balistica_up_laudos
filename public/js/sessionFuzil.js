@@ -7,38 +7,49 @@ console.log('Marca: '+marca.val())
 console.log('Marca: ',$('#marca_gdl').attr('marca'))
 var valorCorrespondente;
 if($('#marca_gdl').attr('marca')!=''){
-    if($('#marca_gdl').attr('marca')===undefined){
-       
+    if($('#marca_gdl').attr('marca')==undefined){
+        marca.on('change',function(){
+    
+            /* pegando o value e comparado */
+            sessionStorage.setItem('marca_fuzil',marca.val());
+          })   
+            /*Tem que ta fora da função change*/
+        marca.val(sessionStorage.getItem('marca_fuzil'))
+        
+        marca.trigger('change'); 
+        $('#pais').val(sessionStorage.getItem('marca_fuzil'));
+        $('#pais').trigger('change');
+            
     }else{
-    sessionStorage.setItem('marca_fuzil',$('#marca_gdl').attr('marca'));
-    var marcaSelecionada = sessionStorage.getItem('marca_fuzil');
-    //percorre todo o option
-    $('#marca option').each(function() {
-        
-        var textoOpcao = $(this).text();
-        var tirraS=textoOpcao.replace(/\s/g,"")//tirar os espaços
-        
-        if (tirraS == marcaSelecionada) {
-        
-            $('#marca').val($(this).val()).trigger('change');
-            $('#pais').val($(this).val()).trigger('change');
-          return false; // Interrompe o loop quando a opção correspondente é encontrada
-        }
-      });
+            sessionStorage.setItem('marca_fuzil',$('#marca_gdl').attr('marca'));
+            var marcaSelecionada = sessionStorage.getItem('marca_fuzil');
+            //percorre todo o option
+            $('#marca option').each(function() {
+                
+                var textoOpcao = $(this).text();
+                var tirraS=textoOpcao.replace(/\s/g,"")//tirar os espaços
+                
+                if (tirraS == marcaSelecionada) {
+                
+                    $('#marca').val($(this).val()).trigger('change');
+                    $('#pais').val($(this).val()).trigger('change');
+                return false; // Interrompe o loop quando a opção correspondente é encontrada
+                }
+            });
     /* pegando o text do elemento e comparando */
     
 
-}
+        }
 }
 else{
     marca.on('change',function(){
     
     /* pegando o value e comparado */
     sessionStorage.setItem('marca_fuzil',marca.val());
+    
+})
     marca.val(sessionStorage.getItem('marca_fuzil'))
     marca.trigger('change');
-})
-    
 $('#pais').val(sessionStorage.getItem('marca_fuzil'));
 }
 
@@ -46,27 +57,52 @@ $('#pais').trigger('change');
 
 /*Modelo*********************************************************************/
 var modelo = $("#modelo")
+console.log('Modelo: '+$('#modelo_gdl').attr('modelo'))
+if($('#modelo_gdl').attr('modelo')!=''){
+    if($('#modelo_gdl').attr('modelo')==undefined){
+        modelo.on('input',function(){
+            sessionStorage.setItem('modelo_fuzil',modelo.val());
+        })
+    }else{
+    sessionStorage.setItem('modelo_fuzil',$('#modelo_gdl').attr('modelo'));
+    }
+}else{
 modelo.on('input',function(){
     sessionStorage.setItem('modelo_fuzil',modelo.val());
 })
+}
 modelo.val(sessionStorage.getItem('modelo_fuzil'))
 /* Status Serie */
 var statusSerie = $("#tipo_serie")
-if($('#estado_serie_gdl').attr('status_serie')!=null){
+console.log('Status Serie: '+$('#estado_serie_gdl').attr('status_serie'))
+if($('#estado_serie_gdl').attr('status_serie')!=''){
+    if($('#estado_serie_gdl').attr('status_serie')==undefined){
+        statusSerie.on('change',function(){
+    
+            sessionStorage.setItem('statusSerie_fuzil',statusSerie.val());
+        })
+    }else{
     sessionStorage.setItem('statusSerie_fuzil',$('#estado_serie_gdl').attr('status_serie'));
+    }
 }
 else{
 statusSerie.on('change',function(){
-    console.log($("#tipo_serie").val())
+    
     sessionStorage.setItem('statusSerie_fuzil',statusSerie.val());
 })}
 statusSerie.val(sessionStorage.getItem('statusSerie_fuzil'))
 statusSerie.trigger('change')
 /* Num Serie *************************************************************/
 var numSerie = $("#num_serie")
-
-if($('#num_serie_gdl').attr('num_serie')!=null){
+console.log('Numero de Serie: '+$('#num_serie_gdl').attr('num_serie'))
+if($('#num_serie_gdl').attr('num_serie')!=''){
+    if($('#num_serie_gdl').attr('num_serie')==undefined){
+        numSerie.on('input',function(){
+            sessionStorage.setItem('numSerie_fuzil',numSerie.val());
+        })
+    }else{
     sessionStorage.setItem('numSerie_fuzil',$('#num_serie_gdl').attr('num_serie'));
+    }
 }
 else{
 numSerie.on('input',function(){
@@ -76,6 +112,7 @@ numSerie.on('input',function(){
 numSerie.val(sessionStorage.getItem('numSerie_fuzil'))
 /* Num Patrimonio **********************************************************************/
 var numPatrimonio = $("#numPatrimonio")
+console.log('Patrimonio: '+$('#patrimonio_gdl').attr('patrimonio'))
 if($('#patrimonio_gdl').attr('patrimonio')){
     sessionStorage.setItem('numPatrimonio_fuzil',$('#patrimonio_gdl').attr('patrimonio'));
 }else{
@@ -93,11 +130,15 @@ num_canos.val(sessionStorage.getItem('num_canos_fuzil'))
 num_canos.trigger('change')
 /* Sistema de Carregamento */
 var calibre = $("#calibre")
-
+console.log('Calibre: '+$('#calibre_gdl').attr('calibreNominal'))
+if($('#calibre_gdl').attr('calibreNominal')!=null){
+    sessionStorage.setItem('calibre_fuzil',$('#calibre_gdl').attr('calibreNominal'));
+}else{
 calibre.on('change',function(){
     
     sessionStorage.setItem('calibre_fuzil',calibre.val());
-})
+})}
+
 calibre.val(sessionStorage.getItem('calibre_fuzil'))
 calibre.trigger('change')
 /* Regime de Tiro */
@@ -120,8 +161,15 @@ tipo_carregador.trigger('change')
 /* Capacidade*************************************************************** */
 var capacidade_carregador = $("#capacidade_carregador")
 
-if($('#capacidade_gdl').attr('capacidade')!=null){
+console.log('Capacidade: '+$('#capacidade_gdl').attr('capacidade'))
+if($('#capacidade_gdl').attr('capacidade')!=''){
+    if($('#capacidade_gdl').attr('capacidade')==undefined){
+        capacidade_carregador.on('input',function(){
+            sessionStorage.setItem('capacidade_carregador_fuzil',capacidade_carregador.val());
+        })
+    }else{
     sessionStorage.setItem('capacidade_carregador_fuzil',$('#capacidade_gdl').attr('capacidade'));
+    }
 }else{
 capacidade_carregador.on('input',function(){
     sessionStorage.setItem('capacidade_carregador_fuzil',capacidade_carregador.val());
@@ -146,8 +194,16 @@ sistema_disparo.val(sessionStorage.getItem('sistema_disparo_fuzil'))
 sistema_disparo.trigger('change')
 /* Acabamento **************************************************************************/
 var tipo_acabamento = $("#tipo_acabamento")
-if($('#acabamento_gdl').attr('acabamento')!=null){
+console.log('Acabamento: '+$('#acabamento_gdl').attr('acabamento'))
+if($('#acabamento_gdl').attr('acabamento')!=''){
+    if($('#acabamento_gdl').attr('acabamento')==undefined){
+        tipo_acabamento.on('change',function(){
+    
+            sessionStorage.setItem('tipo_acabamento_fuzil',tipo_acabamento.val());
+        })
+    }else{
     sessionStorage.setItem('tipo_acabamento_fuzil',$('#acabamento_gdl').attr('acabamento'));
+    }
 }else{
 tipo_acabamento.on('change',function(){
     
@@ -222,10 +278,17 @@ sentido_raias.trigger('change')
 
 /* Estado Geral ******************************************************************/
 var estado_geral = $("#estado_geral")
-console.log($('#estado_geral_gdl').attr('estado_geral'))
+console.log('Estado Geral: '+$('#estado_geral_gdl').attr('estado_geral'))
 /* Dados vindo gdl se for diferente de null o dado e capturado*/
-if($('#estado_geral_gdl').attr('estado_geral')!=null){
+if($('#estado_geral_gdl').attr('estado_geral')!=''){
+    if($('#estado_geral_gdl').attr('estado_geral')==undefined){
+        estado_geral.on('change',function(){
+    
+            sessionStorage.setItem('estado_geral_fuzil',estado_geral.val());
+        })
+    }else{
     sessionStorage.setItem('estado_geral_fuzil',$('#estado_geral_gdl').attr('estado_geral'));
+    }
 }else{
     estado_geral.on('change',function(){
     
@@ -236,11 +299,24 @@ estado_geral.trigger('change')
 
 /* Funcionamento */
 var funcionamento = $("#funcionamento")
+console.log('Funcionamento: '+$('#funcionamento_gdl').attr('funcionamento'))
+if($('#funcionamento_gdl').val()!=''){
+    if($('#funcionamento_gdl').val()==undefined){
+        funcionamento.on('change',function(){
+    
+            sessionStorage.setItem('funcionamento_fuzil',$('#funcionamento').val());
+        })
+    }else{
+    sessionStorage.setItem('funcionamento_fuzil',$('#funcionamento_gdl').attr('funcionamento'));
+    }
+}else{
 funcionamento.on('change',function(){
     
-    sessionStorage.setItem('funcionamento_fuzil',funcionamento.val());
+    sessionStorage.setItem('funcionamento_fuzil',$('#funcionamento').val());
 })
+}
 funcionamento.val(sessionStorage.getItem('funcionamento_fuzil'))
+
 funcionamento.trigger('change')
 
 /* N° Exame de Coleta */
@@ -254,9 +330,17 @@ var numLacreEntrada = $("#numLacreEntrada")
 
 /* lacre vindo do gdl */
 /* Se for diferente de null a rep captura a rep vindo gdl e armazena na sessão */
-console.log($('#lacre_entrada_gdl').attr('lacre'))
-if($('#lacre_entrada_gdl').attr('lacre')!=null){
-sessionStorage.setItem('numLacreEntrada_fuzil',$('#lacre_entrada_gdl').attr('lacre')); 
+console.log('Lacre de Entrada: '+$('#lacre_entrada_gdl').attr('lacre'))
+if($('#lacre_entrada_gdl').attr('lacre')!=''){
+    
+    if($('#lacre_entrada_gdl').attr('lacre')===undefined){
+        numLacreEntrada.on('input',function(){
+            sessionStorage.setItem('numLacreEntrada_fuzil',numLacreEntrada.val());
+        })
+         }
+         else{
+            sessionStorage.setItem('numLacreEntrada_fuzil',$('#lacre_entrada_gdl').attr('lacre'));
+         }
 }else{
 numLacreEntrada.on('input',function(){
     sessionStorage.setItem('numLacreEntrada_fuzil',numLacreEntrada.val());
@@ -268,8 +352,15 @@ numLacreEntrada.val(sessionStorage.getItem('numLacreEntrada_fuzil'))
 
 /* N° Lacre de Saida **********************************************************************/
 var lacreSaida = $("#lacreSaida")
-if($('#lacre_saida_gdl').attr('lacre_saida')!=null){
+console.log('Lacre de Saida'+$('#lacre_saida_gdl').attr('lacre_saida'))
+if($('#lacre_saida_gdl').attr('lacre_saida')!=''){
+    if($('#lacre_saida_gdl').attr('lacre_saida')==undefined){
+        lacreSaida.on('input',function(){
+            sessionStorage.setItem('lacreSaida_fuzil',lacreSaida.val());
+        })
+    }else{
     sessionStorage.setItem('lacreSaida_fuzil',$('#lacre_saida_gdl').attr('lacre_saida'));
+    }
 }else{
 lacreSaida.on('input',function(){
     sessionStorage.setItem('lacreSaida_fuzil',lacreSaida.val());

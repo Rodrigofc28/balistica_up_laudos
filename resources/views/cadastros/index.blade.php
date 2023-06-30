@@ -29,7 +29,7 @@
                         <div id="solicitacao_cadastro" >
                        
                                 <h1 class="titulo">Polícia Científica do Paraná</h1>
-                                <img src="image/logo.jpg" alt="">    
+                                <img src="image/logo_policia_cientifica.jpeg" style="width: 25%" alt="">    
                                 <h3>Pedir solicitação de Cadastro</h3>
                                 <legend>
                                         <form  action="{{ route('cadastros.store') }}" method="POST">
@@ -51,7 +51,7 @@
                                                 
                                         </form>
                                         
-                                        <a href="{{ route('home') }}"><button>voltar para home <ion-icon name="home"></ion-icon></button></a>
+                                        <a href="{{ route('home') }}" ><button>voltar para home <ion-icon name="home"></ion-icon></button></a>
                                         
                                 </legend>
                         </div>        

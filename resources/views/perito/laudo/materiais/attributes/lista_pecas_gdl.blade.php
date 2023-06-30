@@ -71,7 +71,7 @@
                                                             @break
 
                                             @case('OUTROS')
-                                                    <a class="btn btn-primary " href="{{ route("laudos.materiais", [$laudo]) }}">EDITAR</a>
+                                                    <a class="btn btn-primary " href="{{ route("laudos.materiais", [$laudo,'id'=>$armagdl->id]) }}">EDITAR</a>
                                                         @break
                                             @default
                                 <!-- Código a ser executado caso $valor não corresponda a nenhum dos casos anteriores -->

@@ -4,7 +4,7 @@
         <div class="card card-login mx-auto mt-5">
             
             <div class="card-header">
-                <img src="../public/image/logo-sem-fundo.png" alt="">
+                <img src="../public/image/logo_policia_cientifica.jpeg" alt="">
                <p>POLÍCIA CIENTÍFICA DO PARANÁ</p>
                
             </div>

@@ -196,8 +196,21 @@ class LaudosController extends Controller
         return response()->json(['success' => 'done']);
     }
 
-    public function materiais($laudo)
+    public function materiais($laudo,Request $id)
     {
+        if($id==null){
+
+        }else{
+            $outros=Armas_Gdl::find($id->id);
+            if ($outros) {
+        
+                $outros->status = "CADASTRADO"; // Muda o status para Não pendente
+                // tem que criar a coluna updated_at tipo TIMESTAMP
+                $outros->save(); // Savando no banco de dados
+            
+            }
+        }
+        
         return view('perito.materiais', compact('laudo'));
     }
 

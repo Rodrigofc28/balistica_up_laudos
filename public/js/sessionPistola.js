@@ -7,38 +7,49 @@ console.log('Marca: '+marca.val())
 console.log('Marca: ',$('#marca_gdl').attr('marca'))
 var valorCorrespondente;
 if($('#marca_gdl').attr('marca')!=''){
-    if($('#marca_gdl').attr('marca')===undefined){
-       
+    if($('#marca_gdl').attr('marca')==undefined){
+        marca.on('change',function(){
+    
+            /* pegando o value e comparado */
+            sessionStorage.setItem('marca_pistola',marca.val());
+          })   
+            /*Tem que ta fora da função change*/
+        marca.val(sessionStorage.getItem('marca_pistola'))
+        
+        marca.trigger('change'); 
+        $('#pais').val(sessionStorage.getItem('marca_pistola'));
+        $('#pais').trigger('change');
+            
     }else{
-    sessionStorage.setItem('marca_pistola',$('#marca_gdl').attr('marca'));
-    var marcaSelecionada = sessionStorage.getItem('marca_pistola');
-    //percorre todo o option
-    $('#marca option').each(function() {
-        
-        var textoOpcao = $(this).text();
-        var tirraS=textoOpcao.replace(/\s/g,"")//tirar os espaços
-        
-        if (tirraS == marcaSelecionada) {
-        
-            $('#marca').val($(this).val()).trigger('change');
-            $('#pais').val($(this).val()).trigger('change');
-          return false; // Interrompe o loop quando a opção correspondente é encontrada
-        }
-      });
+            sessionStorage.setItem('marca_pistola',$('#marca_gdl').attr('marca'));
+            var marcaSelecionada = sessionStorage.getItem('marca_pistola');
+            //percorre todo o option
+            $('#marca option').each(function() {
+                
+                var textoOpcao = $(this).text();
+                var tirraS=textoOpcao.replace(/\s/g,"")//tirar os espaços
+                
+                if (tirraS == marcaSelecionada) {
+                
+                    $('#marca').val($(this).val()).trigger('change');
+                    $('#pais').val($(this).val()).trigger('change');
+                return false; // Interrompe o loop quando a opção correspondente é encontrada
+                }
+            });
     /* pegando o text do elemento e comparando */
     
 
-}
+        }
 }
 else{
     marca.on('change',function(){
     
     /* pegando o value e comparado */
     sessionStorage.setItem('marca_pistola',marca.val());
+    
+})
     marca.val(sessionStorage.getItem('marca_pistola'))
     marca.trigger('change');
-})
-    
 $('#pais').val(sessionStorage.getItem('marca_pistola'));
 }
 
@@ -48,7 +59,13 @@ $('#pais').trigger('change');
 var modelo = $("#modelo")
 console.log('Modelo: '+$('#modelo_gdl').attr('modelo'))
 if($('#modelo_gdl').attr('modelo')!=''){
+    if($('#modelo_gdl').attr('modelo')==undefined){
+        modelo.on('input',function(){
+            sessionStorage.setItem('modelo_pistola',modelo.val());
+        })
+    }else{
     sessionStorage.setItem('modelo_pistola',$('#modelo_gdl').attr('modelo'));
+    }
 }else{
 modelo.on('input',function(){
     sessionStorage.setItem('modelo_pistola',modelo.val());
@@ -59,7 +76,14 @@ modelo.val(sessionStorage.getItem('modelo_pistola'))
 var statusSerie = $("#tipo_serie")
 console.log('Status Serie: '+$('#estado_serie_gdl').attr('status_serie'))
 if($('#estado_serie_gdl').attr('status_serie')!=''){
+    if($('#estado_serie_gdl').attr('status_serie')==undefined){
+        statusSerie.on('change',function(){
+    
+            sessionStorage.setItem('statusSerie_pistola',statusSerie.val());
+        })
+    }else{
     sessionStorage.setItem('statusSerie_pistola',$('#estado_serie_gdl').attr('status_serie'));
+    }
 }
 else{
 statusSerie.on('change',function(){
@@ -72,7 +96,13 @@ statusSerie.trigger('change')
 var numSerie = $("#num_serie")
 console.log('Numero de Serie: '+$('#num_serie_gdl').attr('num_serie'))
 if($('#num_serie_gdl').attr('num_serie')!=''){
+    if($('#num_serie_gdl').attr('num_serie')==undefined){
+        numSerie.on('input',function(){
+            sessionStorage.setItem('numSerie_pistola',numSerie.val());
+        })
+    }else{
     sessionStorage.setItem('numSerie_pistola',$('#num_serie_gdl').attr('num_serie'));
+    }
 }
 else{
 numSerie.on('input',function(){
@@ -133,7 +163,13 @@ var capacidade_carregador = $("#capacidade_carregador")
 
 console.log('Capacidade: '+$('#capacidade_gdl').attr('capacidade'))
 if($('#capacidade_gdl').attr('capacidade')!=''){
+    if($('#capacidade_gdl').attr('capacidade')==undefined){
+        capacidade_carregador.on('input',function(){
+            sessionStorage.setItem('capacidade_carregador_pistola',capacidade_carregador.val());
+        })
+    }else{
     sessionStorage.setItem('capacidade_carregador_pistola',$('#capacidade_gdl').attr('capacidade'));
+    }
 }else{
 capacidade_carregador.on('input',function(){
     sessionStorage.setItem('capacidade_carregador_pistola',capacidade_carregador.val());
@@ -160,7 +196,14 @@ sistema_disparo.trigger('change')
 var tipo_acabamento = $("#tipo_acabamento")
 console.log('Acabamento: '+$('#acabamento_gdl').attr('acabamento'))
 if($('#acabamento_gdl').attr('acabamento')!=''){
+    if($('#acabamento_gdl').attr('acabamento')==undefined){
+        tipo_acabamento.on('change',function(){
+    
+            sessionStorage.setItem('tipo_acabamento_pistola',tipo_acabamento.val());
+        })
+    }else{
     sessionStorage.setItem('tipo_acabamento_pistola',$('#acabamento_gdl').attr('acabamento'));
+    }
 }else{
 tipo_acabamento.on('change',function(){
     
@@ -238,7 +281,14 @@ var estado_geral = $("#estado_geral")
 console.log('Estado Geral: '+$('#estado_geral_gdl').attr('estado_geral'))
 /* Dados vindo gdl se for diferente de null o dado e capturado*/
 if($('#estado_geral_gdl').attr('estado_geral')!=''){
+    if($('#estado_geral_gdl').attr('estado_geral')==undefined){
+        estado_geral.on('change',function(){
+    
+            sessionStorage.setItem('estado_geral_pistola',estado_geral.val());
+        })
+    }else{
     sessionStorage.setItem('estado_geral_pistola',$('#estado_geral_gdl').attr('estado_geral'));
+    }
 }else{
     estado_geral.on('change',function(){
     
@@ -251,7 +301,14 @@ estado_geral.trigger('change')
 var funcionamento = $("#funcionamento")
 console.log('Funcionamento: '+$('#funcionamento_gdl').attr('funcionamento'))
 if($('#funcionamento_gdl').val()!=''){
+    if($('#funcionamento_gdl').val()==undefined){
+        funcionamento.on('change',function(){
+    
+            sessionStorage.setItem('funcionamento_pistola',$('#funcionamento').val());
+        })
+    }else{
     sessionStorage.setItem('funcionamento_pistola',$('#funcionamento_gdl').attr('funcionamento'));
+    }
 }else{
 funcionamento.on('change',function(){
     
@@ -275,8 +332,11 @@ var numLacreEntrada = $("#numLacreEntrada")
 /* Se for diferente de null a rep captura a rep vindo gdl e armazena na sessão */
 console.log('Lacre de Entrada: '+$('#lacre_entrada_gdl').attr('lacre'))
 if($('#lacre_entrada_gdl').attr('lacre')!=''){
+    
     if($('#lacre_entrada_gdl').attr('lacre')===undefined){
-        
+        numLacreEntrada.on('input',function(){
+            sessionStorage.setItem('numLacreEntrada_pistola',numLacreEntrada.val());
+        })
          }
          else{
             sessionStorage.setItem('numLacreEntrada_pistola',$('#lacre_entrada_gdl').attr('lacre'));
@@ -294,7 +354,13 @@ numLacreEntrada.val(sessionStorage.getItem('numLacreEntrada_pistola'))
 var lacreSaida = $("#lacreSaida")
 console.log('Lacre de Saida'+$('#lacre_saida_gdl').attr('lacre_saida'))
 if($('#lacre_saida_gdl').attr('lacre_saida')!=''){
+    if($('#lacre_saida_gdl').attr('lacre_saida')==undefined){
+        lacreSaida.on('input',function(){
+            sessionStorage.setItem('lacreSaida_pistola',lacreSaida.val());
+        })
+    }else{
     sessionStorage.setItem('lacreSaida_pistola',$('#lacre_saida_gdl').attr('lacre_saida'));
+    }
 }else{
 lacreSaida.on('input',function(){
     sessionStorage.setItem('lacreSaida_pistola',lacreSaida.val());

@@ -3,8 +3,13 @@
 console.log('cartucho/estojo')
 var tipo_municao = $("#tipo_municao")
 if($('#tipo_item_gdl').attr('item')!=''){
-    if($('#tipo_item_gdl').attr('item')===undefined){
-
+    if($('#tipo_item_gdl').attr('item')==undefined){
+        tipo_municao.on('change',function(){
+    
+            sessionStorage.setItem('tipo_municao',tipo_municao.val());
+        })
+        tipo_municao.val(sessionStorage.getItem('tipo_municao'))
+        tipo_municao.trigger('change')
     }else{
         if($('#tipo_item_gdl').attr('item')=="CARTUCHO(S)")
         {
@@ -32,7 +37,15 @@ console.log('Marca: ',$('#marca_gdl').attr('marca'))
 var valorCorrespondente;
 if($('#marca_gdl').attr('marca')!=''){
     if($('#marca_gdl').attr('marca')===undefined){
-       
+        marca.on('change',function(){
+    
+            /* pegando o value e comparado */
+            sessionStorage.setItem('marca_cartucho',marca.val());
+            
+        })
+            marca.val(sessionStorage.getItem('marca_cartucho'))
+            marca.trigger('change');
+        $('#pais').val(sessionStorage.getItem('marca_cartucho'));
     }else{
     sessionStorage.setItem('marca_espingarda',$('#marca_gdl').attr('marca'));
     var marcaSelecionada = sessionStorage.getItem('marca_espingarda');
@@ -58,12 +71,12 @@ else{
     marca.on('change',function(){
     
     /* pegando o value e comparado */
-    sessionStorage.setItem('marca_espingarda',marca.val());
-    marca.val(sessionStorage.getItem('marca_espingarda'))
-    marca.trigger('change');
-})
+    sessionStorage.setItem('marca_cartucho',marca.val());
     
-$('#pais').val(sessionStorage.getItem('marca_espingarda'));
+})
+    marca.val(sessionStorage.getItem('marca_cartucho'))
+    marca.trigger('change');
+$('#pais').val(sessionStorage.getItem('marca_cartucho'));
 }
 
 $('#pais').trigger('change');
@@ -82,7 +95,9 @@ var quantidade = $("#quantidade")
 
 if($('#quantidade_gdl').attr('quantidade')!=''){
     if($('#quantidade_gdl').attr('quantidade')===undefined){
-        
+        quantidade.on('input',function(){
+            sessionStorage.setItem('quantidade_cartucho',quantidade.val());
+        })   
          }
          else{
             sessionStorage.setItem('quantidade_cartucho',$('#quantidade_gdl').attr('quantidade'));
@@ -171,7 +186,9 @@ var lote = $("#lote")
 
 if($('#lote_gdl').attr('lote')!=''){
     if($('#lote_gdl').attr('lote')===undefined){
-
+        lote.on('input',function(){
+            sessionStorage.setItem('lote',lote.val());
+        })
     }
     else{
         sessionStorage.setItem('lote',$('#lote_gdl').attr('lote'));
@@ -192,7 +209,9 @@ var lacrecartucho = $("#lacrecartucho")
 console.log('Lacre de Entrada: '+$('#lacre_entrada_gdl').attr('lacre'))
 if($('#lacre_entrada_gdl').attr('lacre')!=''){
     if($('#lacre_entrada_gdl').attr('lacre')===undefined){
-        
+        lacrecartucho.on('input',function(){
+            sessionStorage.setItem('numLacreEntrada_cartucho',lacrecartucho.val());
+        })   
          }
          else{
             sessionStorage.setItem('numLacreEntrada_cartucho',$('#lacre_entrada_gdl').attr('lacre'));
@@ -216,7 +235,9 @@ var lacre_saida = $("#lacre_saida")
 console.log('Lacre de Saida'+$('#lacre_saida_gdl').attr('lacre_saida'))
 if($('#lacre_saida_gdl').attr('lacre_saida')!=''){
     if($('#lacre_saida_gdl').attr('lacre_saida')===undefined){
-
+        lacre_saida.on('input',function(){
+            sessionStorage.setItem('lacreSaida_cartucho',lacre_saida.val());
+        })
     }
     else{
         sessionStorage.setItem('lacreSaida_cartucho',$('#lacre_saida_gdl').attr('lacre_saida'));

@@ -18,7 +18,7 @@
     <section id="home">
         <div class="home-container">
             <div class="home-logo">
-                <img src="../public/image/logo-sem-fundo.png" alt="Logo da Policia Científica do Paraná">
+                <img src="../public/image/logo_policia_cientifica.jpeg" style="width: 30%" alt="Logo da Policia Científica do Paraná">
             </div>
 
             
