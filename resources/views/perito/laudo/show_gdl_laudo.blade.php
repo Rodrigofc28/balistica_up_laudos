@@ -15,10 +15,10 @@
 
 <div id="showLaudo" class="col-lg-12">
         <span><strong>REP:</strong> {{$laudo->rep}}</span><br>
-        <input type="button" id="btn-edit" class="btn btn-success" value="Editar cabeçalho do Laudo"> 
-      </div>
+        {{-- <input type="button" id="btn-edit" class="btn btn-success" value="Editar cabeçalho do Laudo">  --}}
+</div>
       
-<div class="col-lg-12" id="editarInformacoes">
+{{-- <div class="col-lg-12" id="editarInformacoes">
     {!! Form::open(['route' => ['laudos.update', $laudo], 'method' => 'patch']) !!}
 
     <input type="hidden" value="{{$laudo->id}}" id="laudo_id" name="laudo_id">
@@ -67,7 +67,7 @@
     </div>
 </div>
 
-<hr>
+<hr> --}}
 
 <div class="col-lg-12">
     
@@ -77,8 +77,8 @@
         <form action="{{route('embalagem')}}" method="post"  enctype="multipart/form-data">
         {{ csrf_field() }}
             
-        
-            <h4><strong style="padding:10px "> ADICIONAR IMAGENS DA EMBALAGEM RECEBIDA </strong> </h4>
+       
+            <h4 style="color:#fff;background-color:rgb(19, 19, 18);text-align:center"><strong style="padding:10px "> ADICIONAR IMAGENS DA EMBALAGEM RECEBIDA </strong> </h4>
             <input type="text" hidden name="laudo_id" value="{{$laudo->id}}">
             <div class="input-group mb-2">
                 <button style="border:solid 0px;">FRENTE</button>
@@ -99,8 +99,10 @@
     
         <hr>
         @if(count($laudo->imagens)>0)
-            <button id="btnAumentarImg" class="btn btn-primary" >+</button>
-            <button id="btnDiminuirImg" class="btn btn-primary" >-</button>
+            <div style="background-color: #565956">
+                <button id="btnAumentarImg" style="border: 2px solid white" class="btn btn-primary" >+</button>
+                <button id="btnDiminuirImg" style="border: 2px solid white" class="btn btn-primary" >-</button>
+            </div>
         @endif
         <div id="imageHideShow">
         
@@ -112,7 +114,7 @@
                     @php
                     
                         for ($i = 0; $i < count($laudo->imagens); $i++) {
-                            echo '<div style="background-color:#90EE90">    
+                            echo '<div style="background-color:#7e827e">    
                                 <img src="' . asset('../public/storage/imagensEmbalagem/' . $laudo->imagens[$i]->nome) . '" style="width:100px;height:100px;padding:10px" alt="">
                                 <strong><a href="' . route('imagemExcluir', $laudo->imagens[$i]) . '" style="color:white">EXCLUIR IMAGEM</a></strong>
                                 </div>';
@@ -123,7 +125,7 @@
  
     </div>
     {{-- IMAGENS CARTUCHOS E ESTOJOS --}}
-    <div  style="border:solid 1px #E0E0E0; ">
+    <div  style="border:solid 1px #E0E0E0;max-width:100% ">
 
         @php
             $colecoes=[];
@@ -140,7 +142,7 @@
                     }
             @endphp
             
-                <h4><strong style="padding:10px;  ">ADICIONAR IMAGEM {{mb_strtoupper($obj_img->tipo_municao)}} </strong> </h4>
+                <h6><strong style="padding:10px;background-color:rgb(113, 109, 109);color:#fff  ">IMAGEM {{mb_strtoupper($obj_img->tipo_municao)}} </strong> </h6>
                 
                 <p style="padding-left:1%" > LACRE {{$mensagemImage}} </p>
             
@@ -164,7 +166,7 @@
             @foreach($colecoes as $colecao )
                 @if(isset($municao->imagens[0]->nome))
                     @if($colecao==$municao->id)
-                        <div style="background-color:#90EE90">
+                        <div style="background-color:#909690">
                             <img src="{{asset('../public/storage/imagensMunicao/'.$municao->imagens[0]->nome)}}" style="width:100px;height:100px;padding:10px"alt="">
                             <strong><a href="{{route('imagemCartuchoExcluir',$municao->imagens[0])}}" style="color:white">EXCLUIR IMAGEM</a></strong>
                             <span><strong>{{$municao->lacrecartucho==''?$municao->lacre_saida:$municao->lacrecartucho}}</strong></span>
@@ -184,7 +186,7 @@
           $colecoes=[];
           @endphp  
             @foreach ($obj as $obj_img)
-            <h4><strong style="padding:10px;  ">ADICIONAR IMAGEM PROJÉTIL</strong>  </h4>
+            <h4><strong style="padding:10px;background-color:rgb(113, 109, 109);color:#fff ">IMAGEM PROJÉTIL</strong>  </h4>
             <p style="padding-left:1%" > LACRE {{$obj_img->lacrecartucho==""?'SAIDA '.$obj_img->lacreSaida:'ENTRADA '.$obj_img->lacrecartucho}}</p>
         @php
             
@@ -209,7 +211,7 @@
                 @foreach($colecoes as $colecao )
                     @if(isset($componente->imagensProjetil[0]->nome))
                         @if($colecao==$componente->id)
-                            <div style="background-color:#90EE90">
+                            <div style="background-color:#797d79">
                                 <img src="{{asset('../public/storage/imagensProjetil/'.$componente->imagensProjetil[0]->nome)}}" style="width:100px;height:100px;padding:10px"alt="">
                                 <a href="{{route('imagemProjetilExcluir',$componente->imagensProjetil[0])}}" style="color:white"><strong>EXCLUIR IMAGEM</strong></a>
                                 <span><strong>{{$componente->lacrecartucho}}</strong></span>

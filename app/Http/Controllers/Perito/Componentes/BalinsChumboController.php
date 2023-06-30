@@ -15,6 +15,13 @@ class BalinsChumboController extends Controller
     public function create(Request $request,$laudo)
     {
         $arma_projetil_gdl=Armas_Gdl::find($request->id);
+        if ($arma_projetil_gdl) {
+        
+            $arma_projetil_gdl->status = "CADASTRADO"; // Muda o status para Não pendente
+            // tem que criar a coluna updated_at tipo TIMESTAMP
+            $arma_projetil_gdl->save(); // Savando no banco de dados
+        
+        }
         return view('perito.laudo.materiais.componentes.balins_chumbo.create',
             compact('laudo','arma_projetil_gdl'));
     }

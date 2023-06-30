@@ -108,50 +108,24 @@ $(document).ready(function() {
     
   });
 
-console.log('laudo ffff'+$('#laudoGDL').val())
+
   if($('#laudoGDL').val() != ''){
+     $('#eficiencia').prop('checked',true)
+   }
  
-    $('#eficiencia').prop('checked',true)
- 
-}
-$('#aumentar').on('click',function(){
+
+$('#aumentar').on('click',function(e){
+  e.preventDefault()
   $('#laudo_campo').show(1000)/*slideDown(1000); aparece de cima pra baixo  */
   console.log('aumentar')
 
 })
-$('#diminuir').on('click',function(){
+$('#diminuir').on('click',function(e){
+  e.preventDefault()
   $('#laudo_campo').slideUp(1000) /* slideUp(1000) desaparece de baixo pra cima */
   console.log('diminuir')
 })
-//busca cep em desenvolvimento
-$('#buttoncep').on('click',function(e){
-     e.preventDefault();
-    let cep=$('#cep').val();
-    
-    let url=`http://viacep.com.br/ws/${cep}/json/`;
-    fetch(url).then(function(response){
-        
-        response.json().then(function(data){
-            
-            var ler=data.localidade
-            
-            console.log(data)
-            $('#complemento').text(data.complemento)
-            $('#rua').text(data.logradouro)
-            $('#bairro').val(data.bairro)
-            $('#cidade').val(ler); // Select the option with a value of '1'
-            $('#cidade').trigger('change');
-            
-            
-          
-            
 
-            
-        })
-    })  
-    
-
-});
 $(document).ready(function() {
   $('input[type="radio"]').click(function() {
     if ($(this).is(':checked')) {

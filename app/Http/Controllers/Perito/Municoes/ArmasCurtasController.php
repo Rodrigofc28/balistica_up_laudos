@@ -16,7 +16,16 @@ class ArmasCurtasController extends Controller
      */
     public function create(Request $request,$laudo)
     {
+        
         $arma_estojo_gdl=Armas_Gdl::find($request->id);
+        if ($arma_estojo_gdl) {
+        
+            $arma_estojo_gdl->status = "CADASTRADO"; // Muda o status para Não pendente
+            // tem que criar a coluna updated_at tipo TIMESTAMP
+            $arma_estojo_gdl->save(); // Savando no banco de dados
+        
+        }
+        
         $marcas = Marca::categoria('municoes');
         $calibres = Calibre::whereNotArmas(['Espingarda']);
         return view('perito.laudo.materiais.municoes.arma_curta.create',

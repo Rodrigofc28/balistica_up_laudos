@@ -33,6 +33,13 @@ function acaoBtnDiminuir(element){
     }
   } 
 acaoDiminuirDiv()
-    
+$('#btnAumentarImg').on('click',function(){
+  
+  $('#imageHideShow').show(1000)
+}) 
+$('#btnDiminuirImg').on('click',function(){
+  
+  $('#imageHideShow').hide(1000)
+}) 
 
 

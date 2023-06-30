@@ -102,10 +102,10 @@
 @if($reps!=""&$armasGdl!="")
 
     
-    {{ Form::close() }}
-    <div style="background-color: rgb(122, 118, 53)">
-        <button id="aumentar" class="btn btn-primary " style="border:0px ;">+</button>
-        <button id="diminuir" class="btn btn-primary " style="border:0px ;">-</button>
+    
+    <div style="background-color: rgb(98, 98, 94)">
+        <button id="aumentar" class="btn btn-primary " style="border: 2px solid white">+</button>
+        <button id="diminuir" class="btn btn-primary " style="border: 2px solid white">-</button>
     </div>    
     <div id="laudo_campo" style="border:1px solid black;">
         
@@ -133,9 +133,12 @@
         <span id="orgaoSpan"></span> 
         
         <input hidden type="text" name="orgaoGdl" id="orgaoIn" value="">
+     </div>   
         
-        
-    </div>
+    
+
+     {{ Form::close() }}
+
     <hr>
     <div id="tab_gdl" class="grid-conterner-gdl">
         <p id="titulo"><strong>Peças</strong></p>
@@ -148,8 +151,8 @@
             <p><strong>IDENTIFICAÇÃO:</strong> {{$armagdl->identificacao}}</p>
             <p><strong>LACRE DE ENTRADA:</strong> {{$armagdl->lacre_entrada}}</p>
         </div> 
-        
-            <hr>
+      <p>****************************************************</p>
+         
             
         @endforeach
     </div>
