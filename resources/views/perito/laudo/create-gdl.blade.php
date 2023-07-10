@@ -6,9 +6,9 @@
 
 @endsection
 @section('page')
-<div class="col-8">
+{{-- <div class="col-8">
     <h4>Cadastrar Informações Gerais do Laudo</h4>
-</div>
+</div> --}}
 <hr>
 
 {{ Form::open(['route' => 'laudos.store']) }}

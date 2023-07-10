@@ -176,7 +176,7 @@ class ComponentesText
         $arrayImageProjetil=[];
         foreach($componentes as $componente){
             array_push($arrayImageProjetil,$componente->imagensProjetil);}
-///////////////// projetil Imagem 
+/* projetil Imagem  */
 
 $numImg=count($arrayImageProjetil); 
 
@@ -226,7 +226,6 @@ if(!empty($arrayImageProjetil[$i][0]->nome)){
   
      }
     
-     
      protected function caracteristica($componentes,$table,$pQ){foreach($componentes as $componente){$teste=[$table->addCell(null,['bgColor'=>'d3d3d3'])->addText('PQ '.$pQ,null,$this->paraStyle),];$pQ++; }}  
      protected function origem($componentes,$table){foreach($componentes as $componente){ $repOrigem=($componente->rep_materialColetado!='')?" REP $componente->rep_materialColetado":'';$detOrigem=($componente->detalharLocalizacao!='')?"/ $componente->detalharLocalizacao":'';
         ;$teste=[$table->addCell()->addText("".mb_strtoupper($componente->origem_coletaPerito)."".mb_strtoupper($repOrigem)."".mb_strtoupper($detOrigem),null,$this->paraStyle)];}}
@@ -354,8 +353,6 @@ if(!empty($arrayImageProjetil[$i][0]->nome)){
 
 
     } 
-    
-    
     
     public function imagemProj($contagem,$cont,$cont2,$componentes){
         

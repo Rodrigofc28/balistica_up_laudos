@@ -89,7 +89,8 @@ for listMsl in results:
             #driver = webdriver.Chrome(options=options)
             
             # Abre o navegador e navega para a página do GDL e faz o login
-            driver.get('http://iishml01.pr.gov.br/SAC/GDL_IC_NET/Account/Login.aspx')
+            driver.get('http://www.gdl.sesp.parana/SAC/GDL_IC_NET/Account/Login.aspx')#
+            # http://iishml01.pr.gov.br/SAC/GDL_IC_NET/Account/Login.aspx 
 
             perito=usuario
             senhaPerito=password
@@ -100,7 +101,7 @@ for listMsl in results:
             senha.send_keys(senhaPerito)
             loga=driver.find_element(By.ID,'Content_btnLogin')
             loga.click()
-
+            
             #Abre a minhas Requisições e rpocura por exame de confronto balistico
             abriRep=driver.find_element(By.ID,'Content_ico_MyREPs')
             abriRep.click()

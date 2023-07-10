@@ -22,7 +22,7 @@
         <select class="js-single-select form-control{{ $errors->has('funcionamento') ? ' is-invalid' : '' }}"
                 name="funcionamento" id="condicaoEstojo">
             <option value=""></option>
-            @foreach (['Intacto','percutido e deflagrado'] as $funcionamento)
+            @foreach (['espoletado','percutido e deflagrado','recarregável'] as $funcionamento)
                 <option value="{{ mb_strtolower($funcionamento)}}"
                         {{ (mb_strtolower($funcionamento) == mb_strtolower($funcionamento2)) ? 'selected=selected' : '' }}>
                     {{mb_strtoupper($funcionamento)}}

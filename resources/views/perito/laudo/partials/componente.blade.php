@@ -37,7 +37,7 @@
         @foreach($colecoes as $colecao )
             @if(isset($componente->imagensProjetil[0]->nome))
                 @if($colecao==$componente->id)
-                    <div style="background-color:#90EE90">
+                    <div style="background-color:#cad6ca">
                         <img src="{{asset('../public/storage/imagensProjetil/'.$componente->imagensProjetil[0]->nome)}}" style="width:100px;height:100px;padding:10px"alt="">
                         <a href="{{route('imagemProjetilExcluir',$componente->imagensProjetil[0])}}" style="color:white"><strong>EXCLUIR IMAGEM</strong></a>
                         <span><strong>{{$componente->lacrecartucho}}</strong></span>

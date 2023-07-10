@@ -268,7 +268,7 @@ class Geral extends Tabelas
                 $cartuchoNome="($cartuchoNome";
                $funcionamentoCondicao="$municao->funcionamento),";
                
-                array_push($cartuchosEstojosTipo,' nº',$municao->lacre_saida,$cartuchoNome,$funcionamentoCondicao);}
+                array_push($cartuchosEstojosTipo,' nº',$municao->lacrecartucho,$cartuchoNome,$funcionamentoCondicao);}
 
                 if($municao->tipo_municao=="estojo"){
                   
@@ -330,8 +330,8 @@ class Geral extends Tabelas
         }
 
         
-        
-        $consideracaoFinais="O material descrito neste documento, após examinado, foi devidamente identificado, embalado e lacrado com os lacres".implode($arrayNumeroLacre).''.implode(' ',$cartuchosEstojosTipo)." conforme requerido pelos artigos 158-A a 158-F do Código de Processo Penal (Lei nº 13.964/2019), e encaminhado para a Central de Custódia da Polícia Científica do Paraná.".$consideracaoFinaisSinab;
+       
+        $consideracaoFinais="O material descrito neste documento, após examinado, foi devidamente identificado, embalado e lacrado com o(s) lacre(s)".implode($arrayNumeroLacre).''.implode(' ',$cartuchosEstojosTipo)." conforme requerido pelos artigos 158-A a 158-F do Código de Processo Penal (Lei nº 13.964/2019), e encaminhado para a Central de Custódia da Polícia Científica do Paraná.".$consideracaoFinaisSinab;
          
           
        

@@ -13,7 +13,7 @@
                     @foreach ($ths as $th)
                     <th>{{ $th }}</th>
                     @endforeach
-                    <th>Ações</th>
+                    <th>Criar Laudo</th>
                 </tr>
             </thead>
             <tbody align="center" class="table-search">

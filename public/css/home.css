@@ -27,7 +27,7 @@
 }
 
 #home .home-container {
-    /* background: rgba(0, 0, 0, 0.5); */
+     background: rgb(255, 255, 255);
 
     /* background: -webkit-linear-gradient(#CCCCCC, #000000);
     background: -o-linear-gradient(#CCCCCC, #000000);
@@ -41,6 +41,7 @@
     padding: 0;
     text-align: center;
     vertical-align: middle;
+    
 }
 
 #home h1 {

@@ -74,7 +74,7 @@ public function cartuchoPercutido($phpWord,$section,$config,$laudo){
         'ETOG'=>'Encamisado Total Ogival',
         'EPP'=>'Encamisado Ponta Plana',
         'ETPP'=>'Encamisado Total Ponta Plana',
-        'ETPP'=>' Encamisado Total Ponta-Oca',
+        'ETPO'=>' Encamisado Total Ponta-Oca',
         'ETHS'=>' Encamisado Total Hydra-Shok',
         'ETPT'=>' Encamisado Total Pontiagudo',
         'EXPO'=>' Encamisado Expansivo Ponta Oca',
@@ -686,9 +686,9 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
                 
                 
                     
-                        $ini=0;
-                        $ini2=0;
-                        $this->imagemMuniCartucho($arraymunicao,$ini,$ini2);
+                        $inicio=0;
+                        
+                        $this->imagemMuniCartucho($arraymunicao,$inicio);
                    
                    
 
@@ -780,7 +780,8 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
                 }else if($municao->funcionamento=="percutido e não deflagrado"){
                     $estojoDescricao="percutido e não deflagrado";
                 }
-                if($laudo->laudoEfetConst=="efetivacao"&&$municao->funcionamento=="percutido e não deflagrado"){
+                
+                if($laudo->laudoEfetConst=="efetivacao"&&$municao->funcionamento=="percutido e deflagrado"){
                 $textrun->addText('Os ',$this->config->arial12()); 
                 $textrun->addText($estojoDescricao,$this->config->arial12Underline());
                 $textrun->addText(' foram retornados à Central de Custódia, devidamente embalados, garantindo a integridade das marcas de percussão para futuros exames de comparação microbalística, prestando ainda como ',$this->config->arial12());
@@ -792,8 +793,8 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
                 
                 
                     $inicio=0;
-                    $i2=0;
-                    $this->imagemMuni($laudo,$inicio,$i2);
+                    
+                    $this->imagemMuni($laudo,$inicio);
     
                     $this->section->addTextBreak(1);
                 
@@ -884,101 +885,103 @@ $extenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);
     }
     
 
-    public function imagemMuni($laudo,$inicio,$i2){
+    public function imagemMuni($laudo,$inicio){
         
         global $numTab;
+    $numTab++;
+    /*  */
+   
+    if($laudo->municoes[$inicio]->imagens!="[]"&&$laudo->municoes[$inicio]->tipo_municao=='estojo')
+    {
         
-        if($laudo->municoes[$inicio]->imagens!="[]")
-        {
-            $table = $this->section->addTable('tabela2img');
-            $table->addRow(10,['tblHeader'=>true]);   
-            $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomadas fotográficas Estojos', $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
-            $table->addRow(10,['cantSplit'=>false]);
-        }else
-        {}
-        $this->section->addTextBreak(1);
-        $numTab++;
-       
-        for($i=$inicio;$i<count($laudo->municoes);$i++)
-            {
-            $i2++;
-            if($laudo->municoes[$i]->tipo_municao=='estojo')
-            {
-                if($laudo->municoes[$i]->imagens=='[]'){
-
-                }
-                else
-                {
-                    $tabelaImg=$table->addCell();
-                    $tabelaImg->addImage($this->imagem($laudo->municoes[$i])[0], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150)); 
-                    $tabelaImg->addText('Estojo calibre '.$laudo->municoes[$i]->calibre->nome,$this->fontStyle,$this->paraStyle);
-                    
-                    if($i2 % 2 == 0){
-                       
-                        $inicio+=2;
-                        
-                        $this->imagemMuni($laudo,$inicio,$i2);
-                        
-                        break;
-                        
-                    }
-                    
-                } 
-            }
-            
+        $table = $this->section->addTable('tabela2img');
+        $table->addRow(10,['tblHeader'=>true]);   
+        $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomada(s) fotográfica(s) Estojo(s) Lacre '.$laudo->municoes[$inicio]->lacrecartucho, $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
+        $table->addRow(10,['cantSplit'=>false]);
+        $tabelaImg=$table->addCell();
+        $tabelaImg->addImage($this->imagem($laudo->municoes[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150)); 
+        $tabelaImg->addText('Estojo(s) calibre '.$laudo->municoes[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
+        
+        
+        
+        if(!empty($this->imagem($laudo->municoes[$inicio])[1])){
+        $tabelaImg=$table->addCell();
+        $tabelaImg->addImage($this->imagem($laudo->municoes[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150)); 
+        $tabelaImg->addText('Estojo(s) calibre '.$laudo->municoes[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
         }
-    
-        $numTab++;
-        
+        $inicio++;
+         if(!empty($laudo->municoes[$inicio])){
+           
+            $this->imagemMuni($laudo,$inicio);
             
-        
+        } 
     
+
+    }else{  
+        $inicio++;
+                     if(!empty($laudo->municoes[$inicio])){
+                       
+                        $this->imagemMuni($laudo,$inicio);
+                        
+                    } 
+    }
+    $this->section->addTextBreak(1);
+   
+                   
+     
+$numTab++;
+//dd($contador);
+
+
         
  }        
- public function imagemMuniCartucho($municao,$inicio,$i2){
+ public function imagemMuniCartucho($municao,$inicio){
    
     global $numTab;
     $numTab++;
-    if($municao[$inicio]->imagens!="[]")
+    /*  */
+    
+    if($municao[$inicio]->imagens!="[]"&&$municao[$inicio]->tipo_municao=='cartucho')
     {
+        
         $table = $this->section->addTable('tabela2img');
         $table->addRow(10,['tblHeader'=>true]);   
-        $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomadas fotográficas Cartuchos', $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
+        $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomada(s) fotográfica(s) Cartucho(s) Lacre '.$municao[$inicio]->lacrecartucho, $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
         $table->addRow(10,['cantSplit'=>false]);
     }else{}
     $this->section->addTextBreak(1);
-    
-    
-    for($i=$inicio;$i<count($municao);$i++){
-        
-            $i2++;
-            if($municao[$i]->tipo_municao=='cartucho')
+   
+            if($municao[$inicio]->tipo_municao=='cartucho')
                 {
-                if($municao[$i]->imagens=='[]'){
+                if($municao[$inicio]->imagens=='[]'){
 
                 }else{
                     $tabelaImg=$table->addCell();
-                    $tabelaImg->addImage($this->imagem($municao[$i])[0], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150)); 
-                    $tabelaImg->addText('Cartucho calibre '.$municao[$i]->calibre->nome,$this->fontStyle,$this->paraStyle);
+                    $tabelaImg->addImage($this->imagem($municao[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150)); 
+                    $tabelaImg->addText('Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
                     
-                    if($i2 % 2 == 0){
-                       
-                        $inicio+=2;
-                        
-                        $this->imagemMuniCartucho($municao,$inicio,$i2);
-                        
-                        break;
-                        
+                    
+                    
+                    if(!empty($this->imagem($municao[$inicio])[1])){
+                    $tabelaImg=$table->addCell();
+                    $tabelaImg->addImage($this->imagem($municao[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150)); 
+                    $tabelaImg->addText('Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
                     }
+                    $inicio++;
+                     if(!empty($municao[$inicio])){
+                       
+                        $this->imagemMuniCartucho($municao,$inicio);
+                        
+                    } 
                 }
-                }
+                
         
    
 }
 $numTab++;
 //dd($contador);
 
-    
+
 }        
 
    

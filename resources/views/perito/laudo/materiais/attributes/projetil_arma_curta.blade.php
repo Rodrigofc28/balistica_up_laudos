@@ -5,16 +5,17 @@
                 name="projetil" id="projetil">
             <option value=""></option>
             @foreach ([
-                'CHOG'=>'Chumbo Ogival',
-                'CHPP'=>' Chumbo Ponta Plana',
-             'CHCV'=>' Chumbo Canto Vivo' ,
-             'CSCV'=>' Chumbo Semi Canto Vivo ',
+            'CHOG'=>'Chumbo Ogival',
+            'CHPP'=>' Chumbo Ponta Plana',
+            'CHCV'=>' Chumbo Canto Vivo' ,
+            'CSCV'=>' Chumbo Semi Canto Vivo ',
             'CXPO'=>' Cobre Expansivo Ponta Oca',
-            'EPP'=>'Encamisado Ponta Plana',
+            
             'EXPP'=>'Encamisado Expansivo Ponta Plana',
             'ETOG'=>'Encamisado Total Ogival',
+            'EPP'=>'Encamisado Ponta Plana',
             'ETPP'=>'Encamisado Total Ponta Plana',
-            'ETPP'=>' Encamisado Total Ponta-Oca',
+            'ETPO'=>' Encamisado Total Ponta-Oca',
             'ETHS'=>' Encamisado Total Hydra-Shok',
             'ETPT'=>' Encamisado Total Pontiagudo',
             'EXPO'=>' Encamisado Expansivo Ponta Oca',
