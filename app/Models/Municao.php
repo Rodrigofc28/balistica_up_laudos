@@ -13,7 +13,7 @@ class Municao extends Model
         'projetil', 'funcionamento', 'quantidade', 'tipo_municao', 'tipo_projetil',
         'nao_deflagrado', 'municao_de','lacrecartucho','observacao','institutoArma',
         'coleta','percutidos','lacre_saida','rep_materialColetado','lote',
-        'origem_coletaPerito','funcionamentoCartucho','qtEficiente','qtIneficiente'];
+        'origem_coletaPerito','funcionamentoCartucho','qtEficiente','qtIneficiente','up_image','up_image2'];
 
     protected $table = 'municoes';
 

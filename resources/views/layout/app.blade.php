@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/home.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/layout.css')}}">
-
+        <link rel="stylesheet" href="{{ URL::asset('css/cssMunicao.css')}}">
         <link rel="stylesheet" href="{{ URL::asset('jquery-ui-1.12.1.custom/jquery-ui.min.css')}}">
         <link rel="stylesheet" href="{{ URL::asset('css/sweetalert2.min.css')}}">
         <link rel="stylesheet" href="{{ URL::asset('css/sb-admin.css')}}">

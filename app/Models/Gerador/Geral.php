@@ -122,7 +122,8 @@ class Geral extends Tabelas
         
         $fileContent = file_get_contents($source);
         //oficio requisitante
-        if($oficio!=null){
+        
+        if($laudo->laudoEfetConst!="constatacao"){//$oficio!=null
             $paragrafo_material="Foi encaminhado a esta Unidade de Execução Técnico-científica, em embalagens plásticas transparentes lacradas, conforme ofício recebido, o seguinte material:";
             $requisicaoOficio=['materiais abaixo discriminados ',' a fim de ser atendida solicitação contida no Ofício nº '.$oficio.', datado de '.$data_solic.', oriundo da '.$delegacia.'.'];
         }else{

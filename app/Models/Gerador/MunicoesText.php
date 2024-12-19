@@ -617,16 +617,16 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
         global $numTab;
         
         foreach($arraymunicao as $municao){ $condicao= mb_strtoupper($municao->funcionamento).'S';};
-        
-        $text=[
-        
-        $this->section->addText('3.'.$item.' DOS CARTUCHOS '.$condicao, $this->config->arial12Bold(), $this->config->paragraphJustify()) , 
-        $textrun = $this->section->addTextRun($this->config->paragraphJustify()),         
-        $textrun->addText('Trata-se de ',$this->config->arial12()),
-        $textrun->addText($extenso->format($qunttcartucho).' cartuchos ',$this->config->arial12Underline()),
-        $textrun->addText(' próprios para uso em armas de fogo, integralmente descritos no quadro a seguir:',$this->config->arial12()),
-        
-        $textrun->addTextBreak(1),
+            
+            $text=[
+            
+            $this->section->addText('3.'.$item.' DOS CARTUCHOS '.$condicao, $this->config->arial12Bold(), $this->config->paragraphJustify()) , 
+            $textrun = $this->section->addTextRun($this->config->paragraphJustify()),         
+            $textrun->addText('Trata-se de ',$this->config->arial12()),
+            $textrun->addText($extenso->format($qunttcartucho).' cartuchos ',$this->config->arial12Underline()),
+            $textrun->addText(' próprios para uso em armas de fogo, integralmente descritos no quadro a seguir:',$this->config->arial12()),
+            
+            $textrun->addTextBreak(1),
         
             $table = $this->section->addTable('tabela'),
             $table->addRow(10),
@@ -940,8 +940,8 @@ $numTab++;
     global $numTab;
     $numTab++;
     /*  */
-    
-    if($municao[$inicio]->imagens!="[]"&&$municao[$inicio]->tipo_municao=='cartucho')
+   
+    if($municao[$inicio]->up_image!="[]"&&$municao[$inicio]->tipo_municao=='cartucho')
     {
         
         $table = $this->section->addTable('tabela2img');
@@ -953,19 +953,19 @@ $numTab++;
    
             if($municao[$inicio]->tipo_municao=='cartucho')
                 {
-                if($municao[$inicio]->imagens=='[]'){
+                if($municao[$inicio]->up_image=='[]'){
 
                 }else{
                     $tabelaImg=$table->addCell();
                     $tabelaImg->addImage($this->imagem($municao[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150)); 
-                    $tabelaImg->addText('Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
+                    $tabelaImg->addText('Base-Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
                     
                     
                     
                     if(!empty($this->imagem($municao[$inicio])[1])){
-                    $tabelaImg=$table->addCell();
-                    $tabelaImg->addImage($this->imagem($municao[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150)); 
-                    $tabelaImg->addText('Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
+                        $tabelaImg=$table->addCell();
+                        $tabelaImg->addImage($this->imagem($municao[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150)); 
+                        $tabelaImg->addText('Lateral-Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
                     }
                     $inicio++;
                      if(!empty($municao[$inicio])){
@@ -989,28 +989,24 @@ $numTab++;
 
     public function imagem($municao){
        
-        $i=0;
+      
         $contagem=[];
-        $imagens = $municao->imagens;
-        
-        if ($imagens->count() > 0) {
-            foreach ($imagens as $imagem) {
+       
                 
-                $source = storage_path('app/public/imagensMunicao/' . $imagem->nome);
-                
-                if (file_exists($source)) {
+                $source = storage_path('app/public/' . $municao->up_image);
+                $source2 = storage_path('app/public/' . $municao->up_image2);
+
+                if (file_exists($source)&&file_exists($source2)) {
                     $fileContent = file_get_contents($source);
-                    
-                    $contagem[$i]=$fileContent;
-                    
+                    $fileContent2 = file_get_contents($source2);
+                    $contagem[0]=$fileContent;
+                    $contagem[1]=$fileContent2;
                 } else {
                     $this->section->addText("Ocorreu um erro com a imagem.", ['color' => "FF0000", 'size' => 14]);
                 }
-                $i++;
-            }
-            
+              
             return $contagem;
-        }
+    
 
     }
     

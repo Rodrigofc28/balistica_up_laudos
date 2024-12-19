@@ -40,6 +40,7 @@ class CreateMunicoesTable extends Migration
             $table->integer('origem_id')->unsigned()->nullable();
             $table->integer('qtEficiente')->nullable();
             $table->integer('qtIneficiente')->nullable();
+            
             $table->softDeletes();
             $table->timestamps();
         });

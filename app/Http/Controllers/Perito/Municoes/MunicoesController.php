@@ -17,8 +17,41 @@ class MunicoesController extends Controller
     public function store(MunicaoRequest $request, $laudo)
     {   
         
+        $request->validate([
+            'up_image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'up_image2' => 'required|image|mimes:jpeg,png,jpg,gif',
+            // outras validações, se necessário
+        ]);
+        
         $tipoMunicao=$request->input('tipo_municao');
-        Municao::create($request->all());
+        
+       
+        if (($request->hasFile('up_image') && $request->file('up_image')->isValid())&&($request->hasFile('up_image2') && $request->file('up_image2')->isValid())) {
+            // Gerar um nome único para o arquivo
+            $base = md5($request->file('up_image')->getClientOriginalName() . strtotime("now")) . '.' . $request->file('up_image')->getClientOriginalExtension();
+            $lateral = md5($request->file('up_image2')->getClientOriginalName() . strtotime("now")) . '.' . $request->file('up_image2')->getClientOriginalExtension();
+              $uploadPath = storage_path('app/public/imagensMunicao');
+            // Caminho onde o arquivo será movido
+            
+            // Verificar se a pasta existe, se não, criar
+            if (!is_dir($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+            
+            // Mover o arquivo para a pasta
+            $request->file('up_image')->move($uploadPath, $base);
+            $request->file('up_image2')->move($uploadPath, $lateral);
+
+            $data = $request->except('up_image','up_image2'); // Excluir 'up_image' do array
+
+            // Salvar o caminho da imagem no array de dados
+            $data['up_image'] = 'imagensMunicao/' . $base;
+            $data['up_image2'] = 'imagensMunicao/' . $lateral;
+            // Criar o registro no banco
+            Municao::create($data);
+           
+        }
+        
         return redirect()->back()//route('laudos.show',['laudo_id' => $laudo->id])
             ->with('success', __('flash.create_f', ['model' => $tipoMunicao]))
             ->with('lacre_entrada', $request->lacrecartucho)
@@ -54,11 +87,71 @@ class MunicoesController extends Controller
      */
     public function update(MunicaoRequest $request, $laudo_id, Municao $municao)
     {
-        $updated_municao = $request->all();
-        Municao::find($municao->id)->fill($updated_municao)->save();
+        // Inicializa os dados para atualização com todos os campos do request, exceto as imagens
+        $updated_municao = $request->except('up_image', 'up_image2'); // Exclui as imagens do array de dados
+    
+        // Verifica se há um novo arquivo para a imagem 1
+       
+        if ($request->hasFile('up_image') && $request->file('up_image')->isValid()) {
+            // Exclui a imagem anterior, se existir
+            if (file_exists(storage_path('app/public/' . $municao->up_image))) {
+                unlink(storage_path('app/public/' . $municao->up_image)); // Remove a imagem do diretório
+            }
+    
+            // Gerar um nome único para o novo arquivo
+            $base = md5($request->file('up_image')->getClientOriginalName() . strtotime("now")) . '.' . $request->file('up_image')->getClientOriginalExtension();
+            $uploadPath = storage_path('app/public/imagensMunicao');
+            
+            // Verificar se a pasta existe, se não, criar
+            if (!is_dir($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+    
+            // Mover o novo arquivo para a pasta
+            $request->file('up_image')->move($uploadPath, $base);
+    
+            // Atualiza o campo 'up_image' com o novo caminho relativo
+            $updated_municao['up_image'] = 'imagensMunicao/' . $base;
+        } else {
+            // Caso o usuário não envie uma nova imagem, manter o valor atual no banco
+            $updated_municao['up_image'] = $municao->up_image;
+        }
+    
+        // Verifica se há um novo arquivo para a imagem 2
+        if ($request->hasFile('up_image2') && $request->file('up_image2')->isValid()) {
+            // Exclui a imagem anterior, se existir
+            if (file_exists(storage_path('app/public/' . $municao->up_image2))) {
+                unlink(storage_path('app/public/' . $municao->up_image2)); // Remove a imagem do diretório
+            }
+    
+            // Gerar um nome único para o novo arquivo
+            $lateral = md5($request->file('up_image2')->getClientOriginalName() . strtotime("now")) . '.' . $request->file('up_image2')->getClientOriginalExtension();
+            $uploadPath = storage_path('app/public/imagensMunicao');
+    
+            // Verificar se a pasta existe, se não, criar
+            if (!is_dir($uploadPath)) {
+                mkdir($uploadPath, 0755, true);
+            }
+    
+            // Mover o novo arquivo para a pasta
+            $request->file('up_image2')->move($uploadPath, $lateral);
+    
+            // Atualiza o campo 'up_image2' com o novo caminho relativo
+            $updated_municao['up_image2'] = 'imagensMunicao/' . $lateral;
+        } else {
+            // Caso o usuário não envie uma nova imagem, manter o valor atual no banco
+            $updated_municao['up_image2'] = $municao->up_image2;
+        }
+    
+        // Atualiza o registro no banco de dados
+        $municao->fill($updated_municao)->save();
+   
+        // Redireciona para a página do laudo com a mensagem de sucesso
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_f', ['model' => 'Munição']));
     }
+    
+
 
     /**
      * Remove the specified resource from storage.

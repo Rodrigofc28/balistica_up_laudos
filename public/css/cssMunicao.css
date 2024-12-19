@@ -1,0 +1,110 @@
+.upImage{
+    border: 1px solid black;
+   
+    color:#181717;
+    border-radius: 15px;
+    padding: 1%;
+    margin: auto;
+  }
+  .upImage:hover{
+    scale: 1.1;
+    cursor: pointer;
+  }
+  /* Estilo do Modal */
+/* Estilo do Modal */
+.modal {
+  display: none; /* Escondido por padrão */
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px; /* Largura fixa */
+  height: 400px; /* Altura fixa */
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+/* Conteúdo do Modal */
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+}
+
+/* Título do Modal */
+.modal-content h2 {
+  margin: 10px 0;
+}
+
+/* Imagem no modal */
+#previewImage {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain; /* Garante que a imagem se ajuste ao tamanho sem distorcer */
+}
+
+/* Estilo do botão de fechar */
+.close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+}
+
+/* Estilo dos botões */
+.modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-ok, .btn-cancel {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Estilo do botão OK */
+.btn-ok {
+  background-color: #28a745; /* Verde */
+  color: white;
+}
+
+.btn-ok:hover {
+  background-color: #218838;
+}
+
+/* Estilo do botão Cancelar */
+.btn-cancel {
+  background-color: #dc3545; /* Vermelho */
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #c82333;
+}
+
+

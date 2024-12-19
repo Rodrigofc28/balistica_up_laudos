@@ -6,9 +6,9 @@
 @endsection
 
 @if ($acao == 'Cadastrar')
-{!! Form::open(['route' => ['municoes.store', $laudo ]]) !!}
+{!! Form::open(['route' => ['municoes.store', $laudo], 'enctype' => 'multipart/form-data']) !!}
 @elseif ($acao == 'Atualizar')
-{!! Form::open(['route' => ['municoes.update', $laudo, $municao], 'method' => 'patch']) !!}
+{!! Form::open(['route' => ['municoes.update', $laudo, $municao], 'method' => 'patch','enctype' => 'multipart/form-data']) !!}
 @else
 {!! Form::open() !!}
 @endif
@@ -46,9 +46,34 @@
         @include('perito.laudo.materiais.attributes.lote',['lote'=>$municao->lote ??old('lote')])
         @include('perito.laudo.materiais.attributes.lacrecartucho', [$name='lacrecartucho',$label='Nº lacre de entrada','lacre'=>empty($municao->lacrecartucho)?session('lacre_entrada'):$municao->lacrecartucho ?? old('lacre')])
         @include('perito.laudo.materiais.attributes.lacrecartucho', [$name='lacre_saida',$label='N° lacre de saida','lacre'=>empty($municao->lacre_saida)?session('lacre_entrada'):$municao->lacre_saida ?? old('lacre') ])
-         
+       
         @include('perito.laudo.materiais.attributes.cartuchoPadrao')
+        <label  class="upImage" for="upImage">
+            
+            <b >BASE</b>
+            <input hidden  type="file" name="up_image" id="upImage">
+            <div >
+                
+                <img   src="{{asset('image\Icon-up-Imagem.png')}}" alt="upload de imagem">
+                <img style="display: none" id="verificador" src="{{asset('image\verificar.png')}}" alt="">
+            </div>
+            
+        </label>
+        <label  class="upImage" for="upImage2">
+            
+            <b >LATERAL</b>
+            <input hidden  type="file" name="up_image2" id="upImage2">
+            <div >
+                
+                <img   src="{{asset('image\Icon-up-Imagem.png')}}" alt="upload de imagem">
+                <img style="display: none" id="verificador2" src="{{asset('image\verificar.png')}}" alt="">
+            </div>
+            
+        </label>
+       
+        
     </div>
+      
     @if($acao == 'Atualizar')
     <div>
         <hr>
@@ -86,3 +111,34 @@
 </div>
 @include('perito.modals.calibre_modal')
 @include('perito.modals.marca_modal')
+
+    <script>
+            // Selecionando os elementos necessários
+        const inputFile = document.getElementById('upImage');
+        const verificador = document.getElementById('verificador');
+        const inputFile2 = document.getElementById('upImage2');
+        const verificador2 = document.getElementById('verificador2');
+
+        // Função para processar a imagem e exibir o verificador
+        function processImage(input, verificador) {
+            const file = input.files[0]; // Obtém o arquivo selecionado
+
+            if (file) {
+                verificador.style.display = 'block'; // Exibe o verificador quando a imagem for carregada
+            } else {
+                verificador.style.display = 'none'; // Oculta o verificador se nenhum arquivo for selecionado
+            }
+        }
+
+        // Adiciona evento de mudança para o primeiro input de imagem
+        inputFile.addEventListener('change', function(event) {
+            processImage(event.target, verificador);
+        });
+
+        // Adiciona evento de mudança para o segundo input de imagem
+        inputFile2.addEventListener('change', function(event) {
+            processImage(event.target, verificador2);
+        });
+
+
+    </script>

@@ -43,7 +43,8 @@ class MunicaoRequest extends FormRequest
             'origem_id'=>'nullable',
             'lacre_saida'=>'nullable',
             'funcionamentoCartucho'=>'nullable',
-            'lote'=>'nullable'
+            'lote'=>'nullable',
+            
         ];
     }
 
