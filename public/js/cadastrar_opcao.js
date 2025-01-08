@@ -105,7 +105,7 @@ $(function () {
     // Exibir no console para confirmar
             console.log("Valores enviados:", tipo, nome_calibre);
             $.ajax({
-                url: "../../../calibres/",
+                url: "../../../../calibres/",
                 type: "GET", // Recomendado usar POST para dados sensíveis
                 data: {
                     "nome": nome_calibre,
@@ -122,6 +122,26 @@ $(function () {
                 },
                 error: function (xhr) {
                     console.error("Erro:", xhr.responseJSON);
+                    $.ajax({
+                        url: "../../../calibres/", // URL alternativa
+                        type: "GET", 
+                        data: {
+                            "nome": nome_calibre,
+                            "tipo_arma": tipo,
+                        },
+                        success: function(data) {
+                            console.log("Sucesso com a URL 2:", data);
+                            $('#calibre-modal').modal('hide');
+                            calibre.append($('<option>', {
+                                value: data.id,
+                                text: data.nome
+                            }));
+                            calibre.val(data.id);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Erro com a URL 2:", error);
+                        }
+                    });
                 }
             });
     });
