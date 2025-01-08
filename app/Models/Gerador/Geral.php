@@ -359,7 +359,7 @@ class Geral extends Tabelas
 
 
         $final = [
-            $this->section->addText(($tituloConclusao=='')?'4. ENCERRAMENTO:':'5. ENCERRAMENTO: ', $this->config->arial12Bold(), $this->config->paragraphJustify()),//encerramento
+            $this->section->addText(($tituloConclusao=='')?'5. ENCERRAMENTO:':'6. ENCERRAMENTO: ', $this->config->arial12Bold(), $this->config->paragraphJustify()),//encerramento
             $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
             
             $textrun->addText("Este laudo foi redigido pelo(a) Perito(a) que realizou o exame e que o subscreve digitalmente em ", $this->config->arial12(), $this->config->paragraphJustify()),

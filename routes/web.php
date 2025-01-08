@@ -43,6 +43,9 @@ Route::get('admin/laudos', 'Admin\LaudosController@index')->name('admin.laudos.i
 /* Peritos routes */
 Route::resource('laudos', 'Perito\LaudosController')->except(['edit']);
 Route::get('/create/', 'Perito\LaudosController@create')->name('laudos.rep');
+
+Route::get('/show_materias/{laudo_id}', 'Perito\LaudosController@show_materias')->name('show_materias');
+
 Route::get('/atualiza/{exame}', 'Perito\LaudosController@atualiza')->name('laudos.atualiza');
 Route::get('laudos/search/{rep}', 'Perito\LaudosController@search')->name('laudos.search');
 

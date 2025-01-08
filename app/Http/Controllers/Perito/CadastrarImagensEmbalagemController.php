@@ -30,7 +30,7 @@ class CadastrarImagensEmbalagemController extends Controller
     public function store(Request $request)
     {
         //transforma em file
-        
+       
         if($request->fotoEmbalagem==null){
             return redirect()->back()->with('msgerror',"Erro ao tenta salva imagem"); 
         }

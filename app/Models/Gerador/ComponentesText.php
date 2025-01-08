@@ -95,7 +95,7 @@ class ComponentesText
     protected function tabelaProjetil($phpWord,$section,$config,$componentes,$pQ,$laudo){ //tabela de cartuchos
         global $numTab;
         $this->i++;
-        
+       
        
     
         $this->phpWord->addTableStyle('tabela', $this->styleTable, $this->styleFirstRow);
@@ -175,26 +175,27 @@ class ComponentesText
         $numTab++;
         $arrayImageProjetil=[];
         foreach($componentes as $componente){
-            array_push($arrayImageProjetil,$componente->imagensProjetil);}
+            array_push($arrayImageProjetil,$componente->up_image,$componente->up_image2);}
 /* projetil Imagem  */
 
 $numImg=count($arrayImageProjetil); 
 
 for($i=0;$i<count($arrayImageProjetil);$i++){
-   
-if(!empty($arrayImageProjetil[$i][0]->nome)){
-                $source = storage_path('app/public/imagensProjetil/' .$arrayImageProjetil[$i][0]->nome );
-              
-                if (file_exists($source)) {
-                  $fileContent = file_get_contents($source);
-                  
-                  $contagem[$i]=$fileContent;
-                  
-                } else {
-                  $this->section->addText("Ocorreu um erro com a imagem.", ['color' => "FF0000", 'size' => 14]);
+ 
+        if(!empty($arrayImageProjetil[$i])){
+                        $source = storage_path('app/public/' .$arrayImageProjetil[$i]);
+                    
+                        if (file_exists($source)) {
+                            
+                        $fileContent = file_get_contents($source);
+                        
+                        $contagem[$i]=$fileContent;
+                        
+                        } else {
+                        $this->section->addText("Ocorreu um erro com a imagem.", ['color' => "FF0000", 'size' => 14]);
+                        }
+                    
                 }
-              
-           }
 } 
 
 
@@ -217,11 +218,18 @@ if(!empty($arrayImageProjetil[$i][0]->nome)){
     }}
 
       
-    $cont=2;
-    $cont2=0; 
+    global $cont;
+    $cont = 0;
+   
     if(!empty($contagem)) {
-        
-        $this->imagemProj($contagem,$cont,$cont2,$componentes);
+        for($cont2=0;$cont2<count($componentes);$cont2++){
+
+             $this->imagemProj($contagem,$cont,$cont2);
+             
+             
+           
+             
+        }
     }
   
      }
@@ -335,7 +343,7 @@ if(!empty($arrayImageProjetil[$i][0]->nome)){
         if ($imagens->count() > 0) {
             foreach ($imagens as $imagem) {
                 
-                $source = storage_path('app/public/imagensProjetil/' . $imagem->nome);
+                $source = storage_path('app/public/imagensMunicaoProjeteis/' . $imagem->nome);
                 
                 if (file_exists($source)) {
                     $fileContent = file_get_contents($source);
@@ -354,39 +362,37 @@ if(!empty($arrayImageProjetil[$i][0]->nome)){
 
     } 
     
-    public function imagemProj($contagem,$cont,$cont2,$componentes){
+    public function imagemProj($contagem,&$cont,$cont2){
         
             global $numTab;
-       
-       if(!empty($contagem[$cont2]))
+          $pq=$cont2+1;
+       if(!empty($contagem[$cont]))
        {
             $table = $this->section->addTable('tabela2img');
             $table->addRow(10,['tblHeader'=>true]);
             $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomadas fotográficas Projétil', $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
             $table->addRow(10,['cantSplit'=>false]);
             
-            $table->addCell()->addImage($contagem[$cont2], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150));
-            $cont2++;
+            $table->addCell()->addImage($contagem[$cont], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150));
+            
+            $cont++;
         }
         else{
                 $table = ""; 
             }
-        if(!empty($contagem[$cont2]))
+
+        if(!empty($contagem[$cont]))
         {
-                $table->addCell()->addImage($contagem[$cont2], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150));  
-                $cont2++;
+                $table->addCell()->addImage($contagem[$cont], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150)); 
+                 $table->addRow(1,['cantSplit'=>false]);
+                $table->addCell()->addText('Projétil Base PQ 0'.$pq,$this->fontStyle, $this->paraStyle);
+                $table->addCell()->addText('Projétil Lateral PQ 0'.$pq,$this->fontStyle, $this->paraStyle);
+                $cont++;
         }
+       
             $numTab++;
-        if(count($componentes)>$cont){
-                $cont+=2;
-                $this->imagemProj($contagem,$cont,$cont2,$componentes);
- 
-        }else
-        {
-            $numTab++;
-            return $table;
-        }
-        
+            
+       
             
      }                         
                                        

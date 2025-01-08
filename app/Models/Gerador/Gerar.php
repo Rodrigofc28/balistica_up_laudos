@@ -45,7 +45,11 @@ class Gerar
 
         $this->geral = new Geral($this->section, $this->conf, $this->phpW);
         $this->geral->addText($laudo);
-        
+        //armas
+        if($laudo->laudoEfetConst != 'constatacao'){
+            $armasText = new ArmasText($this->section, $this->conf, $i,$this->phpWord);
+            $armasText = $armasText->addText($laudo);
+            }
         //projetil
         if(empty($laudo->componentes[0])!=true){ //verificando se tem tabela componentes(projetil)
         $componentesText = new ComponentesText($this->section, $this->conf,$i,$this->phpWord,$numTab);
@@ -75,14 +79,7 @@ class Gerar
         $estojosText = new MunicoesText($this->section, $this->conf,$i, $this->phpWord);
         $estojosText = $estojosText->addTextEstojo($laudo->municoes,$laudo);        
   
-        //Armas
-        
-        if($laudo->laudoEfetConst != 'constatacao'){
-        $armasText = new ArmasText($this->section, $this->conf, $i,$this->phpWord);
-        $armasText = $armasText->addText($laudo);
-        }
        
-
         //texto final
         $this->geral->addFinalText($laudo->perito->nome,$laudo);
 

@@ -1,6 +1,7 @@
 @section('js')
 {!! Html::script('js/form_carabina.js') !!} 
 {!! Html::script('js/cabo_material.js') !!} 
+
 {!! Html::script('js/recorte.js') !!} 
 @if($acao == 'Cadastrar')
 {!! Html::script('js/sessionCarabina.js') !!} 

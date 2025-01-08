@@ -5,7 +5,7 @@
  */
 
 namespace App\Http\Controllers\Perito\Armas;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Armas\GarruchaRequest;
 use App\Models\Arma;
@@ -13,6 +13,7 @@ use App\Models\Cadastroarmas;
 use App\Models\Calibre;
 use App\Models\Marca;
 use App\Models\Origem;
+use App\Models\Armas_Gdl;
 use Illuminate\Support\Facades\DB;
 class GarruchasController extends Controller
 {

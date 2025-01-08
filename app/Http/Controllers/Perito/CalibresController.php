@@ -25,9 +25,10 @@ class CalibresController extends Controller
      */
     public function store(CalibreRequest $request)
     {
+        
         $nome = $request->input('nome');
-        $tipos_armas = $request->input('tipo_arma');
-        $tipo_arma=explode(',',$tipos_armas);
+        $tipo_arma = $request->input('tipo_arma');
+        
         if (is_array($tipo_arma)){
             foreach ($tipo_arma as $tipo) {
                 $calibre = Calibre::create(['nome' => $nome, 'tipo_arma' => $tipo]);

@@ -48,28 +48,8 @@
         @include('perito.laudo.materiais.attributes.lacrecartucho', [$name='lacre_saida',$label='N° lacre de saida','lacre'=>empty($municao->lacre_saida)?session('lacre_entrada'):$municao->lacre_saida ?? old('lacre') ])
        
         @include('perito.laudo.materiais.attributes.cartuchoPadrao')
-        <label  class="upImage" for="upImage">
-            
-            <b >BASE</b>
-            <input hidden  type="file" name="up_image" id="upImage">
-            <div >
-                
-                <img   src="{{asset('image\Icon-up-Imagem.png')}}" alt="upload de imagem">
-                <img style="display: none" id="verificador" src="{{asset('image\verificar.png')}}" alt="">
-            </div>
-            
-        </label>
-        <label  class="upImage" for="upImage2">
-            
-            <b >LATERAL</b>
-            <input hidden  type="file" name="up_image2" id="upImage2">
-            <div >
-                
-                <img   src="{{asset('image\Icon-up-Imagem.png')}}" alt="upload de imagem">
-                <img style="display: none" id="verificador2" src="{{asset('image\verificar.png')}}" alt="">
-            </div>
-            
-        </label>
+        @include('perito.laudo.materiais.attributes.imagem_municao')
+       
        
         
     </div>

@@ -207,9 +207,14 @@ class ArmasText
     }
 
     public function tabelaarmas($arma,$fontStyle,$paraStyle,$laudo,$contadorAlfanumerico){
-        $this->i++;
-       
-        $contagem=$this->i-1;
+            $this->i++;
+        
+            $contagem=$this->i;
+            $dig2 = 0; 
+            for ($cn = 0; $this->i > 9; $cn++) {
+                $this->i=1; 
+                $dig2 = $cn;
+            }
             $laudoArma = Arma::arma($arma);
            $ordemAlfabeto=[1=>'A',2=>'B',3=>'C',4=>'D',5=>'E',6=>'F',7=>'G',8=>'H',9=>'I',10=>'J',11=>'K',12=>'L',13=>'M',14=>'N',15=>'O',16=>'P',17=>'Q',18=>'R',19=>'S',20=>'T',21=>'U',22=>'V',23=>'W',24=>'X',25=>'Z',26=>'Y'];
             
@@ -266,7 +271,7 @@ class ArmasText
             $this->section->addTextBreak(1);
             
             $textrun = $this->section->addTextRun($this->config->paragraphJustify());
-            $textrun->addText('3. '.$contagem.' -DA ARMA AF-'.$ordemAlfabeto[$contadorAlfanumerico].' - '.mb_strtoupper($arma->marca->nome).' '.$arma->modelo.' – LACRE DE ENTRADA '.$arma->num_lacre_saida, $this->config->arial12Bold());
+            $textrun->addText('3. '.$dig2.'. '.$contagem.' -DA ARMA AF-'.$ordemAlfabeto[$contadorAlfanumerico].' - '.mb_strtoupper($arma->marca->nome).' '.$arma->modelo.' – LACRE DE ENTRADA '.$arma->num_lacre_saida, $this->config->arial12Bold());
             $this->section->addTextBreak(1);
             $this->section->addText('a) Descrição da arma:', $this->config->arial12Bold()); 
             $table=$this->section->addTable('tabelaArmas');

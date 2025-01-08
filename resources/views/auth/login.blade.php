@@ -17,9 +17,7 @@
                                class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}"
                                name="email" required autofocus>
                         <label for="email">E-Mail</label>
-                        <b>Acesso para teste:</b><br>
-                        <span> admin@mail.com </span>
-                        <span> senha: abc123 </span>
+                        
                         @include('shared.error_feedback', ['name' => 'email'])
                     </div>
                 </div>

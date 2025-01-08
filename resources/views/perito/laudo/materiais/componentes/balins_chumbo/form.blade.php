@@ -9,9 +9,9 @@
 
 
 @if ($acao == 'Cadastrar')
-{!! Form::open(['route' => ['componentes.store', $laudo ]]) !!}
+{!! Form::open(['route' => ['componentes.store', $laudo ],'enctype' => 'multipart/form-data']) !!}
 @elseif ($acao == 'Atualizar')
-{!! Form::open(['route' => ['componentes.update', $laudo, $componente], 'method' => 'patch']) !!}
+{!! Form::open(['route' => ['componentes.update', $laudo, $componente], 'method' => 'patch','enctype' => 'multipart/form-data']) !!}
 @else
 {!! Form::open() !!}
 @endif
@@ -60,6 +60,7 @@
         
         @include('perito.laudo.materiais.attributes.detalharlocalidade',['detalharlocalidade'=>empty($componente->detalharLocalizacao)?session('detalhe_localizacao'):$componente->detalharLocalizacao??old('detalharlocalidade')])
         @include('perito.laudo.materiais.attributes.deformacaoAcidental',['deformacoes2'=>$componente->deformacaoAcidental??old('deformacoes2')])
+        @include('perito.laudo.materiais.attributes.imagem_municao')
         
 
     </div>
@@ -99,3 +100,33 @@
         </div>
     </div>
 </div>
+<script>
+    // Selecionando os elementos necessários
+const inputFile = document.getElementById('upImage');
+const verificador = document.getElementById('verificador');
+const inputFile2 = document.getElementById('upImage2');
+const verificador2 = document.getElementById('verificador2');
+
+// Função para processar a imagem e exibir o verificador
+function processImage(input, verificador) {
+    const file = input.files[0]; // Obtém o arquivo selecionado
+
+    if (file) {
+        verificador.style.display = 'block'; // Exibe o verificador quando a imagem for carregada
+    } else {
+        verificador.style.display = 'none'; // Oculta o verificador se nenhum arquivo for selecionado
+    }
+}
+
+// Adiciona evento de mudança para o primeiro input de imagem
+inputFile.addEventListener('change', function(event) {
+    processImage(event.target, verificador);
+});
+
+// Adiciona evento de mudança para o segundo input de imagem
+inputFile2.addEventListener('change', function(event) {
+    processImage(event.target, verificador2);
+});
+
+
+</script>

@@ -27,7 +27,8 @@ class ArmasCurtasController extends Controller
         }
         
         $marcas = Marca::categoria('municoes');
-        $calibres = Calibre::whereNotArmas(['Espingarda']);
+        $calibres = Calibre::whereNotArmas();
+        
         return view('perito.laudo.materiais.municoes.arma_curta.create',
             compact('laudo', 'marcas', 'calibres','arma_estojo_gdl'));
     }

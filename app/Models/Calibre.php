@@ -47,9 +47,10 @@ class Calibre extends Model
      * @param $armas
      * @return mixed
      */
-    public function scopeWhereNotArmas($query, $armas)
+    public function scopeWhereNotArmas($query)
     {
-        return $query->whereNotIn('tipo_arma', $armas)->get();
+        
+        return $query->get()->unique('nome');
     }
 
     /**

@@ -1,4 +1,4 @@
-<div class="modal fade" id="{{ $modal_id }}" role="dialog">
+<div style="top:50%;left:50%" class="modal fade " id="{{ $modal_id }}" role="dialog">
   <div class="modal-dialog modal-{{ $modal_size }} modal-color" role="document">
     <div class="modal-content">
       <div class="modal-header">

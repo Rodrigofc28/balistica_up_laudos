@@ -27,8 +27,14 @@ class CarabinasController extends Controller
     public function create(Request $request,$laudo)
     {
         
+        //$nomes_calibres_ = DB::table('calibres')
+       // ->whereIn('tipo_arma', ['Pistola', 'Carabina'])
+       // ->distinct() 
+      //  ->pluck('nome');
+        
         //Dados vindo do GDL TABELA tabela_pecas_gdl seleciona tudo quando as rep forem iguais
         $arma_carabina_gdl=Armas_Gdl::find($request->id);
+        
         $marcas = Marca::categoria('armas');
         $origens = Origem::all();
         
@@ -37,7 +43,7 @@ class CarabinasController extends Controller
         $armas = DB::select('select modelo from cadastroarmas ');
         
         return view('perito.laudo.materiais.armas.carabina.create',
-            compact('laudo', 'marcas', 'origens', 'calibres','armas','array_gdl_armas'));
+            compact('laudo', 'marcas', 'origens', 'calibres','armas','arma_carabina_gdl'));
     }
 
     /**
@@ -49,7 +55,7 @@ class CarabinasController extends Controller
     public function store(Request $id_arma_gdl,CarabinaRequest $request)
     {
         $arma_carabina_gdl=Armas_Gdl::find($id_arma_gdl->arma);
-      
+     
 
         if ($arma_carabina_gdl) {
         
@@ -75,6 +81,7 @@ class CarabinasController extends Controller
 //        $marcas = Marca::marcasWithTrashed('armas', $pistola->marca);
 //        $origens = Origem::origensWithTrashed($pistola->origem);
 //        $calibres = Calibre::calibresWithTrashed('revólver', $pistola->calibre);
+      
         return view('perito.laudo.materiais.armas.carabina.show',
             compact('arma'));
     }

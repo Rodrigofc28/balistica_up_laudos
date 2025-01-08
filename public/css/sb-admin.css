@@ -6107,14 +6107,18 @@ a.close.disabled {
 
 .modal-open {
   overflow: hidden;
+  
+  
 }
 
 .modal-open .modal {
+  
   overflow-x: hidden;
   overflow-y: auto;
 }
 
 .modal {
+
   position: fixed;
   top: 0;
   left: 0;
@@ -6124,6 +6128,7 @@ a.close.disabled {
   height: 100%;
   overflow: hidden;
   outline: 0;
+
 }
 
 .modal-dialog {
@@ -6134,6 +6139,7 @@ a.close.disabled {
 }
 
 .modal.fade .modal-dialog {
+  
   -webkit-transition: -webkit-transform 0.3s ease-out;
   transition: -webkit-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
@@ -6150,11 +6156,13 @@ a.close.disabled {
 }
 
 .modal.show .modal-dialog {
+  
   -webkit-transform: none;
   transform: none;
 }
 
 .modal-dialog-scrollable {
+ 
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -6212,6 +6220,7 @@ a.close.disabled {
 }
 
 .modal-content {
+  
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -6230,6 +6239,7 @@ a.close.disabled {
 }
 
 .modal-backdrop {
+  
   position: fixed;
   top: 0;
   left: 0;
@@ -6248,6 +6258,7 @@ a.close.disabled {
 }
 
 .modal-header {
+  
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -6274,6 +6285,7 @@ a.close.disabled {
 }
 
 .modal-body {
+  
   position: relative;
   -webkit-box-flex: 1;
   -ms-flex: 1 1 auto;

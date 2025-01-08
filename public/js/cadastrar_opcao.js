@@ -96,48 +96,67 @@ $(function () {
 
     $('#cadastroCalibre').on('click', function () {
         var nome_calibre = $('#nome_calibre').val();
-        var tipo = $("#tipo_arma").val();
-        $.ajax({
-            url: "../../../calibres/",
-            type: "GET",
-            data: {
-                "nome": nome_calibre,
-                "tipo_arma": tipo,
-            },
-            success: function (data) {
-                $('#calibre-modal').modal('hide');
-                calibre.append($('<option>', {
-                    value: data.id,
-                    text: data.nome
-                }));
-                calibre.val(data.id);
-            }
-        });
+        var tipo = $("input[name='calibres_armas[]']:checked") // Pega os checkboxes selecionados
+        .map(function () {
+            return $(this).val(); // Retorna os valores
+        })
+        .get(); // Converte para um array
+
+    // Exibir no console para confirmar
+            console.log("Valores enviados:", tipo, nome_calibre);
+            $.ajax({
+                url: "../../../calibres/",
+                type: "GET", // Recomendado usar POST para dados sensíveis
+                data: {
+                    "nome": nome_calibre,
+                    "tipo_arma": tipo, // Enviará como array
+                },
+                success: function (data) {
+                    console.log("Sucesso:", data);
+                    $('#calibre-modal').modal('hide');
+                    calibre.append($('<option>', {
+                        value: data.id,
+                        text: data.nome
+                    }));
+                    calibre.val(data.id);
+                },
+                error: function (xhr) {
+                    console.error("Erro:", xhr.responseJSON);
+                }
+            });
     });
-    var calibre = $('#calibre');
-    $('#cadastrar_calibre').on('click', function () {
-        $("#calibre-modal").modal();
-    });
+    
 
     $('#cadastroCalibreMunicao').on('click', function () {
         var nome_calibre = $('#nome_calibre').val();
-        var tipo = $("#tipo_arma").val();
-        $.ajax({
-            url: "../../../../calibres/",
-            type: "GET",
-            data: {
-                "nome": nome_calibre,
-                "tipo_arma": tipo,
-            },
-            success: function (data) {
-                $('#calibre-modal').modal('hide');
-                calibre.append($('<option>', {
-                    value: data.id,
-                    text: data.nome
-                }));
-                calibre.val(data.id);
-            }
-        });
+        var tipo = $("input[name='calibres_armas[]']:checked") // Pega os checkboxes selecionados
+        .map(function () {
+            return $(this).val(); // Retorna os valores
+        })
+        .get(); // Converte para um array
+
+    // Exibir no console para confirmar
+            console.log("Valores enviados:", tipo, nome_calibre);
+            $.ajax({
+                url: "../../../../calibres/",
+                type: "GET", // Recomendado usar POST para dados sensíveis
+                data: {
+                    "nome": nome_calibre,
+                    "tipo_arma": tipo, // Enviará como array
+                },
+                success: function (data) {
+                    console.log("Sucesso:", data);
+                    $('#calibre-modal').modal('hide');
+                    calibre.append($('<option>', {
+                        value: data.id,
+                        text: data.nome
+                    }));
+                    calibre.val(data.id);
+                },
+                error: function (xhr) {
+                    console.error("Erro:", xhr.responseJSON);
+                }
+            });
     });
     /*------------------------------------------------------------*/
     // habilitando buscar modelos
@@ -253,5 +272,6 @@ $('#trava_seguranca').val(objetoBuscaCadastro.trava_seguranca);
 $('#trava_seguranca').trigger('change');
 
 });
+
 
 });

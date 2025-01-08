@@ -45,6 +45,7 @@ class LaudosController extends Controller
         $laudos = Laudo::findMyReps($user); 
         //$reps = DB::select('SELECT * FROM _nome_da_tabela WHERE nome = ?',[$usuariosenhaGdl[0]->userGDL]); 
         $reps = DB::table('_nome_da_tabela')->where('nome', $usuariosenhaGdl[0]->userGDL)->get();
+       
         return view('perito.laudo.index', compact('laudos','reps'));
     }
 
@@ -125,7 +126,8 @@ class LaudosController extends Controller
         $laudo = Laudo::create($laudo);
         
         $laudo_id = $laudo->id;
-        return redirect()->route('laudos.materiais', compact('laudo_id'));
+        // return view('perito.laudo.create_embalagem_foto', compact('laudo_id'));
+       return redirect()->route('laudos.materiais', compact('laudo_id'));
     }
 
     
@@ -260,5 +262,9 @@ class LaudosController extends Controller
         $encryptedPassword = base64_decode($encryptedPassword);
         $decryptedPassword = openssl_decrypt($encryptedPassword, 'AES-128-ECB', $key);
         return $decryptedPassword;
+    }
+    function show_materias($laudo_id){
+
+        return redirect()->route('laudos.materiais', compact('laudo_id'));
     }
 }
