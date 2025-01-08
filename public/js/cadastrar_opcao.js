@@ -88,7 +88,7 @@ $(function () {
         });
     });
 
-    /*-------------------------------------------------------*/
+    /*------Cadastro de calibre---------------*/
     var calibre = $('#calibre');
     $('#cadastrar_calibre').on('click', function () {
         $("#calibre-modal").modal();
@@ -96,20 +96,19 @@ $(function () {
 
     $('#cadastroCalibre').on('click', function () {
         var nome_calibre = $('#nome_calibre').val();
-        var tipo = $("input[name='calibres_armas[]']:checked") // Pega os checkboxes selecionados
+        var tipo = $("input[name='calibres_armas[]']:checked") 
         .map(function () {
-            return $(this).val(); // Retorna os valores
+            return $(this).val(); 
         })
-        .get(); // Converte para um array
+        .get();
 
-    // Exibir no console para confirmar
-            console.log("Valores enviados:", tipo, nome_calibre);
+    
             $.ajax({
                 url: "../../../../calibres/",
-                type: "GET", // Recomendado usar POST para dados sensíveis
+                type: "GET",
                 data: {
                     "nome": nome_calibre,
-                    "tipo_arma": tipo, // Enviará como array
+                    "tipo_arma": tipo, 
                 },
                 success: function (data) {
                     console.log("Sucesso:", data);
@@ -123,7 +122,7 @@ $(function () {
                 error: function (xhr) {
                     console.error("Erro:", xhr.responseJSON);
                     $.ajax({
-                        url: "../../../calibres/", // URL alternativa
+                        url: "../../../calibres/", 
                         type: "GET", 
                         data: {
                             "nome": nome_calibre,
@@ -146,40 +145,8 @@ $(function () {
             });
     });
     
-
-    $('#cadastroCalibreMunicao').on('click', function () {
-        var nome_calibre = $('#nome_calibre').val();
-        var tipo = $("input[name='calibres_armas[]']:checked") // Pega os checkboxes selecionados
-        .map(function () {
-            return $(this).val(); // Retorna os valores
-        })
-        .get(); // Converte para um array
-
-    // Exibir no console para confirmar
-            console.log("Valores enviados:", tipo, nome_calibre);
-            $.ajax({
-                url: "../../../../calibres/",
-                type: "GET", // Recomendado usar POST para dados sensíveis
-                data: {
-                    "nome": nome_calibre,
-                    "tipo_arma": tipo, // Enviará como array
-                },
-                success: function (data) {
-                    console.log("Sucesso:", data);
-                    $('#calibre-modal').modal('hide');
-                    calibre.append($('<option>', {
-                        value: data.id,
-                        text: data.nome
-                    }));
-                    calibre.val(data.id);
-                },
-                error: function (xhr) {
-                    console.error("Erro:", xhr.responseJSON);
-                }
-            });
-    });
-    /*------------------------------------------------------------*/
-    // habilitando buscar modelos
+    /*-------------------------habilitando buscar modelos-----------------------------------*/
+    
 $('#salva_cadastro').on('change',function(){
     $('#salva_cadastro').val(1);
     
