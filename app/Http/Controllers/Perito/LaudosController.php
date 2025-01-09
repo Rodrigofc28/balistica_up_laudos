@@ -126,8 +126,8 @@ class LaudosController extends Controller
         $laudo = Laudo::create($laudo);
         
         $laudo_id = $laudo->id;
-        // return view('perito.laudo.create_embalagem_foto', compact('laudo_id'));
-       return redirect()->route('laudos.materiais', compact('laudo_id'));
+        return view('perito.laudo.create_embalagem_foto', compact('laudo_id'));
+      // return redirect()->route('laudos.materiais', compact('laudo_id'));
     }
 
     

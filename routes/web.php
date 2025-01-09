@@ -141,6 +141,8 @@ Route::get('imagens.destroy/{image}','Perito\CadastrarImagensController@destroy'
 Route::post('imagensProjetil.store','Perito\CadastrarImagensProjetilController@store')->name('imagensProjetil');
 Route::get('imagensProjetil.destroy/{image}','Perito\CadastrarImagensProjetilController@destroy')->name('imagemProjetilExcluir');
 Route::post('imagensEmbalagem.store','Perito\CadastrarImagensEmbalagemController@store')->name('embalagem');
+Route::post('imagensEmbalagemEditar.update','Perito\CadastrarImagensEmbalagemController@update')->name('editar_embalagem');
+
 Route::get('imagensEmbalagem.destroy/{image}','Perito\CadastrarImagensEmbalagemController@destroy')->name('imagemExcluir');
 
 Route::get('reportar.index','ReportaController@index')->name('reportar.index');

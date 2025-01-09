@@ -11,12 +11,25 @@
 
 @endsection
 @section('page')
-{{-- <div class="col-8">
-    <h4>Visão Geral do Laudo</h4>
-   
-   
-      
-</div> --}}
+<style>
+    .conteiner_embalagens_foto{
+        display: flex;
+        
+       justify-content: center
+    }
+    .fotosEmbalagens{
+        border:1px solid black;
+       
+        border-radius: 5px;
+        padding: 3px;
+        background-color:#ffffff;
+    }
+    .icon-substituir{
+        width: 50px;
+        background-color: red;
+        border-radius: 5px;
+    }
+</style>
 <hr>
 
 <div id="showLaudo" class="col-lg-12">
@@ -80,50 +93,44 @@
 <div class="col-lg-12">
     
     
-    <div style="border:solid 1px #E0E0E0; ">
-    
-        <form action="{{route('embalagem')}}" method="post"  enctype="multipart/form-data">
-        {{ csrf_field() }}
-            
+    <div style="border:solid 1px #E0E0E0;text-align:center ">
+        <h4 ><b>IMAGENS DA EMBALAGEM RECEBIDA</b></h4>
         
-            <h4><strong style="padding:10px "> ADICIONAR IMAGENS DA EMBALAGEM RECEBIDA </strong> </h4>
-            <input type="text" hidden name="laudo_id" value="{{$laudo->id}}">
-            
-            <div class="input-group mb-2">
-                <button style="border:solid 0px;">FRENTE</button>
-                <button type="submit" style="border:solid 0px;background:#007bff;color:white" >ENVIAR </button>
-                
-                <input type="file" class="form-control" id="inputGroupFile01"name="fotoEmbalagem[]" multiple="multiple"id="" accept=".jpg, .jpeg, .png">
-                
-            </div>
-            <div class="input-group mb-2">
-                <button style="border:solid 0px;">VERSO</button>
-                <button type="submit" style="border:solid 0px;background:#007bff;color:white" >ENVIAR</button>
-                <input type="file" class="form-control" id="inputGroupFile01"name="fotoEmbalagem[]" multiple="multiple"id="" accept=".jpg, .jpeg, .png">
-                
-            </div>
-           
-            
-           
-        </form>
     
         <hr>
         <div>
         
         
         @if(isset($laudo->imagens[0]->nome))
-       
-       
+                @php
+                    $posicao=['FRENTE','VERSO']
+                @endphp
             
-            @php
-            
-                for ($i = 0; $i < count($laudo->imagens); $i++) {
-                    echo '<div style="background-color:#90EE90">    
-                        <img src="' . asset('../public/storage/imagensEmbalagem/' . $laudo->imagens[$i]->nome) . '" style="width:100px;height:100px;padding:10px" alt="">
-                        <strong><a href="' . route('imagemExcluir', $laudo->imagens[$i]) . '" style="color:white">EXCLUIR IMAGEM</a></strong>
-                        </div>';
-                }
-            @endphp
+            <div class="conteiner_embalagens_foto">
+                @foreach ($laudo->imagens as $index => $imagem)
+                    <div class="fotosEmbalagens">
+                        <img src="{{ asset('storage/imagensEmbalagem/' . $imagem->nome) }}" 
+                            style="width:100px; height:100px; padding:10px" 
+                            alt="Imagem da embalagem">
+                        <strong>
+                            <!-- Exibe a posição baseada no índice da imagem -->
+                            <span>{{ $posicao[$index % 2] }}</span> <!-- Alterna entre 'FRENTE' e 'VERSO' -->
+                            
+                            <form method="POST" action="{{ route('editar_embalagem', ['id' => $imagem->id]) }}" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <!-- Input File Oculto -->
+                                <input type="file" id="fileInput{{ $imagem->id }}" accept=".jpg, .jpeg, .png" name="fotoEmbalagem" style="display: none;" onchange="this.form.submit();">
+                            
+                                <!-- Botão Personalizado -->
+                                <button type="button" class="btn btn-warning" onclick="document.getElementById('fileInput{{ $imagem->id }}').click();">
+                                    <img src="{{ asset('image/substituir.png') }}" alt="">
+                                    <b>Substituir</b>
+                                </button>
+                            </form>
+                        </strong>
+                    </div>
+                @endforeach
+            </div>
         @endif
     </div>
  
@@ -178,5 +185,6 @@
     </div>
 </div>
 </div>
+
 @include('perito.modals.solicitante_modal')
 @endsection
