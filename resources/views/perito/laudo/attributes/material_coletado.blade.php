@@ -1,10 +1,30 @@
 
 @if(isset($laudoMaterial))
+<style>
+    .conteiner_sinb{
+        display: flex;
+        border: 1px solid black;
+        justify-content: center;
+        border-radius: 5px;
+    }
+</style>
 <div class="col-lg-3 ">
     
+    <b>TRATA-SE DE MATERIAL COLETADO POR PERITO</b>
     
-    <input type="checkbox" name="material_coletado" id="material_coletado" value="sim"><strong> Material coletado por perito</strong><br>
-
+    <div class="conteiner_sinb">
+        <div style="padding: 5px">
+            <label for="material_coletado_no">
+                <b>NÃO</b>
+            <input type="radio" name="material_coletado" id="material_coletado_no" value="NULL" checked onclick="setRadioValueColeta(this)">
+            </label>
+            <label for="material_coletado_si">
+                <b>SIM</b>
+                <input type="radio" name="material_coletado" id="material_coletado_si" value="sim" onclick="setRadioValueColeta(this)">
+            </label>
+        </div>
+        
+    </div>
 </div>
 @endif
 @if(isset($laudo))
@@ -27,3 +47,12 @@
 </div>
 @endif
 @endif
+<script>
+    function setRadioValueColeta(radio) {
+        var form = document.getElementById('formulario');
+        var checkedRadio = form.querySelector('input[type="radio"]:checked');
+        
+        // Se "NÃO" for marcado, o valor será NULL, se "SIM" for marcado, o valor será 1
+        form.querySelector('input[name="material_coletado"]').value = checkedRadio ? checkedRadio.value : 'NULL';
+    }
+</script>

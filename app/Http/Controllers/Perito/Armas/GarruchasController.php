@@ -50,6 +50,7 @@ class GarruchasController extends Controller
      */
     public function store(Request $id_arma_gdl,GarruchaRequest $request)
     {
+       
         $arma_garrucha_gdl=Armas_Gdl::find($id_arma_gdl->arma);
         if ($arma_garrucha_gdl) {
         
@@ -59,6 +60,7 @@ class GarruchasController extends Controller
         
         }
         Arma::create($request->all());
+         
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])
             ->with('success', __('flash.create_f', ['model' => 'Garrucha']));

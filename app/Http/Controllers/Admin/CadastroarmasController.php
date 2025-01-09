@@ -32,6 +32,7 @@ class CadastroarmasController extends Controller
     }
     public function store(cadastroarmasRequest $request)
     {
+        
         Cadastroarmas::create($request->all());
         $armas = Arma::all();
         $cadastros=Cadastroarmas::all();

@@ -49,6 +49,7 @@ class PistolasController extends Controller
      */
     public function store(Request $id_arma_gdl,PistolaRequest $request)
     {
+        
         $arma_pistola_gdl=Armas_Gdl::find($id_arma_gdl->arma);
       
 
