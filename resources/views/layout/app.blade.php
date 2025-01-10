@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="{{ URL::asset('fontawesome-free/css/all.css')}}">
         <link rel="stylesheet" href="{{ URL::asset('css/select2.min.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/select2-bootstrap.css') }}">
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
         <link rel="stylesheet" href="{{ URL::asset('css/my_select2.css') }}">
 {{--        <link rel="stylesheet" href="{{ URL::asset('css/dropzone_custom.css') }}">--}}
         @yield('style')
@@ -44,5 +44,6 @@
             
         </div>
         @include('layout.scripts')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
     </body>
 </html>

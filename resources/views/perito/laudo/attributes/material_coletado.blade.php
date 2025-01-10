@@ -7,12 +7,23 @@
         justify-content: center;
         border-radius: 5px;
     }
+    .infoMaterialColetado{
+            display: none;
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 25px;
+            text-align: justify;
+            color: rgb(127, 128, 129);
+            position: relative;
+            margin-bottom: 0px;
+            
+        }
 </style>
 <div class="col-lg-3 ">
     
-    <b>TRATA-SE DE MATERIAL COLETADO POR PERITO</b>
+    <b onmouseout="displayInfoOutColeta()" onmouseover="displayInfoColeta()">Trata-se de material coletado por perito</b>
     
-    <div class="conteiner_sinb">
+    <div onmouseout="displayInfoOutColeta()" onmouseover="displayInfoColeta()" class="conteiner_sinb">
         <div style="padding: 5px">
             <label for="material_coletado_no">
                 <b>NÃO</b>
@@ -25,6 +36,28 @@
         </div>
         
     </div>
+    <div onmouseout="displayInfoOutColeta()" onmouseover="displayInfoColeta()" id="infoMaterialColetado" class="infoMaterialColetado">
+        <p>A tabela <b>material encaminhado a exame</b>  será ajustada.</p>
+        <p>Para exames de material coletado por perito criminal (local ou necrópsia):</p>
+        <p>
+        <b>Tipo - </b> 
+            <b>Qtde - </b>
+            <b>Origem - </b>
+            <b>Nº Exame Coleta - </b>
+            <b>Nº Requisição - </b>
+            <b>Lacre - </b>
+        </p>
+        <p>Para exames de material encaminhado por terceiros (delegacias, etc) via Ofício:</p> 
+        <p>
+            <b>Natureza - </b> 
+            <b>Qtde - </b>
+            <b>Tipo - </b>
+            <b>Dito no Ofício - </b>
+           
+            <b>Lacre - </b>
+        </p>
+    </div>
+    
 </div>
 @endif
 @if(isset($laudo))
@@ -54,5 +87,11 @@
         
         // Se "NÃO" for marcado, o valor será NULL, se "SIM" for marcado, o valor será 1
         form.querySelector('input[name="material_coletado"]').value = checkedRadio ? checkedRadio.value : 'NULL';
+    }
+    function displayInfoColeta(){
+            document.getElementById('infoMaterialColetado').style.display="block"
+    }
+    function displayInfoOutColeta(){
+             document.getElementById('infoMaterialColetado').style.display="none"
     }
 </script>

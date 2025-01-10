@@ -6,14 +6,15 @@
             justify-content: center;
             border-radius: 5px;
         }
+       
     </style>
     <div class="form-group">
-        <b>DESEJA SALVA O MODELO DESSA ARMA PARA EXAME FUTURO</b>
+        <b >Deseja salvar o modelo dessa arma para exame futuro</b>
         <div class="conteiner_sinb">
             <div style="padding: 5px">
                 <label for="salva_cadastro_no">
                     <b>NÃO</b>
-                <input type="radio" name="salva_cadastro" id="salva_cadastro_no" value="NULL" checked onclick="setRadioValueCadastroArmas(this)">
+                <input type="radio" name="salva_cadastro" id="salva_cadastro_no" value="0" checked onclick="setRadioValueCadastroArmas(this)">
                 </label>
                 <label for="salva_cadastro_si">
                     <b>SIM</b>
@@ -31,7 +32,8 @@
             var checkedRadio = form.querySelector('input[type="radio"]:checked');
             
             // Se "NÃO" for marcado, o valor será NULL, se "SIM" for marcado, o valor será 1
-            form.querySelector('input[name="salva_cadastro"]').value = checkedRadio ? checkedRadio.value : 'NULL';
+            form.querySelector('input[name="salva_cadastro"]').value = checkedRadio ? checkedRadio.value : '0';
         }
+      
     </script>
 </div>

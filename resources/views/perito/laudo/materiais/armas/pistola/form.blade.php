@@ -80,9 +80,7 @@
         @include('perito.laudo.materiais.attributes.lacre', ['num_lacre' => $pistola->num_lacre ?? old('num_lacre')])
        
         @include('perito.laudo.materiais.attributes.salva_modelo_cadastro')
-        <div class="col-lg-3">
-        <input type="checkbox" name="institutoArma" id="institutoArma" value="sim"> <strong>Munição para teste fornecida por este Instituto</strong>
-        </div>
+        @include('perito.laudo.materiais.attributes.municaoFornecidaPela')
         @include('perito.laudo.materiais.attributes.imagemArmas')
     </div>
 
