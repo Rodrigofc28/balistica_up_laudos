@@ -27,8 +27,8 @@
 @section('page')
 <h4><strong style="padding:10px"> ADICIONAR IMAGENS DA EMBALAGEM RECEBIDA </strong> </h4>
 <div class="conteinerImagemRecebida">
-    
-    <label class="upImage embalagemFoto" for="upImage">
+  
+    <label class="upImage embalagemFoto" >
         
             <b>FOTO FRENTE</b>
             <div id="croppie-container"></div>
@@ -45,23 +45,23 @@
             </div>
             
     </label>
-         <img id="frente" src="{{ asset('image/embalagem.png') }}" alt="upload de imagem" style="cursor:pointer;">
+    <img id="frente" src="{{ asset('image/embalagem.png') }}" alt="upload de imagem" style="cursor:pointer;">
         <!-- Foto Verso -->
-    <label class="upImage" for="upImage2">
+    <label class="upImage" >
             <b>FOTO VERSO</b>
             <div id="croppe2">
 
             </div>
             <div>
                 
-                <img style="display: none" id="verificador2" src="{{ asset('image/verificar.png') }}" alt="Verificador">
+                <img  style="display: none" id="verificador2" src="{{ asset('image/verificar.png') }}" alt="Verificador">
             </div>
             <div>
                 <button id="crop-button-lado-direito"><img style="width: 50px" src="{{ asset('image/tesoura.png') }}" alt="rotacionar"> Cortar</button>
                 <button id="rotate-button-lado-direito"><img style="width: 50px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> Girar</button>
             </div>
     </label>
-    <img id="verso" src="{{ asset('image/embalagem.png') }}" alt="upload de imagem" style="cursor:pointer;">
+    <img id="verso_img" src="{{ asset('image/embalagem.png') }}" alt="upload de imagem" style="cursor:pointer;">
     <form id="uploadForm" action="{{ route('embalagem') }}" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
 
@@ -90,6 +90,11 @@
     // Quando a imagem for clicada, dispara o clique no input de arquivo
             document.getElementById('upImage').click();
         });
+    document.getElementById('verso_img').addEventListener('click', function() {
+    
+    // Quando a imagem for clicada, dispara o clique no input de arquivo
+            document.getElementById('upImage2').click();
+        });
     let croppieInstance = null;
 
     // Função para processar as imagens e exibir o verificador
@@ -111,6 +116,7 @@
 
     // Função para processar a imagem carregada no Croppie
     function processImage(inputId, verificadorId) {
+        
         if(inputId=="upImage"){
 
                     
@@ -139,6 +145,7 @@
                             // Carrega a imagem no Croppie
                             croppieInstance.bind({
                                 url: URL.createObjectURL(file), // Usando URL.createObjectURL para exibir a imagem local
+                               
                             }).then(() => {
                                 console.log('Croppie foi inicializado com sucesso!');
                             });
@@ -173,21 +180,25 @@
                             verificador.style.display = 'none'; // Oculta o verificador se nenhum arquivo for selecionado
                         }
                 }else if(inputId=="upImage2"){ //configuração da outra image
+                    
                         const input = document.getElementById(inputId);
                         const verificador = document.getElementById(verificadorId);
                         const file = input.files[0]; // Obtém o arquivo da imagem
 
                         if (file) {
+                           
                             verificador.style.display = 'block'; // Exibe o verificador ao carregar a imagem
+                        
                             document.querySelector('.msgErro').style.display = 'none';
 
                             // Se o Croppie já estiver inicializado, destruímos a instância anterior
                         
-
+ 
                             // Inicializa o Croppie após o carregamento da página
                             const el = document.getElementById('croppe2');
+                            
                             croppieInstance1 = new Croppie(el, {
-                                viewport: { width: 200, height: 200, type: 'square' }, // Área de visualização do corte
+                                viewport: { width: 300, height: 300, type: 'square' }, // Área de visualização do corte
                                 boundary: { width: 300, height: 300 }, // Área do contêiner para corte
                                 showZoomer: false,
                                 enableResize: true,
@@ -198,6 +209,7 @@
                             // Carrega a imagem no Croppie
                             croppieInstance1.bind({
                                 url: URL.createObjectURL(file), // Usando URL.createObjectURL para exibir a imagem local
+                                zoom:0
                             }).then(() => {
                                 console.log('Croppie foi inicializado com sucesso!');
                             });
@@ -242,6 +254,7 @@
 
     // Adiciona evento de mudança para o segundo input de imagem
     document.getElementById('upImage2').addEventListener('change', function () {
+        
         processImage('upImage2', 'verificador2');
     });
 </script>
