@@ -45,5 +45,6 @@
         </div>
         @include('layout.scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
     </body>
 </html>
