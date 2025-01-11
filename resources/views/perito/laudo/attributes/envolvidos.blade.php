@@ -1,9 +1,27 @@
+<style>
+    .envolvido_btn{
+        
+       width: 100%;
+        border-radius: 4px;
+    }
+    .label_envolvido{
+        padding-left: 10%;
+        color: #646161;
+    }
+</style>
 <div class="col-lg-3 mt-2" >
     
 <label for="nome_vitima"  ><strong>Nome do envolvido </strong></label><br>
     
     <input  class="form-control" type="text"  name="nome_vitima" id="nome_vitima">
-    <input type="button" id="incluir" style="border:0px;background:orange;color:white;border-radius:5px;" value="+">
+    
+    <button class="envolvido_btn" id="incluir" >
+        <b class="label_envolvido">Incluir mais envolvidos</b>
+        <img  style="width:50px" src="{{ asset('image/perfil.png') }}" alt="">
+    </button>
+        
+    
+    
 </div>
 
 <div class="col-lg-3 mt-2" >

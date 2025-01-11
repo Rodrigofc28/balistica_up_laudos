@@ -76,13 +76,13 @@ $('#incluir').on('click',function(){
    var nome=$('#nome_vitima').val()
     var perfil=$('#perfil_envolvido').val()
     if(nome==''){
-        alert("preencha o campo nome do envolvido")
+        swal("Preencha o campo nome do envolvido")
     }
     if(perfil==''){
-        alert("preencha o campo perfil")
+        swal("Preencha o campo perfil")
     }
     if(nome!='' && perfil!=''){
-        alert("nome adicionado")
+        swal("Nome adicionado")
         
         
         
