@@ -3,7 +3,7 @@
     .conteinerImagemRecebida{
         border:solid 1px #E0E0E0;
         text-align: center;
-        padding: 20%;
+        padding: 4%;
     }
     .msgErro{
         color:#E0E0E0;
@@ -12,59 +12,62 @@
         border-radius: 3px;
         display: none
     }
-    #croppie-container,#croppe2{
-        
-        height: 300px;
-        width: 400px;
-       position: relative;
-       background: #f0f0f0;
-       bottom: 50px;
-       margin-top:50px;
-        
+    
+    #image {
+      display: none; /* Oculta a imagem até o upload */
+      max-width: 30%;
     }
-    .embalagemFoto{
-       
+    .conteinerImg{
+        width: 60%;
+        padding: 5%;
     }
+    .preview {
+      width: 300px;
+      height: 300px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      margin-top: 10px;
+    }
+    
 </style>
 @section('page')
 
-<div class="conteinerImagemRecebida">
-  <h4><strong style="padding:10px"> ADICIONAR IMAGENS DA EMBALAGEM RECEBIDA </strong> </h4>
-    <label class="upImage embalagemFoto" >
-        
-            <b>FOTO FRENTE</b>
-            <div id="croppie-container"></div>
-            
-            
-            <div>
-              
-                
-                <img style="display: none" id="verificador" src="{{ asset('image/verificar.png') }}" alt="Verificador">
-            </div>
-            <div>
-                <button id="frente" onclick="acao('frente','upImage')" alt="adicionar"><img style="width: 50px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
-           
-                <button id="rotate-button"><img style="width: 50px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
-            </div>
-            
-    </label>
-    
-        <!-- Foto Verso -->
-    <label class="upImage" >
-            <b>FOTO VERSO</b>
-            <div id="croppe2">
 
-            </div>
-            <div>
-                
-                <img  style="display: none" id="verificador2" src="{{ asset('image/verificar.png') }}" alt="Verificador">
-            </div>
-            <div>
-                <button id="verso_img" onclick="acao2('verso_img','upImage2')"  id="crop-button-lado-direito"><img style="width: 50px" src="{{ asset('image/add-image.png') }}" alt="adicionar foto"></button>
-                <button id="rotate-button-lado-direito"><img style="width: 50px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"></button>
-            </div>
-    </label>
+  
     
+ <div class="conteinerImagemRecebida">
+    <div>
+        <h4><strong style="padding:10px">IMAGENS DA EMBALAGEM</strong> </h4>
+       
+        <input style="display:none" type="file" id="inputFile" accept="image/*">
+        <button id="frente" onclick="click_input_file('frente','inputFile')"  alt="adicionar"><img style="width: 50px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
+        <button id="rotateButton"><img style="width: 50px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
+        <button onclick="next('seta_frente')" id="seta_frente">FRENTE</button>
+       <button onclick="next('seta_verso')" id="seta_verso">VERSO</button>
+       <div id="cont_frente">
+            <b>FRENTE</b>
+            <div class="preview" hidden id="preview"></div>
+            <div style="display:flex">
+                <div class="preview" id="preview"></div>
+                <div class="conteinerImg">
+                    <img id="image" alt="Imagem para crop">
+                </div>
+            </div>
+       </div> 
+       
+        <div style="display:none" id="cont_tras">
+            <b>VERSO</b>
+            <div class="preview" hidden id="preview"></div>
+            <div style="display:flex">
+                <div class="preview" id="preview"></div>
+                <div class="conteinerImg">
+                    <img id="image" alt="Imagem para crop">
+                </div>
+            </div>
+        </div>
+        
+    
+    </div>   
     <form id="uploadForm" action="{{ route('embalagem') }}" method="POST" enctype="multipart/form-data">
         {{ csrf_field() }}
 
@@ -86,82 +89,122 @@
     <span class="msgErro" style="display: none;">Adicione as duas imagens (FRENTE e VERSO) para salvar e continuar</span>
     
 </div>
-<script type="module" >
-    import RedimensionaImage from "{{ asset('js/redimensionando_foto.js') }}";
-    
-    
-    const redimensionador1 = new RedimensionaImage('upImage','verificador', 'croppie-container','rotate-button', 'instance1');
-    const redimensionador2 = new RedimensionaImage('upImage2', 'verificador2', "croppe2", "rotate-button-lado-direito", 'instance2');
-    //acao do botao 1
-    window.acao = function (icon, file_input) {
-        redimensionador1.click_input_file(icon, file_input);
-    };
-    //acao do botao 2
-    window.acao2 = function (icon, file_input) {
-        redimensionador2.click_input_file(icon, file_input);
-    };
-    // update de corte
-    function tratarUpdateRedimensionador(redimensionador) {
-        const croppieInstance = redimensionador.get_croppieInstances();
-        
-        // Se a instância do Croppie foi encontrada
-        if (croppieInstance) {
-            croppieInstance.result({ type: 'blob', size: 'viewport' }).then((croppedBlob) => {
-                const fileInput = document.getElementById(redimensionador.get_input());
-
-                if (!fileInput) {
-                    console.error('Input de arquivo não encontrado.');
-                    return;
-                }
-
-                // Criar arquivo a partir do Blob
-                const file = new File([croppedBlob], "imagem-cortada.jpg", { type: "image/jpeg" });
-
-                // Simular seleção do arquivo no input
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
-                fileInput.files = dataTransfer.files;
-
-                console.log('Imagem cortada automaticamente:', file);
-            }).catch((error) => {
-                console.error('Erro ao cortar a imagem:', error);
-            });
-        }
-    }
-
-    // Adicionar evento de 'update' para ambos os redimensionadores
-    window.document.getElementById(redimensionador1.get_croppie()).addEventListener('update', function (ev) {
-        const cropData = ev.detail; // Obter os dados de corte (opcional)
-        console.log('Área de corte ajustada:', cropData);
-        tratarUpdateRedimensionador(redimensionador1);
-    });
-
-    window.document.getElementById(redimensionador2.get_croppie()).addEventListener('update', function (ev) {
-        const cropData = ev.detail; // Obter os dados de corte (opcional)
-        console.log('Área de corte ajustada:', cropData);
-        tratarUpdateRedimensionador(redimensionador2);
-    });
-</script>
+<!--cropper js-->
 <script>
-   
-    function salvaContinuar(imagem1, imagem2) {
-        const img1 = document.getElementById(imagem1);
-        const img2 = document.getElementById(imagem2);
-        const fileimg = img1.files[0];
-        const fileimg2 = img2.files[0];
-
-        // Verifica se ambas as imagens foram selecionadas
-        if (!fileimg || !fileimg2) {
-            document.querySelector('.msgErro').style.display = 'block';
-        } else {
-            document.querySelector('.msgErro').style.display = 'none';
-            // Agora permite o envio do formulário após verificar as imagens
-            document.getElementById('uploadForm').submit();
-        }
+    function click_input_file(icon, file_input) {
+        document.getElementById(icon).addEventListener('click', () => {
+            document.getElementById(file_input).click();
+        });
+       
     }
-   
-   
+   document.addEventListener('DOMContentLoaded', () => {
+      const inputFile = document.getElementById('inputFile');
+      const image = document.getElementById('image');
+      const preview = document.getElementById('preview');
+      const upImage = document.getElementById('upImage'); // Seu input de arquivo
+      const upImage2 = document.getElementById('upImage2'); // Seu input de arquivo
+      const rotateButton = document.getElementById('rotateButton');
+      let cropper;
+
+      inputFile.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+          const reader = new FileReader();
+
+          reader.onload = () => {
+            image.src = reader.result; // Define o src da imagem
+            image.style.display = 'block'; // Exibe a imagem
+
+            if (cropper) {
+              cropper.destroy(); // Remove o cropper anterior, se existir
+            }
+
+            // Inicializa o Cropper.js
+            cropper = new Cropper(image, {
+              aspectRatio: 1, // Proporção do quadrado
+              viewMode: 0, // Garante que a área visível esteja dentro dos limites
+              autoCrop: true, // Habilita o crop box automaticamente
+              autoCropArea: 0.8, // Define 80% da imagem como área inicial de corte
+              movable: true, // Permite mover o crop box
+              zoomable: true, // Permite dar zoom na imagem
+              scalable: true, // Permite redimensionar
+              highlight: true, // Destaca a área de corte
+              guides: true, // Mostra as linhas-guia dentro do crop box
+              background: true, // Exibe o fundo sombreado
+              cropBoxResizable: true, // Permite redimensionar o crop box
+              preview: '.preview', // Atualiza automaticamente a pré-visualização
+              ready() {
+                console.log('Cropper pronto!'); // Verifica quando o cropper está pronto
+              },
+              crop() {
+                const canvas = cropper.getCroppedCanvas({
+                  width: 200, // Largura do canvas
+                  height: 200, // Altura do canvas
+                });
+
+                preview.innerHTML = ''; // Limpa a pré-visualização anterior
+                const croppedImage = document.createElement('img');
+                croppedImage.src = canvas.toDataURL(); // Converte o canvas para DataURL
+                preview.appendChild(croppedImage); // Adiciona a nova imagem cortada
+                canvas.toBlob((blob) => {
+                const file = new File([blob], "cropped-image.png", { type: 'image/png' });
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file); // Adiciona o arquivo ao DataTransfer
+
+                // Simula a seleção do arquivo
+                upImage.files = dataTransfer.files;
+                }, 'image/png');
+                canvas.toBlob((blob) => {
+                const file = new File([blob], "cropped-image2.png", { type: 'image/png' });
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file); // Adiciona o arquivo ao DataTransfer
+
+                // Simula a seleção do arquivo
+                upImage2.files = dataTransfer.files;
+                }, 'image2/png');
+              },
+            });
+          };
+
+          reader.readAsDataURL(file); // Lê o arquivo como DataURL
+        } else {
+          alert('Por favor, selecione um arquivo de imagem válido.');
+        }
+      });
+      rotateButton.addEventListener('click', () => {
+    if (cropper) {
+      cropper.rotate(90); // Rotaciona a imagem 90 graus no sentido horário
+    }
+  });
+    });
+    function salvaContinuar(imagem1, imagem2) {
+            const img1 = document.getElementById(imagem1);
+            const img2 = document.getElementById(imagem2);
+            const fileimg = img1.files[0];
+            const fileimg2 = img2.files[0];
+
+            // Verifica se ambas as imagens foram selecionadas
+            if (!fileimg || !fileimg2) {
+                document.querySelector('.msgErro').style.display = 'block';
+            } else {
+                document.querySelector('.msgErro').style.display = 'none';
+                // Agora permite o envio do formulário após verificar as imagens
+                document.getElementById('uploadForm').submit();
+            }
+        }
+        function next(arg){
+            if(arg=="seta_verso"){
+                document.getElementById('cont_frente').style.display="none"
+                document.getElementById('cont_tras').style.display="block"
+            }else if((arg=="seta_frente")){
+                document.getElementById('cont_frente').style.display="block"
+                document.getElementById('cont_tras').style.display="none"
+            }
+             
+        }
+  
 </script>
+        
 
         
         
