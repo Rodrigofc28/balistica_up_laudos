@@ -42,7 +42,7 @@
                 <img style="display: none" id="verificador" src="{{ asset('image/verificar.png') }}" alt="Verificador">
             </div>
             <div>
-                <button id="frente" alt="adicionar"><img style="width: 50px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
+                <button id="frente" onclick="acao('frente','upImage')" alt="adicionar"><img style="width: 50px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
            
                 <button id="rotate-button"><img style="width: 50px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
             </div>
@@ -60,7 +60,7 @@
                 <img  style="display: none" id="verificador2" src="{{ asset('image/verificar.png') }}" alt="Verificador">
             </div>
             <div>
-                <button id="verso_img"  id="crop-button-lado-direito"><img style="width: 50px" src="{{ asset('image/add-image.png') }}" alt="adicionar foto"></button>
+                <button id="verso_img" onclick="acao2('verso_img','upImage2')"  id="crop-button-lado-direito"><img style="width: 50px" src="{{ asset('image/add-image.png') }}" alt="adicionar foto"></button>
                 <button id="rotate-button-lado-direito"><img style="width: 50px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"></button>
             </div>
     </label>
@@ -86,21 +86,64 @@
     <span class="msgErro" style="display: none;">Adicione as duas imagens (FRENTE e VERSO) para salvar e continuar</span>
     
 </div>
-
-<script>
-    document.getElementById('frente').addEventListener('click', function() {
-      
-    // Quando a imagem for clicada, dispara o clique no input de arquivo
-            document.getElementById('upImage').click();
-        });
-    document.getElementById('verso_img').addEventListener('click', function() {
+<script type="module" >
+    import RedimensionaImage from "{{ asset('js/redimensionando_foto.js') }}";
     
-    // Quando a imagem for clicada, dispara o clique no input de arquivo
-            document.getElementById('upImage2').click();
-        });
-    let croppieInstance = null;
+    
+    const redimensionador1 = new RedimensionaImage('upImage','verificador', 'croppie-container','rotate-button', 'instance1');
+    const redimensionador2 = new RedimensionaImage('upImage2', 'verificador2', "croppe2", "rotate-button-lado-direito", 'instance2');
+    //acao do botao 1
+    window.acao = function (icon, file_input) {
+        redimensionador1.click_input_file(icon, file_input);
+    };
+    //acao do botao 2
+    window.acao2 = function (icon, file_input) {
+        redimensionador2.click_input_file(icon, file_input);
+    };
+    // update de corte
+    function tratarUpdateRedimensionador(redimensionador) {
+        const croppieInstance = redimensionador.get_croppieInstances();
+        
+        // Se a instância do Croppie foi encontrada
+        if (croppieInstance) {
+            croppieInstance.result({ type: 'blob', size: 'viewport' }).then((croppedBlob) => {
+                const fileInput = document.getElementById(redimensionador.get_input());
 
-    // Função para processar as imagens e exibir o verificador
+                if (!fileInput) {
+                    console.error('Input de arquivo não encontrado.');
+                    return;
+                }
+
+                // Criar arquivo a partir do Blob
+                const file = new File([croppedBlob], "imagem-cortada.jpg", { type: "image/jpeg" });
+
+                // Simular seleção do arquivo no input
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                fileInput.files = dataTransfer.files;
+
+                console.log('Imagem cortada automaticamente:', file);
+            }).catch((error) => {
+                console.error('Erro ao cortar a imagem:', error);
+            });
+        }
+    }
+
+    // Adicionar evento de 'update' para ambos os redimensionadores
+    window.document.getElementById(redimensionador1.get_croppie()).addEventListener('update', function (ev) {
+        const cropData = ev.detail; // Obter os dados de corte (opcional)
+        console.log('Área de corte ajustada:', cropData);
+        tratarUpdateRedimensionador(redimensionador1);
+    });
+
+    window.document.getElementById(redimensionador2.get_croppie()).addEventListener('update', function (ev) {
+        const cropData = ev.detail; // Obter os dados de corte (opcional)
+        console.log('Área de corte ajustada:', cropData);
+        tratarUpdateRedimensionador(redimensionador2);
+    });
+</script>
+<script>
+   
     function salvaContinuar(imagem1, imagem2) {
         const img1 = document.getElementById(imagem1);
         const img2 = document.getElementById(imagem2);
@@ -117,201 +160,7 @@
         }
     }
    
-    // Função para processar a imagem carregada no Croppie
-    function processImage(inputId, verificadorId) {
-        
-        if(inputId=="upImage"){
-      
-                            if (croppieInstance !== null) {
-                            croppieInstance.destroy(); // Destrói a instância anterior
-                            croppieInstance = null; // Reinicia a instância
-                        }
-                        const input = document.getElementById(inputId);
-                        const verificador = document.getElementById(verificadorId);
-                        const file = input.files[0]; // Obtém o arquivo da imagem
-
-                        if (file) {
-                            verificador.style.display = 'block'; // Exibe o verificador ao carregar a imagem
-                            document.querySelector('.msgErro').style.display = 'none';
-
-                            // Se o Croppie já estiver inicializado, destruímos a instância anterior
-                          
-
-                            // Inicializa o Croppie após o carregamento da página
-                            const el = document.getElementById('croppie-container');
-                            croppieInstance = new Croppie(el, {
-                                viewport: { width: 200, height: 200, type: 'square' }, // Área de visualização do corte
-                                boundary: { width: '100%', height: '100%' }, // Área do contêiner para corte
-                                enableOrientation: true,
-                                mouseWheelZoom: 'ctrl'
-                            });
-
-                            // Carrega a imagem no Croppie
-                            croppieInstance.bind({
-                                url: URL.createObjectURL(file), // Usando URL.createObjectURL para exibir a imagem local
-                               zoom:0
-                            })
-                            document.getElementById('croppie-container').addEventListener('update', function (ev) {
-                                const cropData = ev.detail; // Obter os dados de corte (opcional)
-                                console.log('Área de corte ajustada:', cropData);
-
-                                croppieInstance.result({ type: 'blob', size: 'viewport' }).then((croppedBlob) => {
-                                    const fileInput = document.getElementById('upImage');
-
-                                    if (!fileInput) {
-                                        console.error('Input de arquivo "upImage" não encontrado.');
-                                        return;
-                                    }
-
-                                    // Criar arquivo a partir do Blob
-                                    const file = new File([croppedBlob], "imagem-cortada.jpg", { type: "image/jpeg" });
-
-                                    // Simular seleção do arquivo no input
-                                    const dataTransfer = new DataTransfer();
-                                    dataTransfer.items.add(file);
-                                    fileInput.files = dataTransfer.files;
-
-                                    console.log('Imagem cortada automaticamente:', file);
-                                }).catch((error) => {
-                                    console.error('Erro ao cortar a imagem:', error);
-                                });
-                            });
-
-
-                            document.getElementById('rotate-button').addEventListener('click', () => {
-                            
-                                croppieInstance.rotate(90); // Rotaciona a imagem em 90 graus no sentido horário
-                                document.getElementById('rotate-button').addEventListener('click', () => {
-                                    croppieInstance.$el.addEventListener('update', () => {
-                                        croppieInstance.result({ type: 'blob', size: 'viewport' }).then((croppedBlob) => {
-                                    const fileInput = document.getElementById('upImage');
-
-                                    // Cria um arquivo a partir do Blob (corte feito)
-                                    const file = new File([croppedBlob], "imagem-cortada1.jpg", { type: "image/jpeg" });
-
-                                    // Cria um objeto DataTransfer para simular a seleção de um arquivo
-                                    const dataTransfer = new DataTransfer();
-                                    dataTransfer.items.add(file);
-
-                                    // Atribui o arquivo ao input de tipo 'file'
-                                    fileInput.files = dataTransfer.files;
-
-                                    console.log('Imagem cortada:', file);
-                                    swal('Corte realizado com sucesso!!')
-
-                                    // Aqui você pode incluir o código para salvar a imagem cortada, como enviá-la no formulário
-                                    document.querySelector('.msgErro').style.display = 'none'; // Após o corte, pode ocultar a mensagem de erro
-                                        });
-                                    });  
-                                });
-                            })
-                           
-                        } else {
-                            verificador.style.display = 'none'; // Oculta o verificador se nenhum arquivo for selecionado
-                        }
-                }else if(inputId=="upImage2"){ //configuração da outra image
-                    
-                        const input = document.getElementById(inputId);
-                        const verificador = document.getElementById(verificadorId);
-                        const file = input.files[0]; // Obtém o arquivo da imagem
-
-                        if (file) {
-                           
-                            verificador.style.display = 'block'; // Exibe o verificador ao carregar a imagem
-                        
-                            document.querySelector('.msgErro').style.display = 'none';
-
-                            // Se o Croppie já estiver inicializado, destruímos a instância anterior
-                        
- 
-                            // Inicializa o Croppie após o carregamento da página
-                            const el = document.getElementById('croppe2');
-                            
-                            croppieInstance1 = new Croppie(el, {
-                                viewport: { width:200, height: 200, type: 'square' }, // Área de visualização do corte
-                                boundary: { width: '100%', height: '100%' }, // Área do contêiner para corte
-                                enableOrientation: true,
-                            });
-
-                            // Carrega a imagem no Croppie
-                            croppieInstance1.bind({
-                                url: URL.createObjectURL(file), // Usando URL.createObjectURL para exibir a imagem local
-                                zoom:0
-                            })
-                            document.getElementById('croppe2').addEventListener('update', function (ev) {
-                                const cropData = ev.detail; // Obter os dados de corte (opcional)
-                                console.log('Área de corte ajustada:', cropData);
-
-                                croppieInstance1.result({ type: 'blob', size: 'viewport' }).then((croppedBlob) => {
-                                    const fileInput = document.getElementById('upImage2');
-
-                                    if (!fileInput) {
-                                        console.error('Input de arquivo "upImage2" não encontrado.');
-                                        return;
-                                    }
-
-                                    // Criar arquivo a partir do Blob
-                                    const file = new File([croppedBlob], "imagem-cortada2.jpg", { type: "image/jpeg" });
-
-                                    // Simular seleção do arquivo no input
-                                    const dataTransfer = new DataTransfer();
-                                    dataTransfer.items.add(file);
-                                    fileInput.files = dataTransfer.files;
-
-                                    console.log('Imagem cortada automaticamente:', file);
-                                }).catch((error) => {
-                                    console.error('Erro ao cortar a imagem:', error);
-                                });
-                            });
-                            
-                            document.getElementById('rotate-button-lado-direito').addEventListener('click', () => {
-                            
-                            croppieInstance1.rotate(90); // Rotaciona a imagem em 90 graus no sentido horário
-                            document.getElementById('rotate-button-lado-direito').addEventListener('click', () => {
-                                croppieInstance1.$el.addEventListener('update', () => {
-                                    croppieInstance1.result({ type: 'blob', size: 'viewport' }).then((croppedBlob) => {
-                                const fileInput = document.getElementById('upImage');
-
-                                // Cria um arquivo a partir do Blob (corte feito)
-                                const file = new File([croppedBlob], "imagem-cortada1.jpg", { type: "image/jpeg" });
-
-                                // Cria um objeto DataTransfer para simular a seleção de um arquivo
-                                const dataTransfer = new DataTransfer();
-                                dataTransfer.items.add(file);
-
-                                // Atribui o arquivo ao input de tipo 'file'
-                                fileInput.files = dataTransfer.files;
-
-                                console.log('Imagem cortada:', file);
-                                swal('Corte realizado com sucesso!!')
-
-                                // Aqui você pode incluir o código para salvar a imagem cortada, como enviá-la no formulário
-                                document.querySelector('.msgErro').style.display = 'none'; // Após o corte, pode ocultar a mensagem de erro
-                                    });
-                                });  
-                            });
-                        })
-                              
-                                     
-                                
-                    
-                        } else {
-                            verificador.style.display = 'none'; // Oculta o verificador se nenhum arquivo for selecionado
-                        }
-                }
-    }
-
-    // Adiciona evento de mudança para o primeiro input de imagem
-    document.getElementById('upImage').addEventListener('change', function () {
-       
-        processImage('upImage', 'verificador');
-    });
-
-    // Adiciona evento de mudança para o segundo input de imagem
-    document.getElementById('upImage2').addEventListener('change', function () {
-        
-        processImage('upImage2', 'verificador2');
-    });
+   
 </script>
 
         
