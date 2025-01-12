@@ -28,7 +28,13 @@
       border: 1px solid #ddd;
       margin-top: 10px;
     }
-    
+    .btnNext{
+      border-radius:5px;
+      padding:1%;
+      color:#ffff;
+      text-decoration:underline ;
+      background-color:rgb(167, 162, 162);
+    }
 </style>
 @section('page')
 
@@ -40,7 +46,7 @@
         <h4><strong style="padding:10px">IMAGENS DA EMBALAGEM</strong> </h4>
        
         <input style="display:none" type="file" id="inputFile" accept="image/*">
-       
+        <input style="display:none" type="file" id="inputFile1" accept="image/*">
         
        <div id="cont_frente">
             <b>FRENTE</b>
@@ -56,19 +62,19 @@
        
         <div style="display:none" id="cont_tras">
             <b>VERSO</b>
-            <div class="preview" hidden id="preview"></div>
+            <div class="preview" hidden id="preview1"></div>
             <div style="display:flex">
-                <div class="preview" id="preview"></div>
+                <div class="preview" id="preview1"></div>
                 <div class="conteinerImg">
-                    <img id="image" alt="Imagem para crop">
+                    <img id="image1" alt="Imagem para crop">
                 </div>
             </div>
         </div>
         <div>
-          <button id="frente" onclick="click_input_file('frente','inputFile')"  alt="adicionar"><img style="width: 50px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
-          <button id="rotateButton"><img style="width: 50px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
-          <button onclick="next('seta_frente')" id="seta_frente">FRENTE</button>
-          <button onclick="next('seta_verso')" id="seta_verso">VERSO</button>
+          
+          <button class="btnNext"  id="rotateButton"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
+          <button class="btnNext" onclick="next('seta_frente')" id="seta_frente"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto">FRENTE</button>
+          <button class="btnNext"  onclick="next('seta_verso')"  id="seta_verso"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto">VERSO</button>
         </div>
     
     </div>   
@@ -95,22 +101,39 @@
 </div>
 <!--cropper js-->
 <script>
-    function click_input_file(icon, file_input) {
-        document.getElementById(icon).addEventListener('click', () => {
+  
+    function click_input_file(file_input) {
+            
             document.getElementById(file_input).click();
-        });
+            const inputFile = document.getElementById('inputFile');
+            const image = document.getElementById('image');
+            const preview = document.getElementById('preview');
+            const upImage = document.getElementById('upImage'); // Seu input de arquivo
+            
+            const rotateButton = document.getElementById('rotateButton');
+            let cropper;
+            carrega(inputFile,image,cropper,preview,upImage)
+        
        
     }
-   document.addEventListener('DOMContentLoaded', () => {
-      const inputFile = document.getElementById('inputFile');
-      const image = document.getElementById('image');
-      const preview = document.getElementById('preview');
-      const upImage = document.getElementById('upImage'); // Seu input de arquivo
-      const upImage2 = document.getElementById('upImage2'); // Seu input de arquivo
-      const rotateButton = document.getElementById('rotateButton');
-      let cropper;
-
-      inputFile.addEventListener('change', (event) => {
+    function click_input_file1(file_input) {
+            
+            document.getElementById(file_input).click();
+            const inputFile = document.getElementById('inputFile1');
+            const image = document.getElementById('image1');
+            const preview = document.getElementById('preview1');
+            
+            const upImage = document.getElementById('upImage2'); // Seu input de arquivo
+            const rotateButton = document.getElementById('rotateButton');
+            let cropper;
+            carrega(inputFile,image,cropper,preview,upImage)
+        
+       
+    }
+      
+      
+    function carrega(inputFile,image,cropper,preview,upImage){
+        inputFile.addEventListener('change', (event) =>{
         const file = event.target.files[0];
         if (file && file.type.startsWith('image/')) {
           const reader = new FileReader();
@@ -158,14 +181,7 @@
                 // Simula a seleção do arquivo
                 upImage.files = dataTransfer.files;
                 }, 'image/png');
-                canvas.toBlob((blob) => {
-                const file = new File([blob], "cropped-image2.png", { type: 'image/png' });
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file); // Adiciona o arquivo ao DataTransfer
-
-                // Simula a seleção do arquivo
-                upImage2.files = dataTransfer.files;
-                }, 'image2/png');
+              
               },
             });
           };
@@ -174,13 +190,13 @@
         } else {
           alert('Por favor, selecione um arquivo de imagem válido.');
         }
-      });
+      })
       rotateButton.addEventListener('click', () => {
-    if (cropper) {
-      cropper.rotate(90); // Rotaciona a imagem 90 graus no sentido horário
-    }
-  });
-    });
+        if (cropper) {
+          cropper.rotate(90); // Rotaciona a imagem 90 graus no sentido horário
+        }
+  });}
+   
     function salvaContinuar(imagem1, imagem2) {
             const img1 = document.getElementById(imagem1);
             const img2 = document.getElementById(imagem2);
@@ -200,9 +216,11 @@
         if(arg=="seta_verso"){
             document.getElementById('cont_frente').style.display="none"
             document.getElementById('cont_tras').style.display="block"
+            click_input_file1('inputFile1')
         }else if((arg=="seta_frente")){
             document.getElementById('cont_frente').style.display="block"
             document.getElementById('cont_tras').style.display="none"
+            click_input_file('inputFile')
         }
           
     }
