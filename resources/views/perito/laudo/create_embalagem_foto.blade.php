@@ -40,14 +40,13 @@
         <h4><strong style="padding:10px">IMAGENS DA EMBALAGEM</strong> </h4>
        
         <input style="display:none" type="file" id="inputFile" accept="image/*">
-        <button id="frente" onclick="click_input_file('frente','inputFile')"  alt="adicionar"><img style="width: 50px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
-        <button id="rotateButton"><img style="width: 50px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
-        <button onclick="next('seta_frente')" id="seta_frente">FRENTE</button>
-       <button onclick="next('seta_verso')" id="seta_verso">VERSO</button>
+       
+        
        <div id="cont_frente">
             <b>FRENTE</b>
             <div class="preview" hidden id="preview"></div>
             <div style="display:flex">
+                
                 <div class="preview" id="preview"></div>
                 <div class="conteinerImg">
                     <img id="image" alt="Imagem para crop">
@@ -65,7 +64,12 @@
                 </div>
             </div>
         </div>
-        
+        <div>
+          <button id="frente" onclick="click_input_file('frente','inputFile')"  alt="adicionar"><img style="width: 50px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
+          <button id="rotateButton"><img style="width: 50px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
+          <button onclick="next('seta_frente')" id="seta_frente">FRENTE</button>
+          <button onclick="next('seta_verso')" id="seta_verso">VERSO</button>
+        </div>
     
     </div>   
     <form id="uploadForm" action="{{ route('embalagem') }}" method="POST" enctype="multipart/form-data">
@@ -192,16 +196,16 @@
                 document.getElementById('uploadForm').submit();
             }
         }
-        function next(arg){
-            if(arg=="seta_verso"){
-                document.getElementById('cont_frente').style.display="none"
-                document.getElementById('cont_tras').style.display="block"
-            }else if((arg=="seta_frente")){
-                document.getElementById('cont_frente').style.display="block"
-                document.getElementById('cont_tras').style.display="none"
-            }
-             
+    function next(arg){
+        if(arg=="seta_verso"){
+            document.getElementById('cont_frente').style.display="none"
+            document.getElementById('cont_tras').style.display="block"
+        }else if((arg=="seta_frente")){
+            document.getElementById('cont_frente').style.display="block"
+            document.getElementById('cont_tras').style.display="none"
         }
+          
+    }
   
 </script>
         
