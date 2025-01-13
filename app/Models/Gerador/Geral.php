@@ -178,17 +178,7 @@ class Geral extends Tabelas
                 $a=2;
                 $b=0;
                 $this->imagemEmbalagemrecursiva($a,$b,$laudo,$fontStyle,$paraStyle);
-            /* $table = $this->section->addTable('tabela2img'); //tabela de imagem embalagens
-            $table->addRow(10,['tblHeader'=>true]);
-
-            
-            $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('TABELA 3 – TOMADAS FOTOGRÁFICAS DA EMBALAGEM RECEBIDA', $fontStyle, $paraStyle);//cabeçalho da tabela
-            $table->addRow(10);
-            $table->addCell()->addImage((empty($this->imagem($laudo)[0]))?$fileContent:$this->imagem($laudo)[0], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));
-
-            if(!empty($this->imagem($laudo)[1])){
-            $table->addCell()->addImage($this->imagem($laudo)[1], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));}
-            $this->section->addTextBreak(1); */
+           
         }
 
 

@@ -1,10 +1,10 @@
 const CACHE_NAME = "meu-app-cache-v2"; // Alterar o nome do cache força o navegador a buscar os arquivos novamente
 const urlsToCache = [
     "/",
-    "/manifest.json",
-    "/css/app.css",
-    "/js/app.js",
-    "/unicorn.png",
+    "./manifest.json",
+    "./css/app.css",
+    "./js/app.js",
+    "./unicorn.png",
     
 ];
 

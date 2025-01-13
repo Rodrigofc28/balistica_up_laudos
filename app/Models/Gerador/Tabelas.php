@@ -1,8 +1,6 @@
 <?php
 
-/*
- * Developed by Milena Mognon
- */
+
 
 namespace App\Models\Gerador;
 
@@ -304,13 +302,7 @@ $tabelaNecropsia=DB::select('select lacrecartucho,origem_coletaPerito,rep_materi
 
 }  
 
-// dd($tabelaNecropsia[0]->{'sum(quantidade_frascos)'}); quando se tem caracter especial usa-se {}
            
-
-
-
-
-///////////////////////////////////////////////////////              
             }
     return $table;
 }
@@ -361,8 +353,7 @@ foreach ($combinar as $envolvidos=>$perfil){
 if(!empty($laudo->envolvidoGdl)){
     $envolve = str_replace(',,',',',$laudo->envolvidoGdl);
     $indiciados=explode(',',$envolve);
-//passando a o primeiro valor como chave e o segundo como valor
-    
+ 
     $a=0;
     $b=1;
     $new_arr = [];
