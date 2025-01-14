@@ -70,7 +70,7 @@
             </div>
             <button class="btnNext" onclick="next('seta_frente')" id="seta_frente"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
             <button class="btnNext"  id="rotateButton"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
-            <p>para zoom utilize o scrool do mause <img src="" alt=""></p>
+            <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b> 
        </div> 
        <hr>
         <div  id="cont_tras">
@@ -84,7 +84,7 @@
             </div>
             <button class="btnNext"  onclick="next('seta_verso')"  id="seta_verso"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
             <button class="btnNext"  id="rotateButton1"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
-            
+            <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b>
             
         </div>
 

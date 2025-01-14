@@ -1,8 +1,5 @@
 <?php
 
-/*
- * Developed by Milena Mognon
- */
 
 
 namespace App\Models\Gerador;
