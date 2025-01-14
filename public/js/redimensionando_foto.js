@@ -105,9 +105,10 @@
 
             
             if (!fileimg || !fileimg2) {
-                document.querySelector('.msgErro').style.display = 'block';
+              swal('Adicione as duas imagens (FRENTE e VERSO) para salvar e continuar')
+               //document.querySelector('.msgErro').style.display = 'block';
             } else {
-                document.querySelector('.msgErro').style.display = 'none';
+                //document.querySelector('.msgErro').style.display = 'none';
                 
                 document.getElementById('uploadForm').submit();
             }

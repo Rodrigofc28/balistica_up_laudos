@@ -109,7 +109,7 @@
         </button>
     </form>
 
-    <span class="msgErro" style="display: none;">Adicione as duas imagens (FRENTE e VERSO) para salvar e continuar</span>
+   <!-- <span class="msgErro" style="display: none;">Adicione as duas imagens (FRENTE e VERSO) para salvar e continuar</span>-->
     
 </div>
 <!--cropper js-->
