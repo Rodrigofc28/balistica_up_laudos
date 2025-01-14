@@ -45,7 +45,7 @@ class EspingardamistasController extends Controller
      */
     public function store(EspingardamistaRequest $request)
     {
-        Arma::create($request->all());
+        salvaImagemArm($request);
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])
             ->with('success', __('flash.create_f', ['model' => 'Espingardamista']));

@@ -63,7 +63,7 @@ class RevolveresController extends Controller
             
         }
 
-        Arma::create($request->all());
+        salvaImagemArm($request);
         
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])

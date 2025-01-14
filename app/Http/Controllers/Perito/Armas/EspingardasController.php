@@ -81,7 +81,7 @@ class EspingardasController extends Controller
             ->with('success', __('flash.create_f', ['model' => 'Espingarda']))
             ->with('id_gdl',$id_armas_gdl);
         }
-        Arma::create($request->all());
+        salvaImagemArm($request);
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])
             ->with('success', __('flash.create_f', ['model' => 'Espingarda']));

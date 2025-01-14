@@ -1,38 +1,9 @@
 
-//Frente Embalagens
-    function click_input_file(file_input) {
-            
-            document.getElementById(file_input).click();
-            let inputFile = document.getElementById('inputFile');
-            let image = document.getElementById('image');
-            let preview = document.getElementById('preview');
-            let upImage = document.getElementById('upImage'); // Seu input de arquivo
-            let prevFrente = "#preview"
-            let rotateButton = document.getElementById('rotateButton');
-            let cropper;
-            carrega(inputFile,image,cropper,preview,upImage,rotateButton,prevFrente)
-        
-       
-    }
-    //Verso Embalagens
-    function click_input_file1(file_input) {
-            
-            document.getElementById(file_input).click();
-            let inputFile = document.getElementById('inputFile1');
-            let image = document.getElementById('image1');
-            let preview1 = document.getElementById('prev');
-            let preVerso = "#prev"
-            let upImage = document.getElementById('upImage2'); // Seu input de arquivo
-            let rotateButton = document.getElementById('rotateButton1');
-            let cropper;
-            carrega(inputFile,image,cropper,preview1,upImage,rotateButton,preVerso)
-        
-       
-    }
+
       
    // função pra pra redimensiona
     function carrega(inputFile,image,cropper,preview,upImage,rotateButton,pre){
-        
+      
         inputFile.addEventListener('change', (event) =>{
         const file = event.target.files[0];
         if (file && file.type.startsWith('image/')) {
@@ -48,7 +19,7 @@
 
             // Inicializa o Cropper.js
             cropper = new Cropper(image, {
-              aspectRatio: 1, // Proporção do quadrado
+              aspectRatio: 2, // Proporção do quadrado
               viewMode: 0, // Garante que a área visível esteja dentro dos limites
               autoCrop: true, // Habilita o crop box automaticamente
               autoCropArea: 0.8, // Define 80% da imagem como área inicial de corte
@@ -61,7 +32,8 @@
               cropBoxResizable: true, // Permite redimensionar o crop box
               preview: pre, // Atualiza automaticamente a pré-visualização
               ready() {
-                console.log('Cropper pronto!'); // Verifica quando o cropper está pronto
+                console.log('Cropper pronto !'); // Verifica quando o cropper está pronto
+                
               },
               crop() {
                 const canvas = cropper.getCroppedCanvas({
@@ -114,13 +86,4 @@
             }
         }
         // função pra chama a imagem
-    function next(arg){
-        if(arg=="seta_verso"){
-            
-            click_input_file1('inputFile1')
-        }else if((arg=="seta_frente")){
-            
-            click_input_file('inputFile')
-        }
-          
-    }
+   

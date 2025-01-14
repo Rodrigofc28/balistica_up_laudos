@@ -109,10 +109,51 @@
         </button>
     </form>
 
-   <!-- <span class="msgErro" style="display: none;">Adicione as duas imagens (FRENTE e VERSO) para salvar e continuar</span>-->
+    <span class="msgErro" style="display: none;">Adicione as duas imagens (FRENTE e VERSO) para salvar e continuar</span>
     
 </div>
 <!--cropper js-->
 <script src="./js/redimensionando_foto.js"></script>
-   
+<script>
+    //Frente Embalagens
+    function click_input_file(file_input) {
+            
+            document.getElementById(file_input).click();
+            let inputFile = document.getElementById('inputFile');
+            let image = document.getElementById('image');
+            let preview = document.getElementById('preview');
+            let upImage = document.getElementById('upImage'); // Seu input de arquivo
+            let prevFrente = "#preview"
+            let rotateButton = document.getElementById('rotateButton');
+            let cropper;
+            carrega(inputFile,image,cropper,preview,upImage,rotateButton,prevFrente)
+        
+       
+    }
+    //Verso Embalagens
+    function click_input_file1(file_input) {
+            
+            document.getElementById(file_input).click();
+            let inputFile = document.getElementById('inputFile1');
+            let image = document.getElementById('image1');
+            let preview1 = document.getElementById('prev');
+            let preVerso = "#prev"
+            let upImage = document.getElementById('upImage2'); // Seu input de arquivo
+            let rotateButton = document.getElementById('rotateButton1');
+            let cropper;
+            carrega(inputFile,image,cropper,preview1,upImage,rotateButton,preVerso)
+        
+       
+    }
+     function next(arg){
+        if(arg=="seta_verso"){
+            
+            click_input_file1('inputFile1')
+        }else if((arg=="seta_frente")){
+            
+            click_input_file('inputFile')
+        }
+          
+    }
+</script>
 @endsection

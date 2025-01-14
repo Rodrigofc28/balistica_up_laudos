@@ -54,6 +54,7 @@ class CarabinasController extends Controller
      */
     public function store(Request $id_arma_gdl,CarabinaRequest $request)
     {
+       
         $arma_carabina_gdl=Armas_Gdl::find($id_arma_gdl->arma);
      
 
@@ -64,7 +65,7 @@ class CarabinasController extends Controller
             $arma_carabina_gdl->save(); // Savando no banco de dados
         
         }
-        Arma::create($request->all());
+        salvaImagemArm($request);
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])
             ->with('success', __('flash.create_f', ['model' => 'Carabina']));

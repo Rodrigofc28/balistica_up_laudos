@@ -3,6 +3,7 @@
 {!! Html::script('js/cabo_material.js') !!} 
 {!! Html::script('js/recorte.js') !!} 
 {!! Html::script('js/sessionGarrucha.js') !!} 
+
 @if($acao == 'Cadastrar')
 {!! Html::script('js/sessionArmas.js') !!} 
 @endif
@@ -73,9 +74,9 @@
         
         @include('perito.laudo.materiais.attributes.salva_modelo_cadastro')
         @include('perito.laudo.materiais.attributes.municaoFornecidaPela')
-        @include('perito.laudo.materiais.attributes.imagemArmas')
+        
     </div>
-
+    @include('perito.laudo.materiais.attributes.imagemArmas')
     <div class="row justify-content-between mb-4">
         <div class="col-lg-4 mt-1">
             <a class="btn btn-secondary btn-block" href="{!! URL::previous() !!}">
@@ -94,6 +95,9 @@
             {{ Form::close() }}
         </div>
     </div>
+    
+    
+   
 </div>
 @include('perito.modals.calibre_modal', ['tipo_arma' => 'garrucha'])
 @include('perito.modals.marca_modal')

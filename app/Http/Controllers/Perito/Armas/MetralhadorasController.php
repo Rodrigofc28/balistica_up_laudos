@@ -100,7 +100,7 @@ class MetralhadorasController extends Controller
             $arma_metralhadora_gdl->save(); // Savando no banco de dados
         
         }
-        Arma::create($request->all());
+        salvaImagemArm($request);
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])
             ->with('success', __('flash.create_f', ['model' => 'Metralhadora']));

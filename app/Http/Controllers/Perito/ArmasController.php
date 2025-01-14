@@ -33,7 +33,7 @@ class ArmasController extends Controller
 
     public function store_image($arma)
     {
-        $imagem = $_FILES['croppedImage']['tmp_name'];
+        $imagem = $_FILES['cropped-image']['tmp_name'];
         $image_name = Imagem::config();
         $image = Imagem::create(['nome' => $image_name, 'arma_id' => $arma]);
         $path = storage_path('app/public/imagens/') . $image_name;

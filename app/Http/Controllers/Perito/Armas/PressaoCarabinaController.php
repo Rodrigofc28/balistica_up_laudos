@@ -29,7 +29,7 @@ class PressaoCarabinaController extends Controller
     public function store(ComponenteRequest $request, $laudo)
     {
         
-        Arma::create($request->all());
+        salvaImagemArm($request);
         return redirect()->route('laudos.show', ['id' => $laudo->id])
             ->with('success', __('flash.create_m', ['model' => 'Carabina']));
     }

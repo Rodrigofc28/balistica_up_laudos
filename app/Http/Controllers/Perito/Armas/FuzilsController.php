@@ -98,7 +98,7 @@ class FuzilsController extends Controller
             $arma_fuzil_gdl->save(); // Savando no banco de dados
         
         }
-        Arma::create($request->all());
+        salvaImagemArm($request);
         
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])

@@ -14,6 +14,7 @@ use App\Models\Calibre;
 use App\Models\Marca;
 use App\Models\Origem;
 use App\Models\Armas_Gdl;
+use App\Models\Imagem;
 use Illuminate\Support\Facades\DB;
 class GarruchasController extends Controller
 {
@@ -59,7 +60,11 @@ class GarruchasController extends Controller
             $arma_garrucha_gdl->save(); // Savando no banco de dados
         
         }
-        Arma::create($request->all());
+        //salvando a imagem no banco como base64 na função salvaImagemArm dentro da pasta Helpers
+        
+        salvaImagemArm($request);
+
+       
          
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])

@@ -73,10 +73,10 @@
        
         @include('perito.laudo.materiais.attributes.salva_modelo_cadastro')
         @include('perito.laudo.materiais.attributes.municaoFornecidaPela')
-        @include('perito.laudo.materiais.attributes.imagemArmas')
+        
         
     </div>
-
+    @include('perito.laudo.materiais.attributes.imagemArmas')
     <div class="row justify-content-between mb-4">
         <div class="col-lg-4 mt-1">
             <a class="btn btn-secondary btn-block" href="{!! URL::previous() !!}">
