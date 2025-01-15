@@ -23,7 +23,9 @@ class LaudosController extends Controller
      */
     public function index()
     {
-        $laudos = Laudo::paginate(10);
+    
+        $laudos = Laudo::orderBy('id', 'desc')->paginate(10);
+
         return view('admin.laudos.index', compact('laudos'));
     }
 

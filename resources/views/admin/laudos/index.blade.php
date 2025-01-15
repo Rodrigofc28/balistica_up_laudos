@@ -6,17 +6,19 @@
 'route_search_name' => 'laudos',
 'route_create_name' => 'laudos.create',
 'dados' => $laudos,
-'ths' => ['REP', 'Ofício', 'Cidade', 'Órgão Solicitante','Perito']])
+'ths' => ['Data','REP', 'Ofício', 'Cidade', 'Órgão Solicitante','Perito']])
 
 @section('table-content')
 @if (count($laudos) > 0)
 @foreach ($laudos as $laudo)
 <tr>
+    <td>{{$laudo->created_at->format('d/m/Y ')}}</td>
     <td> {{ $laudo->rep }}</td>
     <td> {{ $laudo->oficio }}</td>
     <td> {{ $laudo->cidade_id }}</td>
-    <td> </td>
+    <td>{{ $laudo->solicitante->nome }} </td>
     <td> {{ $laudo->perito->nome }}</td>
+
     <td>
         <a class="btn btn-primary mt-1" href="{{ route('laudos.show', $laudo) }}">
             <i class="fa fa-fw fa-eye"></i></a>
@@ -27,6 +29,7 @@
         </button>
     </td>
 </tr>
+
 @endforeach
 @else
 <tr>
