@@ -11,14 +11,11 @@
             <thead align="center">
             
                 <tr>
-                
+                   
                     @foreach ($ths as $th)
                     <th>{{ $th }}</th>
                     @endforeach
-                    <th>Ação</th>
-                    <th>Função Cadastrada</th>
-                    <th>Altera senha GDL</th>
-                    
+                   
                 </tr>
             </thead>
             <tbody align="center" class="table-search">
