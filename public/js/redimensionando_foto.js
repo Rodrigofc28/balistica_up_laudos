@@ -5,6 +5,7 @@
     function carrega(inputFile,image,cropper,preview,upImage,rotateButton,pre){
       
         inputFile.addEventListener('change', (event) =>{
+          
         const file = event.target.files[0];
         if (file && file.type.startsWith('image/')) {
           const reader = new FileReader();
@@ -46,13 +47,17 @@
                 croppedImage.src = canvas.toDataURL(); // Converte o canvas para DataURL
                 preview.appendChild(croppedImage); // Adiciona a nova imagem cortada
                 canvas.toBlob((blob) => {
-                const file = new File([blob], "cropped-image.png", { type: 'image/png' });
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file); // Adiciona o arquivo ao DataTransfer
-
-                // Simula a seleção do arquivo
-                upImage.files = dataTransfer.files;
-                }, 'image/png');
+                  const randomString = Math.random().toString(36).substring(2, 10); // Gera uma string aleatória
+                  const fileName = `cropped-image-${randomString}.png`; // Concatena o nome com o random
+                  
+                  const file = new File([blob], fileName, { type: 'image/png' });
+                  const dataTransfer = new DataTransfer();
+                  dataTransfer.items.add(file); // Adiciona o arquivo ao DataTransfer
+              
+                  // Simula a seleção do arquivo
+                  upImage.files = dataTransfer.files;
+              }, 'image/png');
+              
               
               },
             });
@@ -68,22 +73,5 @@
           cropper.rotate(90); // Rotaciona a imagem 90 graus no sentido horário
         }
   });}
-   // função pra salva embalagens
-    function salvaContinuar(imagem1, imagem2) {
-            const img1 = document.getElementById(imagem1);
-            const img2 = document.getElementById(imagem2);
-            const fileimg = img1.files[0];
-            const fileimg2 = img2.files[0];
-
-            
-            if (!fileimg || !fileimg2) {
-              swal('Adicione as duas imagens (FRENTE e VERSO) para salvar e continuar')
-               //document.querySelector('.msgErro').style.display = 'block';
-            } else {
-                //document.querySelector('.msgErro').style.display = 'none';
-                
-                document.getElementById('uploadForm').submit();
-            }
-        }
-        // função pra chama a imagem
+  
    

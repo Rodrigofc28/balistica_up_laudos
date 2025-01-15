@@ -2,7 +2,7 @@
 
 
 namespace App\Models\Gerador;
-
+use App\Models\Laudo;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\Settings;
@@ -27,7 +27,9 @@ class Gerar
 
     public function create_docx($laudo)
     {
-        
+        $tempoAtual = now();
+        Laudo::where('id', $laudo->id)->update(['tempo_execucao' => $tempoAtual]);
+
         global $i;
         $i = 0;
 
@@ -92,16 +94,7 @@ class Gerar
             'top' => -500,
             'rotation' => 90
           ));
-       /*  $source = public_path('image/linhadiagonal.png'); 
-        
-        $fileContent = file_get_contents($source);
-        $footer->addImage($source, array(
-            'width' => 455,
-            'height' => 80,
-            'align' => 'center',
-            'border' => 0));  */
-
-
+       
 
         $objWriter = IOFactory::createWriter($this->phpW, 'Word2007');
 

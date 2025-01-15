@@ -18,7 +18,7 @@
         display: none
     }
     
-    #image {
+    #image, #image1{
       display: none; /* Oculta a imagem até o upload */
       max-width: 30%;
     }
@@ -155,5 +155,21 @@
         }
           
     }
+    function salvaContinuar(imagem1, imagem2) {
+            const img1 = document.getElementById(imagem1);
+            const img2 = document.getElementById(imagem2);
+            const fileimg = img1.files[0];
+            const fileimg2 = img2.files[0];
+
+            
+            if (!fileimg || !fileimg2) {
+             
+               document.querySelector('.msgErro').style.display = 'block';
+            } else {
+                document.querySelector('.msgErro').style.display = 'none';
+                
+                document.getElementById('uploadForm').submit();
+            }
+        }
 </script>
 @endsection

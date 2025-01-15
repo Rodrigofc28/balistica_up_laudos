@@ -52,23 +52,5 @@ function nextButton(arg){
             rotate = "rotateButtonSerie"
         click_input_file(inputFile,image,preview,imagemCanto,id_preview,rotate)
         }
-        document.getElementById("imagemCantoSuperior").addEventListener("change", function(event) {
-            
-            const file = event.target.files[0]; // Obtém o arquivo selecionado
-        
-            if (file) {
-                const reader = new FileReader();
-        
-                // Evento disparado quando a leitura do arquivo termina
-                reader.onload = function(e) {
-                    const dataURL = e.target.result; // Data URL completo (MIME + Base64)
-                    console.log("Data URL:", dataURL);
-                };
-        
-                // Lê o arquivo e converte para Data URL (Base64 + MIME)
-                reader.readAsDataURL(file);
-            } else {
-                console.error("Nenhum arquivo selecionado.");
-            }
-        });
+       
 }

@@ -67,7 +67,7 @@
     @include('perito.laudo.attributes.solicitante', ['solicitante2' => $laudo->solicitante_id ?? old('solicitante_id')])
    
     @include('perito.laudo.attributes.repExameComplementar', ['rep' => $laudo->rep ?? old('')])
-     @include('perito.laudo.materiais.attributes.sinab')
+    @include('perito.laudo.materiais.attributes.sinab')
     @include('perito.laudo.attributes.material_coletado',[$laudoMaterial="1"])
     
     

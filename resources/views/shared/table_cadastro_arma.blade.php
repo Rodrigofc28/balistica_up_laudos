@@ -9,14 +9,13 @@
         
     </div>
     <div class="table-responsive" style="overflow-y: scroll;height: 700px;">
-        <table class="table-dark" >
+        <table class="table table-bordered table-hover table-striped" >
             <thead align="center">
                 <tr>
                     @foreach ($ths as $th)
-                    <th>|{{ $th }}|</th>
+                        <th>{{ $th }}</th>
                     @endforeach
-                    <th></th>
-                    <th></th>
+                   
                 </tr>
             </thead>
             <tbody align="center" class="table-search">

@@ -12,6 +12,14 @@
     <div class="row border mb-3">
         <div class="col-lg-3 mt-3">
             @include('shared.block_button', ['col_name' => 'tipo_arma',
+            'value' => 'Pistola', 'route' => 'pistolas.create'])
+        </div>
+        <div class="col-lg-3 mt-3">
+            @include('shared.block_button', ['col_name' => 'tipo_arma',
+            'value' => 'Revólver', 'route' => 'revolveres.create'])
+        </div>
+        <div class="col-lg-3 mt-3">
+            @include('shared.block_button', ['col_name' => 'tipo_arma',
             'value' => 'Garrucha', 'route' => 'garruchas.create'])
         </div>
         
@@ -24,14 +32,8 @@
             @include('shared.block_button', ['col_name' => 'tipo_arma',
             'value' => 'Espingarda mista', 'route' => 'espingardamistas.create'])
         </div>
-        <div class="col-lg-3 mt-3">
-            @include('shared.block_button', ['col_name' => 'tipo_arma',
-            'value' => 'Pistola', 'route' => 'pistolas.create'])
-        </div>
-        <div class="col-lg-3 mt-3">
-            @include('shared.block_button', ['col_name' => 'tipo_arma',
-            'value' => 'Revólver', 'route' => 'revolveres.create'])
-        </div>
+        
+        
 
         <div class="col-lg-3 mt-3">
             

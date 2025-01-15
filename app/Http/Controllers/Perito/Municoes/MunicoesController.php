@@ -18,8 +18,8 @@ class MunicoesController extends Controller
     {   
         
         $request->validate([
-            'up_image' => 'required|image|mimes:jpeg,png,jpg,gif',
-            'up_image2' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'up_image' => 'required|image|mimes:jpeg,png,jpg',
+            'up_image2' => 'required|image|mimes:jpeg,png,jpg',
             // outras validações, se necessário
         ]);
         
@@ -28,8 +28,10 @@ class MunicoesController extends Controller
        
         if (($request->hasFile('up_image') && $request->file('up_image')->isValid())&&($request->hasFile('up_image2') && $request->file('up_image2')->isValid())) {
             // Gerar um nome único para o arquivo
-            $base = md5($request->file('up_image')->getClientOriginalName() . strtotime("now")) . '.' . $request->file('up_image')->getClientOriginalExtension();
-            $lateral = md5($request->file('up_image2')->getClientOriginalName() . strtotime("now")) . '.' . $request->file('up_image2')->getClientOriginalExtension();
+            
+            $base = md5($request->file('up_image'). strtotime("now")) . '.jpg';
+            $lateral = md5($request->file('up_image2'). strtotime("now")) . '.jpg';
+            
               $uploadPath = storage_path('app/public/imagensMunicao');
             // Caminho onde o arquivo será movido
             

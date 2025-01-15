@@ -953,14 +953,14 @@ $extenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);
 
                 }else{
                     $tabelaImg=$table->addCell();
-                    $tabelaImg->addImage($this->imagem($municao[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150)); 
+                    $tabelaImg->addImage($this->imagem($municao[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)); 
                     $tabelaImg->addText('Base-Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
                     
                     
                     
                     if(!empty($this->imagem($municao[$inicio])[1])){
                         $tabelaImg=$table->addCell();
-                        $tabelaImg->addImage($this->imagem($municao[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 150, 'height'=>150)); 
+                        $tabelaImg->addImage($this->imagem($municao[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)); 
                         $tabelaImg->addText('Lateral-Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
                     }
                     $inicio++;

@@ -1,25 +1,91 @@
+<style>
+      .titulo{
+        background-color: #949494;
+        padding:10px;
+        color: #ddd;
+    }
+    .conteinerImagemRecebida{
+        border:solid 1px #E0E0E0;
+        text-align: center;
+        padding: 4%;
+    }
+    .msgErro{
+        color:#E0E0E0;
+        background-color: rgb(182, 187, 190);
+        padding: 4px;
+        border-radius: 3px;
+        display: none
+    }
+    
+    #imageBase, #imageLateral {
+      display: none; /* Oculta a imagem até o upload */
+      max-width: 30%;
+      
+    }
+    .conteinerImg{
+        margin-left: 15%;
+        width: 30%;
+        padding: 5%;
+    }
+    .preview {
+      width: 300px;
+      height: 300px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      margin-top: 10px;
+    }
+    .btnNext{
+      border-radius:5px;
+      padding:1%;
+      color:#ffff;
+      text-decoration:underline ;
+      background-color:rgb(167, 162, 162);
+    }
+    .posicao{
+        text-decoration: underline;
 
-<label  class="upImage" for="upImage">
+    }
+</style>
+
+<div class="conteinerImagemRecebida">
+<div>
+    <h4 class="titulo">IMAGENS {{$tipo}} </h4>
+    <input style="display: none" required  type="file" name="up_image2" accept=".jpg,.png,.jpeg" id="up_image2">
+    <input style="display: none" required  type="file" name="up_image" accept=".jpg,.png,.jpeg" id="up_image">
+    <input style="display: none"  type="file" id="inputFileBase" accept="image/*">
+    <input style="display:none"  type="file" id="inputFileLateral" accept="image/*">
+    
+   <div id="cont_frente">
+        <b class="posicao">FOTO DA BASE</b>
+        <div class="preview" hidden id="previewBase"></div>
+        <div style="display:flex">
             
-    <b >FOTO BASE</b>
-    <input hidden  type="file" name="up_image" accept=".jpg,.png,.jpeg" id="upImage">
-    <div >
+            <div class="preview" id="previewBase"></div>
+            <div class="conteinerImg">
+                <img id="imageBase" >
+            </div>
+        </div>
+        <button type="button" class="btnNext" onclick="nextButton('base')" id="base"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
+        <button type="button" class="btnNext"  id="rotateButtonbase"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
+        <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b> 
+   </div> 
+   <hr>
+    <div  id="cont_tras">
+        <b class="posicao">FOTO DA LATERAL</b>
+        <div class="preview" hidden id="previewLateral"></div>
+        <div style="display:flex">
+            <div class="preview" id="previewLateral"></div>
+            <div class="conteinerImg">
+                <img id="imageLateral" >
+            </div>
+        </div>
+        <button type="button" class="btnNext"  onclick="nextButton('lateral')"  id="lateral"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
+        <button type="button" class="btnNext"  id="rotateButtonLateral"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
+        <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b>
         
-        <img   src="{{asset('image\bullets.png')}}" alt="upload de imagem">
-        <img style="display: none" id="verificador" src="{{asset('image\verificar.png')}}" alt="">
     </div>
-    
-</label>
-<label  class="upImage" for="upImage2">
-    
-    <b >FOTO LATERAL</b>
-    <input hidden  type="file" name="up_image2" accept=".jpg,.png,.pdf" id="upImage2">
-    <div >
-        
-        <img   src="{{asset('image\bullets.png')}}" alt="upload de imagem">
-        <img style="display: none" id="verificador2" src="{{asset('image\verificar.png')}}" alt="">
-    </div>
-    
-</label>
 
+</div>   
+
+</div>   
 

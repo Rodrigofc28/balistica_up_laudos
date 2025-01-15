@@ -4,7 +4,7 @@
 <div class="col-lg-12">
 
 
-    <div id="teste" class="table-responsive" style="overflow-y: scroll;height: 700px;">
+    <div id="teste" class="table-responsive" style="overflow-y: scroll;height: 900px;">
     
         <table id="tabeladepedidos" class="table table-bordered table-hover table-striped">
              
@@ -15,7 +15,7 @@
                     @foreach ($ths as $th)
                     <th>{{ $th }}</th>
                     @endforeach
-                    <th>Cadastrar Usuário</th>
+                    <th>Ação</th>
                     <th>Função Cadastrada</th>
                     <th>Altera senha GDL</th>
                     

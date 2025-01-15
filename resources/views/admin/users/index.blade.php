@@ -14,9 +14,16 @@
 @section('table-content')
 
 
-
+<style>
+    .btnAcoesUsuarios{
+        color: aliceblue;
+        width: 100px;
+        height: 55px;
+    }
+</style>
 
 <h1 >Pedidos para cadastro</h1>
+<input type="text">
 @if (count($usuarios) > 0)
 
  @php
@@ -42,20 +49,20 @@
     @include('admin.shared.attributes.senha', ['label' => 'Confirmação da Senha', 'name' => 'confirmacao_senha',
         'required' => 'required' ?? old('senha',$usuario->password)  ])
     <td  >
-        <div >
+        <div style="display: flex" >
         
-            <button  id="confirmacadastrobutton" style="width:90px;height:30px" class="btn btn-success"  type="submit"  >
+            <button  id="confirmacadastrobutton"  class="btn btn-success btnAcoesUsuarios"  type="submit"  >
                 <span  >Cadastrar</span> 
             </button>
             {{ Form::close() }} 
             @foreach( $users as $user  )
                 @if($user->email==$usuario->email)
                 
-                
-                <form action="{{ route('users.destroy', $user)  }}" method="post">
-                            {{ csrf_field() }}
-                    <button  type="submit" id="submitcadastro" style="width:90px;height:30px" class="btn btn-danger" >Deletar</button>
-                </form>
+                    <button  type="button" class="btn btn-warning btnAcoesUsuarios">Editar</button>
+                    <form action="{{ route('users.destroy', $user)  }}" method="post">
+                                {{ csrf_field() }}
+                        <button  type="submit" id="submitcadastro"  class="btn btn-danger btnAcoesUsuarios" >Deletar</button>
+                    </form>
                 @endif  
                 
 

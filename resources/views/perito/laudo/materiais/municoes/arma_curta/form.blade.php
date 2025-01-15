@@ -48,12 +48,9 @@
         @include('perito.laudo.materiais.attributes.lacrecartucho', [$name='lacre_saida',$label='N° lacre de saida','lacre'=>empty($municao->lacre_saida)?session('lacre_entrada'):$municao->lacre_saida ?? old('lacre') ])
        
         @include('perito.laudo.materiais.attributes.cartuchoPadrao')
-        @include('perito.laudo.materiais.attributes.imagem_municao')
        
-       
-        
     </div>
-      
+       @include('perito.laudo.materiais.attributes.imagem_municao',['tipo'=>'DA MUNIÇÃO'])
     @if($acao == 'Atualizar')
     <div>
         <hr>
@@ -72,18 +69,18 @@
     </div>
      @endif
      
-    <div class="row justify-content-between mb-4">
-        <div class="col-lg-4 mt-1">
+    <div id="btnAcao" class="row justify-content-between mb-4">
+        <div  class="col-lg-4 mt-1">
             <a class="btn btn-secondary btn-block" href="{!! URL::previous() !!}">
                 <i class="fas fa-arrow-circle-left"></i> Voltar</a>
         </div>
-        <div class="col-lg-4 mt-1">
-            <button type="submit" class="btn btn-success btn-block submit_arma_form"><strong>
+        <div   class="col-lg-4 mt-1">
+            <button type="submit"  class="btn btn-success btn-block submit_arma_form"><strong>
                     <i class="fas fa-plus" aria-hidden="true"></i> {{ $acao }}</strong>
             </button>
             {{ Form::close() }}
         </div>
-        <div class="col-lg-4 mt-1">
+        <div  class="col-lg-4 mt-1">
             <a class="btn btn-secondary btn-block" href="{{route('laudos.show', ['id' => $laudo->id])}}">
                 <i class="fas fa-arrow-circle-left"></i> Voltar para Visão Geral do Laudo</a>
         </div>
@@ -92,33 +89,6 @@
 @include('perito.modals.calibre_modal')
 @include('perito.modals.marca_modal')
 
-    <script>
-            // Selecionando os elementos necessários
-        const inputFile = document.getElementById('upImage');
-        const verificador = document.getElementById('verificador');
-        const inputFile2 = document.getElementById('upImage2');
-        const verificador2 = document.getElementById('verificador2');
-
-        // Função para processar a imagem e exibir o verificador
-        function processImage(input, verificador) {
-            const file = input.files[0]; // Obtém o arquivo selecionado
-
-            if (file) {
-                verificador.style.display = 'block'; // Exibe o verificador quando a imagem for carregada
-            } else {
-                verificador.style.display = 'none'; // Oculta o verificador se nenhum arquivo for selecionado
-            }
-        }
-
-        // Adiciona evento de mudança para o primeiro input de imagem
-        inputFile.addEventListener('change', function(event) {
-            processImage(event.target, verificador);
-        });
-
-        // Adiciona evento de mudança para o segundo input de imagem
-        inputFile2.addEventListener('change', function(event) {
-            processImage(event.target, verificador2);
-        });
-
-
-    </script>
+   
+<script src="{{asset('js/redimensionando_foto.js')}}"></script>
+<script src="{{asset('js/municaoImagem.js')}}"></script>

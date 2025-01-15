@@ -118,12 +118,12 @@ class ArmasText
             $img->addText('Vista lateral direita', $fontStyle, $paraStyle)]:'';
             $imagemCantoInferior!=''||$imagemNumSerie!=''?$table->addRow(10):'';
             $imagemCantoInferior!=''?[$img2=$table->addCell(),
-            $img2->addImage($imagemCantoInferior, array('alignment' => Jc::CENTER, 'width' => 225, 'height'=>150)),
+            $img2->addImage($imagemCantoInferior, array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)),
             
             $img2->addText('Vista lateral esquerda', $fontStyle, $paraStyle)]:'';
             
             $imagemNumSerie!=''?[$img3= $table->addCell(),
-            $img3->addImage($imagemNumSerie, array('alignment' => Jc::CENTER, 'width' => 225, 'height'=>150)),
+            $img3->addImage($imagemNumSerie, array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)),
             $img3->addText('Número de série', $fontStyle, $paraStyle)]:'';
             $numTab++;
             

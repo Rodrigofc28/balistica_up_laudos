@@ -49,7 +49,7 @@
 <div class="conteinerImagemRecebida">
     <div>
         
-       <h2 class="titulo">Adicione as imagens</h2>
+       <h2 class="titulo">IMAGENS</h2>
         <input style="display: none"  type="file" id="inputFileDir" accept="image/*">
         <input style="display:none"  type="file" id="inputFileEsq" accept="image/*">
         <input style="display:none"  type="file" id="inputFileSerie" accept="image/*">

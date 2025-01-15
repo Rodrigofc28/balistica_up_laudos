@@ -60,10 +60,11 @@
         
         @include('perito.laudo.materiais.attributes.detalharlocalidade',['detalharlocalidade'=>empty($componente->detalharLocalizacao)?session('detalhe_localizacao'):$componente->detalharLocalizacao??old('detalharlocalidade')])
         @include('perito.laudo.materiais.attributes.deformacaoAcidental',['deformacoes2'=>$componente->deformacaoAcidental??old('deformacoes2')])
-        @include('perito.laudo.materiais.attributes.imagem_municao')
+       
         
 
     </div>
+     @include('perito.laudo.materiais.attributes.imagem_municao',['tipo'=>'DOS PROJÉTEIS'])
     @if($acao == 'Atualizar')
     <!-- <div>
         <hr>
@@ -82,7 +83,7 @@
     </div> -->
      @endif
 
-    <div class="row justify-content-between mb-4">
+    <div id="btnAcao" class="row justify-content-between mb-4">
         <div class="col-lg-4 mt-1">
             <a class="btn btn-secondary btn-block" href="{!! URL::previous() !!}">
                 <i class="fas fa-arrow-circle-left"></i> Voltar</a>
@@ -100,33 +101,5 @@
         </div>
     </div>
 </div>
-<script>
-    // Selecionando os elementos necessários
-const inputFile = document.getElementById('upImage');
-const verificador = document.getElementById('verificador');
-const inputFile2 = document.getElementById('upImage2');
-const verificador2 = document.getElementById('verificador2');
-
-// Função para processar a imagem e exibir o verificador
-function processImage(input, verificador) {
-    const file = input.files[0]; // Obtém o arquivo selecionado
-
-    if (file) {
-        verificador.style.display = 'block'; // Exibe o verificador quando a imagem for carregada
-    } else {
-        verificador.style.display = 'none'; // Oculta o verificador se nenhum arquivo for selecionado
-    }
-}
-
-// Adiciona evento de mudança para o primeiro input de imagem
-inputFile.addEventListener('change', function(event) {
-    processImage(event.target, verificador);
-});
-
-// Adiciona evento de mudança para o segundo input de imagem
-inputFile2.addEventListener('change', function(event) {
-    processImage(event.target, verificador2);
-});
-
-
-</script>
+<script src="{{asset('js/redimensionando_foto.js')}}"></script>
+<script src="{{asset('js/municaoImagem.js')}}"></script>

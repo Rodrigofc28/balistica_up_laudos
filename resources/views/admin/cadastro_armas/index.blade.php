@@ -6,7 +6,7 @@
 'model_name_plural' => 'Cadastrar modelo armas',
 'model_name_singular' => 'cadastrar modelo de arma',
 
-'ths' => ['ARMA','MARCA', 'MODELO','FABRICAÇÃO']])
+'ths' => ['ARMA','MARCA', 'MODELO','FABRICAÇÃO','CADASTRA','DELETA']])
                 
 
 
@@ -16,7 +16,7 @@
                                 <div class="alert alert-danger">
                                         <ul>
                                                 @foreach ($errors->all() as $error)
-                                                <li style="color:red;">{{ $error }}</li>
+                                                    <li style="color:red;">{{ $error }}</li>
                                                 @endforeach
                                         </ul>
                         </div>
@@ -50,8 +50,15 @@ $arrayReverte=array_reverse($armaArray,true);
     <td>{{ $arma-> marca->fabricacao }}</td>
     
     <td>
-        {{--verefica se a variavel $cadastros existe, se existir faz o foreach--}}
+        <form action="{{ route('cadastro_armas.store') }}" method="post">
+            {{ csrf_field() }}
+                    <input type="text" hidden name="modelo" value="{{$arma}}" id="">
 
+                    <input class="btn btn-success" style="width:150px;display: inline-flex;"  type="submit" id="cadastrar" value="Cadastrar">
+        </form> 
+       
+    </td>
+    <td>
         @if(!empty($cadastros))
             @foreach ($cadastros as $cadastro)
                 @php
@@ -62,24 +69,15 @@ $arrayReverte=array_reverse($armaArray,true);
                     <form style="display: flex;"action="{{ route('cadastro_armas.edit', $arma->id) }}" method="get">
                         {{ csrf_field() }}
                         
+                       
+                        <input class="btn btn-danger" style="width:150px;margin:auto" type="submit"  id="deletarcadastro" value="Deletar">
                         <input type="text" hidden name="cadastro" value="{{$cadastro->id}}" id="">
-                        <input class="btn btn-danger" style="width:150px;"type="submit"  id="deletarcadastro" value="Deletar">
+                        
                     </form>
                 
                 @endif   
             @endforeach 
-        @endif    
-             
-        
-        
-    </td>
-    <td>
-        <form action="{{ route('cadastro_armas.store') }}" method="post">
-                    {{ csrf_field() }}
-                    <input type="text" hidden name="modelo" value="{{$arma}}" id="">
-
-                    <input class="btn btn-success" style="width:150px;display: inline-flex;"  type="submit" id="cadastrar" value="Cadastrar">
-            </form> 
+        @endif  
     </td>
 </tr>
 
