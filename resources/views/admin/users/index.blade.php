@@ -9,7 +9,7 @@
 'route_search_name' => 'users',
 
 'dados' => $users,
-'ths' => ['Status','Nome', 'Email','Ação']])
+'ths' => ['Cadastrado','Nome', 'Email','Ação']])
 
 @section('table-content')
 
@@ -41,7 +41,13 @@
 
 <tr >
     
-        <td >{{ $usuario->status }}</td>
+        <td >
+            @if($usuario->status=='cadastrado')
+                <img src="{{asset('image/verificar.png')}}" alt="">
+            @else
+                <img src="{{asset('image/check.png')}}" alt="">
+            @endif
+        </td>
         {!! Form::open(['route' => ['users.store', $usuario->id], 'method' => 'post']) !!} 
         <td >{{$usuario->nome}}</td>
         <td >{{ $usuario->email }}</td>
@@ -59,7 +65,7 @@
                     Editar
                 </button>
                
-                <button value="{{ route('users.destroy', $usuario->id) }}" class="btn btn-danger delete">
+                <button value="{{ route('usuarios.destroy', $usuario) }}" class="btn btn-danger delete">
                     <svg class="svg-inline--fa fa-trash fa-w-14 fa-fw" aria-hidden="true" focusable="false" data-prefix="fa" data-icon="trash" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path></svg><!-- <i class="fa fa-fw fa-trash"></i> -->
                     Deletar
                 </button>

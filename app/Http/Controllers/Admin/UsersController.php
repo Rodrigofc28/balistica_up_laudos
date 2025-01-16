@@ -124,13 +124,18 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
+      
         try {
-            // Deleta o usuário usando o Query Builder
-            $deleted = DB::table('users')->where('id', $id)->delete();
-    
-            if ($deleted) {
-                return response()->json(['success' => true, 'message' => 'Usuário deletado com sucesso!']);
-            } else {
+            
+          $user =  DB::table('users')->where('id', $id->id)->delete();
+            
+         
+            if ($user) {
+               
+                 return response()->json(['success' => true, 'message' => 'Usuário deletado com sucesso!']);
+            }
+               
+            else {
                 return response()->json(['success' => false, 'message' => 'Usuário não encontrado!']);
             }
         } catch (\Exception $e) {

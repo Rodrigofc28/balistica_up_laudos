@@ -42,7 +42,7 @@ class LoginController extends Controller
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            return redirect('login')->with('errorCadastro', 'Usuário pendente de cadastro.');
+            return redirect('login')->with('errorCadastro', 'Usuário ainda falta ser cadastrado pelo adm.');
         }
 
         // Se tudo estiver ok, redireciona para o dashboard

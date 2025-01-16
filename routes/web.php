@@ -16,7 +16,7 @@ Route::get('unauthorized', function () {
 Route::prefix('admin')->middleware('cargo:Administrador')->group(function () {
     Route::resource('solicitantes', 'Admin\OrgaosSolicitantesController')->except(['show']);
     Route::resource('users', 'Admin\UsersController')->except(['show']);
-   // Route::delete('users/destroy/{user}', 'Admin\UsersController@destroy')->name('usuarios.destroy');
+    Route::delete('users/destroy/{user}', 'Admin\UsersController@destroy')->name('usuarios.destroy');
         
     Route::resource('marcas', 'Admin\MarcasController')->except(['show']);
     Route::resource('calibres', 'Admin\CalibresController')->except(['show']);
