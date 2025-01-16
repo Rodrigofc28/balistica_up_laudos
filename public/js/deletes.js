@@ -28,7 +28,7 @@ $(".delete").on('click', function () {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Deletar!',
         cancelButtonText: 'Cancelar',
-
+        
     }).then((result) => {
         if (result.value) {
             $.ajax({

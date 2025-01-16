@@ -89,33 +89,27 @@ class UsersController extends Controller
 
 
 
-    public function update(Request $request, User $user)
-    {
+     public function update(Request $request, $id)
+     {
         
-        $request->validate([
-            'nome' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'secao_id' => 'nullable',
-            'cargo_id' => 'nullable',
-            'status'=>  'required|string'
-        ]);
-
-        $user->nome = $request->input('nome');
-        $user->email = $request->input('email');
-        $user->secao_id = $request->input('secao_id');
-        $user->cargo_id = $request->input('cargo_id');
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->input('password'));
-        }
-
-        $user->senhaGDL = $request->input('senhaGDL');
-        $user->userGDL = $request->input('userGDL');
-
-        $user->save();
-
-        return redirect()->route('users.index')
-            ->with('success', __('flash.update_m', ['model' => 'Usuário']));
-    }
+         // Encontra o usuário pelo ID
+         $user = User::findOrFail($request->id);
+     
+         // Valida os dados recebidos
+         $request->validate([
+             'nome' => 'required',
+             'email' => 'required|string|email|unique:users,email,' . $request->id,
+         ]);
+     
+         // Atualiza os campos do usuário
+         $user->nome = $request->input('nome');
+         $user->email = $request->input('email');
+     
+         $user->save();
+     
+         // Retorna uma resposta JSON
+         return response()->json(['message' => 'Usuário atualizado com sucesso!']);
+     }
     /**
      * Remove the specified resource from storage.
      *
