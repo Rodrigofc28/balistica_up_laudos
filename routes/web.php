@@ -16,7 +16,7 @@ Route::get('unauthorized', function () {
 Route::prefix('admin')->middleware('cargo:Administrador')->group(function () {
     Route::resource('solicitantes', 'Admin\OrgaosSolicitantesController')->except(['show']);
     Route::resource('users', 'Admin\UsersController')->except(['show']);
-    
+   // Route::delete('users/destroy/{user}', 'Admin\UsersController@destroy')->name('usuarios.destroy');
         
     Route::resource('marcas', 'Admin\MarcasController')->except(['show']);
     Route::resource('calibres', 'Admin\CalibresController')->except(['show']);
@@ -35,8 +35,10 @@ Route::prefix('admin')->middleware('cargo:Administrador')->group(function () {
     Route::post('relatorios/create_custom_report', 'Admin\RelatoriosController@create_custom_report')
         ->name('admin.relatorios.personalizados');
 });
-Route::post('users/destroy/{user}', 'Admin\UsersController@destroy')->name('users.destroy');//users
+
+
 Route::post('users/update/{user}', 'Admin\UsersController@update')->name('users.update');
+Route::post('users/store/{user}', 'Admin\UsersController@store')->name('users.store');
 Route::get('admin/laudos/search/{rep}', 'Admin\LaudosController@search')->name('admin.laudos.search');
 Route::get('admin/users/search/{nome}', 'Admin\UsersController@search')->name('users.search');
 Route::get('admin/laudos', 'Admin\LaudosController@index')->name('admin.laudos.index');

@@ -33,7 +33,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('guest');
     }
 
     /**
@@ -43,7 +43,7 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {   
-        
+       
         $cargos = Cargo::all();
         $secoes = Secao::all();
         return view('admin/users/create', compact('cargos', 'secoes'));
@@ -57,7 +57,7 @@ class RegisterController extends Controller
      */
     public function register(UserRequest $request)
     {
-        
+       
         event(new Registered($user = $this->create($request->all())));
         
         return redirect()->route('users.index')
@@ -72,16 +72,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        
         User::create([
             'nome' => $data['nome'],
             'email' => $data['email'],
             'secao_id' => $data['secao_id'],
-            'cargo_id' => $data['cargo_id'],
-            'password' => $data['password'],
+            
+            'password' => Hash::make($data['password']),
             'senhaGDL' => $data['senhaGDL'],
             'userGDL' => $data['userGDL']
         ]);
     }
+
+  
     /**
      * Remove the specified resource from storage.
      *

@@ -30,8 +30,7 @@ class UserRequest extends FormRequest
         return [
             'email' => 'required|string|email|max:255|unique:users',
             'nome' => 'required|min:6',
-            'secao_id' => 'required|int',
-            'cargo_id' => 'required|int',
+            
             'password' => 'required',
             'confirmacao_senha' => 'required'
         ];

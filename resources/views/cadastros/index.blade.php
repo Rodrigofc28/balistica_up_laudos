@@ -32,7 +32,7 @@
                                 <img src="image/logo_policia_cientifica.jpeg" style="width: 25%" alt="">    
                                 <h3>Pedir solicitação de Cadastro</h3>
                                 <legend>
-                                        <form  action="{{ route('cadastros.store') }}" method="POST">
+                                        {!! Form::open(['route' => 'register']) !!}
                                                 {{ csrf_field() }}
                                                 <label for="nome">Nome completo:</label>
                                                 <input type="text" name="nome" id="nome"  required><br>
@@ -44,12 +44,12 @@
                                                 <label >Senha GDL: <input type="password" name="senhaGDL"> </label><br>
                                                 <label for="password1"> Senha &nbsp;<ion-icon name="key"></ion-icon>:</label>
                                                 <input type="password"  name="password" id="senha" requered><br>
-                                                
+                                                <input type="password"  name="confirmacao_senha" id="senha" requered><br>
                                                 <h6 >*Nome deve conter no minimo 6 caracter.</h6>
                                                 
                                                 <input type="submit" value="Enviar solicitação">
                                                 
-                                        </form>
+                                                {{ Form::close() }} 
                                         
                                         <a href="{{ route('home') }}" ><button>voltar para home <ion-icon name="home"></ion-icon></button></a>
                                         

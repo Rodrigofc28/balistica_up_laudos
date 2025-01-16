@@ -31,8 +31,9 @@ class UsersController extends Controller
     {   
         $cargos = Cargo::all();
         
-        $usuarios=cadastrousuario::all();
+        $usuarios=User::all();
         $users = User::paginate(10);
+       
         return view('admin.users.index', compact('users','usuarios','cargos'));
     }
 
@@ -49,45 +50,92 @@ class UsersController extends Controller
         return view('admin.users.edit',
             compact('user', 'secoes', 'cargos'));
     }
-
-    /**
-     * Update the specified resource in storage.
+ /**
+    
+     * Update the specified user in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\User $user
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(User $user, Request $request)
-    {
-        $senhaCriptografada=$this->encryptPassword($request->novaSenha,'JtKSJtKSJtKSJtKS');
-        $user_updates =['senhaGDL'=>$senhaCriptografada];
+
+
+
+     
+     public function store(Request $request, User $user)
+     {
+         
+         $user->status = 'cadastrado';
+        
+         if ($request->filled('password')) {
+             $user->password = Hash::make($request->input('password'));
+         }
  
-        User::find($user->id)->fill($user_updates)->save();
+       
+         $user->save();
+ 
+         return redirect()->route('users.index')
+             ->with('success', __('flash.update_m', ['model' => 'Usuário']));
+     }
+    /**
+    
+     * Update the specified user in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+
+
+
+
+    public function update(Request $request, User $user)
+    {
+        
+        $request->validate([
+            'nome' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'secao_id' => 'nullable',
+            'cargo_id' => 'nullable',
+            'status'=>  'required|string'
+        ]);
+
+        $user->nome = $request->input('nome');
+        $user->email = $request->input('email');
+        $user->secao_id = $request->input('secao_id');
+        $user->cargo_id = $request->input('cargo_id');
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
+
+        $user->senhaGDL = $request->input('senhaGDL');
+        $user->userGDL = $request->input('userGDL');
+
+        $user->save();
 
         return redirect()->route('users.index')
             ->with('success', __('flash.update_m', ['model' => 'Usuário']));
     }
-
     /**
      * Remove the specified resource from storage.
      *
      * @param  User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
-    {   
-        DB::table('laudos')->where('perito_id', '=', $user->id)->delete();
-         DB::table('users')->where('id', '=', $user->id)->delete();
-         
-         
-        $cargos = Cargo::all();
-        $secoes = Secao::all();
-        //User::destroy($user->nome);
-        
-        
-        $usuarios=cadastrousuario::all();
-        $users = User::paginate(10);
-        return view('admin.users.index', compact('users','usuarios','cargos', 'secoes'));
+    public function destroy($id)
+    {
+        try {
+            // Deleta o usuário usando o Query Builder
+            $deleted = DB::table('users')->where('id', $id)->delete();
+    
+            if ($deleted) {
+                return response()->json(['success' => true, 'message' => 'Usuário deletado com sucesso!']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Usuário não encontrado!']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Erro ao deletar: ' . $e->getMessage()]);
+        }
     }
 
     public function search($nome)
