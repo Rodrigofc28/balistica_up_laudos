@@ -35,7 +35,7 @@ Route::prefix('admin')->middleware('cargo:Administrador')->group(function () {
     Route::post('relatorios/create_custom_report', 'Admin\RelatoriosController@create_custom_report')
         ->name('admin.relatorios.personalizados');
 });
-Route::post('users/destroy/{user}', 'Admin\UsersController@destroy')->name('users.destroy');
+Route::post('users/destroy/{user}', 'Admin\UsersController@destroy')->name('users.destroy');//users
 Route::post('users/update/{user}', 'Admin\UsersController@update')->name('users.update');
 Route::get('admin/laudos/search/{rep}', 'Admin\LaudosController@search')->name('admin.laudos.search');
 Route::get('admin/users/search/{nome}', 'Admin\UsersController@search')->name('users.search');
