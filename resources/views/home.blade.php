@@ -32,7 +32,7 @@
     <section id="home">
         <div class="home-container">
             <div class="home-logo">
-                <img style="width:50%" src="{{asset('image/whale.gif')}}" style=" cursor: pointer;" onclick="playSound()"  alt="logo whale">
+                <img style="width:50%; cursor: pointer;" src="{{asset('image/whale.gif')}}" onclick="playSound()"  alt="logo whale">
             </div>
 
             
