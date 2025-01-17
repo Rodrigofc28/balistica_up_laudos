@@ -59,9 +59,7 @@ class EspingardamistasController extends Controller
      */
     public function show(Arma $espingardamista)
     {
-//        $marcas = Marca::marcasWithTrashed('armas', $pistola->marca);
-//        $origens = Origem::origensWithTrashed($pistola->origem);
-//        $calibres = Calibre::calibresWithTrashed('revólver', $pistola->calibre);
+        
         return view('perito.laudo.materiais.armas.espingardamista.show',
             compact('espingardamista'));
     }

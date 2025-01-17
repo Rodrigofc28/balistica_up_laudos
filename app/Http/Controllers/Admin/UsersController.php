@@ -30,11 +30,11 @@ class UsersController extends Controller
     public function index( )
     {   
         $cargos = Cargo::all();
-        
+        $secao = Secao::all();
         $usuarios=User::all();
         $users = User::paginate(10);
        
-        return view('admin.users.index', compact('users','usuarios','cargos'));
+        return view('admin.users.index', compact('users','usuarios','cargos','secao'));
     }
 
     /**
@@ -104,7 +104,10 @@ class UsersController extends Controller
          // Atualiza os campos do usuário
          $user->nome = $request->input('nome');
          $user->email = $request->input('email');
-     
+         $user->userGDL = $request->input('userGDL');
+         $user->senhaGDL = $request->input('senhaGDL');
+         $user->cargo_id = $request->input('cargo_id');
+         $user->secao_id = $request->input('secao_id');
          $user->save();
      
          // Retorna uma resposta JSON

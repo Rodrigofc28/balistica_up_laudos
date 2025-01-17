@@ -12,8 +12,8 @@
     <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="{{ URL::asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/home.css') }}">
-    <link rel="manifest" href="manifest.json" />
-        <link rel="manifest" href="/app.webmanifest" crossorigin="use-credentials" />
+    
+        
 
         <meta name="theme-color" content="#000000">
 </head>
@@ -21,18 +21,13 @@
 <body onload="funcaoCarregar()">
     
 <style>
-    .home-logo{
-        background-image: url('image/logo_policia_cientifica.jpeg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: 10%;
-    }
+   
 </style>
 
     <section id="home">
         <div class="home-container">
             <div class="home-logo">
-                <img style="width:50%; cursor: pointer;" src="{{asset('image/whale.gif')}}" onclick="playSound()"  alt="logo whale">
+                <img style="width: 20%" src="{{asset('image/logo_policia_cientifica.jpeg')}}" alt="logo">
             </div>
 
             

@@ -18,10 +18,7 @@
             <div class="container-fluid">
                 @yield('content')
                 
-                <div class="copyright text-center text-white">
-                
-                    <img style="width:20%" src="{{asset('image/whale.gif')}}" alt="logo whale"> 
-                </div>
+               
                
             </div>
              

@@ -27,6 +27,7 @@
         @endempty
         @empty($armas)
             @else
+          
                  @include('perito.laudo.materiais.attributes.buscar_cadastro_salvo',[$nomeArma='Pistola'])
         @endempty
         @include('perito.laudo.materiais.attributes.marca', ['marca2' => $pistola->marca->id ?? old('marca_id')]) 

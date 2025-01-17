@@ -7,7 +7,17 @@
     <h5 style="color:aliceblue;padding-left:10px"><strong>{{Auth::user()->nome}}</strong></h5>
     
 </nav>
-
+<style>
+     /* Exibe o menu dropdown Controle */
+    .dropdown-menu {
+    display: none;
+  }
+  
+ 
+  .nav-item:hover .dropdown-menu {
+    display: block;
+  }
+</style>
 <div id="wrapper">
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
@@ -18,8 +28,7 @@
             </a>
         </li>
         <li class="nav-item dropdown admin_menu">
-            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-fw fa-folder"></i>
                 <span>Controle</span>
             </a>
@@ -29,7 +38,7 @@
                 <a class="dropdown-item" href="{{ route('solicitantes.index') }}">Órgãos Solicitantes</a>
                 <a class="dropdown-item" href="{{ route('marcas.index') }}">Marcas</a>
                 <a class="dropdown-item" href="{{ route('calibres.index') }}">Calibres</a>
-                <a class="dropdown-item" href="{{ route('cadastro_armas.index') }}">Cadastrar modelo</a>
+                <a class="dropdown-item" href="{{ route('cadastro_armas.index') }}">Modelos salvos</a>
                 <a class="dropdown-item" href="{{ route('users.index') }}">Usuários</a>
             </div>
         </li>

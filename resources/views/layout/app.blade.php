@@ -51,77 +51,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
         <script src="https://unpkg.com/cropperjs/dist/cropper.min.js"></script>
-        <script>
-            //mudar script de lugar
-            $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                               
-                                    $(".show-alert").on('click',async function () {
-                    const usuarioData = this.dataset.usuario;
-
-                    // Converte o valor de string JSON para um objeto JavaScript
-                    const usuario = JSON.parse(usuarioData);
-                    
-                    const url_with_id = $(this).val(); // Recupera a URL definida no botão
-                    console.log(url_with_id);
-
-                    // Mostra o SweetAlert com os campos preenchidos
-                    const { value: formValues } = await Swal.fire({
-                        title: "",
-                        html: `
-                        <label for="swal-input1">E-mail
-                        <input id="swal-input1" name="email" value="${usuario.email}" class="swal2-input" placeholder="Digite algo">
-                        </label>
-                        <label for="swal-input2">Nome
-                        <input id="swal-input2" name="nome" value="${usuario.nome}" class="swal2-input" placeholder="Digite algo mais">
-                        </label>
-                        <input id="swal-input3" hidden name="id" value="${usuario.id}">
-                        `,
-                        focusConfirm: false,
-                        showCancelButton: true,
-                        confirmButtonText: "Enviar",
-                        cancelButtonText: "Cancelar",
-                        preConfirm: () => {
-                        return {
-                            email: document.getElementById("swal-input1").value,
-                            nome: document.getElementById("swal-input2").value,
-                            id: document.getElementById("swal-input3").value,
-                        };
-                        },
-                    });
-
-                    // Envia os dados se o SweetAlert for confirmado
-                    if (formValues) {
-                        // Envia os dados usando AJAX do jQuery
-                        $.ajax({
-                        url: url_with_id, // URL dinâmica com o ID do usuário
-                        type: "POST", // Método da requisição
-                        data: {
-                        // Token CSRF
-                            email: formValues.email,
-                            nome: formValues.nome,
-                            id: formValues.id,
-                        },
-                        success: function (response) {
-                            Swal.fire("Sucesso", "Usuário atualizado com sucesso!", "success")
-                            .then(() => {
-                                    location.reload(); // Recarrega a página
-                                });
-                            
-                        },
-                        error: function (xhr) {
-                            Swal.fire("Erro", "Não foi possível atualizar o usuário.", "error");
-                            console.error(xhr.responseText); // Debug do erro
-                        },
-                        });
-                    }
-                    });
-
-
         
-    </script>    
+            
+      
     </body>
 </html>

@@ -239,6 +239,7 @@ $('#sistema_carregamento').val(objetoBuscaCadastro.sistema_carregamento);
 $('#sistema_carregamento').trigger('change');
 $('#sistema_engatilhamento').val(objetoBuscaCadastro.sistema_engatilhamento);
 $('#sistema_engatilhamento').trigger('change');
+
 $('#sistema_funcionamento').val(objetoBuscaCadastro.sistema_funcionamento);
 $('#sistema_funcionamento').trigger('change');
 $('#sistema_inflamacao').val(objetoBuscaCadastro.sistema_inflamacao);
@@ -255,9 +256,13 @@ $('#trava_ferrolho').val(objetoBuscaCadastro.trava_ferrolho);
 $('#trava_ferrolho').trigger('change');
 $('#trava_gatilho').val(objetoBuscaCadastro.trava_gatilho);
 $('#trava_gatilho').trigger('change');
-$('#trava_seguranca').val(objetoBuscaCadastro.trava_seguranca);
+$('#trava_seguranca').val(objetoBuscaCadastro.trava_seguranca);sistema_disparo
 $('#trava_seguranca').trigger('change');
-
+$('#sistema_disparo').val(objetoBuscaCadastro.sistema_disparo);
+$('#sistema_disparo').trigger('change');
+$('#tipo_carregador').val(objetoBuscaCadastro.tipo_carregador);
+$('#tipo_carregador').trigger('change');
+$('#imagemModeloCantoSuperior').attr('src', objetoBuscaCadastro.imagemCantoSuperior);
 });
 
 

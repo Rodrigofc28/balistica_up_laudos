@@ -43,8 +43,9 @@
                                                 <label >Use Username GDL:<input type="text" name="userGDL"></label><br>
                                                 <label >Senha GDL: <input type="password" name="senhaGDL"> </label><br>
                                                 <label for="password1"> Senha &nbsp;<ion-icon name="key"></ion-icon>:</label>
-                                                <input type="password"  name="password" id="senha" requered><br>
-                                                <input type="password"  name="confirmacao_senha" id="senha" requered><br>
+                                                <input type="password" id="password1"  name="password" id="senha" requered><br>
+                                                <label for="password2"> Confirma senha &nbsp;<ion-icon name="key"></ion-icon>:</label>
+                                                <input type="password" id="password2"  name="confirmacao_senha" id="senha" requered><br>
                                                 <h6 >*Nome deve conter no minimo 6 caracter.</h6>
                                                 
                                                 <input type="submit" value="Enviar solicitação">

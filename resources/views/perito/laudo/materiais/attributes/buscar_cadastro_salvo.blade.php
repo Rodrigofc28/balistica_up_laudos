@@ -1,7 +1,9 @@
-<label for="busca_cadastro" style="margin-left:15px ;"><strong>Buscar modelos salvos</strong></label>
-     <select style="margin:5px ;" class="form-control" name="busca_cadastro" id="busca_cadastro">
-            <option></option>
-            
+<img style="width: 20%" id="imagemModeloCantoSuperior" src="" alt="">
+
+
+     <select style="margin:5px ;" class="form-control" placeholder="fgdfg" name="busca_cadastro" id="busca_cadastro">
+        <option value="" disabled selected>Selecione um modelo salvo</option>
+            <optgroup label="Arma">
             @foreach($armas as $arma)
                 @php
                 
@@ -14,4 +16,5 @@
                 @endif
             
             @endforeach;
+        </optgroup>
     </select>
