@@ -19,28 +19,20 @@
 </head>
 
 <body onload="funcaoCarregar()">
-    <style>
-        #installPWA {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin:auto;
-        }
-
-        #installPWA:hover {
-            background-color: #0056b3;
-        }
-    </style>
-
+    
+<style>
+    .home-logo{
+        background-image: url('image/logo_policia_cientifica.jpeg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 25%;
+    }
+</style>
 
     <section id="home">
         <div class="home-container">
             <div class="home-logo">
-                <img src="{{asset('image/logo_policia_cientifica.jpeg')}}" style="width: 30%" alt="Logo da Policia Científica do Paraná">
+                <img style="width:40%" src="{{asset('image/whale.gif')}}" style=" cursor: pointer;" onclick="playSound()"  alt="logo whale">
             </div>
 
             
@@ -61,11 +53,10 @@
             </div>
             <br>
             
-            <button id="installPWA" style="display: none;">
-                <p>INSTALAR PARA DESKTOP</p>
-                
-                
-            </button>
+            <audio id="whaleSound">
+                <source src="{{asset('image/whaleSom.mp3')}}" type="audio/mpeg">
+                Seu navegador não suporta o elemento de áudio.
+            </audio>
 
             
         </div>
@@ -79,48 +70,15 @@
             var elemento = document.getElementById('home');
             elemento.style.opacity = 3;
         }
+      
+        function playSound() {
+            const audio = document.getElementById('whaleSound');
+            audio.play(); // Reproduz o som
+        }
+    
     </script>
-    <script>
-           
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./service-worker.js')
-                    .then(function(registration) {
-                        console.log('Service Worker registrado com sucesso:', registration);
-                    })
-                    .catch(function(error) {
-                        console.log('Falha ao registrar o Service Worker:', error);
-                    });
-            }
-        </script>
-        <script>
-    let deferredPrompt;
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-        // Impede o navegador de mostrar automaticamente o banner de instalação
-        e.preventDefault();
-        deferredPrompt = e;
-
-        // Mostra o botão para instalação
-        const installBtn = document.getElementById('installPWA');
-        installBtn.style.display = 'block';
-
-        // Adiciona um evento de clique no botão
-        installBtn.addEventListener('click', () => {
-            // Mostra o prompt de instalação
-            deferredPrompt.prompt();
-
-            // Aguarda o resultado do usuário
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('Usuário aceitou instalar a PWA');
-                } else {
-                    console.log('Usuário recusou instalar a PWA');
-                }
-                deferredPrompt = null;
-            });
-        });
-    });
-</script>
+   
+        
 
 </body>
 

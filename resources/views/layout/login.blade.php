@@ -20,10 +20,12 @@
                 
                 <div class="copyright text-center text-white">
                 
-                    <span>Copyright © Rodrigo de Freitas Camargo 2023</span>
+                    <img style="width:20%" src="{{asset('image/whale.gif')}}" alt="logo whale"> 
                 </div>
+               
             </div>
-        </div>
+             
+</div>
     </body>
     
 </html>
