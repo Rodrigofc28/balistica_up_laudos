@@ -29,21 +29,21 @@ const { value: formValues } = await Swal.fire({
     title: "",
     html: `<div class="conteinerModelCadastroUser">
     <input id="swal-input3" hidden name="id" value="${usuario.id}">
-    <label for="swal-input1">E-mail:</label><br>
+    <label for="swal-input1">E-mail</label><br>
         <input id="swal-input1" name="email" value="${usuario.email}" ><br>
     
-    <label for="swal-input2">Nome:</label><br>
+    <label for="swal-input2">Nome</label><br>
         <input id="swal-input2" name="nome" value="${usuario.nome}" ><br>
-    <label for="swal-input4">Username GDL:</label><br>
+    <label for="swal-input4">Username GDL</label><br>
         <input id="swal-input4" name="userGDL" value="${usuario.userGDL}" ><br>
-    <label for="swal-input5"> Senha GDL: </label><br>
+    <label for="swal-input5"> Senha GDL </label><br>
         <input id="swal-input5" type="password" name="senhaGDL" value="${usuario.senhaGDL}" ><br>
-    <label for="swal-input6">  Função:    </label>  <br>
+    <label for="swal-input6">  Função   </label>  <br>
      <select name="cargo_id" id="swal-input6"><br>
             <option value="1">Perito</option><br>
              <option value="2">Administrador</option><br>
         </select><br>
-       <label for="swal-input7">   Unidade:</label><br>
+       <label for="swal-input7">   Unidade</label><br>
         <select name="secao_id" id="swal-input7">
             
             <option value="${usuario.secao_id}">${nomeSecao}</option>

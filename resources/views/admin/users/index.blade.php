@@ -31,7 +31,7 @@
     
     .conteinerModelCadastroUser > label,input,select {
         width: 100%;
-        
+        text-align:left;
     }
    
 </style>
