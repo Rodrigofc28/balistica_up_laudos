@@ -56,10 +56,22 @@ class LaudosController extends Controller
      */
     public function create(Request $request)
     {
+      
         $secoes = Secao::all();
         $cidades = Cidade::all();
         $diretores = Diretor::all();
-        
+        if($request->tipo_laudo=="balistica"){
+            $reps="";
+            $armasGdl="";
+            return view('perito.laudo.create',
+            compact('secoes', 'cidades', 'diretores','reps','armasGdl'));
+        }
+        if($request->tipo_laudo=="chassi"){
+            $reps="";
+            $armasGdl="";
+            return view('perito.laudo.create',
+            compact('secoes', 'cidades', 'diretores','reps','armasGdl'));
+        }
         if(count($request->request)>0||session('gdl')==true){
            
             //Retorna a view create-gdl

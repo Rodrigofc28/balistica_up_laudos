@@ -48,10 +48,7 @@
             </div>
             <br>
             
-            <audio id="whaleSound">
-                <source src="{{asset('image/whaleSom.mp3')}}" type="audio/mpeg">
-                Seu navegador não suporta o elemento de áudio.
-            </audio>
+            <button class="btn btn-primary">Baixar arquivo de automação GDL (em desenvolvimento)</button>
 
             
         </div>

@@ -11,12 +11,14 @@
      /* Exibe o menu dropdown Controle */
     .dropdown-menu {
     display: none;
+    
   }
   
  
   .nav-item:hover .dropdown-menu {
     display: block;
   }
+ 
 </style>
 <div id="wrapper">
     <!-- Sidebar -->
@@ -28,16 +30,22 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('laudos.index') }}">
+            <a class="nav-link"  href="{{ route('laudos.index') }}">
                 <i class="fa fa-fw fa-folder-open"></i>
                 <span>Minhas REPS</span></a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('laudos.create') }}">
+        
+        <li class="nav-item dropdown admin_menu">
+            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-fw fa-file"></i>
-                <span>Novo Laudo</span></a>
+                <span>Novo Laudo</span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                <a class="dropdown-item tipo_laudo"  href="{{ route('laudos.create', ['tipo_laudo' => 'balistica']) }}">Balística</a>
+                <a class="dropdown-item tipo_laudo" href="{{ route('laudos.create', ['tipo_laudo' => 'chassi']) }}">Chassi</a>
+               
+            </div>
         </li>
-       
         <li class="nav-item admin_reports">
             <a class="nav-link" href="{{ route('admin.relatorios.index') }}">
                 <i class="fa fa-fw fa-chart-bar"></i>
@@ -63,6 +71,7 @@
                 <a class="dropdown-item" href="{{ route('users.index') }}">Usuários</a>
             </div>
         </li>
+        
         <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
