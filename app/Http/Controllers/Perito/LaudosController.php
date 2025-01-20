@@ -184,7 +184,30 @@ class LaudosController extends Controller
         return redirect()->route('laudos.show', compact('laudo_id'))
             ->with('success', __('flash.update_m', ['model' => 'Laudo']));
     }
+ /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function meusLaudos()
+    {
+    
+        $laudos = Laudo::orderBy('id', 'desc')->where('perito_id','=',Auth::id())->paginate(10);
 
+        return view('perito.laudo.meus-laudos', compact('laudos'));
+    }
+    public function searchLaudos($rep)
+    {
+        $rep = str_replace('-', '/', $rep);
+        $laudo = Laudo::where('rep', $rep)->first();
+        if(empty($laudo)){
+            return response()->json(['fail' => 'true',
+            'message' => 'Nenhum laudo encontrado em este número (' . $rep . ')']);
+        } else {
+            $laudo_id = $laudo->id;
+            return response()->json(['url' => route('laudos.show', $laudo)]);
+        }
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -231,18 +254,16 @@ class LaudosController extends Controller
 
     public function search($rep)
     {
-        $repN = str_replace('-', '/', $rep);
-        $rep = DB::table('_nome_da_tabela')
-        ->where('rep', $repN)
-        ->where('perito_id', Auth::id())
-        ->first();
-        if(empty($rep)){
+        $rep = str_replace('-', '/', $rep);
+        $laudo = Laudo::where('rep', $rep)->where('perito_id', Auth::id())->first();
+        if(empty($laudo)){
             return response()->json(['fail' => 'true',
-            'message' => 'Nenhum laudo encontrado em este número (' . $repN . ')']);
+            'message' => 'Nenhum laudo encontrado em este número (' . $rep . ')']);
         } else {
             $laudo_id = $laudo->id;
-            return response()->json(['url' => route('laudos.index', $rep)]);
+            return response()->json(['url' => route('laudos.show', $laudo)]);
         }
+        
     }
     public function atualiza($a){
        //chmod("C:/Users/est.rodrigo.fc/AppData/Local/Programs/Python", 777); 

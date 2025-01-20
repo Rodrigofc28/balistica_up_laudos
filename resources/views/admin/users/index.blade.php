@@ -20,6 +20,18 @@
         margin: auto
         
     }
+    .conteinerModelCadastroUser{
+        color:rgb(205, 214, 218);
+        background-color:rgb(66, 66, 66);
+      padding: 3%;
+    }
+    
+    
+    .conteinerModelCadastroUser > label,input,select {
+        width: 100%;
+        text-align:left;
+    }
+   
 </style>
 
 

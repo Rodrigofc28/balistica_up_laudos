@@ -27,6 +27,27 @@
                 <span>Dashboard</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('laudos.index') }}">
+                <i class="fa fa-fw fa-folder-open"></i>
+                <span>Minhas REPS</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('laudos.create') }}">
+                <i class="fa fa-fw fa-file"></i>
+                <span>Novo Laudo</span></a>
+        </li>
+       
+        <li class="nav-item admin_reports">
+            <a class="nav-link" href="{{ route('admin.relatorios.index') }}">
+                <i class="fa fa-fw fa-chart-bar"></i>
+                <span>Relatórios</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.laudos.index') }}">
+                <i class="fa fa-fw fa-folder-open"></i>
+                <span>Todos os Laudos</span></a>
+        </li>
         <li class="nav-item dropdown admin_menu">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-fw fa-folder"></i>
@@ -41,26 +62,6 @@
                 <a class="dropdown-item" href="{{ route('cadastro_armas.index') }}">Modelos salvos</a>
                 <a class="dropdown-item" href="{{ route('users.index') }}">Usuários</a>
             </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('laudos.create') }}">
-                <i class="fa fa-fw fa-file"></i>
-                <span>Novo Laudo</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('laudos.index') }}">
-                <i class="fa fa-fw fa-folder-open"></i>
-                <span>Minhas REPS</span></a>
-        </li>
-        <li class="nav-item admin_reports">
-            <a class="nav-link" href="{{ route('admin.relatorios.index') }}">
-                <i class="fa fa-fw fa-chart-bar"></i>
-                <span>Relatórios</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.laudos.index') }}">
-                <i class="fa fa-fw fa-folder-open"></i>
-                <span>Todos os Laudos</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
