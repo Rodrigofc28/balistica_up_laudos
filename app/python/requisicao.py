@@ -44,7 +44,7 @@ options = webdriver.ChromeOptions()
 #instala a versão que esta instalado no pc(navegador)
 driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
-#options.add_argument('--headless')
+options.add_argument('--headless')
 
 #driver = webdriver.Chrome(options=options)
 for listMsl in results:
@@ -62,8 +62,8 @@ for listMsl in results:
             except:
                 decrypted = 'sem valor'
             print(decrypted)   
-            password = listMsl[1]
-            usuario = listMsl[0]
+            password ='PCP2025%' #listMsl[1]
+            usuario = 'leonel.junior'#listMsl[0]
             options = webdriver.ChromeOptions()
 #options.add_argument('--headless')
 #instala a versão que esta instalado no pc(navegador)

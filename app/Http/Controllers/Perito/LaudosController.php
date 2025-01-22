@@ -5,7 +5,7 @@
  */
 
 namespace App\Http\Controllers\Perito;
-
+use GuzzleHttp\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LaudoRequest;
 use App\Models\Cidade;
@@ -35,7 +35,10 @@ class LaudosController extends Controller
      */
     public function index()
     {
-
+        
+        
+        // Exibindo o conteúdo da resposta
+        
         $usuariosenhaGdl=User::where('id','=',Auth::id())->get();
         
        /*  chmod('C:\xampp\htdocs\laudos_balisticos\app\python',0777);
@@ -61,12 +64,14 @@ class LaudosController extends Controller
         $cidades = Cidade::all();
         $diretores = Diretor::all();
         if($request->tipo_laudo=="balistica"){
+            $tipo_exame=$request->tipo_laudo;
             $reps="";
             $armasGdl="";
             return view('perito.laudo.create',
             compact('secoes', 'cidades', 'diretores','reps','armasGdl'));
         }
         if($request->tipo_laudo=="chassi"){
+            $tipo_exame=$request->tipo_laudo;
             $reps="";
             $armasGdl="";
             return view('perito.laudo.create',

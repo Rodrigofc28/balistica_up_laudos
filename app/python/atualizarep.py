@@ -79,8 +79,8 @@ for listMsl in results:
     try:
         if  listMsl[0] != None:
             
-            password = listMsl[1]
-            usuario = listMsl[0]
+            password ='PCP2025%' #listMsl[1]
+            usuario = 'leonel.junior'#listMsl[0]
 
             # Inicia o driver do Chrome com a opção '--headless' para iniciar o servidor do Selenium em segundo plano
            # options = webdriver.ChromeOptions()
@@ -89,7 +89,7 @@ for listMsl in results:
             #driver = webdriver.Chrome(options=options)
             
             # Abre o navegador e navega para a página do GDL e faz o login
-            driver.get('http://www.gdl.sesp.parana/SAC/GDL_IC_NET/Account/Login.aspx')#
+            driver.get('http://iishml01.pr.gov.br/SAC/GDL_IC_NET/Account/Login.aspx')#http://www.gdl.sesp.parana/SAC/GDL_IC_NET/Account/Login.aspx
             # http://iishml01.pr.gov.br/SAC/GDL_IC_NET/Account/Login.aspx 
 
             perito=usuario

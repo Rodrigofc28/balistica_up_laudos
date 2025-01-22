@@ -48,7 +48,8 @@
             </div>
             <br>
             
-            <button class="btn btn-primary">Baixar arquivo de automação GDL (em desenvolvimento)</button>
+            
+            <a href="./mysetup.exe" download class="btn btn-primary">Baixar arquivo teste</a>
 
             
         </div>
@@ -58,6 +59,28 @@
     </footer>
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
     <script>
+        async function checkServer() {
+            try {
+                // Faz uma requisição para o servidor localhost na porta 5000
+                const response = await fetch("http://localhost:5000");
+
+                if (response.ok) {
+                    // Cria um elemento <p> e insere a mensagem
+                    const p = document.createElement("p");
+                    p.textContent = "Conectado ao servidor local!";
+                    p.style.color = "green";
+                    document.body.appendChild(p);
+                } else {
+                    console.error("Servidor respondeu, mas não está OK");
+                }
+            } catch (error) {
+                // Caso o servidor não esteja rodando
+                console.error("Não foi possível conectar ao servidor:", error);
+            }
+        }
+
+        // Chama a função para verificar o servidor
+        checkServer();
         function funcaoCarregar(){
             var elemento = document.getElementById('home');
             elemento.style.opacity = 3;
