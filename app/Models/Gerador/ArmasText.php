@@ -208,7 +208,7 @@ class ArmasText
             $this->i++;
         
             $contagem=$this->i;
-            $dig2 = 0; 
+            $dig2 = 1; 
             for ($cn = 0; $this->i > 9; $cn++) {
                 $this->i=1; 
                 $dig2 = $cn;
@@ -269,7 +269,7 @@ class ArmasText
             $this->section->addTextBreak(1);
             
             $textrun = $this->section->addTextRun($this->config->paragraphJustify());
-            $textrun->addText('3. '.$dig2.'. '.$contagem.' -DA ARMA AF-'.$ordemAlfabeto[$contadorAlfanumerico].' - '.mb_strtoupper($arma->marca->nome).' '.$arma->modelo.' – LACRE DE ENTRADA '.$arma->num_lacre_saida, $this->config->arial12Bold());
+            $textrun->addText('3. '.$dig2.'. '. $contagem.' -DA ARMA AF-'.$ordemAlfabeto[$contadorAlfanumerico].' - '.mb_strtoupper($arma->marca->nome).' '.$arma->modelo.' – LACRE DE ENTRADA '.$arma->num_lacre_saida, $this->config->arial12Bold());
             $this->section->addTextBreak(1);
             $this->section->addText('a) Descrição da arma:', $this->config->arial12Bold()); 
             $table=$this->section->addTable('tabelaArmas');

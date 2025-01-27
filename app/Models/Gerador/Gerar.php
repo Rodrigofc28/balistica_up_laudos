@@ -49,6 +49,7 @@ class Gerar
             $armasText = new ArmasText($this->section, $this->conf, $i,$this->phpWord);
             $armasText = $armasText->addText($laudo);
             }
+        $i++;
         //projetil
         if(empty($laudo->componentes[0])!=true){ //verificando se tem tabela componentes(projetil)
         $componentesText = new ComponentesText($this->section, $this->conf,$i,$this->phpWord,$numTab);

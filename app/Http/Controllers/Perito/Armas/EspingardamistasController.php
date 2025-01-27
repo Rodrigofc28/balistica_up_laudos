@@ -11,8 +11,10 @@ use App\Http\Requests\Armas\EspingardamistaRequest;
 use App\Models\Arma;
 use App\Models\Calibre;
 use App\Models\Marca;
+use App\Models\User;
 use App\Models\Origem;
 use App\Models\Cadastroarmas;
+use App\Notifications\Bellnotification;
 use Illuminate\Support\Facades\DB;
 class EspingardamistasController extends Controller
 {
@@ -45,6 +47,13 @@ class EspingardamistasController extends Controller
      */
     public function store(EspingardamistaRequest $request)
     {
+        if($request->salva_cadastro==1){
+            $admins = User::where('cargo_id', '2')->get();
+            foreach ($admins as $admin) {
+                $admin->notify(new Bellnotification('modelo armas'));
+            }
+            
+        }
         salvaImagemArm($request);
         return redirect()->route('laudos.show',
             ['laudo_id' => $request->input('laudo_id')])

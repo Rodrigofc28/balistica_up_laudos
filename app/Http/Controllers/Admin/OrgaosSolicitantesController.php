@@ -50,6 +50,7 @@ class OrgaosSolicitantesController extends Controller
      */
     public function store(OrgaoSolicitanteRequest $request)
     {
+        
         OrgaoSolicitante::create($request->all());
 
         return redirect()->route('solicitantes.index')

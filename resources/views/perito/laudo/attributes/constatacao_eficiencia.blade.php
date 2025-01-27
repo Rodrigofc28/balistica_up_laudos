@@ -1,29 +1,44 @@
-<div class="col-lg-3 mt-2" >
+<div class="col-lg-3 mt-2 " >
+    <style>
+        .text-left{
+            text-align: left,
+            
+        }
+    </style>
     <label for=""><strong>Tipo de laudo<code>*</code></strong></label><br>
     @if($errors->has('laudoEfetConst')) 
         <span class="radio-red"><STRONG>* O CAMPO TIPO DE LAUDO DEVE SER MARCADO</STRONG> </span><br>
     @endif
-    <label class="btn btn-dark btn-md btn-block mb-3" for="eficiencia">
-        Eficiência &nbsp;&nbsp;
-        <input type="radio" name="laudoEfetConst" id="eficiencia" value="efetivacao"> 
-    </label>
-    <label class="btn btn-dark btn-md btn-block mb-3"  for="constatacao">
-        Constatação &nbsp;&nbsp;
-        <span style="color:red" > (Em desenvolvimento) </span>
-       <input type="radio" name="laudoEfetConst"  id="constatacao" value="constatacao"> 
-    </label>
-    <label class="btn btn-dark btn-md btn-block mb-3"  for="constatacao">
-        Coleta de Padrões &nbsp;&nbsp;
-        <span style="color:red" > (Em desenvolvimento) </span>
-       <input type="radio" name="laudoEfetConst"  id="constatacao" value="constatacao"> 
-    </label>
-    <label class="btn btn-dark btn-md btn-block mb-3"  for="constatacao">
-        Confronto &nbsp;&nbsp;
-        <span style="color:red" > (Em desenvolvimento) </span>
-       <input type="radio" name="laudoEfetConst"  id="constatacao" value="constatacao"> 
-    </label>
-
-    
+    <!--Exame de Balística-->
+    @if($tipo_exame=='balistica')
+        <label class="btn btn-dark btn-md btn-block mb-3 text-left" for="eficiencia">
+            B602 - Exame de eficiência e prestabilidade &nbsp;&nbsp;
+            <input type="radio" name="laudoEfetConst" id="eficiencia" value="efetivacao"> 
+        </label>
+        <label class="btn btn-dark btn-md btn-block mb-3 text-left"  for="constatacao">
+            B601 -  Exame de constatação&nbsp;&nbsp;
+            
+        <input type="radio" name="laudoEfetConst"  id="constatacao" value="constatacao"> 
+        </label>
+        <label class="btn btn-dark btn-md btn-block mb-3 text-left"  for="constatacao">
+           B603 - Coleta de Padrão &nbsp;&nbsp;
+            
+          <!--<input type="radio" name="laudoEfetConst"  id="constatacao" value="constatacao"> -->
+        </label>
+        <label class="btn btn-dark btn-md btn-block mb-3 text-left"  for="constatacao">
+            B612 - Exame de confronto balístico &nbsp;&nbsp;
+            
+          <!--<input type="radio" name="laudoEfetConst"  id="constatacao" value="constatacao"> -->
+        </label>
+    @endif
+    <!--Exame de Chassi-->
+    @if($tipo_exame=='chassi')
+        <label class="btn btn-dark btn-md btn-block mb-3 text-left" for="eficiencia">
+            I801 - Identificação veícular &nbsp;&nbsp;
+            <input type="radio" name="#" id="#" value="#"> 
+        </label>
+       
+    @endif
 
     @include('shared.error_feedback', ['name' => 'laudoEfetConst'])
     

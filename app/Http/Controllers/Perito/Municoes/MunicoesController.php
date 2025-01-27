@@ -18,14 +18,14 @@ class MunicoesController extends Controller
     {   
         
         $request->validate([
-            'up_image' => 'required|image|mimes:jpeg,png,jpg',
-            'up_image2' => 'required|image|mimes:jpeg,png,jpg',
+            'up_image' => 'image|mimes:jpeg,png,jpg',
+            'up_image2' => 'image|mimes:jpeg,png,jpg',
             // outras validações, se necessário
         ]);
         
         $tipoMunicao=$request->input('tipo_municao');
         
-       
+       $data = $request->except('up_image','up_image2'); // Excluir 'up_image' do array
         if (($request->hasFile('up_image') && $request->file('up_image')->isValid())&&($request->hasFile('up_image2') && $request->file('up_image2')->isValid())) {
             // Gerar um nome único para o arquivo
             
@@ -44,7 +44,7 @@ class MunicoesController extends Controller
             $request->file('up_image')->move($uploadPath, $base);
             $request->file('up_image2')->move($uploadPath, $lateral);
 
-            $data = $request->except('up_image','up_image2'); // Excluir 'up_image' do array
+            
 
             // Salvar o caminho da imagem no array de dados
             $data['up_image'] = 'imagensMunicao/' . $base;
@@ -52,6 +52,8 @@ class MunicoesController extends Controller
             // Criar o registro no banco
             Municao::create($data);
            
+        }else{
+            Municao::create($data);
         }
         
         return redirect()->back()//route('laudos.show',['laudo_id' => $laudo->id])

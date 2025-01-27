@@ -9,7 +9,17 @@
 'ths' => ['ARMA','MARCA', 'MODELO','FABRICAÇÃO','CADASTRA','DELETA']])
                 
 
-
+                @php
+                $notificacoes = Auth::user()->unreadNotifications;
+                if ($notificacoes->isNotEmpty()) {
+                    // Marca todas as notificações como lidas
+                    $notificacoes->markAsRead();
+                }
+            @endphp
+            
+           
+            
+            
 @section('table-content')
                 <div>
                         @if ($errors->any())

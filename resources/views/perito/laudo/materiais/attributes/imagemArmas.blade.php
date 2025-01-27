@@ -20,19 +20,25 @@
     
     .image {
       display: none; /* Oculta a imagem até o upload */
-      max-width: 30%;
+      max-width: 50%;
+      
+      
     }
     .conteinerImg{
         margin-left: 15%;
         width: 30%;
         padding: 5%;
+        
+        position: relative;
     }
     .preview {
+      right: 15%;
       width: 300px;
       height: 300px;
       overflow: hidden;
       border: 1px solid #ddd;
-      margin-top: 10px;
+      
+      position: absolute;
     }
     .btnNext{
       border-radius:5px;
@@ -60,7 +66,7 @@
        <div id="cont_lat_dir">
             <b class="posicao">Vista lateral direita</b>
             <div class="preview" hidden id="preview_dir"></div>
-            <div style="display:flex">
+            <div style="display:block">
                 
                 <div class="preview" id="preview_dir"></div>
                 <div class="conteinerImg">

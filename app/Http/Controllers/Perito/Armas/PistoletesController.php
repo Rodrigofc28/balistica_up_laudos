@@ -15,6 +15,8 @@ use App\Models\Origem;
 use App\Models\Cadastroarmas;
 use Illuminate\Support\Facades\DB;
 use App\Models\Armas_Gdl;
+use App\Models\User;
+use App\Notifications\Bellnotification;
 class PistoletesController extends Controller
 {
     public function __construct()
@@ -49,7 +51,13 @@ class PistoletesController extends Controller
     public function store(Request $id_arma_gdl, PistoleteRequest $request)
     {
         $arma_pistolete_gdl=Armas_Gdl::find($id_arma_gdl->arma);
-      
+        if($request->salva_cadastro==1){
+            $admins = User::where('cargo_id', '2')->get();
+            foreach ($admins as $admin) {
+                $admin->notify(new Bellnotification('modelo armas'));
+            }
+            
+        }
 
         if ($arma_pistolete_gdl) {
         

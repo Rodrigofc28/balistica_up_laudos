@@ -15,7 +15,9 @@ use App\Models\Marca;
 use App\Models\Origem;
 use App\Models\Armas_Gdl;
 use App\Models\Imagem;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Notifications\Bellnotification;
 class GarruchasController extends Controller
 {
     public function __construct()
@@ -51,7 +53,13 @@ class GarruchasController extends Controller
      */
     public function store(Request $id_arma_gdl,GarruchaRequest $request)
     {
-       
+        if($request->salva_cadastro==1){
+            $admins = User::where('cargo_id', '2')->get();
+            foreach ($admins as $admin) {
+                $admin->notify(new Bellnotification('modelo armas'));
+            }
+            
+        }
         $arma_garrucha_gdl=Armas_Gdl::find($id_arma_gdl->arma);
         if ($arma_garrucha_gdl) {
         

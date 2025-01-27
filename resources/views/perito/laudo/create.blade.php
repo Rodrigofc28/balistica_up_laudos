@@ -31,7 +31,7 @@
         $dataRecebimento='';
     }
     @endphp
-    @include('perito.laudo.attributes.constatacao_eficiencia')
+    @include('perito.laudo.attributes.constatacao_eficiencia',['tipo_exame'=>$tipo_exame])
     
    
     @include('perito.laudo.attributes.envolvidos')

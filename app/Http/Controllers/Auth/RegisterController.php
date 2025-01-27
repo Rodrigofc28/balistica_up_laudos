@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\Cargo;
 use App\Models\Secao;
 use App\Models\User;
+use App\Notifications\Bellnotification;
 use App\Models\cadastrousuario;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
@@ -57,9 +58,12 @@ class RegisterController extends Controller
      */
     public function register(UserRequest $request)
     {
-       
+        $admins = User::where('cargo_id', '2')->get();
+            foreach ($admins as $admin) {
+                $admin->notify(new Bellnotification('usuarios a ser cadastrado'));
+            }
         event(new Registered($user = $this->create($request->all())));
-        
+       
         return redirect()->route('users.index')
             ->with('success', __('flash.create_m', ['model' => 'Usuário']));
     }

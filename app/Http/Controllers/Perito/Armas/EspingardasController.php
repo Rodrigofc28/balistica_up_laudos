@@ -16,7 +16,8 @@ use App\Models\Cidade;
 use App\Models\Origem;
 use App\Models\Cadastroarmas;
 use App\Models\Armas_Gdl;
-
+use App\Models\User;
+use App\Notifications\Bellnotification;
 use Illuminate\Support\Facades\DB;
 class EspingardasController extends Controller
 {
@@ -56,6 +57,13 @@ class EspingardasController extends Controller
      */
     public function store(Request $id_arma_gdl, EspingardaRequest $request)
     {
+        if($request->salva_cadastro==1){
+            $admins = User::where('cargo_id', '2')->get();
+            foreach ($admins as $admin) {
+                $admin->notify(new Bellnotification('modelo armas'));
+            }
+            
+        }
         $arma_espingarda_gdl=Armas_Gdl::find($id_arma_gdl->arma);
       
 

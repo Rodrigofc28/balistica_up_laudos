@@ -1,8 +1,6 @@
 <?php
 
-/*
- * Developed by Milena Mognon
- */
+
 
 namespace App\Http\Controllers\Perito\Armas;
 use Illuminate\Http\Request;
@@ -14,6 +12,9 @@ use App\Models\Marca;
 use App\Models\Origem;
 use App\Models\Cadastroarmas;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Notifications\Bellnotification;
+
 use App\Models\Armas_Gdl;
 class PistolasController extends Controller
 {
@@ -50,6 +51,13 @@ class PistolasController extends Controller
     public function store(Request $id_arma_gdl,PistolaRequest $request)
     {
         
+        if($request->salva_cadastro==1){
+            $admins = User::where('cargo_id', '2')->get();
+            foreach ($admins as $admin) {
+                $admin->notify(new Bellnotification('modelo armas'));
+            }
+            
+        }
         $arma_pistola_gdl=Armas_Gdl::find($id_arma_gdl->arma);
       
 

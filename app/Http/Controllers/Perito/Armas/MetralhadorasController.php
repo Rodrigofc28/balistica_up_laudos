@@ -12,6 +12,8 @@ use App\Models\Origem;
 use App\Models\Cadastroarmas;
 use Illuminate\Support\Facades\DB;
 use App\Models\Armas_Gdl;
+use App\Models\User;
+use App\Notifications\Bellnotification;
 class MetralhadorasController extends Controller
 {
     
@@ -90,6 +92,13 @@ class MetralhadorasController extends Controller
      */
     public function store(Request $id_arma_gdl,MetralhadoraRequest $request)
     {
+        if($request->salva_cadastro==1){
+            $admins = User::where('cargo_id', '2')->get();
+            foreach ($admins as $admin) {
+                $admin->notify(new Bellnotification('modelo armas'));
+            }
+            
+        }
         $arma_metralhadora_gdl=Armas_Gdl::find($id_arma_gdl->arma);
       
 

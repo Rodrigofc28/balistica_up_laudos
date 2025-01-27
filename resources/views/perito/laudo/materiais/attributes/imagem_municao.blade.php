@@ -33,6 +33,8 @@
       overflow: hidden;
       border: 1px solid #ddd;
       margin-top: 10px;
+      position: absolute;
+      right: 15%;
     }
     .btnNext{
       border-radius:5px;
@@ -50,8 +52,8 @@
 <div class="conteinerImagemRecebida">
 <div>
     <h4 class="titulo">IMAGENS {{$tipo}} </h4>
-    <input style="display: none" required  type="file" name="up_image2" accept=".jpg,.png,.jpeg" id="up_image2">
-    <input style="display: none" required  type="file" name="up_image" accept=".jpg,.png,.jpeg" id="up_image">
+    <input style="display: none"   type="file" name="up_image2" accept=".jpg,.png,.jpeg" id="up_image2">
+    <input style="display: none"   type="file" name="up_image" accept=".jpg,.png,.jpeg" id="up_image">
     <input style="display: none"  type="file" id="inputFileBase" accept="image/*">
     <input style="display:none"  type="file" id="inputFileLateral" accept="image/*">
     

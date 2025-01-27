@@ -9,6 +9,8 @@ use App\Models\Calibre;
 use App\Models\Arma;
 use App\Models\Origem;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Notifications\Bellnotification;
 use App\Http\Requests\ComponenteRequest;
 
 
@@ -28,7 +30,13 @@ class PressaoCarabinaController extends Controller
     }
     public function store(ComponenteRequest $request, $laudo)
     {
-        
+        if($request->salva_cadastro==1){
+            $admins = User::where('cargo_id', '2')->get();
+            foreach ($admins as $admin) {
+                $admin->notify(new Bellnotification('modelo armas'));
+            }
+            
+        }
         salvaImagemArm($request);
         return redirect()->route('laudos.show', ['id' => $laudo->id])
             ->with('success', __('flash.create_m', ['model' => 'Carabina']));

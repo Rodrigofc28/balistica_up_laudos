@@ -152,4 +152,24 @@ Route::post('/reportar.store','ReportaController@store');
 
 Route::post('buscaGdl.create','buscaGdlController@create')->name('buscaGdl.create');
 
+//rota para verificar as notificações de modelo de armas
+Route::get('/check-notifications', function() {
+    // Verifica notificações não lidas com a mensagem específica "ok"
+    $notificacoes = Auth::user()->unreadNotifications->where('data.mensagem', 'modelo armas');
+
+    return response()->json([
+        'hasNotifications' => $notificacoes->isNotEmpty()
+    ]);
+});
+
+// rota para notificação de usuarios 
+Route::get('/check-notifications-usuarios', function() {
+    // Verifica notificações não lidas com a mensagem específica "ok"
+    $notificacoes = Auth::user()->unreadNotifications->where('data.mensagem', 'usuarios a ser cadastrado');
+
+    return response()->json([
+        'hasNotifications' => $notificacoes->isNotEmpty()
+    ]);
+});
+
 

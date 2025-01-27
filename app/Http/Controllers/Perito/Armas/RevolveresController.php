@@ -16,6 +16,8 @@ use App\Models\Origem;
 use App\Models\Cadastroarmas;
 use Illuminate\Support\Facades\DB;
 use App\Models\Armas_Gdl;
+use App\Notifications\Bellnotification;
+use App\Models\User;
 class RevolveresController extends Controller
 {
     public function __construct()
@@ -53,7 +55,13 @@ class RevolveresController extends Controller
     public function store(Request $id_arma_gdl,RevolverRequest $request)
     {
        //mudando o status para cadastrado
-       
+       if($request->salva_cadastro==1){
+        $admins = User::where('cargo_id', '2')->get();
+        foreach ($admins as $admin) {
+            $admin->notify(new Bellnotification('modelo armas'));
+        }
+        
+    }
         $arma_revolver_gdl=Armas_Gdl::find($id_arma_gdl->arma);
         if ($arma_revolver_gdl!=null) {
         

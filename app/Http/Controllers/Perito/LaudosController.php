@@ -68,14 +68,14 @@ class LaudosController extends Controller
             $reps="";
             $armasGdl="";
             return view('perito.laudo.create',
-            compact('secoes', 'cidades', 'diretores','reps','armasGdl'));
+            compact('secoes', 'cidades', 'diretores','reps','tipo_exame'));
         }
         if($request->tipo_laudo=="chassi"){
             $tipo_exame=$request->tipo_laudo;
             $reps="";
             $armasGdl="";
             return view('perito.laudo.create',
-            compact('secoes', 'cidades', 'diretores','reps','armasGdl'));
+            compact('secoes', 'cidades', 'diretores','reps','tipo_exame'));
         }
         if(count($request->request)>0||session('gdl')==true){
            

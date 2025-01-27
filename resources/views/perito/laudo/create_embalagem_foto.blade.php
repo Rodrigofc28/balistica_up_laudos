@@ -21,6 +21,7 @@
     #image, #image1{
       display: none; /* Oculta a imagem até o upload */
       max-width: 30%;
+      
     }
     .conteinerImg{
         margin-left: 15%;
@@ -28,11 +29,13 @@
         padding: 5%;
     }
     .preview {
+        right: 15%;
       width: 300px;
       height: 300px;
       overflow: hidden;
       border: 1px solid #ddd;
       margin-top: 10px;
+      position: absolute;
     }
     .btnNext{
       border-radius:5px;

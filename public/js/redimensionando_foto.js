@@ -20,7 +20,7 @@
 
             // Inicializa o Cropper.js
             cropper = new Cropper(image, {
-              aspectRatio: 2, // Proporção do quadrado
+              aspectRatio: NaN, // Proporção do quadrado
               viewMode: 0, // Garante que a área visível esteja dentro dos limites
               autoCrop: true, // Habilita o crop box automaticamente
               autoCropArea: 0.8, // Define 80% da imagem como área inicial de corte
@@ -38,8 +38,8 @@
               },
               crop() {
                 const canvas = cropper.getCroppedCanvas({
-                  width: 200, // Largura do canvas
-                  height: 200, // Altura do canvas
+                  width: 400, // Largura do canvas
+                  height: 400, // Altura do canvas
                 });
 
                 preview.innerHTML = ''; // Limpa a pré-visualização anterior
