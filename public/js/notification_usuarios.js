@@ -1,26 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Função para atualizar o estado das notificações armas
+   
     function checkNotificationsUsuarios() {
-        fetch('./check-notifications-usuarios') // Faz a requisição à rota
-            .then(response => response.json()) // Converte a resposta para JSON
+        fetch('./check-notifications-usuarios') 
+            .then(response => response.json()) 
             .then(data => {
               
                 const msElement = document.querySelector('.us');
+                const notificationElement = document.querySelector('.notification');
                 
-                // Se houver notificações, exibe os elementos, caso contrário, oculta
-                if (data.hasNotifications) {
-                    
+                if (data.notificationUser) {
+                    if (notificationElement) notificationElement.style.display = 'block';
                     if (msElement) msElement.style.display = 'block';
                 } else {
-                    
+                    if (notificationElement) notificationElement.style.display = 'none';
                     if (msElement) msElement.style.display = 'none';
                 }
             })
-            .catch(error => console.error('Error fetching notifications:', error)); // Tratamento de erro
+            .catch(error => console.error('Error fetching notifications:', error)); 
     }
-    // Executa a verificação a cada 1 segundo (1000ms)
-    setInterval(checkNotificationsUsuarios, 1000); // Verifica a cada 1 segundo
+    
+    setInterval(checkNotificationsUsuarios, 1000); 
 
-        // Função para notificar sobre os usuarios
+       
     
 });

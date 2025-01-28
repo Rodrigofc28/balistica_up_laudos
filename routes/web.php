@@ -142,7 +142,10 @@ Route::get('imagens.destroy/{image}','Perito\CadastrarImagensController@destroy'
 
 Route::post('imagensProjetil.store','Perito\CadastrarImagensProjetilController@store')->name('imagensProjetil');
 Route::get('imagensProjetil.destroy/{image}','Perito\CadastrarImagensProjetilController@destroy')->name('imagemProjetilExcluir');
+
 Route::post('imagensEmbalagem.store','Perito\CadastrarImagensEmbalagemController@store')->name('embalagem');
+
+
 Route::post('imagensEmbalagemEditar.update','Perito\CadastrarImagensEmbalagemController@update')->name('editar_embalagem');
 
 Route::get('imagensEmbalagem.destroy/{image}','Perito\CadastrarImagensEmbalagemController@destroy')->name('imagemExcluir');
@@ -152,9 +155,9 @@ Route::post('/reportar.store','ReportaController@store');
 
 Route::post('buscaGdl.create','buscaGdlController@create')->name('buscaGdl.create');
 
-//rota para verificar as notificações de modelo de armas
+//rotas para verificar as notificações de modelo de armas
 Route::get('/check-notifications', function() {
-    // Verifica notificações não lidas com a mensagem específica "ok"
+  
     $notificacoes = Auth::user()->unreadNotifications->where('data.mensagem', 'modelo armas');
 
     return response()->json([
@@ -164,12 +167,13 @@ Route::get('/check-notifications', function() {
 
 // rota para notificação de usuarios 
 Route::get('/check-notifications-usuarios', function() {
-    // Verifica notificações não lidas com a mensagem específica "ok"
+  
     $notificacoes = Auth::user()->unreadNotifications->where('data.mensagem', 'usuarios a ser cadastrado');
 
     return response()->json([
-        'hasNotifications' => $notificacoes->isNotEmpty()
+        'notificationUser' => $notificacoes->isNotEmpty()
     ]);
 });
+
 
 

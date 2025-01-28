@@ -36,7 +36,7 @@
       width: 300px;
       height: 300px;
       overflow: hidden;
-      border: 1px solid #ddd;
+      
       
       position: absolute;
     }

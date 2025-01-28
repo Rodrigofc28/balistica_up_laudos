@@ -29,32 +29,40 @@ class CadastrarImagensEmbalagemController extends Controller
 
     public function store(Request $request)
     {
-        //transforma em file
+        
+       
+        
         $laudo_id=$request->laudo_id;
         if($request->fotoEmbalagem==null){
-            return redirect()->back()->with('msgerror',"Erro ao tenta salva imagem"); 
+            return view('perito.laudo.create_embalagem_foto', compact('laudo_id'));
         }
        
         
        foreach($request->fotoEmbalagem as $imagensEmbalagem){
        
-       $converte=md5($imagensEmbalagem.strtotime("now")).'.'.'jpg';
-    
-       ImagemEmbalagem::create(['nome'=>$converte,'laudo_id'=>$request->laudo_id]);
-       
-        
-        
-        if (!is_dir(storage_path('app/public/imagensEmbalagem'))) { // verifica se existe a pasta upload
-            mkdir(storage_path('app/public/imagensEmbalagem'), 0755, true); //cria a pasta com permissão 0755
-            $imagensEmbalagem->move(storage_path('app/public/imagensEmbalagem'),$converte);
-        }else{
-            $imagensEmbalagem->move(storage_path('app/public/imagensEmbalagem'),$converte);
-        };
+                $converte=md5($imagensEmbalagem.strtotime("now")).'.'.'jpg';
+            
+                ImagemEmbalagem::create(['nome'=>$converte,'laudo_id'=>$request->laudo_id]);
+            
+                
+                
+                if (!is_dir(storage_path('app/public/imagensEmbalagem'))) { // verifica se existe a pasta upload
+                    mkdir(storage_path('app/public/imagensEmbalagem'), 0755, true); //cria a pasta com permissão 0755
+                    $imagensEmbalagem->move(storage_path('app/public/imagensEmbalagem'),$converte);
+                }else{
+                    $imagensEmbalagem->move(storage_path('app/public/imagensEmbalagem'),$converte);
+                };
          };
-      // return redirect()->back()->with('msg',"Imagem salva com sucesso");
-       return redirect()->route('laudos.materiais', compact('laudo_id'));
-      // 
+        
+     
+         return redirect()->route('laudos.materiais', compact('laudo_id'));
+    
+      
+ 
+        
+        
     }
+   
     public function update(Request $request)
             {
               

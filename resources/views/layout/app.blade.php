@@ -52,7 +52,7 @@
         <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
         <script src="https://unpkg.com/cropperjs/dist/cropper.min.js"></script>
         
-            
+        
       
     </body>
 </html>

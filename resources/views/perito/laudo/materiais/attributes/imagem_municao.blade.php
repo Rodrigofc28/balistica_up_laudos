@@ -31,7 +31,7 @@
       width: 300px;
       height: 300px;
       overflow: hidden;
-      border: 1px solid #ddd;
+      
       margin-top: 10px;
       position: absolute;
       right: 15%;

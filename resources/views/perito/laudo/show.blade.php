@@ -34,6 +34,9 @@
 
 <div id="showLaudo" class="col-lg-12">
         <span><strong>REP:</strong> {{$laudo->rep}}</span><br>
+        <span><strong>Oficio:</strong> {{$laudo->oficio}}</span><br>
+        <span><strong>Cidade:</strong> {{$laudo->cidade_id}}</span><br>
+        <span><strong>Órgão solicitante:</strong> {{$laudo->solicitante->nome}}</span><br>
         
         <input type="button" class="btn btn-success" id="btn-edit" value="Editar Informações do cabeçalho">
        
@@ -61,9 +64,9 @@
         @include('shared.input_calendar', ['label' => 'Data da Designação',
         'name' => 'data_designacao', 'size' => '3', 'value' => ''])
         @include('shared.input_calendar', ['label' => 'Data da ocorrência', 'name' => 'data_ocorrencia', 'size' => '3',
-    'value' => ''])
-    @include('shared.input_calendar', ['label' => 'Data do recebimento', 'name' => 'data_recebimento', 'size' => '3',
-    'value' => ''])
+        'value' => ''])
+        @include('shared.input_calendar', ['label' => 'Data do recebimento', 'name' => 'data_recebimento', 'size' => '3',
+        'value' => ''])
 
         <input class="form-control" type="hidden" name="perito_id" autocomplete="off" value="{{ Auth::id() }}" />
         @include('shared.attributes.secao', ['secao2' => '' ?? old('secao_id')])

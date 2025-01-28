@@ -23,8 +23,8 @@
     height: 25px;
   }
   .uni, .os, .mar, .cal, .ms, .us{
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 12px;
     margin-left: 15%;
   }
  .notification, .uni, .os, .mar, .cal, .ms, .us{
@@ -111,4 +111,6 @@
         </li>
     </ul>
     <script src="{{asset('js/notification_modelo_arma.js')}}"></script>
+        <script src="{{asset('js/notification_usuarios.js')}}"></script>
+        
     

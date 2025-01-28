@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Função para atualizar o estado das notificações armas
+   
     function checkNotifications() {
-        fetch('./check-notifications') // Faz a requisição à rota
-            .then(response => response.json()) // Converte a resposta para JSON
+        fetch('./check-notifications')
+            .then(response => response.json()) 
             .then(data => {
-                const notificationElement = document.querySelector('.notification');
-                const msElement = document.querySelector('.ms');
                 
-                // Se houver notificações, exibe os elementos, caso contrário, oculta
+                const msElement = document.querySelector('.ms');
+                const notificationElement = document.querySelector('.notification');
+                
                 if (data.hasNotifications) {
                     if (notificationElement) notificationElement.style.display = 'block';
                     if (msElement) msElement.style.display = 'block';
@@ -16,11 +16,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (msElement) msElement.style.display = 'none';
                 }
             })
-            .catch(error => console.error('Error fetching notifications:', error)); // Tratamento de erro
+            .catch(error => console.error('Error fetching notifications:', error)); 
     }
-    // Executa a verificação a cada 1 segundo (1000ms)
-    setInterval(checkNotifications, 1000); // Verifica a cada 1 segundo
+   
+    setInterval(checkNotifications, 1000); 
 
-        // Função para notificar sobre os usuarios
+      
     
 });
