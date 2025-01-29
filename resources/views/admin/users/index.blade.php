@@ -39,6 +39,13 @@
 @if (count($usuarios) > 0)
 
  @php
+
+    $notificacoes = Auth::user()->unreadNotifications->where('data.mensagem', 'usuarios a ser cadastrado');
+    if ($notificacoes->isNotEmpty()) {
+        // Marca todas as notificações como lidas
+        $notificacoes->markAsRead();
+    }
+            
     $arrayColection= $usuarios->all();
     $usuarios=array_reverse($arrayColection);
 

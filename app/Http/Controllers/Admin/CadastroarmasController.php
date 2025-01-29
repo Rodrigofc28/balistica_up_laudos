@@ -26,6 +26,7 @@ class CadastroarmasController extends Controller
      */
     public function index()
     {
+        
         $cadastros=Cadastroarmas::all();
         $armas = Arma::all();
         return view('admin/cadastro_armas/index', compact('armas','cadastros'));

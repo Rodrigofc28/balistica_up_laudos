@@ -14,7 +14,7 @@ modelo.on('input',function(){
     localStorage.setItem('modelo',modelo.val());
 })
 modelo.val(localStorage.getItem('modelo'))
-/* Status Serie */
+/* Status Serie 
 var statusSerie = $("#tipo_serie")
 statusSerie.on('change',function(){
     
@@ -22,11 +22,11 @@ statusSerie.on('change',function(){
 })
 statusSerie.val(localStorage.getItem('statusSerie'))
 statusSerie.trigger('change')
-/* Num Serie */
+
 var numSerie = $("#num_serie")
 numSerie.on('input',function(){
     localStorage.setItem('numSerie',numSerie.val());
-})
+})*/
 numSerie.val(localStorage.getItem('numSerie'))
 /* Num Patrimonio */
 var numPatrimonio = $("#numPatrimonio")
@@ -257,3 +257,6 @@ dito_oficio.on('input',function(){
 })
 dito_oficio.val(localStorage.getItem('dito_oficio'))
 /* end local */
+
+
+var tipo_tambor = $("#imagemCantoSuperior")

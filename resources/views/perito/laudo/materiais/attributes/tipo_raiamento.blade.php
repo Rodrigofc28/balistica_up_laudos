@@ -1,7 +1,7 @@
 <div class="col-lg-3">
     <div class="form-group">
         <label><strong>Tipo de Raiamento <code> *</code></strong></label>
-        <select class="js-single-select form-control{{ $errors->has('tipo_raiamento') ? ' is-invalid' : '' }}"
+        <select required class="js-single-select form-control{{ $errors->has('tipo_raiamento') ? ' is-invalid' : '' }}"
                 name="tipo_raiamento" id="tipo_raiamento">
             <option value=""></option>
             @foreach (['Convencional', 'Poligonal','Poligonal aprimorado','Não raiado'] as $tipo_raiamento)

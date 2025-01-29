@@ -1,7 +1,7 @@
 <div class="col-lg-3">
     <div class="form-group">
         <label><strong>Estojo<code>*</code></strong></label>
-        <select class="js-single-select form-control{{ $errors->has('estojo') ? ' is-invalid' : '' }}"
+        <select required class="js-single-select form-control{{ $errors->has('estojo') ? ' is-invalid' : '' }}"
                 name="estojo" id="estojo">
                 
             <option value=""></option>

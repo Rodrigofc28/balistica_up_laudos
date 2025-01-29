@@ -2,7 +2,7 @@
     <div class="form-group">
         <label><strong>País de Origem <code>*</code></strong></label>
        
-        <select class="js-single-origens form-control{{ $errors->has('marca_id') ? ' is-invalid' : '' }}"
+        <select required class="js-single-origens form-control{{ $errors->has('marca_id') ? ' is-invalid' : '' }}"
             name="origem_id" id="pais">
             <option></option>
             @foreach ($marcas as $marca)

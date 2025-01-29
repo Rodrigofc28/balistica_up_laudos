@@ -13,13 +13,15 @@
     
 <label for="nome_vitima"  ><strong>Nome do envolvido </strong></label><br>
     
-    <input  class="form-control" type="text"  name="nome_vitima" id="nome_vitima">
+    <input required  class="form-control" type="text"  name="nome_vitima" id="nome_vitima">
     
     <button class="envolvido_btn" id="incluir" >
         <b class="label_envolvido">Incluir mais envolvidos</b>
         <img  style="width:50px" src="{{ asset('image/perfil.png') }}" alt="">
     </button>
-        
+    <div id="nomesIDs">
+
+    </div>
     
     
 </div>
@@ -27,7 +29,7 @@
 <div class="col-lg-3 mt-2" >
     <label for="perfil_envolvido"><strong>Perfil</strong></label><br>
    
-    <select class="form-control" name="perfil_envolvido"  id="perfil_envolvido">
+    <select required class="form-control" name="perfil_envolvido"  id="perfil_envolvido">
         <option ></option>
         <option value="Vitima">Vitima</option>
         <option value="Em poder de"> Portador (caso arma)</option>

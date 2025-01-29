@@ -1,7 +1,7 @@
 <div class="col-lg-3">
 	<div class="form-group">
 		<label><strong>Regime de tiro <code>*</code></strong></label>
-		<select class="js-single form-control{{ $errors->has('sistema_funcionamento') ? ' is-invalid' : '' }}"
+		<select required class="js-single form-control{{ $errors->has('sistema_funcionamento') ? ' is-invalid' : '' }}"
 				name="sistema_funcionamento" id="sistema_funcionamento">
 				<option value=""></option>
 			@foreach (['Unitário', 'Repetição', 'Semi-automático', 'Automático','Repetição + semiautomático','Semiautomático + automático'] as $sistema_funcionamento)

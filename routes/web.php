@@ -174,6 +174,15 @@ Route::get('/check-notifications-usuarios', function() {
         'notificationUser' => $notificacoes->isNotEmpty()
     ]);
 });
+// rota para notificação de usuarios 
+Route::get('/notifications', function() {
+  
+    $notificacoes = Auth::user()->unreadNotifications;
+
+    return response()->json([
+        'notification' => $notificacoes->isNotEmpty()
+    ]);
+});
 
 
 

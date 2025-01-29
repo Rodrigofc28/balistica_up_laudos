@@ -6,13 +6,13 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 
                 const msElement = document.querySelector('.ms');
-                const notificationElement = document.querySelector('.notification');
+               
                 
                 if (data.hasNotifications) {
-                    if (notificationElement) notificationElement.style.display = 'block';
+                  
                     if (msElement) msElement.style.display = 'block';
                 } else {
-                    if (notificationElement) notificationElement.style.display = 'none';
+                    
                     if (msElement) msElement.style.display = 'none';
                 }
             })

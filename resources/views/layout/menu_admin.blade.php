@@ -111,6 +111,7 @@
         </li>
     </ul>
     <script src="{{asset('js/notification_modelo_arma.js')}}"></script>
-        <script src="{{asset('js/notification_usuarios.js')}}"></script>
+    <script src="{{asset('js/notification_usuarios.js')}}"></script>
+    <script src="{{asset('js/notification.js')}}"></script>
         
     

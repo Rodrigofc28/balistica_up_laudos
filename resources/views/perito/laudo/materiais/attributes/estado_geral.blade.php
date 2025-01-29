@@ -1,7 +1,7 @@
 <div class="col-lg-3">
     <div class="form-group">
         <label><strong>Estado Geral <code>*</code></strong></label>
-        <select class="js-single form-control{{ $errors->has('estado_geral') ? ' is-invalid' : '' }}"
+        <select required class="js-single form-control{{ $errors->has('estado_geral') ? ' is-invalid' : '' }}"
                 name="estado_geral" id="estado_geral">
                 <option></option>
             @foreach (['Regular','Bom', 'Ruim'] as $estado_geral)

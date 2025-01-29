@@ -1,7 +1,7 @@
 <div class="col-lg-3">
     <div class="form-group">
         <label><strong>Disposição dos Canos <code>*</code></strong></label>
-        <select class="js-single-select form-control{{ $errors->has('disposicao_canos') ? ' is-invalid' : '' }}"
+        <select required class="js-single-select form-control{{ $errors->has('disposicao_canos') ? ' is-invalid' : '' }}"
                 name="disposicao_canos" id="disposicao_canos">
             <option value=""></option>
             @foreach (['Justapostos', 'Sobrepostos'] as $disposicao_canos)

@@ -411,25 +411,25 @@ class Geral extends Tabelas
 
     public function imagemEmbalagemrecursiva($a,$b,$laudo,$fontStyle,$paraStyle){
         global $numTab;
-        
+        $numeroEmbalagem = $numTab-2;
             if(count($laudo->imagens)>0){
             $table = $this->section->addTable('tabela2img'); //tabela de imagem embalagens
             $table->addRow(10,['tblHeader'=>true]);
 
             
-            $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('TABELA ' .$numTab .' – TOMADAS FOTOGRÁFICAS DA EMBALAGEM RECEBIDA', $fontStyle, $paraStyle);//cabeçalho da tabela
+            $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('TABELA ' .$numTab .' – TOMADAS FOTOGRÁFICAS DA EMBALAGEM RECEBIDA '.$numeroEmbalagem, $fontStyle, $paraStyle);//cabeçalho da tabela
             $table->addRow(10);
             $numTab++;
             $test=$table->addCell();
             $test->addImage($this->imagem($laudo)[$b], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));
-            $test->addText('Embalagem Frente', $fontStyle, $paraStyle); 
+            $test->addText('Frente', $fontStyle, $paraStyle); 
             $b++;
            
             if(!empty($this->imagem($laudo)[$b])){
                 
                 $test2=$table->addCell();
                 $test2->addImage($this->imagem($laudo)[$b], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));}
-                $test2->addText('Embalagem Verso', $fontStyle, $paraStyle);
+                $test2->addText('Verso', $fontStyle, $paraStyle);
                 $this->section->addTextBreak(1);
                 $b++;
             }

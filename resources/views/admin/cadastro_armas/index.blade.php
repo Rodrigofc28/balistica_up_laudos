@@ -9,8 +9,8 @@
 'ths' => ['ARMA','MARCA', 'MODELO','FABRICAÇÃO','CADASTRA','DELETA']])
                 
 
-                @php
-                $notificacoes = Auth::user()->unreadNotifications;
+            @php
+                $notificacoes = Auth::user()->unreadNotifications->where('data.mensagem', 'modelo armas');
                 if ($notificacoes->isNotEmpty()) {
                     // Marca todas as notificações como lidas
                     $notificacoes->markAsRead();

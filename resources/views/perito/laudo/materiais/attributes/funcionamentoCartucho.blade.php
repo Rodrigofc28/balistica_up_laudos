@@ -5,7 +5,7 @@
                 name="funcionamentoCartucho" id="funcionamentoCartucho">
             <option > </option>
             <option > </option>
-            @foreach (['Eficiente', 'Ineficiente','Parcialmente eficiente'] as $funcionamento)
+            @foreach (['Eficiente', 'Ineficiente','Parcialmente'] as $funcionamento)
                 <option value="{{ mb_strtolower($funcionamento)}}" {{ (mb_strtolower($funcionamento) == mb_strtolower($funcionamentoCartucho)) ? 'selected=selected' : '' }}
                         >
                     {{mb_strtoupper($funcionamento)}}

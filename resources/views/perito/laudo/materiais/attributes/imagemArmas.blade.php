@@ -45,7 +45,7 @@
       padding:1%;
       color:#ffff;
       text-decoration:underline ;
-      background-color:rgb(167, 162, 162);
+      background-color:rgb(250, 249, 249);
     }
     .posicao{
         text-decoration: underline;
@@ -56,10 +56,10 @@
     <div>
         
        <h2 class="titulo">IMAGENS</h2>
-        <input style="display: none"  type="file" id="inputFileDir" accept="image/*">
+        <input style="display: none" type="file" id="inputFileDir" accept="image/*">
         <input style="display:none"  type="file" id="inputFileEsq" accept="image/*">
         <input style="display:none"  type="file" id="inputFileSerie" accept="image/*">
-        <input hidden type="file"  name="imagemCantoSuperior" id="imagemCantoSuperior">
+        <input hidden type="file"   name="imagemCantoSuperior" id="imagemCantoSuperior">
         <input hidden type="file"  name="imagemCantoInferior" id="imagemCantoInferior">
         <input hidden type="file"  name="imagemNumSerie" id="imagemNumSerie">
 

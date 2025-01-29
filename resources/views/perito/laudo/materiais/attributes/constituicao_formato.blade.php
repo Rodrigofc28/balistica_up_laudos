@@ -1,7 +1,7 @@
 <div class="col-lg-3">
     <div class="form-group">
         <label><strong>Constituição e Formato<code>*</code></strong></label>
-        <select id="constituicao_formato"class="js-single form-control{{ $errors->has('constituicao_formato') ? ' is-invalid' : '' }}" name="constituicao_formato">
+        <select required id="constituicao_formato"class="js-single form-control{{ $errors->has('constituicao_formato') ? ' is-invalid' : '' }}" name="constituicao_formato">
             <option></option>
             @foreach ([
                         'CHOG' =>'Chumbo Ogival', 

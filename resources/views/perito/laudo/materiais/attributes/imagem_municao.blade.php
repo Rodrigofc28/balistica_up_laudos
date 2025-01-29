@@ -41,7 +41,7 @@
       padding:1%;
       color:#ffff;
       text-decoration:underline ;
-      background-color:rgb(167, 162, 162);
+      background-color:rgb(248, 247, 247);
     }
     .posicao{
         text-decoration: underline;

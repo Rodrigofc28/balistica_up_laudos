@@ -1,7 +1,7 @@
 <div class="col-lg-3">
     <div class="form-group">
         <label><strong>Aderências <code> *</code></strong></label>
-        <select class="js-example-basic-multiple"
+        <select required class="js-example-basic-multiple"
                 name="aderencia[]" multiple="multiple" id="aderencia">
             <option value=""></option>
             @foreach (['TOD', 'NNI','SS','NDR','Caliça','Madeira','Terra'] as $aderencia)

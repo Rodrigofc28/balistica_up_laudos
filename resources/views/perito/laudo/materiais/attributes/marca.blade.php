@@ -4,7 +4,7 @@
         <button type="button" class="btn-cadastro float-right" id="cadastrar_marca">
             <i class="fas fa-plus" aria-hidden="true"></i> Cadastrar
         </button>
-        <select class="js-single-marcas form-control{{ $errors->has('marca_id') ? ' is-invalid' : '' }}" name="marca_id"
+        <select required class="js-single-marcas form-control{{ $errors->has('marca_id') ? ' is-invalid' : '' }}" name="marca_id"
             id="marca">
             <option></option>
             @foreach ($marcas as $marca)

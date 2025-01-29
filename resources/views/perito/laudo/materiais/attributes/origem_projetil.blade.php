@@ -10,7 +10,7 @@
     <div class="form-group">
         <label><strong>Origem</strong> <code>*</code></label>
         
-        <select class="form-control "
+        <select required class="form-control "
             name="origem_projetil" id="pais">
             <option value=""></option>
             @foreach(["Exame de Local","Necrópsia"] as $origem)

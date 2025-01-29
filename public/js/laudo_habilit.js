@@ -88,10 +88,12 @@ $('#incluir').on('click',function(){
         
         array.push(nome)
         array.push(perfil)
-        
-        console.log(array)
+        $('#nomesIDs').append(`<span class="badge bg-secondary me-1">${nome} - ${perfil}</span>`)
+      // Store array in localStorage
+      
         $('#nome_vitima').val('')
         $('#perfil_envolvido').val('')
+        
         
 
         $('#nomeIncluir').val(array)

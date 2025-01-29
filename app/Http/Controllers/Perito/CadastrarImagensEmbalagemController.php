@@ -30,15 +30,17 @@ class CadastrarImagensEmbalagemController extends Controller
     public function store(Request $request)
     {
         
-       
-        
+   
         $laudo_id=$request->laudo_id;
         if($request->fotoEmbalagem==null){
             return view('perito.laudo.create_embalagem_foto', compact('laudo_id'));
         }
        
+       
+       
         
-       foreach($request->fotoEmbalagem as $imagensEmbalagem){
+         if($request->status=='adicionar'){
+            foreach($request->fotoEmbalagem as $imagensEmbalagem){
        
                 $converte=md5($imagensEmbalagem.strtotime("now")).'.'.'jpg';
             
@@ -53,9 +55,28 @@ class CadastrarImagensEmbalagemController extends Controller
                     $imagensEmbalagem->move(storage_path('app/public/imagensEmbalagem'),$converte);
                 };
          };
-        
+            return view('perito.laudo.create_embalagem_foto', compact('laudo_id'));
+        }else if($request->status=='cadastrar'){
+           
+            foreach($request->fotoEmbalagem as $imagensEmbalagem){
+       
+                $converte=md5($imagensEmbalagem.strtotime("now")).'.'.'jpg';
+            
+                ImagemEmbalagem::create(['nome'=>$converte,'laudo_id'=>$request->laudo_id]);
+            
+                
+                
+                if (!is_dir(storage_path('app/public/imagensEmbalagem'))) { // verifica se existe a pasta upload
+                    mkdir(storage_path('app/public/imagensEmbalagem'), 0755, true); //cria a pasta com permissão 0755
+                    $imagensEmbalagem->move(storage_path('app/public/imagensEmbalagem'),$converte);
+                }else{
+                    $imagensEmbalagem->move(storage_path('app/public/imagensEmbalagem'),$converte);
+                };
+         };
+           return redirect()->route('laudos.materiais', ['laudo_id' => $laudo_id]);
+        }
      
-         return redirect()->route('laudos.materiais', compact('laudo_id'));
+         
     
       
  
