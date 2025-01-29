@@ -40,7 +40,7 @@ Route::prefix('admin')->middleware('cargo:Administrador')->group(function () {
 Route::post('users/update/{user}', 'Admin\UsersController@update')->name('users.update');
 Route::post('users/store/{user}', 'Admin\UsersController@store')->name('users.store');
 Route::get('admin/laudos/search/{rep}', 'Admin\LaudosController@search')->name('admin.laudos.search');
-Route::get('admin/users/search/{nome}', 'Admin\UsersController@search')->name('users.search');
+Route::get('admin/users/search', 'Admin\UsersController@search')->name('users.search');
 Route::get('admin/laudos', 'Admin\LaudosController@index')->name('admin.laudos.index');
 /* Peritos routes */
 Route::resource('laudos', 'Perito\LaudosController')->except(['edit']);
