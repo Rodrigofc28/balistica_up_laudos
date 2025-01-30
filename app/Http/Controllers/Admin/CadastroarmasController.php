@@ -1,8 +1,5 @@
 <?php
 
-/*
- * Developed by Milena Mognon
- */
 
 namespace App\Http\Controllers\Admin;
 
@@ -31,27 +28,24 @@ class CadastroarmasController extends Controller
         $armas = Arma::all();
         return view('admin/cadastro_armas/index', compact('armas','cadastros'));
     }
-    public function store(cadastroarmasRequest $request)
+    public function store(Request $request)
     {
-      
+        //ajusta para ver se foi cadastrado
+        Arma::where('id', $request->arma_id)->update(['status' => 1]);
+         
         Cadastroarmas::create($request->all());
-        $armas = Arma::all();
-        $cadastros=Cadastroarmas::all();
        
-         
-         return redirect()->route('cadastro_armas.index',compact('cadastros'));
-        //return view('admin/cadastro_armas/index', compact('cadastros','armas'));
-    }
-    public function edit(Request $nameCadastro, $parametroPassado)
-    {
+        return response()->json(['message' => 'Arma cadastrada com sucesso!']);
         
-        $cadastrado=$nameCadastro->only('cadastro');
-        Cadastroarmas::destroy($cadastrado);
-         Arma::where('id', $parametroPassado)
+    }
+    public function delete($arma)
+    {
+       
+         Arma::where('id', $arma)->update(['salva_cadastro' => 0]);
          
-         ->update(['salva_cadastro' => 0]);;
-         return redirect()->route('cadastro_armas.index');
-       // return view('admin/cadastro_armas/index', with('msg','cadastro realizado com sucesso'));
+         
+         return response()->json(['message' => 'Arma deletada com sucesso!']);
+       
     }
 
     

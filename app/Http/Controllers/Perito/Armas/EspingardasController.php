@@ -44,7 +44,7 @@ class EspingardasController extends Controller
         $marcas = Marca::categoria('armas');
         $origens = Origem::all();
         $calibres = Calibre::whereArma('Espingarda');
-        $armas = DB::select('select modelo from cadastroarmas ');
+        $armas = Cadastroarmas::all();
         return view('perito.laudo.materiais.armas.espingarda.create',
             compact('laudo', 'marcas', 'origens', 'calibres','armas','arma_espingarda_gdl'));
     }

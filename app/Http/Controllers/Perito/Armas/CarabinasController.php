@@ -42,7 +42,7 @@ class CarabinasController extends Controller
         
         $calibres = Calibre::whereArma('Carabina');
         
-        $armas = DB::select('select modelo from cadastroarmas ');
+        $armas = Cadastroarmas::all();
         
         return view('perito.laudo.materiais.armas.carabina.create',
             compact('laudo', 'marcas', 'origens', 'calibres','armas','arma_carabina_gdl'));

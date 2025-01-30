@@ -180,7 +180,7 @@ $('#busca_cadastro').on('change',function(){
     
 var buscaCadastro=$('#busca_cadastro').val();
 
-var objetoBuscaCadastro=JSON.parse(buscaCadastro);
+var objetoBuscaCadastro=buscaCadastro;
 
 $('#marca').val(objetoBuscaCadastro.marca_id);
 $('#marca').trigger('change');

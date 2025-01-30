@@ -135,8 +135,9 @@ Route::get('origens', 'Perito\OrigensController@store')->name('perito.origens.st
 Route::resource('cadastros','CadastrarusuarioController');
 Route::post('cadastros.store', 'CadastrarusuarioController@store');
 Route::post('/cadastros/{usuario}', 'CadastrarusuarioController@destroy')->name('cadastros.destroy');
+
 Route::post('/cadastro_armas/{arma}', 'Admin\CadastroarmasController@store');
-Route::get('/cadastro_armas.edit/{arma}/{cadastro}', 'CadastroarmasController@edit');
+Route::delete('/cadastro_armas.delete/{arma}', 'Admin\CadastroarmasController@delete')->name('cadastroArmaDelete');
 
 Route::post('imagens.store','Perito\CadastrarImagensController@store')->name('imagens');
 Route::get('imagens.destroy/{image}','Perito\CadastrarImagensController@destroy')->name('imagemCartuchoExcluir');

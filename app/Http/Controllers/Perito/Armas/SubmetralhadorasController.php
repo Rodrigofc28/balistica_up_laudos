@@ -33,7 +33,7 @@ class SubmetralhadorasController extends Controller
         $marcas = Marca::categoria('armas'); // classes do models marca, origem, calibre
         $origens = Origem::all();
         $calibres = Calibre::whereArma('Submetralhadora'); 
-        $armas = DB::select('select modelo from cadastroarmas ');
+        $armas = Cadastroarmas::all();
         return view('perito.laudo.materiais.armas.submetralhadora.create',
             compact('laudo', 'marcas', 'origens', 'calibres','armas','arma_submetralhadora_gdl'));
     }
