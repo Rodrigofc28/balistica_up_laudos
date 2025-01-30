@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cargo;
 use App\Models\Secao;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\cadastrousuario;
 use Illuminate\Support\Facades\DB;
@@ -140,17 +141,24 @@ class UsersController extends Controller
         }
     }
 
-    public function search($nome)
+    public function search(Request $request)
     {
-        $user = User::where('nome', 'like',"%$nome%")->first();
-        if(empty($user)){
-            return response()->json(['fail' => 'true',
-            'message' => 'Nenhum usuário encontrado em este nome (' . $nome . ')']);
-        } else {
-            
-           return response()->json(['fail' => 'true',
-            'message' => ' usuário encontrado com este nome: ' . $user->nome . ' E-mail: '.$user->email. ' data do cadastro: '.$user->created_at]);
-        }
+        $cargos = Cargo::all();
+        $secao = Secao::all();
+        $users = User::paginate(10); 
+        $search = $request->input('search');
+
+        $usuarios = User::when($search, function ($query, $search) {
+            return $query->where('nome', 'LIKE', "%{$search}%");
+        })->get();
+    
+        return view('admin.users.index', compact('users','usuarios','cargos','secao'));
+    }
+    public function userPerfil(Request $request)
+    {   
+        $user=Auth::user();
+        $secao = Secao::all();
+        return view('perito.perfil.index', compact('user','secao'));
     }
     function encryptPassword($password, $key) {
         $encryptedPassword = openssl_encrypt($password, 'AES-128-ECB', $key);
