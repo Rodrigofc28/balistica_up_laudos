@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Arma;
-use App\Models\Cadastroarmas;
-use App\Http\Requests\cadastroarmasRequest;
+
+
 
 class CadastroarmasController extends Controller
 {
@@ -24,9 +24,9 @@ class CadastroarmasController extends Controller
     public function index()
     {
         
-        $cadastros=Cadastroarmas::all();
+        
         $armas = Arma::all();
-        return view('admin/cadastro_armas/index', compact('armas','cadastros'));
+        return view('admin/cadastro_armas/index', compact('armas'));
     }
     public function store(Request $request)
     {

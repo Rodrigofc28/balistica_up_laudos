@@ -57,12 +57,25 @@ $(".model-arma").on('click',async function () {
           <label for="swal-input8">Quantidade raias</label>
         </div>
         <div class="input-container" ${arma.sentido_raias !== null ? '' : "hidden"} > 
-          <input id="swal-input9" class="form-control"  value="${arma.sentido_raias || ''}">
-          <label for="swal-input9">Sentido raias</label>
+          
+          <span>Sentido das Raias</span>
+          <select id="swal-input9" class="form-control">
+            <option value="dextrógiro" ${arma.sentido_raias == 'dextrógiro' ? 'selected' : ''}>Dextrógiro</option>
+            <option value="sinistrógiro" ${arma.sentido_raias == 'sinistrógiro' ? 'selected' : ''}>Sinistrógiro</option>
+            <option value="prejudicado" ${arma.sentido_raias == 'prejudicado' ? 'selected' : ''}>Prejudicado</option>
+            
+          </select>
         </div>
         <div class="input-container" ${arma.cabo !== null ? '' : "hidden"}> 
-          <input id="swal-input10" class="form-control"   value="${arma.cabo || ''}">
-        <label for="swal-input10">Cabo</label>
+          
+          <span>Cabo</span>
+          <select id="swal-input10" class="form-control">
+            <option value="chifre" ${arma.cabo == 'chifre' ? 'selected' : ''}>Chifre</option>
+            <option value="madrepérola" ${arma.cabo == 'madrepérola' ? 'selected' : ''}>Madrepérola</option>
+            <option value="madeira" ${arma.cabo == 'madeira' ? 'selected' : ''}>Madeira</option>
+            <option value="material sintético" ${arma.cabo == 'material sintético' ? 'selected' : ''}>Material Sintético</option>
+            
+          </select>
         </div>
         <div class="input-container" ${arma.sistema_funcionamento !== null ? '' : "hidden"} > 
           <input id="swal-input11" class="form-control"  value="${arma.sistema_funcionamento || ''}">
@@ -164,10 +177,15 @@ $(".model-arma").on('click',async function () {
           <input id="swal-input35" class="form-control"  value="${arma.tipo_tambor || ''}">
         <label for="swal-input35">Tipo de tambor</label>
         </div>
-        <div class="input-container" ${arma.sistema_disparo !== null ? '' : "hidden"}> 
-          <input id="swal-input36" class="form-control"   value="${arma.sistema_disparo || ''}">
-        <label for="swal-input36">Sistema de disparo</label>
-        
+        <div class="input-container" ${arma.sistema_disparo !== null ? '' : "hidden"}>
+          <span>Sistema de Funcionamento</span>
+          <select id="swal-input36" class="form-control">
+            <option value="ação simples" ${arma.sistema_disparo == 'ação simples' ? 'selected' : ''}>Ação simples</option>
+            <option value="dupla ação" ${arma.sistema_disparo == 'dupla ação' ? 'selected' : ''}>Dupla ação</option>
+            <option value="movimento duplo ( ação simples + dupla )" ${arma.sistema_disparo == 'movimento duplo ( ação simples + dupla )' ? 'selected' : ''}>Movimento duplo (ação simples + dupla)</option>
+            <option value="ação híbrida (dupla ação com semiengatilhamento)" ${arma.sistema_disparo == 'ação híbrida (dupla ação com semiengatilhamento)' ? 'selected' : ''}>Ação híbrida (dupla ação com semiengatilhamento)</option>
+          </select>
+
         </div>   
            
        

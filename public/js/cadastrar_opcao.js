@@ -69,7 +69,7 @@ $(function () {
         var nome_pais = $('#nome_pais').val();
         var fabricacao = $("#fabricacao").val();
         $.ajax({
-            url: "../../../marcas",
+            url: "../../../../marcas",
             type: "GET",
             data: { 'nome': nome_marca, 'categoria': categoria, 'pais_origem':nome_pais,'fabricacao':fabricacao },
             success: function (data) {
