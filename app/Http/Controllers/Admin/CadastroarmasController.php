@@ -31,9 +31,9 @@ class CadastroarmasController extends Controller
     public function store(Request $request)
     {
         //ajusta para ver se foi cadastrado
-        Arma::where('id', $request->arma_id)->update(['status' => 1]);
+        Arma::where('id', $request->arma_id)->update($request->except('arma_id'));
          
-        Cadastroarmas::create($request->all());
+        
        
         return response()->json(['message' => 'Arma cadastrada com sucesso!']);
         

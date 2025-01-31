@@ -37,7 +37,8 @@ class PistolasController extends Controller
         $marcas = Marca::categoria('armas');
         $origens = Origem::all();
         $calibres = Calibre::whereArma('Pistola');
-        $armas = Cadastroarmas::all();
+        
+        $armas = Arma::where('status', 1)->get();
         return view('perito.laudo.materiais.armas.pistola.create',
             compact('laudo', 'marcas', 'origens', 'calibres','armas','arma_pistola_gdl'));
     }

@@ -2,6 +2,7 @@
 {!! Html::script('js/form_pistola.js') !!}
 {!! Html::script('js/cabo_material.js') !!} 
 {!! Html::script('js/recorte.js') !!} 
+
 @if($acao == 'Cadastrar')
 {!! Html::script('js/sessionPistola.js') !!} 
 @endif

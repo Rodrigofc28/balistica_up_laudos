@@ -9,57 +9,168 @@ $(".model-arma").on('click',async function () {
     const arma = JSON.parse(armaData);
     
     const url_with_id = $(this).val();
-    arma.comprimento_total = arma.comprimento_total.replace(',', '.');
-    arma.comprimento_cano = arma.comprimento_cano.replace(',', '.');
-    arma.altura= arma.altura.replace(',', '.');
+    arma.comprimento_total = (arma.comprimento_total || '').replace(',', '.');
+    arma.comprimento_cano = (arma.comprimento_cano || '').replace(',', '.');
+    
+    arma.altura = (arma.altura || '').replace(',', '.');
+    
     arma.num_canos= arma.num_canos.replace('um', 1);
     const { value: formValues } = await Swal.fire({
       title: '',
       html: `
         <img src="${arma.imagemCantoSuperior}">
-        <div class="form-floating">
-          
+        
+        <div class="input-container">
           <input id="swal-input0" class="form-control" value="${arma.tipo_arma || ''}">
-          <input id="swal-input1" class="form-control" value="${arma.modelo || ''}">
-            
-          <input id="swal-input2" class="form-control" value="${arma.tambor_rebate !== null ? arma.tambor_rebate : ''}">
-          <input id="swal-input3" class="form-control" value="${arma.capacidade_tambor !== null ? arma.capacidade_tambor : ''}">
-          <input id="swal-input4" class="form-control" value="${arma.sistema_percussao || ''}">
-          <input id="swal-input5" class="form-control" value="${arma.comprimento_total || ''}">
-          <input id="swal-input6" class="form-control" value="${arma.comprimento_cano || ''}">
-          <input id="swal-input7" class="form-control" value="${arma.altura || ''}">
-          <input id="swal-input8" class="form-control" value="${arma.quantidade_raias || ''}">
-          <input id="swal-input9" class="form-control" value="${arma.sentido_raias || ''}">
-          <input id="swal-input10" class="form-control" value="${arma.cabo || ''}">
-          <input id="swal-input11" class="form-control" value="${arma.sistema_funcionamento || ''}">
-          <input id="swal-input12" class="form-control" value="${arma.num_canos || ''}">
-          <input id="swal-input13" class="form-control" value="${arma.disposicao_canos || ''}">
-          <input id="swal-input14" class="form-control" value="${arma.teclas_gatilho || ''}">
-          <input id="swal-input15" class="form-control" value="${arma.sistema_carregamento || ''}">
-          <input id="swal-input16" class="form-control" value="${arma.sistema_engatilhamento || ''}">
-          <input id="swal-input17" class="form-control" value="${arma.coronha_fuste || ''}">
-          <input id="swal-input18" class="form-control" value="${arma.chave_abertura || ''}">
-          <input id="swal-input19" class="form-control" value="${arma.tipo_carregador || ''}">
-          <input id="swal-input20" class="form-control" value="${arma.calibre_real || ''}">
-          <input id="swal-input21" class="form-control" value="${arma.bandoleira || ''}">
-          <input id="swal-input22" class="form-control" value="${arma.placas_laterais || ''}">
-          <input id="swal-input23" class="form-control" value="${arma.cao || ''}">
-          <input id="swal-input24" class="form-control" value="${arma.carregador || ''}">
-          <input id="swal-input25" class="form-control" value="${arma.capacidade_carregador || ''}">
-          <input id="swal-input26" class="form-control" value="${arma.trava_ferrolho || ''}">
-          <input id="swal-input27" class="form-control" value="${arma.trava_gatilho || ''}">
-          <input id="swal-input28" class="form-control" value="${arma.trava_seguranca || ''}">
-          <input id="swal-input29" class="form-control" value="${arma.retem_carregador || ''}">
-          <input id="swal-input30" class="form-control" value="${arma.carregamento || ''}">
-          <input id="swal-input31" class="form-control" value="${arma.numeracao_montagem || ''}">
-          <input id="swal-input32" class="form-control" value="${arma.corocha || ''}">
-          <input id="swal-input33" class="form-control" value="${arma.diametro_cano || ''}">
-          <input id="swal-input34" class="form-control" value="${arma.telha || ''}">
-          <input id="swal-input35" class="form-control" value="${arma.tipo_tambor || ''}">
-          <input id="swal-input36" class="form-control" value="${arma.sistema_disparo || ''}">
-         
-         
+          <label for="swal-input0">Arma</label>
         </div>
+        <div class="input-container">  
+          <input id="swal-input1" class="form-control"   value="${arma.modelo || ''}">
+          <label for="swal-input1">Modelo</label>
+        </div>  
+        <div class="input-container" ${arma.tambor_rebate !== null ? '' : "hidden"}>  
+          <input id="swal-input2" class="form-control"   value="${arma.tambor_rebate !== null ? arma.tambor_rebate : ''}">
+          <label for="swal-input2">Tambor Rebate</label>
+        </div> 
+        <div class="input-container" ${arma.capacidade_tambor !== null ? '' : "hidden"}> 
+          <input id="swal-input3" class="form-control"  value="${arma.capacidade_tambor !== null ? arma.capacidade_tambor : ''}">
+          <label for="swal-input3"></label>
+        </div>
+        <div class="input-container" ${arma.sistema_percussao !== null ? '' : "hidden"}>  
+          <input id="swal-input4" class="form-control"   value="${arma.sistema_percussao || ''}">
+        <label for="swal-input4">Sistema de percussão</label>
+        </div>
+        <div class="input-container" ${arma.comprimento_total !== null ? '' : "hidden"} > 
+          <input id="swal-input5" class="form-control"  value="${arma.comprimento_total || ''}">
+        <label for="swal-input5">Comprimento total </label>
+        </div>
+        <div class="input-container" ${arma.comprimento_cano !== null ? '' : "hidden"}> 
+          <input id="swal-input6" class="form-control"   value="${arma.comprimento_cano || ''}">
+        <label for="swal-input6">Comprimento cano</label>
+        </div>
+        <div class="input-container" ${arma.altura !== null ? '' : "hidden"}> 
+          <input id="swal-input7" class="form-control"   value="${arma.altura || ''}">
+        <label for="swal-input7">Altura</label>
+        </div>
+        <div class="input-container" ${arma.quantidade_raias !== null ? '' : "hidden"}> 
+          <input id="swal-input8" class="form-control"   value="${arma.quantidade_raias || ''}">
+          <label for="swal-input8">Quantidade raias</label>
+        </div>
+        <div class="input-container" ${arma.sentido_raias !== null ? '' : "hidden"} > 
+          <input id="swal-input9" class="form-control"  value="${arma.sentido_raias || ''}">
+          <label for="swal-input9">Sentido raias</label>
+        </div>
+        <div class="input-container" ${arma.cabo !== null ? '' : "hidden"}> 
+          <input id="swal-input10" class="form-control"   value="${arma.cabo || ''}">
+        <label for="swal-input10">Cabo</label>
+        </div>
+        <div class="input-container" ${arma.sistema_funcionamento !== null ? '' : "hidden"} > 
+          <input id="swal-input11" class="form-control"  value="${arma.sistema_funcionamento || ''}">
+        <label for="swal-input11">Sistema de funcionamento</label>
+        </div>
+        <div class="input-container" ${arma.num_canos !== null ? '' : "hidden"}> 
+          <input id="swal-input12" class="form-control"   value="${arma.num_canos || ''}">
+        <label for="swal-input12"> Numero de canos</label>
+        </div>
+        <div class="input-container" ${arma.disposicao_canos !== null ? '' : "hidden"} > 
+          <input id="swal-input13" class="form-control"  value="${arma.disposicao_canos || ''}">
+        <label for="swal-input13">Disposição dos canos</label>
+        </div>
+        <div class="input-container" ${arma.teclas_gatilho !== null ? '' : "hidden"}> 
+          <input id="swal-input14" class="form-control"   value="${arma.teclas_gatilho || ''}">
+        <label for="swal-input14">Teclas gatilho</label>
+        </div>
+        <div class="input-container" ${arma.sistema_carregamento !== null ? '' : "hidden"}> 
+          <input id="swal-input15" class="form-control"   value="${arma.sistema_carregamento || ''}">
+        <label for="swal-input15">Sistema de carrregamento</label>
+        </div>
+        <div class="input-container" ${arma.sistema_engatilhamento  !== null ? '' : "hidden"}> 
+          <input id="swal-input16" class="form-control"   value="${arma.sistema_engatilhamento || ''}">
+        <label for="swal-input16">Sistema de engatilhamento</label>
+        </div>
+        <div class="input-container" ${arma.coronha_fuste !== null ? '' : "hidden"}> 
+          <input id="swal-input17" class="form-control"   value="${arma.coronha_fuste || ''}">
+        <label for="swal-input17">Coronha fuste</label>
+        </div>
+        <div class="input-container" ${arma.chave_abertura !== null ? '' : "hidden"}> 
+          <input id="swal-input18" class="form-control"   value="${arma.chave_abertura || ''}">
+        <label for="swal-input18">chave de abertura</label>
+        </div>
+        <div class="input-container" ${arma.tipo_carregador !== null ? '' : "hidden"}> 
+          <input id="swal-input19" class="form-control"   value="${arma.tipo_carregador || ''}">
+        <label for="swal-input19">Tipo de carregador</label>
+        </div>
+        <div class="input-container" ${arma.calibre_real !== null ? '' : "hidden"}> 
+          <input id="swal-input20" class="form-control"   value="${arma.calibre_real || ''}">
+        <label for="swal-input20">Calibre real</label>
+        </div>
+        <div class="input-container" ${arma.bandoleira !== null ? '' : "hidden"}> 
+          <input id="swal-input21" class="form-control"   value="${arma.bandoleira || ''}">
+        <label for="swal-input21">Bandoleira</label>
+        </div>
+        <div class="input-container" ${arma.placas_laterais !== null ? '' : "hidden"} > 
+          <input id="swal-input22" class="form-control"  value="${arma.placas_laterais || ''}">
+        <label for="swal-input22">Placas laterais</label>
+        </div>
+        <div class="input-container" ${arma.cao !== null ? '' : "hidden"}> 
+          <input id="swal-input23" class="form-control"   value="${arma.cao || ''}">
+        <label for="swal-input23">Cão</label>
+        </div>
+        <div class="input-container" ${arma.carregador  !== null ? '' : "hidden"}> 
+          <input id="swal-input24" class="form-control"   value="${arma.carregador || ''}">
+        <label for="swal-input24">Carregador</label>
+        </div>
+        <div class="input-container" ${arma.capacidade_carregador !== null ? '' : "hidden"}> 
+          <input id="swal-input25" class="form-control"   value="${arma.capacidade_carregador || ''}">
+        <label for="swal-input25">Capacidade do carregador</label>
+        </div>
+        <div class="input-container"  ${arma.trava_ferrolho !== null ? '' : "hidden"}> 
+          <input id="swal-input26" class="form-control"  value="${arma.trava_ferrolho || ''}">
+        <label for="swal-input26">Trava do ferrolho</label>
+        </div>
+        <div class="input-container" ${arma.trava_gatilho !== null ? '' : "hidden"}> 
+          <input id="swal-input27" class="form-control"   value="${arma.trava_gatilho || ''}">
+        <label for="swal-input27">Trava de gatilho</label>
+        </div>
+        <div class="input-container" ${arma.trava_seguranca !== null ? '' : "hidden"} > 
+          <input id="swal-input28" class="form-control"  value="${arma.trava_seguranca || ''}">
+        <label for="swal-input28">Trava de segurança</label>
+        </div>
+        <div class="input-container" ${arma.retem_carregador !== null ? '' : "hidden"}> 
+          <input id="swal-input29" class="form-control"   value="${arma.retem_carregador || ''}">
+        <label for="swal-input29">retem do carregador</label>
+        </div>
+        <div class="input-container" ${arma.carregamento !== null ? '' : "hidden"}> 
+          <input id="swal-input30" class="form-control"   value="${arma.carregamento || ''}">
+        <label for="swal-input30">Carregamento</label>
+        </div>
+        <div class="input-container" ${arma.numeracao_montagem !== null ? '' : "hidden"}> 
+          <input id="swal-input31" class="form-control"   value="${arma.numeracao_montagem || ''}">
+        <label for="swal-input31">Numeração de montagem</label>
+        </div>
+        <div class="input-container" ${arma.coronha  !== null ? '' : "hidden"}> 
+          <input id="swal-input32" class="form-control"   value="${arma.coronha || ''}">
+        <label for="swal-input32">Coronha</label>
+        </div>
+        <div class="input-container" ${arma.diametro_cano !== null ? '' : "hidden"} > 
+          <input id="swal-input33" class="form-control"  value="${arma.diametro_cano || ''}">
+        <label for="swal-input33">Diametro do cano</label>
+        </div>
+        <div class="input-container"  ${arma.telha !== null ? '' : "hidden"}> 
+          <input id="swal-input34" class="form-control"  value="${arma.telha || ''}">
+        <label for="swal-input34">Telha</label>
+        </div>
+        <div class="input-container" ${arma.tipo_tambor!== null ? '' : "hidden"} > 
+          <input id="swal-input35" class="form-control"  value="${arma.tipo_tambor || ''}">
+        <label for="swal-input35">Tipo de tambor</label>
+        </div>
+        <div class="input-container" ${arma.sistema_disparo !== null ? '' : "hidden"}> 
+          <input id="swal-input36" class="form-control"   value="${arma.sistema_disparo || ''}">
+        <label for="swal-input36">Sistema de disparo</label>
+        
+        </div>   
+           
+       
       `,
       focusConfirm: false,
       showCancelButton: true,
@@ -100,13 +211,14 @@ $(".model-arma").on('click',async function () {
           retem_carregador: document.getElementById("swal-input29").value || null,
           carregamento: document.getElementById("swal-input30").value || null,
           numeracao_montagem: document.getElementById("swal-input31").value || null,
-          corocha: document.getElementById("swal-input32").value || null,
+          coronha: document.getElementById("swal-input32").value || null,
           diametro_cano: document.getElementById("swal-input33").value || null,
           telha: document.getElementById("swal-input34").value || null,
           tipo_tambor: document.getElementById("swal-input35").value || null,
           sistema_disparo: document.getElementById("swal-input36").value || null,
           imagemCantoSuperior: arma.imagemCantoSuperior,
-          
+          status: "1",
+         
         };
       }
   });

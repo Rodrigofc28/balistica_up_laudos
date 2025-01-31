@@ -177,9 +177,10 @@ $(document).ready(function() {
     })
 
 $('#busca_cadastro').on('change',function(){
-    
+   
 var buscaCadastro=$('#busca_cadastro').val();
-
+buscaCadastro = JSON.parse(buscaCadastro);
+ 
 var objetoBuscaCadastro=buscaCadastro;
 
 $('#marca').val(objetoBuscaCadastro.marca_id);

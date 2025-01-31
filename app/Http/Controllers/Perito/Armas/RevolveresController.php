@@ -40,7 +40,7 @@ class RevolveresController extends Controller
         $origens = Origem::all();
         $calibres =Calibre::whereArma('Revólver');
         
-        $armas = Cadastroarmas::all();
+        $armas = Arma::where('status', 1)->get();
         return view('perito.laudo.materiais.armas.revolver.create',
             compact('laudo', 'marcas', 'origens', 'calibres','armas','arma_revolver_gdl'));
     }

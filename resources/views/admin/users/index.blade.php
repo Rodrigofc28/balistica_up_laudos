@@ -21,8 +21,8 @@
         
     }
     .conteinerModelCadastroUser{
-        color:rgb(205, 214, 218);
-        background-color:rgb(66, 66, 66);
+        color:rgb(167, 169, 170);
+        background-color:rgb(224, 219, 219);
       padding: 3%;
     }
     

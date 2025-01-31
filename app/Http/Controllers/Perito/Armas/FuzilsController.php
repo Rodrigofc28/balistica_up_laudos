@@ -34,7 +34,7 @@ class FuzilsController extends Controller
         $marcas = Marca::categoria('armas'); // classes do models marca, origem, calibre
         $origens = Origem::all();
         $calibres = Calibre::whereArma('Fuzil'); 
-        $armas = Cadastroarmas::all();
+        $armas = Arma::where('status', 1)->get();
         return view('perito.laudo.materiais.armas.fuzil.create',
             compact('laudo', 'marcas', 'origens', 'calibres','armas','arma_fuzil_gdl'));
     }

@@ -37,7 +37,7 @@ class GarruchasController extends Controller
         $arma_garrucha_gdl=Armas_Gdl::find($request->id);
         $marcas = Marca::categoria('armas');
         
-        $armas = Cadastroarmas::all();
+        $armas = Arma::where('status', 1)->get();
        
         $origens = Origem::all();
         $calibres = Calibre::whereArma('Garrucha');
