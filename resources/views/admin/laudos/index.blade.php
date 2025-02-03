@@ -9,11 +9,13 @@
 'ths' => ['Data','REP', 'Ofício', 'Cidade', 'Órgão Solicitante','Perito','Tempo de execução']])
 
 @section('table-content')
+
 <style>
     .tabelaTodosLaudosTd{
         font-size: 12px;
     }
 </style>
+
 @if (count($laudos) > 0)
 @foreach ($laudos as $laudo)
 <tr>
