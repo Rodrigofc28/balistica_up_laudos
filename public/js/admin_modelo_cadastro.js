@@ -27,6 +27,10 @@ $(".model-arma").on('click',async function () {
         <div class="input-container">  
           <input id="swal-input1" class="form-control"   value="${arma.modelo || ''}">
           <label for="swal-input1">Modelo</label>
+        </div>
+        <div class="input-container" ${arma.capacidade_carregador !== null ? '' : "hidden"}> 
+          <input id="swal-input25" class="form-control"   value="${arma.capacidade_carregador || ''}">
+        <label for="swal-input25">Capacidade do carregador</label>
         </div>  
         <div class="input-container" ${arma.tambor_rebate !== null ? '' : "hidden"}>  
           <input id="swal-input2" class="form-control"   value="${arma.tambor_rebate !== null ? arma.tambor_rebate : ''}">
@@ -37,9 +41,8 @@ $(".model-arma").on('click',async function () {
           <label for="swal-input3"></label>
         </div>
         <div class="input-container" ${arma.sistema_percussao !== null ? '' : "hidden"}>  
-          <input id="swal-input4" class="form-control"   value="${arma.sistema_percussao || ''}">
-        <label for="swal-input4">Sistema de percussão</label>
-        </div>
+         
+        
         <div class="input-container" ${arma.comprimento_total !== null ? '' : "hidden"} > 
           <input id="swal-input5" class="form-control"  value="${arma.comprimento_total || ''}">
         <label for="swal-input5">Comprimento total </label>
@@ -56,13 +59,31 @@ $(".model-arma").on('click',async function () {
           <input id="swal-input8" class="form-control"   value="${arma.quantidade_raias || ''}">
           <label for="swal-input8">Quantidade raias</label>
         </div>
+        <div class="input-container" ${arma.num_canos !== null ? '' : "hidden"}> 
+          <input id="swal-input12" class="form-control"   value="${arma.num_canos || ''}">
+        <label for="swal-input12"> Numero de canos</label>
+        </div>
+        <div class="input-container"  ${arma.telha !== null ? '' : "hidden"}> 
+          <input id="swal-input34" class="form-control"  value="${arma.telha || ''}">
+        <label for="swal-input34">Telha</label>
+        
+        </div>
+        <span>Sistema de percussão</span>
+          <select id="swal-input4" class="form-control">
+            <option value="indireta com cão exposto" ${arma.sistema_percussao == 'indireta com cão exposto' ? 'selected' : ''}>Indireta com cão exposto</option>
+            <option value="indireta com cão oculto" ${arma.sistema_percussao == 'indireta com cão oculto' ? 'selected' : ''}>Indireta com cão oculto</option>
+            <option value="direta com cão exposto" ${arma.sistema_percussao == 'direta com cão exposto' ? 'selected' : ''}>Direta com cão exposto</option>
+            <option value="direta com percutor lançado" ${arma.sistema_percussao == 'direta com percutor lançado' ? 'selected' : ''}>Direta com percutor lançado</option>
+            <option value="direta com percutor fixo ao ferrolho" ${arma.sistema_percussao == 'direta com percutor fixo ao ferrolho' ? 'selected' : ''}>Direta com percutor fixo ao ferrolho</option>
+            <option value="mecanismos embutidos" ${arma.sistema_percussao == 'mecanismos embutidos' ? 'selected' : ''}>Mecanismos embutidos</option>
+          </select>
+        </div>
         <div class="input-container" ${arma.sentido_raias !== null ? '' : "hidden"} > 
           
           <span>Sentido das Raias</span>
           <select id="swal-input9" class="form-control">
             <option value="dextrógiro" ${arma.sentido_raias == 'dextrógiro' ? 'selected' : ''}>Dextrógiro</option>
             <option value="sinistrógiro" ${arma.sentido_raias == 'sinistrógiro' ? 'selected' : ''}>Sinistrógiro</option>
-            <option value="prejudicado" ${arma.sentido_raias == 'prejudicado' ? 'selected' : ''}>Prejudicado</option>
             
           </select>
         </div>
@@ -78,13 +99,18 @@ $(".model-arma").on('click',async function () {
           </select>
         </div>
         <div class="input-container" ${arma.sistema_funcionamento !== null ? '' : "hidden"} > 
-          <input id="swal-input11" class="form-control"  value="${arma.sistema_funcionamento || ''}">
-        <label for="swal-input11">Sistema de funcionamento</label>
+          
+        <span>Regime de tiro</span>
+          <select id="swal-input11" class="form-control">
+            <option value="unitário" ${arma.sistema_funcionamento == 'unitário' ? 'selected' : ''}>Unitário</option>
+            <option value="repetição" ${arma.sistema_funcionamento == 'repetição' ? 'selected' : ''}>Repetição</option>
+            <option value="semi-automático" ${arma.sistema_funcionamento == 'semi-automático' ? 'selected' : ''}>Semi-automático</option>
+            <option value="automático" ${arma.sistema_funcionamento == 'automático' ? 'selected' : ''}>Automático</option>
+            <option value="repetição + semiautomático" ${arma.sistema_funcionamento == 'repetição + semiautomático' ? 'selected' : ''}>Repetição + semiautomático</option>
+            <option value="semiautomático + automático" ${arma.sistema_funcionamento == 'Semiautomático + automático' ? 'selected' : ''}>Semiautomático + automático</option>
+          </select>
         </div>
-        <div class="input-container" ${arma.num_canos !== null ? '' : "hidden"}> 
-          <input id="swal-input12" class="form-control"   value="${arma.num_canos || ''}">
-        <label for="swal-input12"> Numero de canos</label>
-        </div>
+        
         <div class="input-container" ${arma.disposicao_canos !== null ? '' : "hidden"} > 
           <input id="swal-input13" class="form-control"  value="${arma.disposicao_canos || ''}">
         <label for="swal-input13">Disposição dos canos</label>
@@ -94,24 +120,41 @@ $(".model-arma").on('click',async function () {
         <label for="swal-input14">Teclas gatilho</label>
         </div>
         <div class="input-container" ${arma.sistema_carregamento !== null ? '' : "hidden"}> 
-          <input id="swal-input15" class="form-control"   value="${arma.sistema_carregamento || ''}">
-        <label for="swal-input15">Sistema de carrregamento</label>
+          
+         <span>Sistema de carrregamento</span>
+          <select id="swal-input15" class="form-control">
+            <option value="retrocarga" ${arma.sistema_carregamento == 'retrocarga' ? 'selected' : ''}>Retrocarga</option>
+            <option value="antecarga" ${arma.sistema_carregamento == 'antecarga' ? 'selected' : ''}>Antecarga</option>
+            
+          </select>
         </div>
         <div class="input-container" ${arma.sistema_engatilhamento  !== null ? '' : "hidden"}> 
           <input id="swal-input16" class="form-control"   value="${arma.sistema_engatilhamento || ''}">
         <label for="swal-input16">Sistema de engatilhamento</label>
         </div>
-        <div class="input-container" ${arma.coronha_fuste !== null ? '' : "hidden"}> 
-          <input id="swal-input17" class="form-control"   value="${arma.coronha_fuste || ''}">
-        <label for="swal-input17">Coronha fuste</label>
+       <div class="input-container" ${arma.tipo_arma  == 'Pistola' || arma.tipo_arma  == 'Revólver' || arma.tipo_arma  == 'Pistolete' ? 'hidden' : ""}> 
+          
+        <span>Coronha e fuste</span>
+          <select id="swal-input17" class="form-control">
+            <option value="madeira" ${arma.coronha_fuste == 'madeira' ? 'selected' : ''}>Madeira</option>
+            <option value="material Sintético" ${arma.coronha_fuste == 'material Sintético' ? 'selected' : ''}>Material Sintético</option>
+            <option value="desprovido" ${arma.coronha_fuste == 'desprovido' ? 'selected' : ''}>Desprovido</option>
+           
+          </select>
         </div>
         <div class="input-container" ${arma.chave_abertura !== null ? '' : "hidden"}> 
           <input id="swal-input18" class="form-control"   value="${arma.chave_abertura || ''}">
         <label for="swal-input18">chave de abertura</label>
         </div>
         <div class="input-container" ${arma.tipo_carregador !== null ? '' : "hidden"}> 
-          <input id="swal-input19" class="form-control"   value="${arma.tipo_carregador || ''}">
-        <label for="swal-input19">Tipo de carregador</label>
+          
+         <span>Tipo de carregador</span>
+          <select id="swal-input19" class="form-control">
+            <option value="tambor" ${arma.tipo_carregador == 'tambor' ? 'selected' : ''}>Tambor</option>
+            <option value="destacável" ${arma.tipo_carregador == 'destacável' ? 'selected' : ''}>Destacável</option>
+            <option value="interno" ${arma.tipo_carregador == 'interno' ? 'selected' : ''}>Interno</option>
+            <option value="tubular" ${arma.tipo_carregador == 'tubular' ? 'selected' : ''}>Tubular</option>
+          </select>
         </div>
         <div class="input-container" ${arma.calibre_real !== null ? '' : "hidden"}> 
           <input id="swal-input20" class="form-control"   value="${arma.calibre_real || ''}">
@@ -133,10 +176,7 @@ $(".model-arma").on('click',async function () {
           <input id="swal-input24" class="form-control"   value="${arma.carregador || ''}">
         <label for="swal-input24">Carregador</label>
         </div>
-        <div class="input-container" ${arma.capacidade_carregador !== null ? '' : "hidden"}> 
-          <input id="swal-input25" class="form-control"   value="${arma.capacidade_carregador || ''}">
-        <label for="swal-input25">Capacidade do carregador</label>
-        </div>
+        
         <div class="input-container"  ${arma.trava_ferrolho !== null ? '' : "hidden"}> 
           <input id="swal-input26" class="form-control"  value="${arma.trava_ferrolho || ''}">
         <label for="swal-input26">Trava do ferrolho</label>
@@ -161,18 +201,21 @@ $(".model-arma").on('click',async function () {
           <input id="swal-input31" class="form-control"   value="${arma.numeracao_montagem || ''}">
         <label for="swal-input31">Numeração de montagem</label>
         </div>
-        <div class="input-container" ${arma.coronha  !== null ? '' : "hidden"}> 
-          <input id="swal-input32" class="form-control"   value="${arma.coronha || ''}">
-        <label for="swal-input32">Coronha</label>
+        <div class="input-container" ${arma.tipo_arma  == 'Pistola' || arma.tipo_arma  == 'Revólver' || arma.tipo_arma  == 'Pistolete' ? 'hidden' : ""}> 
+          
+          <span>Coronha </span>
+          <select id="swal-input32" class="form-control">
+            <option value="madeira" ${arma.coronha == 'madeira' ? 'selected' : ''}>Madeira</option>
+            <option value="material Sintético" ${arma.coronha == 'material Sintético' ? 'selected' : ''}>Material Sintético</option>
+            <option value="desprovido" ${arma.coronha == 'desprovido' ? 'selected' : ''}>Desprovido</option>
+           
+          </select>
         </div>
         <div class="input-container" ${arma.diametro_cano !== null ? '' : "hidden"} > 
           <input id="swal-input33" class="form-control"  value="${arma.diametro_cano || ''}">
         <label for="swal-input33">Diametro do cano</label>
         </div>
-        <div class="input-container"  ${arma.telha !== null ? '' : "hidden"}> 
-          <input id="swal-input34" class="form-control"  value="${arma.telha || ''}">
-        <label for="swal-input34">Telha</label>
-        </div>
+        
         <div class="input-container" ${arma.tipo_tambor!== null ? '' : "hidden"} > 
           <input id="swal-input35" class="form-control"  value="${arma.tipo_tambor || ''}">
         <label for="swal-input35">Tipo de tambor</label>
@@ -236,6 +279,8 @@ $(".model-arma").on('click',async function () {
           sistema_disparo: document.getElementById("swal-input36").value || null,
           imagemCantoSuperior: arma.imagemCantoSuperior,
           status: "1",
+          
+         
          
         };
       }
