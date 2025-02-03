@@ -92,7 +92,7 @@ class UsersController extends Controller
 
      public function update(Request $request, $id)
      {
-        
+         
          // Encontra o usuário pelo ID
          $user = User::findOrFail($request->id);
      
@@ -110,7 +110,7 @@ class UsersController extends Controller
          $user->cargo_id = $request->input('cargo_id');
          $user->secao_id = $request->input('secao_id');
          $user->save();
-     
+    
          // Retorna uma resposta JSON
          return response()->json(['message' => 'Usuário atualizado com sucesso!']);
      }
