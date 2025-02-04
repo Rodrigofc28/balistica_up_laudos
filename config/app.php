@@ -166,7 +166,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Jenssegers\Mongodb\MongodbServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -230,6 +230,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Moloquent' => Jenssegers\Mongodb\Eloquent\Model::class,
     ],
 
 ];
