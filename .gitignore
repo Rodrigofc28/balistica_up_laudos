@@ -2,6 +2,7 @@
 /public/hot
 /public/storage/laudos
 /public/storage
+/storage/laudos
 /storage/*.key
 /vendor
 /.idea
