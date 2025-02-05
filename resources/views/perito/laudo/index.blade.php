@@ -6,31 +6,34 @@
 'route_search_name' => 'laudos',
 'route_create_name' => 'laudos.create',
 'dados' => $laudos,
-'ths' => ['REP', 'Ofício',  'Status']])
+'ths' => ['REP', 'Ofício', 'Tipo de exame','Cidade'],])
 
 @section('table-content')
-
+<!--
 <div >
   
-  <button id="uol" class="btn btn-success" style="width:30%">Busca</button>
+   
+
+  
   <img id="loading" style="width: 100px" hidden  src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Carregando..." />
 
 </div>
   
+-->
 
 
+<button  class="btn btn-success" style="width:30%">Busca</button>
+  @foreach ($documents as $document) 
+    <tr>
+      <td>{{$document->repId}}</td>
+      <td>{{$document->numeroAno}}</td>
+      <td>{{$document->examNature}}</td>
+      <td>{{$document->examCity}}</td>
+      <td><button onclick="verifica()" >status</button></td> 
+    </tr>
+  
+  @endforeach
 
-<tr>
-    <td id="reps_on"><a id=gdl target="_blank" rel="noopener noreferrer"></a></td>
-    <td> </td>
-    
-    
-    <td></td>
-     <td>
-        
-       
-    </td> 
-</tr>
 
 
 <tr>
@@ -38,7 +41,23 @@
 </tr>
 
 <script>
-  
+   function verifica() {
+   
+    Swal.fire({
+      title: "A REP designada já foi atualizada no GDL?",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "Sim",
+      denyButtonText: "Não"
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        Swal.fire("Saved!", "", "success");
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
+    });
+  }
   document.addEventListener('click', function() {
     var loadingImage = document.getElementById('loading');
     loadingImage.hidden = false;

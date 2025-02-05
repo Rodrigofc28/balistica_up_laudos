@@ -20,22 +20,40 @@
         }
 </style>
 <div class="col-lg-3 ">
-    
-    <b onmouseout="displayInfoOutColeta()" onmouseover="displayInfoColeta()">Trata-se de material coletado por perito</b>
-    
-    <div onmouseout="displayInfoOutColeta()" onmouseover="displayInfoColeta()" class="conteiner_sinb">
-        <div style="padding: 5px">
-            <label for="material_coletado_no">
-                <b>NÃO</b>
-            <input type="radio" name="material_coletado" id="material_coletado_no" value="NULL" checked onclick="setRadioValueColeta(this)">
-            </label>
-            <label for="material_coletado_si">
-                <b>SIM</b>
-                <input type="radio" name="material_coletado" id="material_coletado_si" value="sim" onclick="setRadioValueColeta(this)">
-            </label>
+    @if($tipo_exame=='balistica')
+        <b onmouseout="displayInfoOutColeta()" onmouseover="displayInfoColeta()">Trata-se de material coletado por perito</b>
+        <div onmouseout="displayInfoOutColeta()" onmouseover="displayInfoColeta()" class="conteiner_sinb">
+            <div style="padding: 5px">
+                <label for="material_coletado_no">
+                    <b>NÃO</b>
+                <input type="radio" name="material_coletado" id="material_coletado_no" value="NULL" checked onclick="setRadioValueColeta(this)">
+                </label>
+                <label for="material_coletado_si">
+                    <b>SIM</b>
+                    <input type="radio" name="material_coletado" id="material_coletado_si" value="sim" onclick="setRadioValueColeta(this)">
+                </label>
+            </div>
+            
         </div>
-        
-    </div>
+
+    @else
+       
+        <b >O veículo foi periciado no patio da instituição?</b>
+        <div class="conteiner_sinb">
+            <div style="padding: 5px">
+                <label for="periciaVeiculono">
+                    <b>NÃO</b>
+                <input type="radio" name="periciaVeiculo" id="periciaVeiculono" value="NULL" checked onclick="setRadioValueColeta(this)">
+                </label>
+                <label for="periciaVeiculosi">
+                    <b>SIM</b>
+                    <input type="radio" name="periciaVeiculo" id="periciaVeiculosi" value="sim" onclick="setRadioValueColeta(this)">
+                </label>
+            </div>
+            
+        </div>
+    @endif
+    
     <div onmouseout="displayInfoOutColeta()" onmouseover="displayInfoColeta()" id="infoMaterialColetado" class="infoMaterialColetado">
         <p>A tabela <b>material encaminhado a exame</b>  será ajustada.</p>
         <p>Para exames de material coletado por perito criminal (local ou necrópsia):</p>

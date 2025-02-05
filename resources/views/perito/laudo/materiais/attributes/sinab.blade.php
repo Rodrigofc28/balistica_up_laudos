@@ -1,4 +1,7 @@
+
+@if($tipo_exame=='balistica')
 <div class="col-lg-3 mt-2">
+
 <div class="form-group">
     <style>
         .conteiner_sinb{
@@ -47,11 +50,8 @@
     </div>
 
      
-
- 
-
-
-</div></div>
+</div>
+</div>
 <script>
     function setRadioValue(radio) {
         var form = document.getElementById('formulario');
@@ -67,3 +67,4 @@
              document.getElementById('info').style.display="none"
     }
 </script>
+@endif

@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Armas_Gdl;
+use App\Models\MongoDb\Post;
 class LaudosController extends Controller
 {
 
@@ -35,9 +36,7 @@ class LaudosController extends Controller
      */
     public function index()
     {
-        
-        
-        // Exibindo o conteúdo da resposta
+        $documents = Post::where('expert', 'ARIEL FERNANDO ELIAS COSTA')->get();//Auth::user()->name)->get()
         
         $usuariosenhaGdl=User::where('id','=',Auth::id())->get();
         
@@ -49,7 +48,7 @@ class LaudosController extends Controller
         //$reps = DB::select('SELECT * FROM _nome_da_tabela WHERE nome = ?',[$usuariosenhaGdl[0]->userGDL]); 
         $reps = DB::table('_nome_da_tabela')->where('nome', $usuariosenhaGdl[0]->userGDL)->get();
        
-        return view('perito.laudo.index', compact('laudos','reps'));
+        return view('perito.laudo.index', compact('laudos','reps','documents'));
     }
 
     /**
@@ -208,7 +207,7 @@ class LaudosController extends Controller
      */
     public function meusLaudos()
     {
-    
+        
         $laudos = Laudo::orderBy('id', 'desc')->where('perito_id','=',Auth::id())->paginate(10);
 
         return view('perito.laudo.meus-laudos', compact('laudos'));
