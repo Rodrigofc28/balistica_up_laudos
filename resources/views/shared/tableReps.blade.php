@@ -13,7 +13,7 @@
                     @foreach ($ths as $th)
                     <th>{{ $th }}</th>
                     @endforeach
-                    <th>Criar Laudo</th>
+                    <th>Desenvolver Laudo</th>
                 </tr>
             </thead>
             <tbody align="center" class="table-search">

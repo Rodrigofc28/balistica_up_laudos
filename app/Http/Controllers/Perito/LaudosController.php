@@ -37,12 +37,16 @@ class LaudosController extends Controller
      */
     public function index()
     {
-       
-        $documents = Post::where('expert', strtoupper(Auth::user()->nome))
+    
+        
+        
+            $documents = Post::where('expert', 'ALEXANDRE BRONDANI') //strtoupper(Auth::user()->nome)
             ->where('examNature', 'B602 - EXAME DE EFICIÊNCIA E PRESTABILIDADE')
+            ->where(function ($query) {
+                $query->where('status', 'LAUDO EM EXECUÇÃO')
+                      ->orWhere('status', 'ABERTA E DISTRIBUÍDA');
+            })
             ->get();
-        
-        
         
         $usuariosenhaGdl=User::where('id','=',Auth::id())->get();
         
