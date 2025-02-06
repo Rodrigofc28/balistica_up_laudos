@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+
 use App\Models\Armas_Gdl;
 use App\Models\MongoDb\Post;
 class LaudosController extends Controller
@@ -36,16 +37,19 @@ class LaudosController extends Controller
      */
     public function index()
     {
-        $documents = Post::where('expert', 'ARIEL FERNANDO ELIAS COSTA')->get();//Auth::user()->name)->get()
+       
+        $documents = Post::where('expert', strtoupper(Auth::user()->nome))
+            ->where('examNature', 'B602 - EXAME DE EFICIÊNCIA E PRESTABILIDADE')
+            ->get();
+        
+        
         
         $usuariosenhaGdl=User::where('id','=',Auth::id())->get();
         
-       /*  chmod('C:\xampp\htdocs\laudos_balisticos\app\python',0777);
-        $path=base_path('app\python\requisicao.py');
-        exec('C:/Users/est.rodrigo.fc/AppData/Local/Programs/Python/Python310/python.exe ' .$path.' '.$usuariosenhaGdl[0]->senhaGDL.' '.$usuariosenhaGdl[0]->userGDL); */
+       
         $user = Auth::id();
         $laudos = Laudo::findMyReps($user); 
-        //$reps = DB::select('SELECT * FROM _nome_da_tabela WHERE nome = ?',[$usuariosenhaGdl[0]->userGDL]); 
+        
         $reps = DB::table('_nome_da_tabela')->where('nome', $usuariosenhaGdl[0]->userGDL)->get();
        
         return view('perito.laudo.index', compact('laudos','reps','documents'));

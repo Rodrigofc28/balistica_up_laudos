@@ -9,27 +9,15 @@
 'ths' => ['REP', 'Ofício', 'Tipo de exame','Cidade'],])
 
 @section('table-content')
-<!--
-<div >
-  
-   
-
-  
-  <img id="loading" style="width: 100px" hidden  src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Carregando..." />
-
-</div>
-  
--->
 
 
-<button  class="btn btn-success" style="width:30%">Busca</button>
   @foreach ($documents as $document) 
     <tr>
       <td>{{$document->repId}}</td>
       <td>{{$document->numeroAno}}</td>
       <td>{{$document->examNature}}</td>
       <td>{{$document->examCity}}</td>
-      <td><button onclick="verifica()" >status</button></td> 
+      <td><button class="btn btn-success" onclick="verifica({{$document->repId}})" ><img width="35%" src="{{asset('image/bell.png')}}" alt=""></button></td> 
     </tr>
   
   @endforeach
@@ -41,46 +29,44 @@
 </tr>
 
 <script>
-   function verifica() {
-   
+   function verifica(repId) {
+    console.log(repId)
     Swal.fire({
-      title: "A REP designada já foi atualizada no GDL?",
-      showDenyButton: true,
-      showCancelButton: true,
-      confirmButtonText: "Sim",
-      denyButtonText: "Não"
+        title: "A REP designada já foi atualizada no GDL?",
+        showDenyButton: true,
+        confirmButtonText: "Sim",
+        showDenyButton: true,
+        showCancelButton: true,
+         denyButtonText: `Don't save`
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        Swal.fire("Saved!", "", "success");
-      } else if (result.isDenied) {
-        Swal.fire("Changes are not saved", "", "info");
-      }
+        if (result.isConfirmed) {
+            // Fazer requisição à API
+            
+            fetch('http://10.66.10.102:5000/restApi', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ repId: repId, atualizado: true })
+            })
+            .then(response => response.json())
+            .then(data => {
+              console.log("Resposta da API:", data);
+              Swal.fire(`Resposta: ${data.message}`, `Status: ${data.status}`, "success");
+            })
+            .catch(error => {
+                Swal.fire("Erro ao atualizar!", "", "error");
+                console.error('Erro:', error);
+            });
+        } else if (result.isDenied) {
+            Swal.fire("Alterações não foram salvas", "", "info");
+        }
     });
-  }
+}
   document.addEventListener('click', function() {
     var loadingImage = document.getElementById('loading');
     loadingImage.hidden = false;
-    fetch('http://10.66.10.102:5000/link_rep')
-      .then(response => {
-        
-        // Verifica se a resposta é bem-sucedida
-        if (!response.ok) {
-          throw new Error('Erro na requisição');
-        }
-        return response.json(); // Converte a resposta para JSON
-      })
-      .then(data => {
-        var link_ = document.getElementById('gdl');
-        link_.href = data[0].link
-        link_.textContent = data[0].description
-        loadingImage.hidden = true;
-        console.log(data); // Aqui você pode manipular o JSON
-      })
-      .catch(error => {
-        loadingImage.hidden = true;
-        console.error('Erro ao fazer a requisição:', error);
-      });
+    
     });
 </script>
 @endsection

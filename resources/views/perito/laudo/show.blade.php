@@ -14,7 +14,8 @@
 <style>
     .conteiner_embalagens_foto{
         display: flex;
-        
+        flex-wrap: wrap;
+        gap: 10px;
        justify-content: center
     }
     .fotosEmbalagens{
@@ -36,7 +37,8 @@
         <span><strong>REP:</strong> {{$laudo->rep}}</span><br>
         <span><strong>Oficio:</strong> {{$laudo->oficio}}</span><br>
         <span><strong>Cidade:</strong> {{$laudo->cidade_id}}</span><br>
-        <span><strong>Órgão solicitante:</strong> {{$laudo->solicitante->nome}}</span><br>
+        <span><strong>Órgão solicitante:</strong> {{ $laudo->solicitante->nome ?? '' }}</span><br>
+        
         
         <input type="button" class="btn btn-success" id="btn-edit" value="Editar Informações do cabeçalho">
        
