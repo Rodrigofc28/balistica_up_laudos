@@ -74,7 +74,7 @@
 </div>
 
 
-
+<a value="chassi" class="btn btn-secondary btn-block" href="{{ route('chassi.index') }}">
 <div class="row m-auto">
     <div class="col-lg-3 mt-3">
         <p><strong><code>*</code> Obrigatório</strong></p>
@@ -90,7 +90,9 @@
             <i class="fas fa-save"></i> Salvar e Continuar
         </button>
     </div>
+   
 </div>
+
 {{ Form::close() }}
 @include('perito.modals.solicitante_modal')
 <script>
