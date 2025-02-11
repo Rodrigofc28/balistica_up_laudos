@@ -40,8 +40,13 @@ class LaudosController extends Controller
     
         
         
-            $documents = Post::where('expert', strtoupper(Auth::user()->nome)) //strtoupper(Auth::user()->nome)
-            ->where('examNature', 'B602 - EXAME DE EFICIÊNCIA E PRESTABILIDADE')//
+            $documents = Post::where('expert', 'RAISA REQUI JAKUBIAK') //strtoupper(Auth::user()->nome)
+            
+            ->where(function ($query) {
+                $query->where('examNature', 'B602 - EXAME DE EFICIÊNCIA E PRESTABILIDADE')
+                      ->orWhere('examNature', 'B601 - EXAME DE CONSTATAÇÃO')
+                      ->orWhere('examNature', 'I801 - EXAME NAS NUMERAÇÕES IDENTIFICADORAS');
+            })
             ->where(function ($query) {
                 $query->where('status', 'LAUDO EM EXECUÇÃO')
                       ->orWhere('status', 'ABERTA E DISTRIBUÍDA');

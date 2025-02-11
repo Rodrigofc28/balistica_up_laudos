@@ -93,4 +93,58 @@
 </div>
 {{ Form::close() }}
 @include('perito.modals.solicitante_modal')
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+    const fields = {
+        'repId': 'rep',
+        'recebimento': 'data_recebimento',
+        'designacao': 'data_designacao',
+        'exame': 'laudoEfetConst',
+        'cidade': 'cidade',  // Aqui está o 'id' do select
+        'unidade': 'secao_id'
+    };
+
+    // Iterar sobre os campos e preencher os valores dos inputs
+    Object.keys(fields).forEach(key => {
+        const value = localStorage.getItem(key);
+   
+        if (value) {
+            const input = document.getElementById(fields[key]);
+            if (input) {
+                if (input.tagName === 'SELECT') {
+                    //capitalize transforma a primeira letra em maiscula e o resto em minuscula
+                    function capitalize(value) {
+                        return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+                    }
+                    const option = Array.from(input.options).find(option => option.value == capitalize(value));
+                    console.log(capitalize(value));
+                    if (option) {
+                        option.selected = true;
+                    }
+                } else {
+                    input.value = value;
+                }
+            } else if (key === 'exame') {
+                // Caso especial para os botões de rádio
+                const radios = document.querySelectorAll(`input[name="${fields[key]}"]`);
+                if (radios.length > 0) {
+                    radios.forEach(radio => {
+                        if (
+                            (value === 'B601 - EXAME DE CONSTATAÇÃO' && radio.value === 'constatacao') ||
+                            (value === 'B602 - EXAME DE EFICIÊNCIA E PRESTABILIDADE' && radio.value === 'eficiencia')
+                        ) {
+                            radio.checked = true;
+                            console.log(`Selecionado: ${radio.value}`);
+                        }
+                    });
+                } else {
+                    console.warn(`Nenhum radio encontrado com name="${fields[key]}"`);
+                }
+            }
+        
+        }
+    });
+});
+
+</script>
 @endsection
