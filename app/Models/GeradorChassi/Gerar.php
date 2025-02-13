@@ -27,17 +27,7 @@ class Gerar
 
     public function create_docx($laudo)
     {
-        $tempoAtual = now();
-        Laudo::where('id', $laudo->id)->update(['tempo_execucao' => $tempoAtual]);
-
-        global $i;
-        $i = 0;
-
-        global $numTab;
-        $numTab=2;
-        if(count($laudo->imagens)>0){
-            $numTab+=1;
-        }
+        
 
         $this->phpW->getSettings()->setThemeFontLang(new Language(Language::PT_BR));
         Settings::setOutputEscapingEnabled(true);

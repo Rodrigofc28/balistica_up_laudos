@@ -28,18 +28,13 @@ class Geral extends Tabelas
     {
        
         
-        if ($laudo =='efetivacao') {
-            $titulo = "LAUDO DE PERÍCIA CRIMINAL";
-            $exame = "(EXAME DE EFICIÊNCIA EM ARMA DE FOGO E MUNIÇÃO)";
-            $codigo ="Código: B602 - EFICIÊNCIA E PRESTABILIDADE";
-        } else {
-            if ($laudo=='constatacao') {
-                $titulo = "LAUDO DE PERÍCIA CRIMINAL";
-                $exame = "(EXAME DE CONSTATAÇÃO DE VESTÍGIOS BALÍSTICOS)";
-                $codigo = "Código: B601 - CONSTATAÇÃO";
-            }
+        if ($laudo =='I801') {
+            $titulo = "LAUDO DE EXAME DE VEÍCULO A MOTOR";	
+            $exame = "(EXAME DE IDENTIFICAÇÃO DE VEÍCULAR)";
+            $codigo ="Código: I801 ";
+        } 
         
-        }return ['exame' => $exame, 'titulo' => $titulo,'codigo'=>$codigo];
+        return ['exame' => $exame, 'titulo' => $titulo,'codigo'=>$codigo];
     }
     
     public function vereficaTabela($laudo){
@@ -79,10 +74,6 @@ class Geral extends Tabelas
         $objetivo=['1. OBJETIVO','A perícia tem como objetivo a efetivação do exame descritivo da totalidade do material, bem como '. $textEfecienciConstatacao.'para instruir os autos da investigação policial abaixo descrita:'];
         
         
-        $cidadeGdl=$laudo->cidadeGdl;
-        $orgaoGdl=$laudo->orgaoGdl;
-        $unidadeGdl=$laudo->unidadeGdl;
-
 
         $perito = $laudo->perito->nome;
         
@@ -131,7 +122,7 @@ class Geral extends Tabelas
         
         
        
-
+        //PREÂMBULO CHASSI
         $text = [
             
             $textrun = $this->section->addTextRun($this->config->paragraphCenter()),
@@ -148,7 +139,7 @@ class Geral extends Tabelas
             
             $textrun->addText(" o(a) Perito(a) Criminal ", $this->config->arial12()),
             $textrun->addText($perito, $this->config->arial12Bold()),
-            $textrun->addText(", para proceder ao exame dos ".$requisicaoOficio[0]."recebidos nesta Seção em $data_rec", $this->config->arial12()),
+            $textrun->addText(", para proceder ao exame no veículo adiante descrito ".$requisicaoOficio[0]." recebidos nesta Seção em $data_rec", $this->config->arial12()),
             
             $textrun->addText($requisicaoOficio[1], $this->config->arial12()),
             
