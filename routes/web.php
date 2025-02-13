@@ -186,7 +186,7 @@ Route::get('/notifications', function() {
     ]);
 });
 //Rotas de chassi
-Route::get('chassi.index','ChassiController@index')->name('chassi.index');
+Route::post('chassi.index','ChassiController@store')->name('chassi.index');
 Route::get('carro.index','CarroController@index')->name('carro.index');
 //Rotas motos
 Route::get('motocicleta.index','MotocicletaController@index')->name('motocicleta.index');

@@ -10,8 +10,14 @@
     <h4>Cadastrar Informações Gerais do Laudo</h4>
 </div>
 <hr>
+@if ($tipo_exame == 'chassi')
+    {{ Form::open(['route' => 'chassi.index']) }}
+           
+             
+@else
+    {{ Form::open(['route' => 'laudos.store']) }}
+@endif
 
-{{ Form::open(['route' => 'laudos.store']) }}
 
 <div>
 
@@ -74,7 +80,7 @@
 </div>
 
 
-<a value="chassi" class="btn btn-secondary btn-block" href="{{ route('chassi.index') }}">
+
 <div class="row m-auto">
     <div class="col-lg-3 mt-3">
         <p><strong><code>*</code> Obrigatório</strong></p>

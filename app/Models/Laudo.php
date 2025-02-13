@@ -17,7 +17,7 @@ class Laudo extends Model
          'laudoEfetConst','nome_vitima','perfil_envolvido','bairro',
          'num_ip','material_coletado','sinab','data_ocorrencia','boletim_ocorrencia',
          'nomeIncluir','data_recebimento','rep_exame_complementar','envolvidoGdl',
-         'cidadeGdl','orgaoGdl','unidadeGdl'
+         'cidadeGdl','orgaoGdl','unidadeGdl','tipo_exame'
          
     ];
 

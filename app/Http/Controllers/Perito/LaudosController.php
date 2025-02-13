@@ -39,7 +39,7 @@ class LaudosController extends Controller
     {
     
         
-        
+        //pegando dados do mongodb
             $documents = Post::where('expert', 'RAISA REQUI JAKUBIAK') //strtoupper(Auth::user()->nome)
             
             ->where(function ($query) {
@@ -116,36 +116,7 @@ class LaudosController extends Controller
     public function store(LaudoRequest $request)
     {   
         
-        if(isset($request->request_GDL)){
-            $arma=Arma::all();
-            $laudo = Laudo::config_laudo_info($request);
-           
-            $laudo = Laudo::create($laudo);
-            
-            $laudo_id = $laudo->id;
-            $armasGdl=Armas_Gdl::all()->where('rep',$laudo->rep);
         
-            $cidades = Cidade::all();
-            $secoes = Secao::all();
-            $diretores = Diretor::allOrdered();
-            $solicitantes = OrgaoSolicitante::fromCity($laudo->cidade_id);
-            $armas = $laudo->armas;
-            $municoes = $laudo->municoes;
-            $componentes = $laudo->componentes;
-        
-            $users_img_project = DB::select('select lacrecartucho,lacreSaida, group_concat(id) from componentes where laudo_id = ? group by lacrecartucho,lacreSaida', [$laudo->id]);
-            $obj=(object) $users_img_project;
-
-            $users_img_municoes = DB::select('select lacrecartucho,lacre_saida, group_concat(id),tipo_municao from municoes where laudo_id = ? group by lacrecartucho,lacre_saida,tipo_municao', [$laudo->id]);
-            $objMuni=(object) $users_img_municoes;
-            
-        
-            return redirect()->route('laudos.show',$laudo);
-            
-            
-
-
-        }
         
         
         $arma=Arma::all();
@@ -295,15 +266,7 @@ class LaudosController extends Controller
         
     }
     public function atualiza($a){
-       //chmod("C:/Users/est.rodrigo.fc/AppData/Local/Programs/Python", 777); 
-
-        $usuariosenhaGdl=User::where('id','=',Auth::id())->get();
-        
-        $senhaDescriptografada=$this->decryptPassword($usuariosenhaGdl[0]->senhaGDL,'JtKSJtKSJtKSJtKS');
-        
-        $path=base_path('app\python\atualizarep.py');
-        shell_exec('C:/Users/est.rodrigo.fc/AppData/Local/Programs/Python/Python310/python.exe ' .$path.' '.$senhaDescriptografada.' '.$usuariosenhaGdl[0]->userGDL.' '.$a);
-        //passthru
+       //
         
         return redirect()->back();
     }
