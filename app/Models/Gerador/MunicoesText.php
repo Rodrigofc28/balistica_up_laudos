@@ -978,8 +978,6 @@ $extenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);
    
 }
 $numTab++;
-//dd($contador);
-
 
 }        
 

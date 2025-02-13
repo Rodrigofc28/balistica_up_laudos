@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Perito\Chassis;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\LaudoRequest;
 use Illuminate\Http\Request;
 use App\Models\OrgaoSolicitante;
 use App\Models\Laudo;
 use App\Models\Secao;
 
-class ChassiController extends Controller
+class ChassisController extends Controller
 {
    public function store(LaudoRequest $request){
          

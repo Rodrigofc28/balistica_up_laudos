@@ -1,11 +1,11 @@
 @extends('layout.component')
 @section('page')
 <div class="col-12">
-    <h4>Selecione o Material /Laudo {{$laudo->laudoEfetConst=='constatacao'?'constatação':'eficiência' }}</h4>
+    <h4>Selecione o Material /Laudo {{$laudo->laudoEfetConst=='B601'?'constatação':'eficiência' }}</h4>
 </div>
 <hr>
 
-@if($laudo->laudoEfetConst!='constatacao')
+@if($laudo->laudoEfetConst!='B601')
 <h5><strong>Armas de fogo</strong></h5>
 <input type="hidden" name="laudo_id" value="{{$laudo}}">
 <div class="col-12">

@@ -28,12 +28,12 @@ class Geral extends Tabelas
     {
        
         
-        if ($laudo =='efetivacao') {
+        if ($laudo =='B602') {
             $titulo = "LAUDO DE PERÍCIA CRIMINAL";
             $exame = "(EXAME DE EFICIÊNCIA EM ARMA DE FOGO E MUNIÇÃO)";
             $codigo ="Código: B602 - EFICIÊNCIA E PRESTABILIDADE";
         } else {
-            if ($laudo=='constatacao') {
+            if ($laudo=='B601') {
                 $titulo = "LAUDO DE PERÍCIA CRIMINAL";
                 $exame = "(EXAME DE CONSTATAÇÃO DE VESTÍGIOS BALÍSTICOS)";
                 $codigo = "Código: B601 - CONSTATAÇÃO";
@@ -75,7 +75,7 @@ class Geral extends Tabelas
         $intCrim = "POLÍCIA CIENTÍFICA DO PARANÁ";
         $constatacao="a constatação de calibre nominal, ";
         $eficiencia="a sua eficiência e prestabilidade, ";
-        $textEfecienciConstatacao=($laudo->laudoEfetConst=="constatacao")?($constatacao):($eficiencia);
+        $textEfecienciConstatacao=($laudo->laudoEfetConst=="B601")?($constatacao):($eficiencia);
         $objetivo=['1. OBJETIVO','A perícia tem como objetivo a efetivação do exame descritivo da totalidade do material, bem como '. $textEfecienciConstatacao.'para instruir os autos da investigação policial abaixo descrita:'];
         
         

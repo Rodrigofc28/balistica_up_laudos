@@ -42,11 +42,11 @@ class LaudoRequest extends FormRequest
             'indiciado' => 'nullable|min:6|max:80',
             'tipo_inquerito' => 'nullable|max:80',
             'inquerito' => 'nullable|max:20',
-            'laudoEfetConst'=>'nuullable',
+            'laudoEfetConst'=>'required',
             'nomeIncluir'=>'nullable',
             'material_coletado'=>'nullable',
             'repExameComplementar'=>'nullable',
-            'tipo_exame'=>'nullable',
+            
         ];
     }
 }

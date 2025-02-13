@@ -45,7 +45,7 @@ class Gerar
         $this->geral = new Geral($this->section, $this->conf, $this->phpW);
         $this->geral->addText($laudo);
         //armas
-        if($laudo->laudoEfetConst != 'constatacao'){
+        if($laudo->laudoEfetConst != 'B601'){
             $armasText = new ArmasText($this->section, $this->conf, $i,$this->phpWord);
             $armasText = $armasText->addText($laudo);
             }
