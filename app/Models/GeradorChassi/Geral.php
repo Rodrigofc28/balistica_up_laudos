@@ -37,21 +37,7 @@ class Geral extends Tabelas
         return ['exame' => $exame, 'titulo' => $titulo,'codigo'=>$codigo];
     }
     
-    public function vereficaTabela($laudo){
-        
-        if($laudo->oficio==true || $laudo->oficio==false){
-            if($laudo->material_coletado=="sim"){
-                $this->tabelaExameLocalNecropsia($this->phpWord,$this->section,$this->config,$laudo);
-                
-            }else{
-                
-            $this->tabelaExame($this->phpWord,$this->section,$this->config,$laudo);
-        
-        }
-        }
-        
-        return $this;
-    }
+   
          
        
     
