@@ -39,7 +39,7 @@ class LaudosController extends Controller
     {
     
         
-        //pegando dados do mongodb
+        //pegando dados do mongodb minhas reps
             $documents = Post::where('expert', 'RAISA REQUI JAKUBIAK') //strtoupper(Auth::user()->nome)
             
             ->where(function ($query) {
@@ -127,7 +127,7 @@ class LaudosController extends Controller
         
         $laudo_id = $laudo->id;
         return view('perito.laudo.create_embalagem_foto', compact('laudo_id'));
-      // return redirect()->route('laudos.materiais', compact('laudo_id'));
+     
     }
 
     

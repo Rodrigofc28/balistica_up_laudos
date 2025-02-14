@@ -95,6 +95,8 @@
                 <span>Outros</span>
             </div>
         </div>
+        
+        <a href="{{ route('laudosChassi.docx', $laudo_id)}}" >Gerar laudo</a>
     </div>
 
 @endsection

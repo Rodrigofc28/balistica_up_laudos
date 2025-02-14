@@ -351,6 +351,8 @@
                 <button id="next">Avançar</button>
             </div>
 
+            
+            
             <script>
                 const steps = document.querySelectorAll(".step");
                 const progressBar = document.querySelector(".progress-bar");

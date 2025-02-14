@@ -37,21 +37,7 @@ class Gerar
                
   
        
-        //texto final
-        $this->geral->addFinalText($laudo->perito->nome,$laudo);
-
-
-        //footer
-        $footer=$this->section->addFooter();
-        $footer->addLine(array(
-            'width' => 445,
-            'height' => 60,
-            'positioning' => 'relative',
-            
-            'left' => 500,
-            'top' => -500,
-            'rotation' => 90
-          ));
+        
        
 
         $objWriter = IOFactory::createWriter($this->phpW, 'Word2007');
