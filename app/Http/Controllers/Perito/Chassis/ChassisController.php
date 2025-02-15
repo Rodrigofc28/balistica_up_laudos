@@ -22,14 +22,7 @@ class ChassisController extends Controller
          $laudo_id = $laudo->id;
         return view('perito.chassi.index',compact('laudo_id'));
    }
-   public function generate_docx(Laudo $laudo){    
-       
-         
-         $phpWord = new Gerar();
-         $phpWord = $phpWord->create_docx($laudo);
-
-        return $phpWord;
-   }
+ 
    //Gerador do laudo
    public function generate_docx(Laudo $laudo)
     {
