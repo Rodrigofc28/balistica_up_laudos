@@ -192,3 +192,4 @@ Route::post('chassi','Perito\Chassis\ChassisController@store')->name('chassi.ind
 Route::get('carro.index','Perito\Chassis\CarrosController@index')->name('carro.index');
 //Exibe a 1 tela da Motocicleta
 Route::get('motocicleta.index','Perito\Chassis\MotocicletasController@index')->name('motocicleta.index');
+Route::get('gerar_docx/{laudo}', 'Perito\Chassis\ChassisController@generate_docx')->name('laudosChassi.docx');
