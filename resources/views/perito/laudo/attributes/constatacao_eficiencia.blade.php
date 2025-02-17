@@ -34,8 +34,20 @@
     <!--Exame de Chassi-->
     @if($tipo_exame=='chassi')
         <label class="btn btn-dark btn-md btn-block mb-3 text-left" for="eficiencia">
-            I801 - Identificação veícular &nbsp;&nbsp;
+            I801 - Numerações Identificadoras &nbsp;&nbsp;
             <input type="radio" name="laudoEfetConst" id="#" value="I801"> 
+        </label>
+        <label class="btn btn-dark btn-md btn-block mb-3 text-left" for="eficiencia">
+            I802 - Compartimentos &nbsp;&nbsp;
+            <input type="radio" name="laudoEfetConst" id="#" value="I802"> 
+        </label>
+        <label class="btn btn-dark btn-md btn-block mb-3 text-left" for="eficiencia">
+            I806 - Constatação &nbsp;&nbsp;
+            <input type="radio" name="laudoEfetConst" id="#" value="I806"> 
+        </label>
+        <label class="btn btn-dark btn-md btn-block mb-3 text-left" for="eficiencia">
+            I812 - Numerações Identificadoras + compartimentos &nbsp;&nbsp;
+            <input type="radio" name="laudoEfetConst" id="#" value="I812"> 
         </label>
        
     @endif

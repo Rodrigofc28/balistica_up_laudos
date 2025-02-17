@@ -27,13 +27,45 @@ class Geral
     //Função para titulo e codigo do laudo
     private function titulo_e_exame($laudo)
     { 
-        if ($laudo =='I801') {
-            $titulo = "LAUDO DE EXAME DE VEÍCULO A MOTOR";	
-           
-            $codigo ="Código: I801 ";
-        } 
         
-        return [ 'titulo' => $titulo,'codigo'=>$codigo];
+        switch ($laudo) {
+            case 'I801':
+                $titulo = "LAUDO DE EXAME DE VEÍCULO A MOTOR";
+                $codigo = "Código: I801";
+                $exame = "(NUMERAÇÕES IDENTIFICADORAS)";
+                $linha3preambulo='ao exame no veículo adiante descrito';
+                $tipoExame='ao exame nas numerações identificadoras do veículo apresentado.';
+                break;
+            case 'I802':
+                $titulo = "LAUDO DE EXAME DE COMPARTIMENTOS";
+                $codigo = "Código: I802";
+                $exame = "(COMPARTIMENTOS)";
+                $linha3preambulo='ao exame no veículo adiante descrito';
+                $tipoExame='ao exame para verificação de presença de compartimentos ocultos no veículo apresentado.';
+                break;
+            case 'I806':
+                $titulo = "LAUDO DE EXAME DE CONSTATAÇÃO";
+                $codigo = "Código: I806";
+                $exame = "(CONSTATAÇÃO)";
+                $linha3preambulo='ao exame nas peças adiante descritas,';
+                $tipoExame='ao exame de constatação nas peças apresentadas para perícia.';
+                break;
+            case 'I812':
+                $titulo = "LAUDO DE EXAME DE VEÍCULO A MOTOR";
+                $codigo = "Código: I812";
+                $exame = "(NUMERAÇÕES IDENTIFICADORAS + COMPARTIMENTOS)";
+                $linha3preambulo='ao exame no veículo adiante descrito';
+                $tipoExame='ao exame nas numerações identificadoras do veículo acima mencionado, bem como constatar no mesmo a existência de compartimentos ocultos.';
+                break;
+            default:
+                $titulo = "";
+                $codigo = "";
+                $linha3preambulo="";
+                $tipoExame='';
+                break;
+        }
+        
+        return [ 'titulo' => $titulo,'codigo'=>$codigo,'linha3preambulo'=>$linha3preambulo,'tipoExame'=>$tipoExame,'exame'=>$exame];
     }
     private function tipo_exame($laudo){
         //função para determinar o tipo de exame
@@ -91,6 +123,7 @@ class Geral
             $textrun = $this->section->addTextRun($this->config->paragraphCenter()),
             $textrun->addText($aux['titulo'], $this->config->arial14Bold()),
             $textrun->addTextBreak(),
+            $textrun->addText($aux['exame'],$this->config->arial12Bold(),$this->config->paragraphCenter()),
            
             //texto 1° paragrafo
             $this->section->addText($aux['codigo'],$this->config->arial12Bold(),$this->config->paragraphRight()),
@@ -116,7 +149,7 @@ class Geral
             $this->section->addTextBreak(1),
             $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
             $textrun->addText('Depreende-se da leitura do ofício supracitado que a perícia tem por finalidade ', $this->config->arial12()),
-            $textrun->addText("proceder ao exame nas ". $this->tipo_exame($laudo)." do veículo apresentado.", $this->config->arial12()),
+            $textrun->addText("proceder ".$aux['tipoExame'], $this->config->arial12()),
             $this->section->addTextBreak(1),
             $this->section->addText(''),'phpWord' => $this->phpWord];
             
