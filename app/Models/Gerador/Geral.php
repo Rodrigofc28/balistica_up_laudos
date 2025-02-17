@@ -131,7 +131,7 @@ class Geral extends Tabelas
         
         
        
-
+        //PREÂMBULO ARMAS
         $text = [
             
             $textrun = $this->section->addTextRun($this->config->paragraphCenter()),

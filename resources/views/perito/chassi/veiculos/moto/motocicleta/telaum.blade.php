@@ -2,7 +2,7 @@
 @section('page')
 
 <style>
-
+    /* Estilos para o container */
     .container {
         width: 90%;
         max-width: 1000px;
@@ -14,6 +14,7 @@
         box-sizing: border-box;
     }
 
+    /* Estilos para o cabeçalho */
     header {
         display: flex;
         align-items: center;
@@ -21,6 +22,7 @@
         position: relative;
     }
 
+    /* Estilos para o título */
     .titulo {
         background-color: #949494;
         padding: 10px;
@@ -126,20 +128,12 @@
         overflow: hidden;
     }
 
+    .preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
 
-
-.preview img {
-width: 100%;
-height: 100%;
-object-fit: contain;
-}
-
-
-.preview img {
-width: 100%;
-height: 100%;
-
-}
     .photo-container {
         margin: 20px 0;
     }
@@ -150,7 +144,6 @@ height: 100%;
         margin: 10px 0;
         border-radius: 8px;
     }
-
 
     .btnNext {
         border-radius: 5px;
@@ -172,224 +165,235 @@ height: 100%;
         display: none;
     }
 </style>
-</head>
 
 <body>
-<div class="container">
-    <header>
-        <h1>Exame de Identificação Veicular</h1>
-    </header>
-    <br>
+    <div class="container">
+        <header>
+            <h1>Exame de Identificação Veicular</h1>
+        </header>
+        <br>
 
-    <div class="progress-container">
-        <div class="progress-bar"></div>
-        <div class="step active">✔</div>
-        <div class="step">✔</div>
-        <div class="step">✔</div>
-        <div class="step">✔</div>
-    </div>
-
-    <h2>Motocicleta</h2>
-    <br><br>
-    <div class="conteinerImagemRecebida">
-        <div>
-            <input style="display: none" type="file" id="inputFile" accept="image/*">
-            <input style="display:none" type="file" id="inputFile1" accept="image/*">
-
-            <div id="cont_frente">
-                <h3 class="posicao">Foto 1: </h3>
-                <div class="preview" hidden id="preview"></div>
-                <div style="display:flex">
-                    <div class="preview" id="preview"></div>
-                    <div class="conteinerImg">
-                        <img id="image">
-                    </div>
-                </div>
-                <button class="btnNext" onclick="next('seta_frente')" id="seta_frente"><img style="width: 20px"
-                        src="../img/add-image.png" alt="adiciona foto"></button>
-                <button class="btnNext" id="rotateButton"><img style="width: 20px" src="img/rotate.png"
-                        alt="rotacionar"> </button>
-                <img style="width:30px" src="img/scroll.png" alt="zoom"><b>ZOOM</b>
-            </div>
-            <br>
-            <hr>
-            <div id="cont_tras">
-                <h3 class="posicao">Foto 2:</h3>
-                <div class="preview" hidden id="prev"></div>
-                <div style="display:flex">
-                    <div class="preview" id="prev"></div>
-                    <div class="conteinerImg">
-                        <img id="image1">
-                    </div>
-                </div>
-                <button class="btnNext" onclick="next('seta_verso')" id="seta_verso"><img style="width: 20px"
-                        src="../img/add-image.png" alt="adiciona foto"></button>
-                <button class="btnNext" id="rotateButton1"><img style="width: 20px" src="img/rotate.png"
-                        alt="rotacionar"> </button>
-                <img style="width:30px" src="img/scroll.png" alt="zoom"><b>ZOOM</b>
-            </div>
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+            <div class="step active">✔</div>
+            <div class="step">✔</div>
+            <div class="step">✔</div>
+            <div class="step">✔</div>
         </div>
-        <span class="msgErro" style="display: none;">Adicione as duas imagens (FRENTE e VERSO) para salvar e
-            continuar</span>
-    </div>
 
-    <div class="nav-buttons">
-        <button id="prev" >Voltar</button>
-        <button id="next">Avançar</button>
-    </div>
+        <h2>Motocicleta</h2>
+        <br><br>
+        <form action="{{ route('motocicletadois.create') }}" method="POST">
+            @csrf
+            <div class="conteinerImagemRecebida">
+                <div>
+                    <input style="display: none" type="file" id="inputFile" accept="image/*">
+                    <input style="display:none" type="file" id="inputFile1" accept="image/*">
 
-    <script>
-        // função pra pra redimensiona
-        function carrega(inputFile, image, cropper, preview, upImage, rotateButton, pre) {
-            inputFile.addEventListener('change', (event) => {
-                const file = event.target.files[0];
-                if (file && file.type.startsWith('image/')) {
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                        image.src = reader.result; // Define o src da imagem
-                        image.style.display = 'block'; // Exibe a imagem
+                    <div id="cont_frente">
+                        <h3 class="posicao">Foto 1: </h3>
+                        <div class="preview" hidden id="preview"></div>
+                        <div style="display:flex">
+                            <div class="preview" id="preview"></div>
+                            <div class="conteinerImg">
+                                <img id="image">
+                            </div>
+                        </div>
+                        <button class="btnNext" onclick="next('seta_frente')" id="seta_frente"><img style="width: 20px"
+                                src="../img/add-image.png" alt="adiciona foto"></button>
+                        <button class="btnNext" id="rotateButton"><img style="width: 20px" src="img/rotate.png"
+                                alt="rotacionar"> </button>
+                        <img style="width:30px" src="img/scroll.png" alt="zoom"><b>ZOOM</b>
+                    </div>
+                    <br>
+                    <hr>
+                    <div id="cont_tras">
+                        <h3 class="posicao">Foto 2:</h3>
+                        <div class="preview" hidden id="prev"></div>
+                        <div style="display:flex">
+                            <div class="preview" id="prev"></div>
+                            <div class="conteinerImg">
+                                <img id="image1">
+                            </div>
+                        </div>
+                        <button class="btnNext" onclick="next('seta_verso')" id="seta_verso"><img style="width: 20px"
+                                src="../img/add-image.png" alt="adiciona foto"></button>
+                        <button class="btnNext" id="rotateButton1"><img style="width: 20px" src="img/rotate.png"
+                                alt="rotacionar"> </button>
+                        <img style="width:30px" src="img/scroll.png" alt="zoom"><b>ZOOM</b>
+                    </div>
+                </div>
+                <span class="msgErro" style="display: none;">Adicione as duas imagens (FRENTE e VERSO) para salvar e
+                    continuar</span>
+            </div>
 
-                        if (cropper) {
-                            cropper.destroy(); // Remove o cropper anterior, se existir
-                        }
+            <div class="nav-buttons">
+                <button id="prev" onclick="prevStep()">Voltar</button>
+                <button id="next" onclick="nextStep()">Avançar</button>
+            </div>
 
-                        // Inicializa o Cropper.js
-                        cropper = new Cropper(image, {
-                            aspectRatio: NaN, // Proporção do quadrado
-                            viewMode: 0, // Garante que a área visível esteja dentro dos limites
-                            autoCrop: true, // Habilita o crop box automaticamente
-                            autoCropArea: 0.8, // Define 80% da imagem como área inicial de corte
-                            movable: true, // Permite mover o crop box
-                            zoomable: true, // Permite dar zoom na imagem
-                            scalable: true, // Permite redimensionar
-                            highlight: true, // Destaca a área de corte
-                            guides: true, // Mostra as linhas-guia dentro do crop box
-                            background: true, // Exibe o fundo sombreado
-                            cropBoxResizable: true, // Permite redimensionar o crop box
-                            preview: pre, // Atualiza automaticamente a pré-visualização
-                            ready() {
-                                console.log('Cropper pronto !'); // Verifica quando o cropper está pronto
-                            },
-                            crop() {
-                                const canvas = cropper.getCroppedCanvas({
-                                    width: 400, // Largura do canvas
-                                    height: 400, // Altura do canvas
+            <script>
+                // função pra pra redimensiona
+                function carrega(inputFile, image, cropper, preview, upImage, rotateButton, pre) {
+                    inputFile.addEventListener('change', (event) => {
+                        const file = event.target.files[0];
+                        if (file && file.type.startsWith('image/')) {
+                            const reader = new FileReader();
+                            reader.onload = () => {
+                                image.src = reader.result; // Define o src da imagem
+                                image.style.display = 'block'; // Exibe a imagem
+
+                                if (cropper) {
+                                    cropper.destroy(); // Remove o cropper anterior, se existir
+                                }
+
+                                // Inicializa o Cropper.js
+                                cropper = new Cropper(image, {
+                                    aspectRatio: NaN, // Proporção do quadrado
+                                    viewMode: 0, // Garante que a área visível esteja dentro dos limites
+                                    autoCrop: true, // Habilita o crop box automaticamente
+                                    autoCropArea: 0.8, // Define 80% da imagem como área inicial de corte
+                                    movable: true, // Permite mover o crop box
+                                    zoomable: true, // Permite dar zoom na imagem
+                                    scalable: true, // Permite redimensionar
+                                    highlight: true, // Destaca a área de corte
+                                    guides: true, // Mostra as linhas-guia dentro do crop box
+                                    background: true, // Exibe o fundo sombreado
+                                    cropBoxResizable: true, // Permite redimensionar o crop box
+                                    preview: pre, // Atualiza automaticamente a pré-visualização
+                                    ready() {
+                                        console.log('Cropper pronto !'); // Verifica quando o cropper está pronto
+                                    },
+                                    crop() {
+                                        const canvas = cropper.getCroppedCanvas({
+                                            width: 400, // Largura do canvas
+                                            height: 400, // Altura do canvas
+                                        });
+
+                                        preview.innerHTML = ''; // Limpa a pré-visualização anterior
+                                        const croppedImage = document.createElement('img');
+                                        croppedImage.src = canvas.toDataURL(); // Converte o canvas para DataURL
+                                        preview.appendChild(croppedImage); // na a nova imagem cortada
+                                        canvas.toBlob((blob) => {
+                                            const randomString = Math.random().toString(36).substring(2, 10); // Gera uma string aleatória
+                                            const fileName = `cropped-image-${randomString}.png`; // Concatena o nome com o random
+
+                                            const file = new File([blob], fileName, { type: 'image/png' });
+                                            const dataTransfer = new DataTransfer();
+                                            dataTransfer.items.add(file); // Adiciona o arquivo ao DataTransfer
+
+                                            // Simula a seleção do arquivo
+                                            upImage.files = dataTransfer.files;
+                                        }, 'image/png');
+                                    },
                                 });
-
-                                preview.innerHTML = ''; // Limpa a pré-visualização anterior
-                                const croppedImage = document.createElement('img');
-                                croppedImage.src = canvas.toDataURL(); // Converte o canvas para DataURL
-                                preview.appendChild(croppedImage); // na a nova imagem cortada
-                                canvas.toBlob((blob) => {
-                                    const randomString = Math.random().toString(36).substring(2, 10); // Gera uma string aleatória
-                                    const fileName = `cropped-image-${randomString}.png`; // Concatena o nome com o random
-
-                                    const file = new File([blob], fileName, { type: 'image/png' });
-                                    const dataTransfer = new DataTransfer();
-                                    dataTransfer.items.add(file); // Adiciona o arquivo ao DataTransfer
-
-                                    // Simula a seleção do arquivo
-                                    upImage.files = dataTransfer.files;
-                                }, 'image/png');
-                            },
-                        });
-                    };
-                    reader.readAsDataURL(file); // Lê o arquivo como DataURL
-                } else {
-                    alert('Por favor, selecione um arquivo de imagem válido.');
+                            };
+                            reader.readAsDataURL(file); // Lê o arquivo como DataURL
+                        } else {
+                            alert('Por favor, selecione um arquivo de imagem válido.');
+                        }
+                    })
+                    rotateButton.addEventListener('click', () => {
+                        if (cropper) {
+                            cropper.rotate(90); // Rotaciona a imagem 90 graus no sentido horário
+                        }
+                    });
                 }
-            })
-            rotateButton.addEventListener('click', () => {
-                if (cropper) {
-                    cropper.rotate(90); // Rotaciona a imagem 90 graus no sentido horário
+
+                function click_input_file(file_input) {
+                    document.getElementById(file_input).click();
+                    let inputFile = document.getElementById('inputFile');
+                    let image = document.getElementById('image');
+                    let preview = document.getElementById('preview');
+                    let upImage = document.getElementById('upImage'); // Seu input de arquivo
+                    let prevFrente = "#preview"
+                    let rotateButton = document.getElementById('rotateButton');
+                    let cropper;
+                    carrega(inputFile, image, cropper, preview, upImage, rotateButton, prevFrente)
                 }
-            });
-        }
 
-        function click_input_file(file_input) {
-            document.getElementById(file_input).click();
-            let inputFile = document.getElementById('inputFile');
-            let image = document.getElementById('image');
-            let preview = document.getElementById('preview');
-            let upImage = document.getElementById('upImage'); // Seu input de arquivo
-            let prevFrente = "#preview"
-            let rotateButton = document.getElementById('rotateButton');
-            let cropper;
-            carrega(inputFile, image, cropper, preview, upImage, rotateButton, prevFrente)
-        }
+                //Verso Embalagens
+                function click_input_file1(file_input) {
+                    document.getElementById(file_input).click();
+                    let inputFile = document.getElementById('inputFile1');
+                    let image = document.getElementById('image1');
+                    let preview1 = document.getElementById('prev');
+                    let preVerso = "#prev"
+                    let upImage = document.getElementById('upImage2'); // Seu input de arquivo
+                    let rotateButton = document.getElementById('rotateButton1');
+                    let cropper;
+                    carrega(inputFile, image, cropper, preview1, upImage, rotateButton, preVerso)
+                }
 
-        //Verso Embalagens
-        function click_input_file1(file_input) {
-            document.getElementById(file_input).click();
-            let inputFile = document.getElementById('inputFile1');
-            let image = document.getElementById('image1');
-            let preview1 = document.getElementById('prev');
-            let preVerso = "#prev"
-            let upImage = document.getElementById('upImage2'); // Seu input de arquivo
-            let rotateButton = document.getElementById('rotateButton1');
-            let cropper;
-            carrega(inputFile, image, cropper, preview1, upImage, rotateButton, preVerso)
-        }
+                function next(arg) {
+                    if (arg == "seta_verso") {
+                        click_input_file1('inputFile1')
+                    } else if ((arg == "seta_frente")) {
+                        click_input_file('inputFile')
+                    }
+                }
 
-        function next(arg) {
-            if (arg == "seta_verso") {
-                click_input_file1('inputFile1')
-            } else if ((arg == "seta_frente")) {
-                click_input_file('inputFile')
-            }
-        }
+                function salvaContinuar(imagem1, imagem2) {
+                    const img1 = document.getElementById(imagem1);
+                    const img2 = document.getElementById(imagem2);
+                    const fileimg = img1.files[0];
+                    const fileimg2 = img2.files[0];
 
-        function salvaContinuar(imagem1, imagem2) {
-            const img1 = document.getElementById(imagem1);
-            const img2 = document.getElementById(imagem2);
-            const fileimg = img1.files[0];
-            const fileimg2 = img2.files[0];
-
-            if (!fileimg || !fileimg2) {
-                document.querySelector('.msgErro').style.display = 'block';
-            } else {
-                document.querySelector('.msgErro').style.display = 'none';
-                document.getElementById('status').value = 'cadastrar';
-                document.querySelector('.uploadForm').submit();
-            }
-        }
-
-        $(document).ready(function () {
-            const steps = $(".step");
-            const progressBar = $(".progress-bar");
-            const prevButton = $("#prev");
-            const nextButton = $("#next");
-
-            let currentStep = 1;
-
-            nextButton.on("click", function () {
-                currentStep++;
-                updateProgress();
-            });
-
-            prevButton.on("click", function () {
-                currentStep--;
-                updateProgress();
-            });
-
-            function updateProgress() {
-                steps.each(function (index) {
-                    if (index < currentStep) {
-                        $(this).addClass("active");
+                    if (!fileimg || !fileimg2) {
+                        document.querySelector('.msgErro').style.display = 'block';
                     } else {
-                        $(this).removeClass("active");
+                        document.querySelector('.msgErro').style.display = 'none';
+                        document.getElementById('status').value = 'cadastrar';
+                        document.querySelector('.uploadForm').submit();
+                    }
+                }
+
+                $(document).ready(function () {
+                    const steps = $(".step");
+                    const progressBar = $(".progress-bar");
+                    const prevButton = $("#prev");
+                    const nextButton = $("#next");
+
+                    let currentStep = 1;
+
+                    nextButton.on("click", function () {
+                        currentStep++;
+                        updateProgress();
+                    });
+
+                    prevButton.on("click", function () {
+                        currentStep--;
+                        updateProgress();
+                    });
+
+                    function updateProgress() {
+                        steps.each(function (index) {
+                            if (index < currentStep) {
+                                $(this).addClass("active");
+                            } else {
+                                $(this).removeClass("active");
+                            }
+                        });
+
+                        progressBar.css("width", ((currentStep - 1) / (steps.length - 1)) * 100 + "%");
+
+                        prevButton.prop("disabled", currentStep === 1);
+                        nextButton.prop("disabled", currentStep === steps.length);
                     }
                 });
 
-                progressBar.css("width", ((currentStep - 1) / (steps.length - 1)) * 100 + "%");
+                function prevStep() {
+                    currentStep--;
+                    updateProgress();
+                }
 
-                prevButton.prop("disabled", currentStep === 1);
-                nextButton.prop("disabled", currentStep === steps.length);
-            }
-        });
-    </script>
-    <script src="https://unpkg.com/cropperjs/dist/cropper.min.js"></script>
-</div>
-</body>
+                function nextStep() {
+                    currentStep++;
+                    updateProgress();
+                }
+            </script>
+            <script src="https://unpkg.com/cropperjs/dist/cropper.min.js"></script>
+        </div>
+    </body>
 
 @endsection

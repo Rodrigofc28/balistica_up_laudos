@@ -44,102 +44,14 @@
        
       </div>
        
-<div class="col-lg-12" id="editarInformacoes">
-    {!! Form::open(['route' => ['laudos.update', $laudo], 'method' => 'patch']) !!}
 
-    <input type="hidden" value="{{$laudo->id}}" id="laudo_id" name="laudo_id">
-    <div class="form-group row"> 
-        
-        
-      
-
-         @include('perito.laudo.attributes.rep', ['rep' => '' ?? old('rep')])
-        @include('perito.laudo.attributes.oficio', ['oficio' => '' ?? old('oficio')])
-        
-        @include('perito.laudo.attributes.tipo_inquerito', ['tipo_inquerito2' => '' ??
-        old('tipo_inquerito')])
-        @include('perito.laudo.attributes.inquerito', ['inquerito' => '' ?? old('inquerito')])
-
-        @include('shared.input_calendar', ['label' => 'Data da Solicitação',
-        'name' => 'data_solicitacao', 'size' => '3', 'value' => ''])
-
-        @include('shared.input_calendar', ['label' => 'Data da Designação',
-        'name' => 'data_designacao', 'size' => '3', 'value' => ''])
-        @include('shared.input_calendar', ['label' => 'Data da ocorrência', 'name' => 'data_ocorrencia', 'size' => '3',
-        'value' => ''])
-        @include('shared.input_calendar', ['label' => 'Data do recebimento', 'name' => 'data_recebimento', 'size' => '3',
-        'value' => ''])
-
-        <input class="form-control" type="hidden" name="perito_id" autocomplete="off" value="{{ Auth::id() }}" />
-        @include('shared.attributes.secao', ['secao2' => '' ?? old('secao_id')])
-        @include('shared.attributes.cidades', ['id' => 'cidade_id', 'size' => '4', 'cidade2' => '$laudo->cidade_id '??
-        old('cidade_id')])
-        
-
-        @include('perito.laudo.attributes.solicitante', ['solicitante2' => $laudo->solicitante_id ??
-        old('solicitante_id')])
-        @include('perito.laudo.attributes.boletim_ocorrencia',['boletim2'=>''??old('boletim')])
-       
-         
-        
-        
-        <div class="col-lg-3 mt-auto">
-            <button type="submit" id="salvar" class="btn btn-primary mt-2">
-                <i class="far fa-save" aria-hidden="true"></i>
-                Editar Informações
-            </button>
-        </div>
-        {{ Form::close() }} 
-    </div>
-</div>
 
 <hr>
 
 <div class="col-lg-12">
     
     
-    <div style="border:solid 1px #E0E0E0;text-align:center ">
-        <h4 ><b>IMAGENS</b></h4>
-        
-    
-        <hr>
-        <div>
-        
-        
-        @if(isset($laudo->imagens[0]->nome))
-                @php
-                    $posicao=['FRENTE','VERSO']
-                @endphp
-            
-            <div class="conteiner_embalagens_foto">
-                @foreach ($laudo->imagens as $index => $imagem)
-                    <div class="fotosEmbalagens">
-                        <img src="{{ asset('storage/imagensEmbalagem/' . $imagem->nome) }}" 
-                            style="width:100px; height:100px; padding:10px" 
-                            alt="Imagem da embalagem">
-                        <strong>
-                            <!-- Exibe a posição baseada no índice da imagem -->
-                            <span>{{ $posicao[$index % 2] }}</span> <!-- Alterna entre 'FRENTE' e 'VERSO' -->
-                            
-                            <form method="POST" action="{{ route('editar_embalagem', ['id' => $imagem->id]) }}" enctype="multipart/form-data">
-                                {{ csrf_field() }}
-                                <!-- Input File Oculto -->
-                                <input type="file" id="fileInput{{ $imagem->id }}" accept=".jpg, .jpeg, .png" name="fotoEmbalagem" style="display: none;" onchange="this.form.submit();">
-                            
-                                <!-- Botão Personalizado -->
-                                <button type="button" class="btn btn-warning" onclick="document.getElementById('fileInput{{ $imagem->id }}').click();">
-                                    <img src="{{ asset('image/substituir.png') }}" alt="">
-                                    <b>Substituir</b>
-                                </button>
-                            </form>
-                        </strong>
-                    </div>
-                @endforeach
-            </div>
-        @endif
-    </div>
- 
-    </div>
+   
     
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-striped" id="tabela_pecas">
@@ -155,9 +67,7 @@
                 </tr>
             </thead>
             <tbody align="center">
-                @includeWhen(count($) > 0, '')
-                @includeWhen(count($) > 0, '')
-                @includeWhen(count($) > 0, '')
+                
             </tbody>
         </table>
     </div>
@@ -166,24 +76,19 @@
 
     <div class="row mb-3">
         <div class="col-lg-3 mt-2">
-            <a class="btn btn-secondary btn-block" href="{!! URL::previous() !!}">
+            <a class="btn btn-secondary btn-block" href="">
                 <i class="fas fa-arrow-circle-left"></i> Voltar</a>
         </div>
 
         <div class="col-lg-3 mt-2">
-            <a class="btn btn-success btn-block" href="{{ route('laudos.materiais', $laudo )}}">
+            <a class="btn btn-success btn-block" href="">
                 <i class="fas fa-plus" aria-hidden="true"></i>
                 Adicionar Material
             </a>
         </div>
-        {{-- <div class="col-lg-3 mt-2">
-            <a class="btn btn-success btn-block" href="{{ route('laudos.materiais', $laudo )}}">
-        <i class="fas fa-camera" aria-hidden="true"></i>
-        Adicionar Imagens
-        </a>
-    </div> --}}
+        
     <div class="col-lg-3 mt-2">
-        <a class="btn btn-primary btn-block" href="{{ route('laudos.docx', $laudo )}}">
+        <a class="btn btn-primary btn-block" href="">
             <i class="fas fa-file-download" aria-hidden="true"></i>
             Gerar Laudo (.docx)
         </a>
@@ -191,5 +96,5 @@
 </div>
 </div>
 
-@include('perito.modals.solicitante_modal')
+
 @endsection

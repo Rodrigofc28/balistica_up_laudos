@@ -95,8 +95,9 @@
             <a href="{{route('carro.index')}}"><img src="{{asset('image/img/carro.png')}}" alt="Carro"></a>
             <span>Carro</span>
         </div>
+
         <div class="option">
-            <a href="{{route('motocicleta.index')}}"><img src="{{asset('image/img/moto.png')}}" alt="Moto"></a>
+            <a href="{{route('motocicletas.tela2', $laudo_id)}}"><img src="{{asset('image/img/moto.png')}}" alt="Moto"></a>
             <span>Moto</span>
         </div>  
         <div class="option">
@@ -112,6 +113,10 @@
             <span>Outros</span>
         </div>
         
+
+        
+        <a href="{{ route('laudosChassi.docx', $laudo_id)}}" >Gerar laudo</a>
+
     </div>
 
     <a href="javascript:history.back()" class="back-button">Voltar</a>

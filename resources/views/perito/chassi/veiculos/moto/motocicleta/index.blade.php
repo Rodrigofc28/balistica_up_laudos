@@ -2,6 +2,7 @@
 @section('page')
 <div class="container">
     <style>
+        /* Estilos para o container */
         .container {
             width: 90%;
             max-width: 1000px;
@@ -13,6 +14,7 @@
             box-sizing: border-box;
         }
 
+        /* Estilos para o cabeçalho */
         header {
             display: flex;
             align-items: center;
@@ -20,6 +22,7 @@
             position: relative;
         }
 
+        /* Estilos para o progresso */
         .progress-bar {
             display: flex;
             justify-content: space-between;
@@ -185,6 +188,11 @@
             gap: 10px;
         }
     </style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
     <header>
         <h1>Exame de Identificação Veicular</h1>
     </header>
@@ -196,13 +204,11 @@
         <div class="step"></div>
         <div class="step"></div>
     </div>
-<br>
+    <br>
     <h2>Motocicleta</h2>
 
-<br>
-
-<form action="{{ route('motocicletadois.store') }}" method="POST">
-    @csrf
+    <form id="form" action="{{route('motocicletas.tela3', $laudo)}}">
+        {{ csrf_field() }}
         <div class="form-group">
             <label for="estado-conservacao">Estado de conservação:</label>
             <select id="estado-conservacao" name="estado-conservacao" required>
@@ -214,30 +220,21 @@
                 <option>ÓTIMO</option>
             </select>
         </div>
-        
-        
+
         <div class="form-group">
             <label for="marca">Marca:</label>
-            <select id="marca" name="marca" required>
-                <option>Selecione</option>
-                <option value="Outros">Outros</option>
-
-            
-            </select>
-            <input type="text" id="outro-marca" name="outro-marca" placeholder="Digite a marca" style="display:none;">
+            <input type="text" id="marca" name="marca" placeholder="Digite a marca" required>
+            <button id="add-marca" type="button">Adicionar marca</button>
+            <div id="marca-suggestions"></div>
         </div>
 
         <div class="form-group">
             <label for="modelo">Modelo:</label>
-            <select id="modelo" name="modelo" required>
-                <option>Selecione</option>
-                <option value="Outros">Outros</option>
-
-
-            </select>
-            <input type="text" id="outro-modelo" name="outro-modelo" placeholder="Digite o modelo" style="display:none;">
+            <input type="text" id="modelo" name="modelo" placeholder="Digite o modelo" required>
+            <button id="add-modelo" type="button">Adicionar modelo</button>
+            <div id="modelo-suggestions"></div>
         </div>
-        
+
         <div class="form-group">
             <label for="data">Ano:</label>
             <input type="text" id="data" maxlength="4" placeholder="0000" name="data" required>
@@ -247,9 +244,7 @@
             <label for="placa">Placa atual:</label>
             <input type="text" id="placa" name="placa">
             <label><input type="checkbox" id="nao-tem-placa" name="nao-tem-placa"> Não tem placa</label>
-        </div>   
-        
-        
+        </div>
 
         <div class="form-group">
             <label>Cor predominante:</label><br>
@@ -265,123 +260,143 @@
                 <label><input type="radio" name="cor" value="Marrom"> Marrom</label>
                 <label><input type="radio" name="cor" value="Amarelo"> Amarelo</label>
                 <label><input type="radio" name="cor" value="Laranja"> Laranja</label>
-                
+
                 <!-- Campo para adicionar cor personalizada -->
                 <label><input type="radio" name="cor" value="Outras" id="outra-cor-radio"> Outras</label>
             </div>
-        
+
             <!-- Campo de texto que aparece apenas quando 'Outras' é selecionado -->
             <input type="text" id="outro-cor" name="outro-cor" placeholder="Digite a cor" style="display:none;">
         </div>
 
-        
-
- 
-
         <div class="nav-buttons">
             <button id="prev" onclick="window.history.back()">Voltar</button>
-            <button id="next" class="btn btn-primary" type="button" onclick="saveAndRedirect()">Avançar</button>
-
+            <button id="next" class="btn btn-primary" type="button" >Avançar</button>
         </div>
-    </form>   
-    
+    </form>
+
     <script>
-<script>
-
-        function saveAndRedirect() {
-        // Coletar os dados do formulário ou dos campos que precisam ser salvos
-        let data = {
-            campo1: document.getElementById('campo1').value,
-            campo2: document.getElementById('campo2').value,
-            // Adicione outros campos conforme necessário
-        };
-
-        // Enviar os dados via AJAX
-        fetch('URL_DO_BACKEND', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'  // Para Laravel
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {  // Verifique se o backend retorna um sucesso
-                // Caso o salvamento seja bem-sucedido, redirecionar para a próxima página
-                window.location.href = 'URL_DA_PRÓXIMA_TELA';  // Defina aqui a URL da próxima tela
-            } else {
-                alert('Erro ao salvar os dados!'); // Mensagem de erro caso algo não tenha dado certo
+        // Função para adicionar marca
+        document.getElementById('add-marca').addEventListener('click', function() {
+            const marca = document.getElementById('marca').value;
+            if (marca !== '') {
+                fetch('/add-marca', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ marca: marca })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Marca adicionada com sucesso!');
+                        document.getElementById('marca').value = '';
+                    } else {
+                        alert('Erro ao adicionar marca!');
+                    }
+                })
+                .catch(error => console.error(error));
             }
-        })
-        .catch((error) => {
-            console.error('Erro ao salvar os dados:', error);
-            alert('Houve um erro ao tentar salvar. Tente novamente.');
         });
-    }
-</script>
 
-        
+        // Função para adicionar modelo
+        document.getElementById('add-modelo').addEventListener('click', function() {
+            const modelo = document.getElementById('modelo').value;
+            if (modelo !== '') {
+                fetch('/add-modelo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ modelo: modelo })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Modelo adicionado com sucesso!');
+                        document.getElementById('modelo').value = '';
+                    } else {
+                        alert('Erro ao adicionar modelo!');
+                    }
+                })
+                .catch(error => console.error(error));
+            }
+        });
 
-        <script>
-            document.getElementById('outra-cor-radio').addEventListener('change', function() {
+        // Função para buscar marcas
+        document.getElementById('marca').addEventListener('input', function() {
+            const marca = document.getElementById('marca').value;
+            if (marca !== '') {
+                fetch(`/buscar-marcas?marca=${marca}`)
+                .then(response => response.json())
+                .then(data => {
+                    const marcaSuggestions = document.getElementById('marca-suggestions');
+                    marcaSuggestions.innerHTML = '';
+                    data.forEach(marca => {
+                        const option = document.createElement('div');
+                        option.textContent = marca;
+                        option.addEventListener('click', () => {
+                            document.getElementById('marca').value = marca;
+                            marcaSuggestions.innerHTML = '';
+                        });
+                        marcaSuggestions.appendChild(option);
+                    });
+                })
+                .catch(error => console.error(error));
+            }
+        });
+
+        // Função para buscar modelos
+        document.getElementById('modelo').addEventListener('input', function() {
+            const modelo = document.getElementById('modelo').value;
+            if (modelo !== '') {
+                fetch(`/buscar-modelos?modelo=${modelo}`)
+                .then(response => response.json())
+                .then(data => {
+                    const modeloSuggestions = document.getElementById('modelo-suggestions');
+                    modeloSuggestions.innerHTML = '';
+                    data.forEach(modelo => {
+                        const option = document.createElement('div');
+                        option.textContent = modelo;
+                        option.addEventListener('click', () => {
+                            document.getElementById('modelo').value = modelo;
+                            modeloSuggestions.innerHTML = '';
+                        });
+                        modeloSuggestions.appendChild(option);
+                    });
+                })
+                .catch(error => console.error(error));
+            }
+        });
+
+        // Função para mostrar/ocultar campo de texto para cor personalizada
+        document.querySelectorAll('input[name="cor"]').forEach(radio => {
+            radio.addEventListener('change', function() {
                 const outroCorInput = document.getElementById('outro-cor');
-                if (this.checked) {
+                if (this.value === 'Outras') {
                     outroCorInput.style.display = 'inline-block';
                 } else {
                     outroCorInput.style.display = 'none';
                 }
             });
-        </script>
-
-    <script>
-        // função para ordenar as opções do select
-        function ordenarSelect(selectId) {
-            var select = document.getElementById(selectId);
-            var options = Array.from(select.options);
-            options.sort(function(a, b) {
-                if (a.text < b.text) return -1;
-                if (a.text > b.text) return 1;
-                return 0;
-            });
-    
-            // Limpar as opções atuais
-            select.innerHTML = "";
-    
-            // Re-inserir as opções ordenadas
-            options.forEach(function(option) {
-                select.appendChild(option);
-            });
-        }
-    
-        // Chamar a função de ordenação para os dois selects
-        window.onload = function() {
-            ordenarSelect("modelo");
-            ordenarSelect("marca");
-        }
-    
-        // Script para mostrar o campo de texto de modelo apenas quando 'Outros' for selecionado
-        document.getElementById('modelo').addEventListener('change', function() {
-            const outroModeloInput = document.getElementById('outro-modelo');
-            if (this.value === 'Outros') {
-                outroModeloInput.style.display = 'inline-block';
-            } else {
-                outroModeloInput.style.display = 'none';
-            }
         });
-    
-        // Script para mostrar o campo de texto de marca apenas quando 'Outros' for selecionado
-        document.getElementById('marca').addEventListener('change', function() {
-            const outroMarcaInput = document.getElementById('outro-marca');
-            if (this.value === 'Outros') {
-                outroMarcaInput.style.display = 'inline-block';
-            } else {
-                outroMarcaInput.style.display = 'none';
-            }
-        });
-    </script>
+        // Função para salvar e redirecionar
+        function saveAndRedirect(event) {
+            event.preventDefault()
 
-    <script>
+            console.log(route)
+            
+            const form = document.getElementById('form');
+            if (form.checkValidity()) {
+                form.action = route;
+                form.submit();
+            }
+        }
+
+        // Função para atualizar a barra de progresso
         const steps = document.querySelectorAll(".step");
         const progressBar = document.querySelector(".progress-bar");
         const prevButton = document.getElementById("prev");
@@ -422,13 +437,14 @@
             prevButton.disabled = currentStep === 1;
             nextButton.disabled = currentStep === steps.length;
         }
+
+        // Função para atualizar a placa
         const placaInput = document.getElementById("placa");
-const naoTemPlacaCheckbox = document.getElementById("nao-tem-placa");
+        const naoTemPlacaCheckbox = document.getElementById("nao-tem-placa");
 
-naoTemPlacaCheckbox.addEventListener("change", () => {
-    placaInput.disabled = naoTemPlacaCheckbox.checked;
-});
-
+        naoTemPlacaCheckbox.addEventListener("change", () => {
+            placaInput.disabled = naoTemPlacaCheckbox.checked;
+        });
     </script>
 </div>
 @endsection
