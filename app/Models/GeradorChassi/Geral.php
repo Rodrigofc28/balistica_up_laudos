@@ -10,7 +10,8 @@ use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shape;
 use PhpOffice\PhpWord\Style\Font;
 use Illuminate\Support\Facades\DB;
-use app\Models\ChassiDate\Chassi;
+
+use App\Models\ChassiDate\Chassi;
 use NumberFormatter;
 
 
@@ -160,7 +161,7 @@ class Geral
             $this->section->addText('DO VEÍCULO', $this->config->arial12Bold(), $this->config->paragraphJustify()),
             $this->section->addTextBreak(1),
             $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
-            $textrun->addText('Trata-se de'.$chassi['modelo'], $this->config->arial12()),
+            $textrun->addText('Trata-se de uma '.$chassi['veiculo_id'].' da marca de fabricação '.$chassi['marca']. $chassi['modelo'], $this->config->arial12()),
             $this->section->addTextBreak(1),
             $this->section->addText(''),'phpWord' => $this->phpWord];    
         return $this->section;
