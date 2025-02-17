@@ -12,6 +12,7 @@ use App\Models\Secao;
 
 class ChassisController extends Controller
 {
+   //Salvando o preâmbulo do laudo
    public function store(LaudoRequest $request){
          
          $laudo = Laudo::config_laudo_info($request);
@@ -21,13 +22,15 @@ class ChassisController extends Controller
          $laudo_id = $laudo->id;
         return view('perito.chassi.index',compact('laudo_id'));
    }
-   public function generate_docx(Laudo $laudo){    
+ 
+   //Gerador do laudo
+   public function generate_docx(Laudo $laudo)
+    {
        
-         
-         $phpWord = new Gerar();
-         $phpWord = $phpWord->create_docx($laudo);
+            $phpWord = new Gerar();
+            $phpWord = $phpWord->create_docx($laudo);
 
-        return $phpWord;
-   }
-    
+            return $phpWord;
+        
+    }
 }
