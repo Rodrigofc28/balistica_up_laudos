@@ -115,7 +115,7 @@
         
 
         
-        <a href="{{ route('laudosChassi.docx', $laudo_id)}}" >Gerar laudo</a>
+        
 
     </div>
 

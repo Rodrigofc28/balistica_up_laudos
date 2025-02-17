@@ -26,7 +26,7 @@ class ChassisController extends Controller
    //Gerador do laudo
    public function generate_docx(Laudo $laudo)
     {
-       
+                
             $phpWord = new Gerar();
             $phpWord = $phpWord->create_docx($laudo);
 

@@ -58,24 +58,34 @@
                 <tr>
                     <th>Tipo</th>
                     <th>Marca</th>
-                    <th>Cor</th>
+                    <th>Modelo</th>
                     <th>Ano</th>
+                    
                     <th>Nº da placa</th>
                     <th colspan="2">Ações</th>
                 </tr>
             </thead>
             <tbody align="center">
-                foreach ($ as $)
+
+                @foreach ($ as $)
                     <tr>
-                        <td> $chassi->tipo </td>
-                        <td> $chassi->marca </td>
-                        <td> $chassi->cor </td>
-                        <td> $chassi->ano </td>
-                        <td> $chassi->placa </td>
+                        <td> {{$chassi->tipo}} </td>
+                        <td> {{$chassi->marca}} </td>
+                        <td> {{$chassi->cor}} </td>
+                        <td> {{$chassi->ano}} </td>
+                        <td> {{$chassi->placa}} </td>
                         <td><button class="btn btn-info">Editar</button></td>
                         <td><button class="btn btn-danger">Excluir</button></td>
                     </tr>-
-               endforeach
+               @endforeach
+
+              
+                    <td>{{$chassi['marca_fabricacao']}}</td>
+                    <td>{{$chassi['id']}}</td>
+                    <td>{{$chassi['ano']}}</td>
+                    <td>{{$chassi['placa']}}</td>
+                    <td>{{$chassi['modelo']}}</td>
+
             </tbody>
         </table>
     </div>
@@ -97,11 +107,12 @@
         </div>
         
     <div class="col-lg-3 mt-2">
-        <a class="btn btn-primary btn-block" href="">
+        <a class="btn btn-primary btn-block" href="{{ route('laudosChassi.docx', ['laudo' => $laudo]) }}">
             <i class="fas fa-file-download" aria-hidden="true"></i>
             Gerar Laudo (.docx)
         </a>
     </div>
+    
 </div>
 </div>
 

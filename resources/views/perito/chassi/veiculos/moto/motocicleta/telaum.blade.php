@@ -226,8 +226,8 @@
     </div>
     
     <div class="nav-buttons">
-        <button id="prev">Voltar</button>
-        <button id="next">Avançar</button>
+        <button id="prev" onclick="window.history.back()">Voltar</button>
+        <button id="next" onclick="window.history.next()">Avançar</button>
     </div>
 </div>
 
@@ -366,40 +366,50 @@
             document.querySelector('.uploadForm').submit();
         }
     }
-
     $(document).ready(function () {
-        const steps = $(".step");
-        const progressBar = $(".progress-bar");
-        const prevButton = $("#prev");
-        const nextButton = $("#next");
+    const steps = $(".step");
+    const progressBar = $(".progress-bar");
+    const prevButton = $("#prev");
+    const nextButton = $("#next");
 
-        let currentStep = 1;
+    let currentStep = 1;
 
-        nextButton.on("click", function () {
+    nextButton.on("click", function () {
+        if (currentStep < steps.length) {
             currentStep++;
             updateProgress();
-        });
-
-        prevButton.on("click", function () {
-            currentStep--;
-            updateProgress();
-        });
-
-        function updateProgress() {
-            steps.each(function (index) {
-                if (index < currentStep) {
-                    $(this).addClass("active");
-                } else {
-                    $(this).removeClass("active");
-                }
-            });
-
-            progressBar.css("width", ((currentStep - 1) / (steps.length - 1)) * 100 + "%");
-
-            prevButton.prop("disabled", currentStep === 1);
-            nextButton.prop("disabled", currentStep === steps.length);
         }
     });
+
+    prevButton.on("click", function () {
+        if (currentStep > 1) {
+            currentStep--;
+            updateProgress();
+        }
+    });
+
+    function updateProgress() {
+        // Atualiza a visibilidade das etapas
+        steps.each(function (index) {
+            if (index + 1 === currentStep) {
+                $(this).show(); // Exibe a etapa atual
+            } else {
+                $(this).hide(); // Oculta as etapas que não são a atual
+            }
+        });
+
+        // Atualiza a barra de progresso
+        progressBar.css("width", ((currentStep - 1) / (steps.length - 1)) * 100 + "%");
+
+        // Desabilita os botões de navegação conforme o caso
+        prevButton.prop("disabled", currentStep === 1);
+        nextButton.prop("disabled", currentStep === steps.length);
+    }
+
+    // Inicializa com a primeira etapa visível
+    updateProgress();
+});
+
 </script>
 
 @endsection
