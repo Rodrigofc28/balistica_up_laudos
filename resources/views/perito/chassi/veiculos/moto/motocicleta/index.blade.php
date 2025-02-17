@@ -1,9 +1,8 @@
 @extends('layout.component')
 @section('page')
-    <div class="container">
+<div class="container">
     <style>
-       
-
+        /* Estilos para o container */
         .container {
             width: 90%;
             max-width: 1000px;
@@ -15,6 +14,7 @@
             box-sizing: border-box;
         }
 
+        /* Estilos para o cabeçalho */
         header {
             display: flex;
             align-items: center;
@@ -22,6 +22,7 @@
             position: relative;
         }
 
+        /* Estilos para o progresso */
         .progress-bar {
             display: flex;
             justify-content: space-between;
@@ -99,9 +100,6 @@
             margin: 0 10px;
         }
 
-
-       
-
         .progress-container {
             display: flex;
             justify-content: space-between;
@@ -158,234 +156,295 @@
             background-color: #ccc;
             cursor: not-allowed;
         }
+
         .form-group {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                }
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-                label {
-                    font-weight: bold;
-                }
+        label {
+            font-weight: bold;
+        }
 
-                select {
-                    width: 150px;
-                    padding: 5px;
-                }
+        select {
+            width: 150px;
+            padding: 5px;
+        }
 
-                input[type="number"] {
-                    width: 80px;
-                    padding: 5px;
-                }
-                .form-container {
-                    display: flex;
-                    gap: 20px;
-                }
+        input[type="number"] {
+            width: 80px;
+            padding: 5px;
+        }
 
-                .form-group {
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                }
+        .form-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
     </style>
-        <header>
-            <h1>Exame de Identificação Veicular</h1>
-        </header>
-        <br>
-
-        <body>
-
-
-            <div class="progress-container">
-                <div class="progress-bar"></div>
-                <div class="step active">✔</div>
-                <div class="step">✔</div>
-                <div class="step">✔</div>
-                <div class="step">✔</div>
-            </div>
-
-
-
-
-            <h2>Motocicleta</h2>
-
-
-            <div class="form-group">
-                <label for="estado-conservacao">Estado de conservação:</label>
-                <select id="estado-conservacao">
-                    <option>Selecione</option>
-                    <option>BAIXADO</option>
-                    <option>MAU</option>
-                    <option>BOM</option>
-                    <option>REGULAR</option>
-                    <option>ÓTIMO</option>
-                </select>
-            </div>
-
-
-            <div class="form-group">
-                <label for="modelo">Modelo:</label>
-                <select id="modelo">
-                    <option>Selecione</option>
-                    <option value="AFRICA_TWIN">AFRICA TWIN</option>
-                    <option value="BMW_R1250GS">BMW R1250GS</option>
-                    <option value="DUCATI_MONSTER">DUCATI MONSTER</option>
-                    <option value="HONDA_CB500F">HONDA CB500F</option>
-                    <option value="INDIAN_SCOUT">INDIAN SCOUT</option>
-                    <option value="KAWASAKI_NINJA_400">KAWASAKI NINJA 400</option>
-                    <option value="KTM_390_DUKE">KTM 390 DUKE</option>
-                    <option value="LAMBRETTA_L50">LAMBRETTA L50</option>
-                    <option value="MOTO_GUZZI_V85TT">MOTO GUZZI V85TT</option>
-                    <option value="MV_AGUSTA_F3">MV AGUSTA F3</option>
-                    <option value="NORTON_650SS">NORTON 650SS</option>
-                    <option value="PEUGEOT_PHX125">PEUGEOT PHX125</option>
-                    <option value="ROYAL_ENFIELD_HIMALAYAN">ROYAL ENFIELD HIMALAYAN</option>
-                    <option value="SUZUKI_VSTROM_650">SUZUKI VSTROM 650</option>
-                    <option value="TRIUMPH_BOBBER">TRIUMPH BOBBER</option>
-                    <option value="VESPA_GTS300">VESPA GTS300</option>
-                    <option value="YAMAHA_MT09">YAMAHA MT09</option>
-                </select>
-
-                <input type="text" id="outro" name="Outros" placeholder="Outros">
-            </div>
-
-            <div class="form-group">
-                <label for="marca">Marca:</label>
-                <select id="marca">
-                    <option>Selecione</option>
-                    <option value="ajs">AJS</option>
-                    <option value="aprilia">APRILIA</option>
-                    <option value="bmw">BMW</option>
-                    <option value="bsa">BSA</option>
-                    <option value="cagiva">CAGIVA</option>
-                    <option value="canam">CAN-AM</option>
-                    <option value="ducati">DUCATI</option>
-                    <option value="honda">HONDA</option>
-                    <option value="husqvarna">HUSQVARNA</option>
-                    <option value="indian">INDIAN</option>
-                    <option value="kawasaki">KAWASAKI</option>
-                    <option value="ktm">KTM</option>
-                    <option value="lambretta">LAMBRETTA</option>
-                    <option value="laverda">LAVERDA</option>
-                    <option value="motoguzzi">MOTO GUZZI</option>
-                    <option value="mvagusta">MV AGUSTA</option>
-                    <option value="norton">NORTON</option>
-                    <option value="peugeot">PEUGEOT</option>
-                    <option value="royalenfield">ROYAL ENFIELD</option>
-                    <option value="suzuki">SUZUKI</option>
-                    <option value="triumph">TRIUMPH</option>
-                    <option value="vespa">VESPA</option>
-                    <option value="yamaha">YAMAHA</option>
-                </select>
-
-
-                <input type="text" id="outro" name="Outros" placeholder="Outros">
-            </div>
-
-
-           
-            <div class="form-group">
-                <label for="placa">Placa atual:</label>
-
-                <input type="text" id="num_placa" oninput="validarPlaca(this)" maxlength="7" placeholder="AAA1A11"
-                >
-
-                <label>
-                    <input type="checkbox" id="sem_placa" onchange="togglePlaca()"> Sem placa
-                </label>
-            </div>
-
-            <script>
-                function togglePlaca() {
-                    let checkbox = document.getElementById('sem_placa');
-                    let inputPlaca = document.getElementById('num_placa');
-
-                    if (checkbox.checked) {
-                        inputPlaca.value = "";
-                        inputPlaca.disabled = true;
-                    } else {
-                        inputPlaca.disabled = false;
-                    }
-                }
-
-            </script>
-
-            
-            <div class="form-container">
-                <div class="form-group">
-                    <label for="ano-fabricacao">Ano de Fabricação:</label>
-                    <input type="text" id="ano-fabricacao" name="ano-fabricacao" pattern="\d{4}" maxlength="4"
-                        minlength="4" required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                </div>
-
-                <div class="form-group">
-                    <label for="ano-modelo">Ano do Modelo:</label>
-                    <input type="text" id="ano-modelo" name="ano-modelo" pattern="\d{4}" maxlength="4" minlength="4"
-                        required oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Cor predominante:</label>
-                <BR></BR>
-                <div class="color-options">
-                    <label><input type="radio" name="cor" value="Vermelho"> Vermelho</label>
-                    <label><input type="radio" name="cor" value="Azul"> Azul</label>
-                    <label><input type="radio" name="cor" value="Verde"> Verde</label>
-                    <label><input type="radio" name="cor" value="Preto"> Preto</label>
-                    <label><input type="radio" name="cor" value="Branco"> Branco</label>
-                    <label><input type="radio" name="cor" value="Cinza"> Cinza</label>
-                    <label><input type="radio" name="cor" value="Rosa"> Rosa</label>
-                    <label><input type="radio" name="cor" value="Roxo"> Roxo</label>
-                    <label><input type="radio" name="cor" value="Marrom"> Marrom</label>
-                    <label><input type="radio" name="cor" value="Amarelo"> Amarelo</label>
-                    <label><input type="radio" name="cor" value="Laranja"> Laranja</label>
-
-                    <input type="text" id="outro" name="Outros" placeholder="Outros">
-                </div>
-            </div>
-
-
-            <div class="buttons">
-                <button id="prev" disabled>Voltar</button>
-                <button id="next">Avançar</button>
-            </div>
-
-            
-            
-            <script>
-                const steps = document.querySelectorAll(".step");
-                const progressBar = document.querySelector(".progress-bar");
-                const prevButton = document.getElementById("prev");
-                const nextButton = document.getElementById("next");
-
-                let currentStep = 1;
-
-                nextButton.addEventListener("click", () => {
-                    currentStep++;
-                    updateProgress();
-                });
-
-                prevButton.addEventListener("click", () => {
-                    currentStep--;
-                    updateProgress();
-                });
-
-                function updateProgress() {
-                    steps.forEach((step, index) => {
-                        if (index < currentStep) {
-                            step.classList.add("active");
-                        } else {
-                            step.classList.remove("active");
-                        }
-                    });
-
-                    progressBar.style.width = ((currentStep - 1) / (steps.length - 1)) * 100 + "%";
-
-                    prevButton.disabled = currentStep === 1;
-                    nextButton.disabled = currentStep === steps.length;
-                }
-
-            </script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <header>
+        <h1>Exame de Identificação Veicular</h1>
+    </header>
+    <br>
+    <div class="progress-container">
+        <div class="progress-bar"></div>
+        <div class="step active"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
     </div>
+    <br>
+    <h2>Motocicleta</h2>
+
+    <form id="form" action="{{route('motocicletas.tela3', $laudo)}}">
+        {{ csrf_field() }}
+        <div class="form-group">
+            <label for="estado-conservacao">Estado de conservação:</label>
+            <select id="estado-conservacao" name="estado-conservacao" required>
+                <option>Selecione</option>
+                <option>BAIXADO</option>
+                <option>MAU</option>
+                <option>BOM</option>
+                <option>REGULAR</option>
+                <option>ÓTIMO</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="marca">Marca:</label>
+            <input type="text" id="marca" name="marca" placeholder="Digite a marca" required>
+            <button id="add-marca" type="button">Adicionar marca</button>
+            <div id="marca-suggestions"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="modelo">Modelo:</label>
+            <input type="text" id="modelo" name="modelo" placeholder="Digite o modelo" required>
+            <button id="add-modelo" type="button">Adicionar modelo</button>
+            <div id="modelo-suggestions"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="data">Ano:</label>
+            <input type="text" id="data" maxlength="4" placeholder="0000" name="data" required>
+        </div>
+
+        <div class="form-group">
+            <label for="placa">Placa atual:</label>
+            <input type="text" id="placa" name="placa">
+            <label><input type="checkbox" id="nao-tem-placa" name="nao-tem-placa"> Não tem placa</label>
+        </div>
+
+        <div class="form-group">
+            <label>Cor predominante:</label><br>
+            <div class="color-options">
+                <label><input type="radio" name="cor" value="Vermelho" required> Vermelho</label>
+                <label><input type="radio" name="cor" value="Azul"> Azul</label>
+                <label><input type="radio" name="cor" value="Verde"> Verde</label>
+                <label><input type="radio" name="cor" value="Preto"> Preto</label>
+                <label><input type="radio" name="cor" value="Branco"> Branco</label>
+                <label><input type="radio" name="cor" value="Cinza"> Cinza</label>
+                <label><input type="radio" name="cor" value="Rosa"> Rosa</label>
+                <label><input type="radio" name="cor" value="Roxo"> Roxo</label>
+                <label><input type="radio" name="cor" value="Marrom"> Marrom</label>
+                <label><input type="radio" name="cor" value="Amarelo"> Amarelo</label>
+                <label><input type="radio" name="cor" value="Laranja"> Laranja</label>
+
+                <!-- Campo para adicionar cor personalizada -->
+                <label><input type="radio" name="cor" value="Outras" id="outra-cor-radio"> Outras</label>
+            </div>
+
+            <!-- Campo de texto que aparece apenas quando 'Outras' é selecionado -->
+            <input type="text" id="outro-cor" name="outro-cor" placeholder="Digite a cor" style="display:none;">
+        </div>
+
+        <div class="nav-buttons">
+            <button id="prev" onclick="window.history.back()">Voltar</button>
+            <button id="next" class="btn btn-primary" type="button" >Avançar</button>
+        </div>
+    </form>
+
+    <script>
+        // Função para adicionar marca
+        document.getElementById('add-marca').addEventListener('click', function() {
+            const marca = document.getElementById('marca').value;
+            if (marca !== '') {
+                fetch('/add-marca', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ marca: marca })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Marca adicionada com sucesso!');
+                        document.getElementById('marca').value = '';
+                    } else {
+                        alert('Erro ao adicionar marca!');
+                    }
+                })
+                .catch(error => console.error(error));
+            }
+        });
+
+        // Função para adicionar modelo
+        document.getElementById('add-modelo').addEventListener('click', function() {
+            const modelo = document.getElementById('modelo').value;
+            if (modelo !== '') {
+                fetch('/add-modelo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ modelo: modelo })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Modelo adicionado com sucesso!');
+                        document.getElementById('modelo').value = '';
+                    } else {
+                        alert('Erro ao adicionar modelo!');
+                    }
+                })
+                .catch(error => console.error(error));
+            }
+        });
+
+        // Função para buscar marcas
+        document.getElementById('marca').addEventListener('input', function() {
+            const marca = document.getElementById('marca').value;
+            if (marca !== '') {
+                fetch(`/buscar-marcas?marca=${marca}`)
+                .then(response => response.json())
+                .then(data => {
+                    const marcaSuggestions = document.getElementById('marca-suggestions');
+                    marcaSuggestions.innerHTML = '';
+                    data.forEach(marca => {
+                        const option = document.createElement('div');
+                        option.textContent = marca;
+                        option.addEventListener('click', () => {
+                            document.getElementById('marca').value = marca;
+                            marcaSuggestions.innerHTML = '';
+                        });
+                        marcaSuggestions.appendChild(option);
+                    });
+                })
+                .catch(error => console.error(error));
+            }
+        });
+
+        // Função para buscar modelos
+        document.getElementById('modelo').addEventListener('input', function() {
+            const modelo = document.getElementById('modelo').value;
+            if (modelo !== '') {
+                fetch(`/buscar-modelos?modelo=${modelo}`)
+                .then(response => response.json())
+                .then(data => {
+                    const modeloSuggestions = document.getElementById('modelo-suggestions');
+                    modeloSuggestions.innerHTML = '';
+                    data.forEach(modelo => {
+                        const option = document.createElement('div');
+                        option.textContent = modelo;
+                        option.addEventListener('click', () => {
+                            document.getElementById('modelo').value = modelo;
+                            modeloSuggestions.innerHTML = '';
+                        });
+                        modeloSuggestions.appendChild(option);
+                    });
+                })
+                .catch(error => console.error(error));
+            }
+        });
+
+        // Função para mostrar/ocultar campo de texto para cor personalizada
+        document.querySelectorAll('input[name="cor"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const outroCorInput = document.getElementById('outro-cor');
+                if (this.value === 'Outras') {
+                    outroCorInput.style.display = 'inline-block';
+                } else {
+                    outroCorInput.style.display = 'none';
+                }
+            });
+        });
+        // Função para salvar e redirecionar
+        function saveAndRedirect(event) {
+            event.preventDefault()
+
+            console.log(route)
+            
+            const form = document.getElementById('form');
+            if (form.checkValidity()) {
+                form.action = route;
+                form.submit();
+            }
+        }
+
+        // Função para atualizar a barra de progresso
+        const steps = document.querySelectorAll(".step");
+        const progressBar = document.querySelector(".progress-bar");
+        const prevButton = document.getElementById("prev");
+        const nextButton = document.getElementById("next");
+
+        let currentStep = 1;
+
+        nextButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            const form = document.getElementById("form");
+            if (form.checkValidity()) {
+                form.submit();
+            }
+        });
+
+        prevButton.addEventListener("click", () => {
+            currentStep--;
+            if (currentStep < 1) {
+                currentStep = 1; // Não permitir ir abaixo do primeiro passo
+            }
+            updateProgress();
+        });
+
+        function updateProgress() {
+            // Atualiza as etapas ativas
+            steps.forEach((step, index) => {
+                if (index < currentStep) {
+                    step.classList.add("active");
+                } else {
+                    step.classList.remove("active");
+                }
+            });
+
+            // Atualiza a barra de progresso
+            progressBar.style.width = `${(currentStep - 1) * (100 / (steps.length - 1))}%`;
+
+            // Controle do botão de navegação
+            prevButton.disabled = currentStep === 1;
+            nextButton.disabled = currentStep === steps.length;
+        }
+
+        // Função para atualizar a placa
+        const placaInput = document.getElementById("placa");
+        const naoTemPlacaCheckbox = document.getElementById("nao-tem-placa");
+
+        naoTemPlacaCheckbox.addEventListener("change", () => {
+            placaInput.disabled = naoTemPlacaCheckbox.checked;
+        });
+    </script>
+</div>
 @endsection
