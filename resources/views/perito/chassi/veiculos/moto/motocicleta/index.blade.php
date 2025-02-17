@@ -207,11 +207,13 @@
     <br>
     <h2>Motocicleta</h2>
 
-    <form id="form" action="{{route('motocicletas.tela3', $laudo)}}">
+    <form id="form" action="{{route('motocicletas.tela3')}}" method="POST">
         {{ csrf_field() }}
+        <input hidden  name="laudo_id" value="{{$laudo->id}}" type="text">
+        <input type="text" name="veiculo_id" value="motocicleta" hidden>
         <div class="form-group">
             <label for="estado-conservacao">Estado de conservação:</label>
-            <select id="estado-conservacao" name="estado-conservacao" required>
+            <select id="estado-conservacao" name="estado_conservacao" required>
                 <option>Selecione</option>
                 <option>BAIXADO</option>
                 <option>MAU</option>
@@ -223,7 +225,7 @@
 
         <div class="form-group">
             <label for="marca">Marca:</label>
-            <input type="text" id="marca" name="marca" placeholder="Digite a marca" required>
+            <input type="text" id="marca" name="marca_fabricacao" placeholder="Digite a marca" required>
             <button id="add-marca" type="button">Adicionar marca</button>
             <div id="marca-suggestions"></div>
         </div>
@@ -237,7 +239,7 @@
 
         <div class="form-group">
             <label for="data">Ano:</label>
-            <input type="text" id="data" maxlength="4" placeholder="0000" name="data" required>
+            <input type="text" id="data" maxlength="4" placeholder="0000" name="ano" required>
         </div>
 
         <div class="form-group">

@@ -59,15 +59,20 @@
                 <tr>
                     <th>Tipo</th>
                     <th>Marca</th>
-                    <th>3</th>
-                    <th>4</th>
+                    <th>Modelo</th>
+                    <th>Ano</th>
                     
                     <th>Nº da placa</th>
                     <th colspan="2">Ações</th>
                 </tr>
             </thead>
             <tbody align="center">
-                
+              
+                    <td>{{$chassi['marca_fabricacao']}}</td>
+                    <td>{{$chassi['id']}}</td>
+                    <td>{{$chassi['ano']}}</td>
+                    <td>{{$chassi['placa']}}</td>
+                    <td>{{$chassi['modelo']}}</td>
             </tbody>
         </table>
     </div>
@@ -88,11 +93,12 @@
         </div>
         
     <div class="col-lg-3 mt-2">
-        <a class="btn btn-primary btn-block" href="">
+        <a class="btn btn-primary btn-block" href="{{ route('laudosChassi.docx', ['laudo' => $laudo]) }}">
             <i class="fas fa-file-download" aria-hidden="true"></i>
             Gerar Laudo (.docx)
         </a>
     </div>
+    
 </div>
 </div>
 

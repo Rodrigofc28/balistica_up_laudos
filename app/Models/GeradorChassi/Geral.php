@@ -10,6 +10,7 @@ use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shape;
 use PhpOffice\PhpWord\Style\Font;
 use Illuminate\Support\Facades\DB;
+use app\Models\ChassiDate\Chassi;
 use NumberFormatter;
 
 
@@ -62,6 +63,7 @@ class Geral
                 $codigo = "";
                 $linha3preambulo="";
                 $tipoExame='';
+                $exame='';
                 break;
         }
         
@@ -78,7 +80,8 @@ class Geral
     public function addText($laudo)
     {
         
-        
+        $chassi = Chassi::where('laudo_id', $laudo->id)->first();
+
         $header = $this->section->addHeader();
         $header->addTextBreak(1);
         $header->addPreserveText('FLS. {PAGE}', array('bold' => true,
@@ -152,7 +155,14 @@ class Geral
             $textrun->addText("proceder ".$aux['tipoExame'], $this->config->arial12()),
             $this->section->addTextBreak(1),
             $this->section->addText(''),'phpWord' => $this->phpWord];
-            
+        //texto 4° paragrafo (Descrição do veículo)
+        $text3 = [
+            $this->section->addText('DO VEÍCULO', $this->config->arial12Bold(), $this->config->paragraphJustify()),
+            $this->section->addTextBreak(1),
+            $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
+            $textrun->addText('Trata-se de'.$chassi['modelo'], $this->config->arial12()),
+            $this->section->addTextBreak(1),
+            $this->section->addText(''),'phpWord' => $this->phpWord];    
         return $this->section;
 
     } 

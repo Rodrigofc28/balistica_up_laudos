@@ -195,7 +195,7 @@ Route::get('motocicleta.index','Perito\Chassis\MotocicletasController@index')->n
 
 //exibe a tela 2 de motocicleta
 Route::get('motocicleta.tela2/{laudo}', 'Perito\Chassis\MotocicletasController@tela2')->name('motocicletas.tela2');
-Route::get('motocicleta.tela3/{laudo}', 'Perito\Chassis\MotocicletasController@tela3')->name('motocicletas.tela3');
+Route::post('motocicleta.tela3', 'Perito\Chassis\MotocicletasController@tela3')->name('motocicletas.tela3');
 //exibe a tela 3 de motocicleta
 
 
