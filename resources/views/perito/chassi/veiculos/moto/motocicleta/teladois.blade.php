@@ -2,7 +2,7 @@
 @section('page')
 
 <style>
-
+       
     .container {
         width: 90%;
         max-width: 1000px;
@@ -176,37 +176,46 @@
         font-weight: bold;
     }
 
-    .crop-container {
-        display: flex;
-        /* Coloca os elementos lado a lado */
-        justify-content: center;
-        /* Centraliza na tela */
-        align-items: center;
-        /* Alinha verticalmente */
-        gap: 20px;
-        /* Espaço entre os elementos */
-        padding: 10px;
-        /* Espaço interno para não encostar nas laterais */
-        max-width: 50%;
-        /* Garante que não ultrapasse o container */
-        margin: 0 auto;
-        /* Centraliza na tela */
+/* Estilo do contêiner */
+/* Estilo do contêiner */
+/* Estilo do contêiner */
+.crop-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    max-width: 50%;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden; /* Impede que a imagem ultrapasse o contêiner */
+    width: 100%; /* Garante que o contêiner ocupe 100% da largura disponível */
+}
 
-    }
+/* Estilo da imagem com zoom */
+.preview img {
+    max-width: none; /* Permite que a imagem ultrapasse a largura máxima para zoom */
+    transform-origin: center center; /* Zoom centrado */
+    transition: transform 0.3s ease; /* Transição suave */
+    position: absolute; /* Para poder mover a imagem dentro do contêiner */
+}
 
-    .image-preview {           /* Limita o tamanho do preview */
-        max-width: 300px;
+/* Limitação do tamanho do preview */
+.image-preview {
+    max-width: 300px;
+    max-height: 100px;
+    overflow: hidden;
+    border: 1px solid #220000;
+}
 
-        max-height: 100px;
-        border: 1px solid #220000;
+/* Resultado cortado */
+#cropped-result {
+    max-width: 300px;
+    max-height: 300px;
+    border: 1px solid #000000;
+}
 
-    }
 
-    #cropped-result { /* Mesmo tamanho do preview */
-        max-width: 300px;
-        max-height: 300px;
-        border: 1px solid #000000;
-    }
 </style>
 </head>
 
@@ -226,7 +235,6 @@
 
     <h2>Motocicleta</h2>
 
-   
     <div class="button-group" id="chassiSection"> <!-- Seção do Chassi -->
         <div class="section-title" style="font-size: 25px;">Chassi</div>
         <div class="radio-group">
@@ -247,7 +255,7 @@
                     oninput="updateChassiDisplay(this, 'chassiAtualDisplay')">
                 <div id="chassiAtualDisplay" class="chassi-display"></div>
             </div>
-
+    
             <div class="form-group">
                 <label for="fotoChassiAtual">Foto do Chassi:</label>
                 <input type="file" id="fotoChassiAtual" name="fotoChassiAtual" class="image-input">
@@ -261,8 +269,9 @@
             </div>
             <button id="crop-button-chassi" style="display:none;">Recortar</button>
             <canvas id="cropped-result-chassi"></canvas>
+            <button>Salvar</button>
         </div>
-
+    
         <div class="conditional-fields" id="adulteradoFieldsChassi">
             <div class="form-group">
                 <label for="chassiAdulterado">Chassi Adulterado:</label>
@@ -298,7 +307,7 @@
                     <option value="substituido_transplante">Substituído (transplante)</option>
                 </select>
             </div>
-
+    
             <div class="form-group">
                 <label for="metodologiaChassi">Metodologia Aplicada:</label>
                 <select id="metodologiaChassi" name="metodologiaChassi">
@@ -311,7 +320,7 @@
                         name="nao-se-aplica-metodologia-chassi" onchange="toggleMetodologiaChassi()"> Não se aplica
                 </label>
             </div>
-
+    
             <div class="form-group">
                 <label for="resultadoChassi">Resultado:</label>
                 <select id="resultadoChassi" name="resultadoChassi" onchange="toggleReveladoFields('chassi')">
@@ -390,7 +399,7 @@
                 Adulterado
             </label>
         </div>
-
+    
         <div class="conditional-fields" id="integroFieldsMotor">
             <div class="form-group">
                 <label for="motorAtual">Número do Motor:</label>
@@ -414,7 +423,7 @@
             <canvas id="cropped-result-motor"></canvas>
             <button>Salvar</button>
         </div>
-
+    
         <div class="conditional-fields" id="adulteradoFieldsMotor">
             <div class="form-group">
                 <label for="motorAdulterado">Motor Adulterado:</label>
@@ -451,7 +460,7 @@
                     <option value="substituido_transplante">Substituído (transplante)</option>
                 </select>
             </div>
-
+    
             <div class="form-group">
                 <label for="metodologiaMotor">Metodologia Aplicada:</label>
                 <select id="metodologiaMotor" name="metodologiaMotor">
@@ -464,7 +473,7 @@
                         name="nao-se-aplica-metodologia-motor" onchange="toggleMetodologiaMotor()"> Não se aplica
                 </label>
             </div>
-
+    
             <div class="form-group">
                 <label for="resultadoMotor">Resultado:</label>
                 <select id="resultadoMotor" name="resultadoMotor" onchange="toggleReveladoFields('motor')">
@@ -525,16 +534,17 @@
                 </div>
                 <button id="crop-button-motor-revelado-parcialmente" style="display:none;">Recortar</button>
                 <canvas id="cropped-result-motor-revelado-parcialmente"></canvas>
-            </div>
+            </div> <button>Salvar</button>
         </div>
+       
     </div>
-
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script>
-
+    
         function initializeCropper(inputId, previewId, cropButtonId, resultId) {
             let cropper;
-
+    
             document.getElementById(inputId).addEventListener("change", function (event) {
                 const file = event.target.files[0];
                 if (file) {
@@ -543,13 +553,13 @@
                         const imagePreview = document.getElementById(previewId);
                         imagePreview.src = e.target.result;
                         imagePreview.style.display = "block";
-
-
+    
+    
                         if (cropper) {// Remove o cropper anterior (se existir)
                             cropper.destroy();
                         }
-
-
+    
+    
                         cropper = new Cropper(imagePreview, {// Inicia o Cropper.js com mais liberdade de movimento
                             aspectRatio: NaN, // Permite ajuste livre (removendo a restrição fixa)
                             viewMode: 1,      // Permite que a imagem saia um pouco da área de recorte
@@ -558,22 +568,22 @@
                             scalable: true,   // Permite redimensionar
                             autoCropArea: 0.7 // Define uma área inicial de recorte maior
                         });
-
-
+    
+    
                         document.getElementById(cropButtonId).style.display = "block";     // Mostra o botão de recorte
                     };
                     reader.readAsDataURL(file);
                 }
             });
-
+    
             document.getElementById(cropButtonId).addEventListener("click", function () {
                 if (cropper) {
                     const canvas = cropper.getCroppedCanvas({
                         width: 600, // Mantém um recorte mais largo
                         height: 300
                     });
-
-
+    
+    
                     const croppedResult = document.getElementById(resultId);       // Exibe o recorte no <canvas>
                     const ctx = croppedResult.getContext("2d");
                     croppedResult.width = canvas.width;
@@ -583,8 +593,8 @@
                 }
             });
         }
-
-
+    
+    
         initializeCropper("fotoChassiAtual", "image-preview-chassi", "crop-button-chassi", "cropped-result-chassi");
         initializeCropper("arquivoChassiAdulterado", "image-preview-chassi-adulterado", "crop-button-chassi-adulterado", "cropped-result-chassi-adulterado");
         initializeCropper("fotoChassiRevelado", "image-preview-chassi-revelado", "crop-button-chassi-revelado", "cropped-result-chassi-revelado");
@@ -593,15 +603,16 @@
         initializeCropper("arquivoMotorAdulterado", "image-preview-motor-adulterado", "crop-button-motor-adulterado", "cropped-result-motor-adulterado");
         initializeCropper("fotoMotorRevelado", "image-preview-motor-revelado", "crop-button-motor-revelado", "cropped-result-motor-revelado");
         initializeCropper("fotoMotorReveladoParcialmente", "image-preview-motor-revelado-parcialmente", "crop-button-motor-revelado-parcialmente", "cropped-result-motor-revelado-parcialmente");
-
-
+    
+    
+        // Bloquear campos
         function bloquearCampos(tipo, secao) {
             const select = document.getElementById(`tipoadulteracao${secao}`);
             const numeroInput = document.getElementById(`${tipo}Adulterado`);
             const fotoInput = document.getElementById(`arquivo${secao}Adulterado`);
             const metodologiaSelect = document.getElementById(`metodologia${secao}`);
             const resultadoSelect = document.getElementById(`resultado${secao}`);
-
+    
             if (['substituido_transplante', 'nao_localizado'].includes(select.value)) {
                 numeroInput.disabled = true;
                 fotoInput.disabled = true;
@@ -614,14 +625,15 @@
                 resultadoSelect.disabled = false;
             }
         }
-
-
+    
+    
+        // Toggle fields
         function toggleFields(type) {
             const status = document.querySelector(`input[name="${type}Status"]:checked`)?.value;
-
+    
             const integroFields = document.getElementById(`integroFields${type.charAt(0).toUpperCase() + type.slice(1)}`);
             const adulteradoFields = document.getElementById(`adulteradoFields${type.charAt(0).toUpperCase() + type.slice(1)}`);
-
+    
             if (status === "integro") {
                 integroFields.style.display = "block";
                 adulteradoFields.style.display = "none";
@@ -630,12 +642,13 @@
                 adulteradoFields.style.display = "block";
             }
         }
-
-
+    
+    
+        // Update chassi display
         function updateChassiDisplay(input, displayId) {
             const displayDiv = document.getElementById(displayId);
             displayDiv.innerHTML = "";
-
+    
             input.value.split("").forEach(char => {
                 const charDiv = document.createElement("div");
                 charDiv.textContent = char;
@@ -650,14 +663,15 @@
                 displayDiv.appendChild(charDiv);
             });
         }
-
-
+    
+    
+        // Toggle revelado fields
         function toggleReveladoFields(type) {// 
             const resultado = document.getElementById(`resultado${type.charAt(0).toUpperCase() + type.slice(1)}`).value;
             const reveladoFields = document.getElementById(`${type}-revelado`);
             const reveladoParcialmenteFields = document.getElementById(`${type}-revelado-parcialmente`);
             const naoReveladoFields = document.getElementById(`nao-revelado-${type}`);
-
+    
             if (resultado === "revelado" || resultado === "corroborado") {
                 reveladoFields.style.display = "block";
                 reveladoParcialmenteFields.style.display = "none";
@@ -676,100 +690,112 @@
                 naoReveladoFields.style.display = "none";
             }
         }
-
-
+    
+    
+        // Toggle foto chassi
         function toggleFotoChassi() {
             toggleFotoInput("nao-tem-foto-chassi", "fotoChassiAtual");
         }
-
+    
+        // Toggle foto chassi revelado
         function toggleFotoChassiRevelado() {
             toggleFotoInput("nao-tem-foto-chassi-revelado", "fotoChassiRevelado");
         }
-
+    
+        // Toggle foto chassi revelado parcialmente
         function toggleFotoChassiReveladoParcialmente() {
             toggleFotoInput("nao-tem-foto-chassi-revelado-parcialmente", "fotoChassiReveladoParcialmente");
         }
-
+    
+        // Toggle foto motor
         function toggleFotoMotor() {
             toggleFotoInput("nao-tem-foto-motor", "fotoMotorAtual");
         }
-
+    
+        // Toggle foto motor revelado
         function toggleFotoMotorRevelado() {
             toggleFotoInput("nao-tem-foto-motor-revelado", "fotoMotorRevelado");
         }
-
+    
+        // Toggle foto motor revelado parcialmente
         function toggleFotoMotorReveladoParcialmente() {
             toggleFotoInput("nao-tem-foto-motor-revelado-parcialmente", "fotoMotorReveladoParcialmente");
         }
-
+    
+        // Toggle foto chassi adulterado
         function toggleFotoChassiAdulterado() {
             toggleFotoInput("nao-tem-foto-chassi-adulterado", "arquivoChassiAdulterado");
         }
-
+    
+        // Toggle foto motor adulterado
         function toggleFotoMotorAdulterado() {
             toggleFotoInput("nao-tem-foto-motor-adulterado", "arquivoMotorAdulterado");
         }
-
-
+    
+    
+        // Toggle foto input
         function toggleFotoInput(checkboxId, fileInputId) {
             const checkbox = document.getElementById(checkboxId);
             const fileInput = document.getElementById(fileInputId);
-
+    
             if (checkbox.checked) {
                 fileInput.disabled = true;
             } else {
                 fileInput.disabled = false;
             }
         }
-
-
+    
+    
+        // Toggle metodologia chassi
         function toggleMetodologiaChassi() {
             const checkbox = document.getElementById("nao-se-aplica-metodologia-chassi");
             const select = document.getElementById("metodologiaChassi");
-
+    
             if (checkbox.checked) {
                 select.disabled = true;
             } else {
                 select.disabled = false;
             }
         }
-
-
+    
+    
+        // Toggle resultado chassi
         function toggleResultadoChassi() {// 
             const checkbox = document.getElementById("nao-se-aplica-resultado-chassi");
             const select = document.getElementById("resultadoChassi");
-
+    
             if (checkbox.checked) {
                 select.disabled = true;
             } else {
                 select.disabled = false;
             }
         }
-
-
+    
+    
+        // Toggle metodologia motor
         function toggleMetodologiaMotor() {
             const checkbox = document.getElementById("nao-se-aplica-metodologia-motor");
             const select = document.getElementById("metodologiaMotor");
-
+    
             if (checkbox.checked) {
                 select.disabled = true;
             } else {
                 select.disabled = false;
             }
         }
-
-
+    
+    
+        // Toggle resultado motor
         function toggleResultadoMotor() {
             const checkbox = document.getElementById("nao-se-aplica-resultado-motor");
             const select = document.getElementById("resultadoMotor");
-
+    
             if (checkbox.checked) {
                 select.disabled = true;
             } else {
                 select.disabled = false;
             }
         }
-
+    
     </script>
-
 @endsection

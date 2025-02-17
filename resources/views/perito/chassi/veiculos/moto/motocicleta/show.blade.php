@@ -52,25 +52,34 @@
     
     
    
-    
     <div class="table-responsive">
-        <table class="table table-bordered table-hover table-striped" id="tabela_pecas">
+        <table class="table table-bordered table-hover table-striped" id="tabela_chassis">
             <thead align="center">
                 <tr>
                     <th>Tipo</th>
                     <th>Marca</th>
-                    <th>3</th>
-                    <th>4</th>
-                    
+                    <th>Cor</th>
+                    <th>Ano</th>
                     <th>Nº da placa</th>
                     <th colspan="2">Ações</th>
                 </tr>
             </thead>
             <tbody align="center">
-                
+                foreach ($ as $)
+                    <tr>
+                        <td> $chassi->tipo </td>
+                        <td> $chassi->marca </td>
+                        <td> $chassi->cor </td>
+                        <td> $chassi->ano </td>
+                        <td> $chassi->placa </td>
+                        <td><button class="btn btn-info">Editar</button></td>
+                        <td><button class="btn btn-danger">Excluir</button></td>
+                    </tr>-
+               endforeach
             </tbody>
         </table>
     </div>
+    
     
 
 
