@@ -238,15 +238,20 @@
         </div>
 
         <div class="form-group">
-            <label for="data">Ano:</label>
+            <label for="data">Ano fabricação:</label>
             <input type="text" id="data" maxlength="4" placeholder="0000" name="ano" required>
         </div>
+        <div class="form-group">
+            <label for="anomodelo">Ano do modelo:</label>
+            <input type="text" id="data" maxlength="4" placeholder="0000" name="ano_modelo" required>
 
+        </div>
         <div class="form-group">
             <label for="placa">Placa atual:</label>
             <input type="text" id="placa" name="placa">
             <label><input type="checkbox" id="nao-tem-placa" name="nao-tem-placa"> Não tem placa</label>
         </div>
+
 
         <div class="form-group">
             <label>Cor predominante:</label><br>

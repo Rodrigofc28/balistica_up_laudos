@@ -538,6 +538,11 @@
         </div>
        
     </div>
+
+    <div class="nav-buttons">
+        <button id="prev" onclick="window.history.back()">Voltar</button>
+        <button id="next" onclick="salvaContinuar('imagem1','imagem2')">Avançar</button>
+    </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script>

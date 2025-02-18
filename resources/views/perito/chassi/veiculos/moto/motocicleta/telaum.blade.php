@@ -188,7 +188,15 @@
         <div>
             <input style="display: none" type="file" id="inputFile" accept="image/*">
             <input style="display:none" type="file" id="inputFile1" accept="image/*">
-    
+
+
+            <form class="uploadForm" action="{{ route('motocicleta.tela4') }}" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
+        <input type="file" hidden name="imagem1" id="imagem1">
+
+       <input type="file" hidden name="imagem2" id="imagem2">
+
+         </form>
             <div id="cont_frente">
                 <h3 class="posicao">Foto 1: </h3>
                 <div class="preview" hidden id="preview_frente"></div>
@@ -198,7 +206,8 @@
                         <img id="image_frente">
                     </div>
                 </div>
-                <button class="btnNext" onclick="next('seta_frente')" id="seta_frente"><img style="width: 20px"
+                
+                <button class="btnNext" onclick="next('seta_frente')"  id="seta_frente"><img style="width: 20px"
                         src="../img/add-image.png" alt="adiciona foto"></button>
                 <button class="btnNext" id="rotateButton_frente"><img style="width: 20px" src="img/rotate.png"
                         alt="rotacionar"> </button>
@@ -216,7 +225,8 @@
                         <img id="image_tras">
                     </div>
                 </div>
-                <button class="btnNext" onclick="next('seta_verso')" id="seta_verso"><img style="width: 20px"
+    
+                <button class="btnNext" onclick="next('seta_verso')"  id="seta_verso"><img style="width: 20px"
                         src="../img/add-image.png" alt="adiciona foto"></button>
                 <button class="btnNext" id="rotateButton_tras"><img style="width: 20px" src="img/rotate.png"
                         alt="rotacionar"> </button>
@@ -224,10 +234,10 @@
             </div>
         </div>
     </div>
-    
+   
     <div class="nav-buttons">
         <button id="prev" onclick="window.history.back()">Voltar</button>
-        <button id="next" onclick="window.history.next()">Avançar</button>
+        <button id="next" onclick="salvaContinuar('imagem1','imagem2')">Avançar</button>
     </div>
 </div>
 
@@ -335,7 +345,7 @@
         let inputFile = document.getElementById('inputFile');
         let image = document.getElementById('image_frente');
         let preview = document.getElementById('preview_frente');
-        let upImage = document.getElementById('upImage');
+        let upImage = document.getElementById('imagem1');
         let rotateButton = document.getElementById('rotateButton_frente');
         let cropper;
         carrega(inputFile, image, cropper, preview, upImage, rotateButton, "#preview_frente");
@@ -346,26 +356,27 @@
         let inputFile = document.getElementById('inputFile1');
         let image = document.getElementById('image_tras');
         let preview = document.getElementById('preview_tras');
-        let upImage = document.getElementById('upImage2');
+        let upImage = document.getElementById('imagem2');
         let rotateButton = document.getElementById('rotateButton_tras');
         let cropper;
         carrega(inputFile, image, cropper, preview, upImage, rotateButton, "#preview_tras");
     }
-
     function salvaContinuar(imagem1, imagem2) {
-        const img1 = document.getElementById(imagem1);
-        const img2 = document.getElementById(imagem2);
-        const fileimg = img1.files[0];
-        const fileimg2 = img2.files[0];
+            const img1 = document.getElementById(imagem1);
+            const img2 = document.getElementById(imagem2);
+            const fileimg = img1.files[0];
+            const fileimg2 = img2.files[0];
 
-        if (!fileimg || !fileimg2) {
-            document.querySelector('.msgErro').style.display = 'block';
-        } else {
-            document.querySelector('.msgErro').style.display = 'none';
-            document.getElementById('status').value = 'cadastrar';
-            document.querySelector('.uploadForm').submit();
+            
+            if (!fileimg || !fileimg2) {
+             console.log('imagem vazia')
+               console
+            } else {
+               console.log('imagem carregada')
+                document.querySelector('.uploadForm').submit();
+            }
         }
-    }
+
     $(document).ready(function () {
     const steps = $(".step");
     const progressBar = $(".progress-bar");
