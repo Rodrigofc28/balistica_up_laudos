@@ -18,7 +18,9 @@ class MotocicletasController extends Controller
       
       return view('perito.chassi.veiculos.moto.motocicleta.index',compact('laudo'));
    }
-   public function tela3(Laudo $laudo){
+   public function tela3(Request $request){
+       $laudo=Laudo::find($request->laudo_id);
+       Chassi::create($request->all());
       return view('perito.chassi.veiculos.moto.motocicleta.telaum',compact('laudo'));
    }
    public function tela4(Laudo $laudo){

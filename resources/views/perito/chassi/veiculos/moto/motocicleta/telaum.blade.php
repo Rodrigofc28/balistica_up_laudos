@@ -230,7 +230,12 @@
         <button id="next" onclick="window.history.next()">Avançar</button>
     </div>
 </div>
-
+<div class="col-lg-3 mt-2">
+    <a class="btn btn-primary btn-block" href="{{ route('laudosChassi.docx', ['laudo' => $laudo]) }}">
+        <i class="fas fa-file-download" aria-hidden="true"></i>
+        Gerar Laudo (.docx)
+    </a>
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/cropperjs"></script>
 <script>
