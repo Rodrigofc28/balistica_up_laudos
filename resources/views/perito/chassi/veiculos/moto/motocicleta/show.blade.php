@@ -67,24 +67,10 @@
             </thead>
             <tbody align="center">
 
-                @foreach ($ as $)
-                    <tr>
-                        <td> {{$chassi->tipo}} </td>
-                        <td> {{$chassi->marca}} </td>
-                        <td> {{$chassi->cor}} </td>
-                        <td> {{$chassi->ano}} </td>
-                        <td> {{$chassi->placa}} </td>
-                        <td><button class="btn btn-info">Editar</button></td>
-                        <td><button class="btn btn-danger">Excluir</button></td>
-                    </tr>-
-               @endforeach
+    
 
               
-                    <td>{{$chassi['marca_fabricacao']}}</td>
-                    <td>{{$chassi['id']}}</td>
-                    <td>{{$chassi['ano']}}</td>
-                    <td>{{$chassi['placa']}}</td>
-                    <td>{{$chassi['modelo']}}</td>
+ 
 
             </tbody>
         </table>

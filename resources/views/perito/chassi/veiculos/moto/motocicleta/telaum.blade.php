@@ -208,10 +208,10 @@
                 </div>
                 
                 <button class="btnNext" onclick="next('seta_frente')"  id="seta_frente"><img style="width: 20px"
-                        src="../img/add-image.png" alt="adiciona foto"></button>
-                <button class="btnNext" id="rotateButton_frente"><img style="width: 20px" src="img/rotate.png"
+                    src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
+                <button class="btnNext" id="rotateButton_frente"><img style="width: 20px" src="{{ asset('image/rotate.png') }}"
                         alt="rotacionar"> </button>
-                <img style="width:30px" src="img/scroll.png" alt="zoom"><b>ZOOM</b>
+                <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b>
             </div>
             <br>
             <hr>
@@ -227,10 +227,10 @@
                 </div>
     
                 <button class="btnNext" onclick="next('seta_verso')"  id="seta_verso"><img style="width: 20px"
-                        src="../img/add-image.png" alt="adiciona foto"></button>
-                <button class="btnNext" id="rotateButton_tras"><img style="width: 20px" src="img/rotate.png"
+                    src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
+                <button class="btnNext" id="rotateButton_tras"><img style="width: 20px" src="{{ asset('image/rotate.png') }}"
                         alt="rotacionar"> </button>
-                <img style="width:30px" src="img/scroll.png" alt="zoom"><b>ZOOM</b>
+                <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b>
             </div>
         </div>
     </div>
@@ -240,7 +240,12 @@
         <button id="next" onclick="salvaContinuar('imagem1','imagem2')">Avançar</button>
     </div>
 </div>
-
+<div class="col-lg-3 mt-2">
+    <a class="btn btn-primary btn-block" href="{{ route('laudosChassi.docx', ['laudo' => $laudo]) }}">
+        <i class="fas fa-file-download" aria-hidden="true"></i>
+        Gerar Laudo (.docx)
+    </a>
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/cropperjs"></script>
 <script>

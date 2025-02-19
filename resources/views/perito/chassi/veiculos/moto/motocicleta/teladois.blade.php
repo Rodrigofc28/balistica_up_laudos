@@ -234,23 +234,24 @@
     </div>
 
     <h2>Motocicleta</h2>
-
+ <form id="form" action="{{route('motocicleta.exame')}}" method="POST">
+        {{ csrf_field() }}
     <div class="button-group" id="chassiSection"> <!-- Seção do Chassi -->
         <div class="section-title" style="font-size: 25px;">Chassi</div>
         <div class="radio-group">
             <label>Situação:</label>
             <label>
-                <input type="radio" name="chassiStatus" value="integro" onchange="toggleFields('chassi')"> Íntegro
+                <input type="radio" name="chassi_status" value="integro" onchange="toggleFields('chassi')"> Íntegro
             </label>
             <label>
-                <input type="radio" name="chassiStatus" value="adulterado" onchange="toggleFields('chassi')">
+                <input type="radio" name="chassi_status" value="adulterado" onchange="toggleFields('chassi')">
                 Adulterado
             </label>
         </div>
         <div class="conditional-fields" id="integroFieldsChassi">
             <div class="form-group">
                 <label for="chassiAtual">Número do Chassi:</label>
-                <input type="text" id="chassiAtual" name="chassiAtual" maxlength="17"
+                <input type="text" id="chassiAtual" name="chassi_numero" maxlength="17"
                     placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                     oninput="updateChassiDisplay(this, 'chassiAtualDisplay')">
                 <div id="chassiAtualDisplay" class="chassi-display"></div>
@@ -258,33 +259,33 @@
     
             <div class="form-group">
                 <label for="fotoChassiAtual">Foto do Chassi:</label>
-                <input type="file" id="fotoChassiAtual" name="fotoChassiAtual" class="image-input">
-                <label>
-                    <input type="checkbox" id="nao-tem-foto-chassi" name="nao-tem-foto-chassi"
+                <input type="file" id="fotoChassiAtual" name="chassi_foto" class="image-input">
+                <!--<label>
+                    <input type="checkbox" id="nao-tem-foto-chassi" name="chassi_nao_tem_foto"
                         onchange="toggleFotoChassi()"> Não tem foto
-                </label>
+                </label>-->
             </div>
             <div class="crop-container">
                 <img id="image-preview-chassi" alt="Preview" class="image-preview">
             </div>
             <button id="crop-button-chassi" style="display:none;">Recortar</button>
             <canvas id="cropped-result-chassi"></canvas>
-            <button>Salvar</button>
+       
         </div>
     
         <div class="conditional-fields" id="adulteradoFieldsChassi">
             <div class="form-group">
                 <label for="chassiAdulterado">Chassi Adulterado:</label>
-                <input type="text" id="chassiAdulterado" name="chassiAdulterado" maxlength="17"
+                <input type="text" id="chassiAdulterado" name="chassi_adulterado_numero" maxlength="17"
                     placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                     oninput="updateChassiDisplay(this, 'chassiAdulteradoDisplay')">
                 <div id="chassiAdulteradoDisplay" class="chassi-display"></div>
             </div>
             <div class="form-group">
                 <label for="arquivoChassiAdulterado">Foto do chassi adulterado:</label>
-                <input type="file" id="arquivoChassiAdulterado" name="arquivoChassiAdulterado" class="image-input">
+                <input type="file" id="arquivoChassiAdulterado" name="chassi_adulterado_foto" class="image-input">
                 <label>
-                    <input type="checkbox" id="nao-tem-foto-chassi-adulterado" name="nao-tem-foto-chassi-adulterado"
+                    <input type="checkbox" id="nao-tem-foto-chassi-adulterado" name="chassi_adulterado_nao_tem_foto"
                         onchange="toggleFotoChassiAdulterado()"> Não tem foto
                 </label>
             </div>
@@ -295,7 +296,7 @@
             <canvas id="cropped-result-chassi-adulterado"></canvas>
             <div class="form-group">
                 <label for="tipoadulteracao">Tipo de adulteração:</label>
-                <select id="tipoadulteracao" name="tipoadulteracao" onchange="bloquearCampos('chassi', 'Chassi')">
+                <select id="tipoadulteracao" name="chassi_tipo_adulteracao" onchange="bloquearrCampos('chassi', 'Chassi')">
                     <option value="selecione">Selecione</option>
                     <option value="desbaste_regravação_revelado">Desbaste e regravação</option>
                     <option value="contundencia_parcial">Contundência</option>
@@ -310,7 +311,7 @@
     
             <div class="form-group">
                 <label for="metodologiaChassi">Metodologia Aplicada:</label>
-                <select id="metodologiaChassi" name="metodologiaChassi">
+                <select id="metodologiaChassi" name="chassi_nao_se_aplica_metodologia">
                     <option value="">Selecione</option>
                     <option value="tratamento_quimico">Aplicar tratamento químico - Metalográfico</option>
                     <option value="instrumento_optico">Utilização de instrumento óptico adequado (LUPA)</option>
@@ -323,7 +324,7 @@
     
             <div class="form-group">
                 <label for="resultadoChassi">Resultado:</label>
-                <select id="resultadoChassi" name="resultadoChassi" onchange="toggleReveladoFields('chassi')">
+                <select id="resultadoChassi" name="chassi_resultado" onchange="toggleReveladoFields('chassi')">
                     <option value="">Selecione</option>
                     <option value="revelado">Revelado</option>
                     <option value="revelado_parcialmente">Revelado parcialmente</option>
@@ -332,23 +333,23 @@
                     <option value="nao_confirmado">Não confirmado</option>
                 </select>
                 <label>
-                    <input type="checkbox" id="nao-se-aplica-resultado-chassi" name="nao-se-aplica-resultado-chassi"
+                    <input type="checkbox" id="nao-se-aplica-resultado-chassi" name="chassi_nao_se_aplica_resultado"
                         onchange="toggleResultadoChassi()"> Não se aplica
                 </label>
             </div>
             <div class="chassi-revelado-fields" id="chassi-revelado">
                 <div class="form-group">
                     <label for="chassiRevelado">Número do Chassi:</label>
-                    <input type="text" id="chassiRevelado" name="chassiRevelado" maxlength="17"
+                    <input type="text" id="chassiRevelado" name="chassi_revelado_numero" maxlength="17"
                         placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                         oninput="updateChassiDisplay(this, 'chassiReveladoDisplay')">
                     <div id="chassiReveladoDisplay" class="chassi-display"></div>
                 </div>
                 <div class="form-group">
                     <label for="fotoChassiRevelado">Foto do Chassi:</label>
-                    <input type="file" id="fotoChassiRevelado" name="fotoChassiRevelado" class="image-input">
+                    <input type="file" id="fotoChassiRevelado" name="chassi_revelado_foto" class="image-input">
                     <label>
-                        <input type="checkbox" id="nao-tem-foto-chassi-revelado" name="nao-tem-foto-chassi-revelado"
+                        <input type="checkbox" id="nao-tem-foto-chassi-revelado" name="chassi_revelado_nao_tem_foto"
                             onchange="toggleFotoChassiRevelado()"> Não tem foto
                     </label>
                 </div>
@@ -361,18 +362,18 @@
             <div class="chassi-revelado-fields" id="chassi-revelado-parcialmente">
                 <div class="form-group">
                     <label for="chassiReveladoParcialmente">Chassi Revelado Parcialmente:</label>
-                    <input type="text" id="chassiReveladoParcialmente" name="chassiReveladoParcialmente"
+                    <input type="text" id="chassiReveladoParcialmente" name="chassi_revelado_parcialmente_numero"
                         maxlength="17" placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                         oninput="updateChassiDisplay(this, 'chassiReveladoParcialmenteDisplay')">
                     <div id="chassiReveladoParcialmenteDisplay" class="chassi-display"></div>
                 </div>
                 <div class="form-group">
                     <label for="fotoChassiReveladoParcialmente">Foto do Chassi Revelado Parcialmente:</label>
-                    <input type="file" id="fotoChassiReveladoParcialmente" name="fotoChassiReveladoParcialmente"
+                    <input type="file" id="fotoChassiReveladoParcialmente" name="chassi_revelado_parcialmente_foto"
                         class="image-input">
                     <label>
                         <input type="checkbox" id="nao-tem-foto-chassi-revelado-parcialmente"
-                            name="nao-tem-foto-chassi-revelado-parcialmente"
+                            name="chassi_revelado_parcialmente_nao_tem_fot"
                             onchange="toggleFotoChassiReveladoParcialmente()"> Não tem foto
                     </label>
                 </div>
@@ -382,20 +383,20 @@
                 <button id="crop-button-chassi-revelado-parcialmente" style="display:none;">Recortar</button>
                 <canvas id="cropped-result-chassi-revelado-parcialmente"></canvas>
             </div>
-            <button>Salvar</button>
+            
         </div>
     </div>
     <br>  <hr><br>  
-    
+   
     <div class="button-group"><!-- Seção do Motor -->
         <div class="section-title" style="font-size: 25px;">Motor</div>
         <div class="radio-group">
             <label>Situação:</label>
             <label>
-                <input type="radio" name="motorStatus" value="integro" onchange="toggleFields('motor')"> Íntegro
+                <input type="radio" name="motor_status" value="integro" onchange="toggleFields('motor')"> Íntegro
             </label>
             <label>
-                <input type="radio" name="motorStatus" value="adulterado" onchange="toggleFields('motor')">
+                <input type="radio" name="motor_status" value="adulterado" onchange="toggleFields('motor')">
                 Adulterado
             </label>
         </div>
@@ -403,16 +404,16 @@
         <div class="conditional-fields" id="integroFieldsMotor">
             <div class="form-group">
                 <label for="motorAtual">Número do Motor:</label>
-                <input type="text" id="motorAtual" name="motorAtual" maxlength="17"
+                <input type="text" id="motorAtual" name="motor_numero" maxlength="17"
                     placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                     oninput="updateChassiDisplay(this, 'motorAtualDisplay')">
                 <div id="motorAtualDisplay" class="chassi-display"></div>
             </div>
             <div class="form-group">
                 <label for="fotoMotorAtual">Foto do Motor:</label>
-                <input type="file" id="fotoMotorAtual" name="fotoMotorAtual" class="image-input">
+                <input type="file" id="fotoMotorAtual" name="motor_adulterado_foto" class="image-input">
                 <label>
-                    <input type="checkbox" id="nao-tem-foto-motor" name="nao-tem-foto-motor"
+                    <input type="checkbox" id="nao-tem-foto-motor" name="motor_adulterado_nao_tem_foto"
                         onchange="toggleFotoMotor()"> Não tem foto
                 </label>
             </div>
@@ -421,20 +422,20 @@
             </div>
             <button id="crop-button-motor" style="display:none;">Recortar</button>
             <canvas id="cropped-result-motor"></canvas>
-            <button>Salvar</button>
+          
         </div>
     
         <div class="conditional-fields" id="adulteradoFieldsMotor">
             <div class="form-group">
                 <label for="motorAdulterado">Motor Adulterado:</label>
-                <input type="text" id="motorAdulterado" name="motorAdulterado" maxlength="17"
+                <input type="text" id="motorAdulterado" name="motor_tipo_adulteracao" maxlength="17"
                     placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                     oninput="updateChassiDisplay(this, 'motorAdulteradoDisplay')">
                 <div id="motorAdulteradoDisplay" class="chassi-display"></div>
             </div>
             <div class="form-group">
                 <label for="arquivoMotorAdulterado">Arquivo do Motor Adulterado:</label>
-                <input type="file" id="arquivoMotorAdulterado" name="arquivoMotorAdulterado" class="image-input">
+                <input type="file" id="arquivoMotorAdulterado" name="motor_adulterado_nao_tem_foto" class="image-input">
                 <label>
                     <input type="checkbox" id="nao-tem-foto-motor-adulterado" name="nao-tem-foto-motor-adulterado"
                         onchange="toggleFotoMotorAdulterado()"> Não tem foto
@@ -447,7 +448,7 @@
             <canvas id="cropped-result-motor-adulterado"></canvas>
             <div class="form-group">
                 <label for="tipoadulteracaoMotor">Tipo de adulteração:</label>
-                <select id="tipoadulteracaoMotor" name="tipoadulteracaoMotor"
+                <select id="tipoadulteracaoMotor" name="motor_tipo_adulteracao"
                     onchange="bloquearCampos('motor', 'Motor')">
                     <option value="selecione">Selecione</option>
                     <option value="desbaste_regravação_nao_revelado">Desbaste e regravação</option>
@@ -463,20 +464,20 @@
     
             <div class="form-group">
                 <label for="metodologiaMotor">Metodologia Aplicada:</label>
-                <select id="metodologiaMotor" name="metodologiaMotor">
+                <select id="metodologiaMotor" name="motor_metodologia">
                     <option value="">Selecione</option>
                     <option value="tratamento_quimico">Aplicar tratamento químico - Metalográfico</option>
                     <option value="instrumento_optico">Utilização de instrumento óptico adequado (LUPA)</option>
                 </select>
                 <label>
                     <input type="checkbox" id="nao-se-aplica-metodologia-motor"
-                        name="nao-se-aplica-metodologia-motor" onchange="toggleMetodologiaMotor()"> Não se aplica
+                        name="motor_nao_se_aplica_metodologia" onchange="toggleMetodologiaMotor()"> Não se aplica
                 </label>
             </div>
     
             <div class="form-group">
                 <label for="resultadoMotor">Resultado:</label>
-                <select id="resultadoMotor" name="resultadoMotor" onchange="toggleReveladoFields('motor')">
+                <select id="resultadoMotor" name="motor_resultado" onchange="toggleReveladoFields('motor')">
                     <option value="">Selecione</option>
                     <option value="revelado">Revelado</option>
                     <option value="revelado_parcialmente">Revelado parcialmente</option>
@@ -485,23 +486,24 @@
                     <option value="nao_confirmado">Não confirmado</option>
                 </select>
                 <label>
-                    <input type="checkbox" id="nao-se-aplica-resultado-motor" name="nao-se-aplica-resultado-motor"
+                    <input type="checkbox" id="nao-se-aplica-resultado-motor" name="motor_nao_se_aplica_resultado"
                         onchange="toggleResultadoMotor()"> Não se aplica
                 </label>
             </div>
+
             <div class="motor-revelado-fields" id="motor-revelado">
                 <div class="form-group">
                     <label for="motorRevelado">Número do motor:</label>
-                    <input type="text" id="motorRevelado" name="motorRevelado" maxlength="17"
+                    <input type="text" id="motorRevelado" name="motor_revelado_numero" maxlength="17"
                         placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                         oninput="updateChassiDisplay(this, 'motorReveladoDisplay')">
                     <div id="motorReveladoDisplay" class="chassi-display"></div>
                 </div>
                 <div class="form-group">
                     <label for="fotoMotorRevelado">Foto do motor:</label>
-                    <input type="file" id="fotoMotorRevelado" name="fotoMotorRevelado" class="image-input">
+                    <input type="file" id="fotoMotorRevelado" name="motor_revelado_foto" class="image-input">
                     <label>
-                        <input type="checkbox" id="nao-tem-foto-motor-revelado" name="nao-tem-foto-motor-revelado"
+                        <input type="checkbox" id="nao-tem-foto-motor-revelado" name="nmotor_revelado_nao_tem_foto"
                             onchange="toggleFotoMotorRevelado()"> Não tem foto
                     </label>
                 </div>
@@ -514,18 +516,18 @@
             <div class="motor-revelado-fields" id="motor-revelado-parcialmente">
                 <div class="form-group">
                     <label for="motorReveladoParcialmente">Motor Revelado Parcialmente:</label>
-                    <input type="text" id="motorReveladoParcialmente" name="motorReveladoParcialmente"
+                    <input type="text" id="motorReveladoParcialmente" name="motor_revelado_parcialmente_numero"
                         maxlength="17" placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                         oninput="updateChassiDisplay(this, 'motorReveladoParcialmenteDisplay')">
                     <div id="motorReveladoParcialmenteDisplay" class="chassi-display"></div>
                 </div>
                 <div class="form-group">
                     <label for="fotoMotorReveladoParcialmente">Foto do Motor Revelado Parcialmente:</label>
-                    <input type="file" id="fotoMotorReveladoParcialmente" name="fotoMotorReveladoParcialmente"
+                    <input type="file" id="fotoMotorReveladoParcialmente" name="motor_revelado_parcialmente_foto"
                         class="image-input">
                     <label>
                         <input type="checkbox" id="nao-tem-foto-motor-revelado-parcialmente"
-                            name="nao-tem-foto-motor-revelado-parcialmente"
+                            name="motor_revelado_parcialmente_nao_tem_foto"
                             onchange="toggleFotoMotorReveladoParcialmente()"> Não tem foto
                     </label>
                 </div>
@@ -534,16 +536,12 @@
                 </div>
                 <button id="crop-button-motor-revelado-parcialmente" style="display:none;">Recortar</button>
                 <canvas id="cropped-result-motor-revelado-parcialmente"></canvas>
-            </div> <button>Salvar</button>
+            
         </div>
        
     </div>
-
-    <div class="nav-buttons">
-        <button id="prev" onclick="window.history.back()">Voltar</button>
-        <button id="next" onclick="salvaContinuar('imagem1','imagem2')">Avançar</button>
-    </div>
-    
+    <button type="submit">Avançar</button>
+    </form>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script>
     
@@ -630,7 +628,22 @@
                 resultadoSelect.disabled = false;
             }
         }
-    
+        function bloquearrCampos(section, tipo) {
+            const tipoadulteracao = document.getElementById('tipoadulteracao').value;
+            const chassiAdulterado = document.getElementById('chassiAdulterado');
+            const arquivoChassiAdulterado = document.getElementById('arquivoChassiAdulterado');
+            const metodologiaChassi = document.getElementById('metodologiaChassi');
+            const resultadoChassi = document.getElementById('resultadoChassi');
+            const fotoChassiAdulterado = document.getElementById('fotoChassiAdulterado');
+
+            if (tipoadulteracao === 'substituido_transplante1' || tipoadulteracao === 'nao_localizado1' || tipoadulteracao == 'recortado1') {
+                chassiAdulterado.disabled = true;
+                arquivoChassiAdulterado.disabled = true;
+            } else {
+                chassiAdulterado.disabled = false;
+                arquivoChassiAdulterado.disabled = false;
+            }
+        }
     
         // Toggle fields
         function toggleFields(type) {

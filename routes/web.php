@@ -195,7 +195,7 @@ Route::get('motocicleta.index','Perito\Chassis\MotocicletasController@index')->n
 //exibe a tela 2 de motocicleta
 Route::post('motocicleta.tela3', 'Perito\Chassis\MotocicletasController@tela3')->name('motocicletas.tela3');
 
-
+Route::post('motocicleta.exame', 'Perito\Chassis\MotocicletasController@exame')->name('motocicleta.exame');
 
 
 
@@ -204,6 +204,10 @@ Route::get('motocicleta.tela4/{laudo}', 'Perito\Chassis\Moto\MotocicletasControl
 Route::get('motocicleta.tela5/{laudo}', 'Perito\Chassis\Moto\MotocicletasController@tela5')->name('motocicleta.tela5');
 
 Route::get('motocicleta.tela2/{laudo}', 'Perito\Chassis\MotocicletasController@tela2')->name('motocicletas.tela2');
+
+
+Route::post('motocicleta.tela3', 'Perito\Chassis\MotocicletasController@tela3')->name('motocicletas.tela3');
+Route::get('laudosChassi.docx/{laudo}', 'Perito\Chassis\ChassisController@generate_docx')->name('laudosChassi.docx');
 
 Route:: post ('motocicleta.tela4' , 'Perito\Chassis\MotocicletasController@tela4')->name ('motocicleta.tela4');
 

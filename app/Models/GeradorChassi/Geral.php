@@ -162,6 +162,8 @@ class Geral
             $this->section->addTextBreak(1),
             $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
             $textrun->addText('Trata-se de uma '.$chassi['veiculo_id'].' da marca de fabricação '.$chassi['marca']. $chassi['modelo'], $this->config->arial12()),
+            $textrun->addText(', ano de fabricação/modelo'.$chassi['ano'].'/'.$chassi['modelo'], $this->config->arial12()),
+            $textrun->addText(', com placas de licencimento'.$chassi, $this->config->arial12()),
             $this->section->addTextBreak(1),
             $this->section->addText(''),'phpWord' => $this->phpWord];    
         return $this->section;

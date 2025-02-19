@@ -248,7 +248,7 @@
         </div>
         <div class="form-group">
             <label for="placa">Placa atual:</label>
-            <input type="text" id="placa" name="placa">
+            <input type="text" id="placa" name="placa"maxlength="7" placeholder="XXX0X00" >
             <label><input type="checkbox" id="nao-tem-placa" name="nao-tem-placa"> Não tem placa</label>
         </div>
 
