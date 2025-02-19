@@ -161,16 +161,32 @@ class Geral
             $this->section->addText('DO VEÍCULO', $this->config->arial12Bold(), $this->config->paragraphJustify()),
             $this->section->addTextBreak(1),
             $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
-            $textrun->addText('Trata-se de uma '.$chassi['veiculo_id'].' da marca de fabricação '.$chassi['marca']. $chassi['modelo'], $this->config->arial12()),
-            $textrun->addText(', ano de fabricação/modelo'.$chassi['ano'].'/'.$chassi['modelo'], $this->config->arial12()),
-            $textrun->addText(', com placas de licencimento'.$chassi, $this->config->arial12()),
+            $textrun->addText('Trata-se de uma '.$chassi['veiculo_id'].' da marca de fabricação '.$chassi['marca_fabricacao'].' '. $chassi['modelo'], $this->config->arial12()),
+            $textrun->addText(', ano de fabricação/modelo '.$chassi['ano'].'/'.$chassi['modelo'].' de cor '.$chassi['cor'], $this->config->arial12()),
+            $textrun->addText(', '.($chassi['placa']=='' ? 'ostentando placa de licenciamento '.$chassi['placa'] : 'desprovido de placa'), $this->config->arial12()),
+            $textrun->addText(' e em '.$chassi['estado_conservacao'].' estado de conservação.', $this->config->arial12()),
             $this->section->addTextBreak(1),
-            $this->section->addText(''),'phpWord' => $this->phpWord];    
-        return $this->section;
+            $this->section->addText(''),'phpWord' => $this->phpWord]; 
+        //Imagens da moto 
+            $table = $this->section->addTable('tabela2img');
+            $table->addRow(); 
+            $img2=$table->addCell();
+            $img2->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\scroll.png', array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));
+            $img3= $table->addCell();
+            $img3->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\scroll.png', array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));
+
+            $this->section->addText(strtoupper($chassi['veiculo_id']).' PERICIDA', $this->config->arial12Bold(),$this->config->paragraphCenter());
+          return $this->section;
 
     } 
         
-
+   
+            
+            
+            
+            
+           
+       
     
 }
 

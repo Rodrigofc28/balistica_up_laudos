@@ -21,7 +21,11 @@ class MotocicletasController extends Controller
    }
    public function tela3(Request $request){
        $laudo=Laudo::find($request->laudo_id);
+       //salva os dados
        Chassi::create($request->all());
+       //update dos dados
+       $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
+       $chassi->update($request->all());
       return view('perito.chassi.veiculos.moto.motocicleta.telaum',compact('laudo'));
    }
    public function tela4(Laudo $laudo){
