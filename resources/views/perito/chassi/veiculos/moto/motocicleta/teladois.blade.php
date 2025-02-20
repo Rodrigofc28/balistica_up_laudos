@@ -87,6 +87,7 @@
         margin-top: 10px;
     }
 
+    
     .conditional-fields {
         display: none;
     }
@@ -260,10 +261,10 @@
             <div class="form-group">
                 <label for="fotoChassiAtual">Foto do Chassi:</label>
                 <input type="file" id="fotoChassiAtual" name="chassi_foto" class="image-input">
-                <!--<label>
+                <label>
                     <input type="checkbox" id="nao-tem-foto-chassi" name="chassi_nao_tem_foto"
                         onchange="toggleFotoChassi()"> Não tem foto
-                </label>-->
+                </label>
             </div>
             <div class="crop-container">
                 <img id="image-preview-chassi" alt="Preview" class="image-preview">
@@ -276,14 +277,14 @@
         <div class="conditional-fields" id="adulteradoFieldsChassi">
             <div class="form-group">
                 <label for="chassiAdulterado">Chassi Adulterado:</label>
-                <input type="text" id="chassiAdulterado" name="chassi_adulterado_numero" maxlength="17"
+                <input type="text" id="chassi_adulterado" name="chassi_adulterado_numero" maxlength="17"
                     placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                     oninput="updateChassiDisplay(this, 'chassiAdulteradoDisplay')">
                 <div id="chassiAdulteradoDisplay" class="chassi-display"></div>
             </div>
             <div class="form-group">
                 <label for="arquivoChassiAdulterado">Foto do chassi adulterado:</label>
-                <input type="file" id="arquivoChassiAdulterado" name="chassi_adulterado_foto" class="image-input">
+                <input type="file" id="arquivo_chassi_adulterado" name="chassi_adulterado_foto" class="image-input">
                 <label>
                     <input type="checkbox" id="nao-tem-foto-chassi-adulterado" name="chassi_adulterado_nao_tem_foto"
                         onchange="toggleFotoChassiAdulterado()"> Não tem foto
@@ -304,6 +305,7 @@
                     <option value="desbaste_nao_revelado">Desbaste</option>
                     <option value="adulteracao_simples">Adulteração simples</option>
                     <option value="recortado">Recortado</option>
+                    <option value="implante_chassi">Implante</option>
                     <option value="nao_localizado">Não localizado</option>
                     <option value="substituido_transplante">Substituído (transplante)</option>
                 </select>
@@ -404,7 +406,7 @@
         <div class="conditional-fields" id="integroFieldsMotor">
             <div class="form-group">
                 <label for="motorAtual">Número do Motor:</label>
-                <input type="text" id="motorAtual" name="motor_numero" maxlength="17"
+                <input type="text" id="motorAtual" name="motor_numero" maxlength="20"
                     placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                     oninput="updateChassiDisplay(this, 'motorAtualDisplay')">
                 <div id="motorAtualDisplay" class="chassi-display"></div>
@@ -428,7 +430,7 @@
         <div class="conditional-fields" id="adulteradoFieldsMotor">
             <div class="form-group">
                 <label for="motorAdulterado">Motor Adulterado:</label>
-                <input type="text" id="motorAdulterado" name="motor_tipo_adulteracao" maxlength="17"
+                <input type="text" id="motorAdulterado" name="motor_tipo_adulteracao" maxlength="20"
                     placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                     oninput="updateChassiDisplay(this, 'motorAdulteradoDisplay')">
                 <div id="motorAdulteradoDisplay" class="chassi-display"></div>
@@ -456,8 +458,9 @@
                     <option value="desbaste_revelado">Desbaste</option>
                     <option value="remarcado_nao_confirmado">Remarcado</option>
                     <option value="recortado">Recortado</option>
+                     <option value="adulteracao_simples">Adulteração simples</option>
+                     <option value="implante_motor">Implante</option>
                     <option value="nao_localizado">Não localizado</option>
-                    <option value="adulteracao_simples">Adulteração simples</option>
                     <option value="substituido_transplante">Substituído (transplante)</option>
                 </select>
             </div>
@@ -494,7 +497,7 @@
             <div class="motor-revelado-fields" id="motor-revelado">
                 <div class="form-group">
                     <label for="motorRevelado">Número do motor:</label>
-                    <input type="text" id="motorRevelado" name="motor_revelado_numero" maxlength="17"
+                    <input type="text" id="motorRevelado" name="motor_revelado_numero" maxlength="20"
                         placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                         oninput="updateChassiDisplay(this, 'motorReveladoDisplay')">
                     <div id="motorReveladoDisplay" class="chassi-display"></div>
@@ -517,7 +520,7 @@
                 <div class="form-group">
                     <label for="motorReveladoParcialmente">Motor Revelado Parcialmente:</label>
                     <input type="text" id="motorReveladoParcialmente" name="motor_revelado_parcialmente_numero"
-                        maxlength="17" placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
+                        maxlength="20" placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                         oninput="updateChassiDisplay(this, 'motorReveladoParcialmenteDisplay')">
                     <div id="motorReveladoParcialmenteDisplay" class="chassi-display"></div>
                 </div>
@@ -610,44 +613,63 @@
     
         // Bloquear campos
         function bloquearCampos(tipo, secao) {
-            const select = document.getElementById(`tipoadulteracao${secao}`);
-            const numeroInput = document.getElementById(`${tipo}Adulterado`);
-            const fotoInput = document.getElementById(`arquivo${secao}Adulterado`);
-            const metodologiaSelect = document.getElementById(`metodologia${secao}`);
-            const resultadoSelect = document.getElementById(`resultado${secao}`);
-    
-            if (['substituido_transplante', 'nao_localizado'].includes(select.value)) {
-                numeroInput.disabled = true;
-                fotoInput.disabled = true;
-                metodologiaSelect.disabled = true;
-                resultadoSelect.disabled = true;
-            } else {
-                numeroInput.disabled = false;
-                fotoInput.disabled = false;
-                metodologiaSelect.disabled = false;
-                resultadoSelect.disabled = false;
-            }
-        }
-        function bloquearrCampos(section, tipo) {
-            const tipoadulteracao = document.getElementById('tipoadulteracao').value;
-            const chassiAdulterado = document.getElementById('chassiAdulterado');
-            const arquivoChassiAdulterado = document.getElementById('arquivoChassiAdulterado');
-            const metodologiaChassi = document.getElementById('metodologiaChassi');
-            const resultadoChassi = document.getElementById('resultadoChassi');
-            const fotoChassiAdulterado = document.getElementById('fotoChassiAdulterado');
+    const select = document.getElementById(`tipoadulteracao${secao}`);
+    const numeroInput = document.getElementById(`${tipo}Adulterado`);
+    const fotoInput = document.getElementById(`arquivo${secao}Adulterado`);
+    const metodologiaSelect = document.getElementById(`metodologia${secao}`);
+    const resultadoSelect = document.getElementById(`resultado${secao}`);
 
-            if (tipoadulteracao === 'substituido_transplante1' || tipoadulteracao === 'nao_localizado1' || tipoadulteracao == 'recortado1') {
-                chassiAdulterado.disabled = true;
-                arquivoChassiAdulterado.disabled = true;
-            } else {
-                chassiAdulterado.disabled = false;
-                arquivoChassiAdulterado.disabled = false;
-            }
-        }
+    if (select.value === 'recortado') {
+        if (numeroInput) numeroInput.disabled = true;
+        if (fotoInput) fotoInput.disabled = false; // Apenas a foto fica ativa
+        if (metodologiaSelect) metodologiaSelect.disabled = true;
+        if (resultadoSelect) resultadoSelect.disabled = true;
+    } else if (['substituido_transplante', 'nao_localizado'].includes(select.value)) {
+        if (numeroInput) numeroInput.disabled = true;
+        if (fotoInput) fotoInput.disabled = true;
+        if (metodologiaSelect) metodologiaSelect.disabled = true;
+        if (resultadoSelect) resultadoSelect.disabled = true;
+    } else {
+        if (numeroInput) numeroInput.disabled = false;
+        if (fotoInput) fotoInput.disabled = false;
+        if (metodologiaSelect) metodologiaSelect.disabled = false;
+        if (resultadoSelect) resultadoSelect.disabled = false;
+    }
+}
+
+        // bloquear campos Chassi
+        function bloquearrCampos(section, tipo) {
+    const tipoadulteracao = document.getElementById('tipoadulteracao').value;
+    const chassiAdulterado = document.getElementById('chassi_adulterado');
+    const arquivoChassiAdulterado = document.getElementById('arquivo_chassi_adulterado');
+    const metodologiaChassi = document.getElementById('metodologiaChassi');
+    const resultadoChassi = document.getElementById('resultadoChassi');
+
+    if (tipoadulteracao === 'recortado') {
+        if (chassiAdulterado) chassiAdulterado.disabled = true;
+        if (arquivoChassiAdulterado) arquivoChassiAdulterado.disabled = false; // Apenas a foto fica ativa
+        if (metodologiaChassi) metodologiaChassi.disabled = true;
+        if (resultadoChassi) resultadoChassi.disabled = true;
+    } else if (tipoadulteracao === 'substituido_transplante' || 
+               tipoadulteracao === 'nao_localizado') {
+        if (chassiAdulterado) chassiAdulterado.disabled = true;
+        if (arquivoChassiAdulterado) arquivoChassiAdulterado.disabled = true;
+        if (metodologiaChassi) metodologiaChassi.disabled = true;
+        if (resultadoChassi) resultadoChassi.disabled = true;
+    } else {
+        if (chassiAdulterado) chassiAdulterado.disabled = false;
+        if (arquivoChassiAdulterado) arquivoChassiAdulterado.disabled = false;
+        if (metodologiaChassi) metodologiaChassi.disabled = false;
+        if (resultadoChassi) resultadoChassi.disabled = false;
+    }
+}
+
+
+
     
         // Toggle fields
         function toggleFields(type) {
-            const status = document.querySelector(`input[name="${type}Status"]:checked`)?.value;
+            const status = document.querySelector(`input[name="${type}_status"]:checked`)?.value;
     
             const integroFields = document.getElementById(`integroFields${type.charAt(0).toUpperCase() + type.slice(1)}`);
             const adulteradoFields = document.getElementById(`adulteradoFields${type.charAt(0).toUpperCase() + type.slice(1)}`);

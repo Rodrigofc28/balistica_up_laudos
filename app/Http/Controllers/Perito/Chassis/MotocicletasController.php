@@ -26,17 +26,37 @@ class MotocicletasController extends Controller
        //update dos dados
        $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
        $chassi->update($request->all());
-      return view('perito.chassi.veiculos.moto.motocicleta.telaum',compact('laudo'));
+      return view('perito.chassi.veiculos.moto.motocicleta.telaum',compact('laudo','chassi'));
    }
    public function tela4(Laudo $laudo){
       return view('perito.chassi.veiculos.moto.motocicleta.teladois',compact('laudo'));
       }
    public function exame(Request $request) {
-  
+
+      $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
    // Isso mostrará todos os dados enviados na requisição
       VeiculoInspecao::create($request->all());
       return view('perito.chassi.veiculos.moto.motocicleta.show');
   }
-  
-  
+  //funções de deletar e editar
+  public function delete($id)
+    {
+        // Encontra o registro pelo ID e deleta
+        $registro = Chassi::find($id);
+        if ($registro) {
+            $registro->delete();
+            return redirect()->back()->with('success', 'Registro deletado com sucesso!');
+        }
+        return redirect()->back()->with('error', 'Registro não encontrado!');
+    }
+
+    public function edite($id)
+    {
+        // Encontra o registro pelo ID e retorna para a view de edição
+        $registro = Chassi::find($id);
+        if ($registro) {
+            return view('sua_view_de_edicao', compact('registro'));
+        }
+        return redirect()->back()->with('error', 'Registro não encontrado!');
+    }
 }

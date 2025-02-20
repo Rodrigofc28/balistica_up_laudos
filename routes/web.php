@@ -210,6 +210,11 @@ Route::post('motocicleta.tela3', 'Perito\Chassis\MotocicletasController@tela3')-
 Route::get('laudosChassi.docx/{laudo}', 'Perito\Chassis\ChassisController@generate_docx')->name('laudosChassi.docx');
 
 Route:: post ('motocicleta.tela4' , 'Perito\Chassis\MotocicletasController@tela4')->name ('motocicleta.tela4');
+//Rotas de editar e deletar
+
+Route::get('/editar/{id}', [MotocicletasController::class, 'edite'])->name('editar');
+
+Route::delete('/deletar/{id}', [MotocicletasController::class, 'delete'])->name('deletar');
 
 
 

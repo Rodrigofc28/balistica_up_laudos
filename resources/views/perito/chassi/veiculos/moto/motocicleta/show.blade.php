@@ -34,10 +34,10 @@
 <hr>
 
 <div id="showLaudo" class="col-lg-12">
-        <span><strong>REP:</strong> {{$laudo->rep}}</span><br>
-        <span><strong>Oficio:</strong> {{$laudo->oficio}}</span><br>
-        <span><strong>Cidade:</strong> {{$laudo->cidade_id}}</span><br>
-        <span><strong>Órgão solicitante:</strong> {{ $laudo->solicitante->nome ?? '' }}</span><br>
+        <span><strong>REP:</strong> 654654</span><br>
+        <span><strong>Oficio:</strong> 56456</span><br>
+        <span><strong>Cidade:</strong> 546546</span><br>
+        <span><strong>Órgão solicitante:</strong> 54645645</span><br>
         
         
         <input type="button" class="btn btn-success" id="btn-edit" value="Editar Informações do cabeçalho">
@@ -56,6 +56,7 @@
         <table class="table table-bordered table-hover table-striped" id="tabela_chassis">
             <thead align="center">
                 <tr>
+                    <th>id</th>
                     <th>Tipo</th>
                     <th>Marca</th>
                     <th>Modelo</th>
@@ -67,8 +68,12 @@
             </thead>
             <tbody align="center">
 
-    
-
+        @foreach (['49','Moto','Honda','CG125','2010','666'] as $item)
+            <td>{{$item}}</td>
+            
+        @endforeach
+        <td><button>Editar</button></td>
+        <td><button>excluir</button></td>
               
  
 
@@ -93,7 +98,7 @@
         </div>
         
     <div class="col-lg-3 mt-2">
-        <a class="btn btn-primary btn-block" href="{{ route('laudosChassi.docx', ['laudo' => $laudo]) }}">
+        <a class="btn btn-primary btn-block" href="">
             <i class="fas fa-file-download" aria-hidden="true"></i>
             Gerar Laudo (.docx)
         </a>
