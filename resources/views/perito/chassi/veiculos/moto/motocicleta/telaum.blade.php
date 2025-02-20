@@ -192,6 +192,7 @@
 
             <form class="uploadForm" action="{{ route('motocicleta.tela4') }}" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
+                <input hidden  name="laudo_id" value="{{ $laudo->id }}">
         <input type="file" hidden name="imagem1" id="imagem1">
 
        <input type="file" hidden name="imagem2" id="imagem2">
@@ -240,12 +241,16 @@
         <button id="next" onclick="salvaContinuar('imagem1','imagem2')">Avançar</button>
     </div>
 </div>
+<<<<<<< HEAD
 <!--<div class="col-lg-3 mt-2">
     <a class="btn btn-primary btn-block" href="{{ route('laudosChassi.docx', ['laudo' => $laudo]) }}">
         <i class="fas fa-file-download" aria-hidden="true"></i>
         Gerar Laudo (.docx)
     </a>
 </div>-->
+=======
+
+>>>>>>> 15ef4f6da2b593e5d7adf24247034b13c873d57b
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://unpkg.com/cropperjs"></script>
 <script>

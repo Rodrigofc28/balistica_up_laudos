@@ -8,6 +8,7 @@ use App\Models\Armas\Carabina;
 use App\Models\Armas\Garrucha;
 use App\Models\Armas\Pistola;
 use App\Models\Armas\Revolver;
+use App\Models\Laudo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -40,10 +41,6 @@ class Arma extends Model
         return $this->belongsTo(Laudo::class);
     }
 
-    /* ->withTrashed() é utilizado para retornar um registro
-     *  mesmo que tenha sido deletado.
-     * Objetivo é evitar erros quando acessar $arma->marca->nome, por exemplo
-     */
     public function marca(){
         return $this->belongsTo(Marca::class)->withTrashed();
     }
@@ -59,7 +56,7 @@ class Arma extends Model
     public function imagens(){
         return $this->hasMany(Imagem::class);
     }
-
+  
     public static function arma($arma)
     {
         switch ($arma->tipo_arma) {

@@ -40,7 +40,7 @@
         <span><strong>Órgão solicitante:</strong> 54645645</span><br>
         
         
-        <input type="button" class="btn btn-success" id="btn-edit" value="Editar Informações do cabeçalho">
+       
        
       </div>
        
@@ -68,12 +68,14 @@
             </thead>
             <tbody align="center">
 
-        @foreach (['49','Moto','Honda','CG125','2010','666'] as $item)
-            <td>{{$item}}</td>
-            
-        @endforeach
-        <td><button>Editar</button></td>
-        <td><button>excluir</button></td>
+   
+    <td>{{$chassi['veiculo_id']}}</td>
+    <td>{{$chassi['marca_fabricacao']}}</td>
+    <td>{{$chassi['modelo']}}</td>
+    <td>{{$chassi['ano']}}</td>
+    <td>{{$chassi['placa']}}</td>
+    <td><button>Excluir</button></td>
+    <td><button>Deletar</button></td>
               
  
 
@@ -90,19 +92,14 @@
                 <i class="fas fa-arrow-circle-left"></i> Voltar</a>
         </div>
 
+        
+        
         <div class="col-lg-3 mt-2">
-            <a class="btn btn-success btn-block" href="">
-                <i class="fas fa-plus" aria-hidden="true"></i>
-                Adicionar Material
+            <a class="btn btn-primary btn-block" href="{{ route('laudosChassi.docx', ['laudo' => $laudo]) }}">
+                <i class="fas fa-file-download" aria-hidden="true"></i>
+                Gerar Laudo (.docx)
             </a>
         </div>
-        
-    <div class="col-lg-3 mt-2">
-        <a class="btn btn-primary btn-block" href="">
-            <i class="fas fa-file-download" aria-hidden="true"></i>
-            Gerar Laudo (.docx)
-        </a>
-    </div>
     
 </div>
 </div>
