@@ -10,7 +10,7 @@ use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shape;
 use PhpOffice\PhpWord\Style\Font;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Http\UploadedFile;
 use App\Models\ChassiDate\Chassi;
 use NumberFormatter;
 
@@ -83,6 +83,9 @@ class Geral
     {
         
         $chassi = Chassi::where('laudo_id', $laudo->id)->first();
+        //pegando as imagens e alocando na variavel
+        $image1 = $this->img64base($chassi['image1']);
+        $image2 = $this->img64base($chassi['image2']);
 
         $header = $this->section->addHeader();
         $header->addTextBreak(1);
@@ -163,7 +166,7 @@ class Geral
             $this->section->addTextBreak(1),
             $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
             $textrun->addText('Trata-se de uma '.$chassi['veiculo_id'].' da marca de fabricação '.$chassi['marca_fabricacao'].' '. $chassi['modelo'], $this->config->arial12()),
-            $textrun->addText(', ano de fabricação/modelo '.$chassi['ano'].'/'.$chassi['modelo'].' de cor '.$chassi['cor'], $this->config->arial12()),
+            $textrun->addText(', ano de fabricação/modelo '.$chassi['ano_fab'].'/'.$chassi['modelo'].' de cor '.$chassi['cor'], $this->config->arial12()),
             $textrun->addText(', '.($chassi['placa']=='' ? 'ostentando placa de licenciamento '.$chassi['placa'] : 'desprovido de placa'), $this->config->arial12()),
             $textrun->addText(' e em '.$chassi['estado_conservacao'].' estado de conservação.', $this->config->arial12()),
             $this->section->addTextBreak(1),
@@ -172,17 +175,32 @@ class Geral
             $table = $this->section->addTable('tabela2img');
             $table->addRow(); 
             $img2=$table->addCell();
-            $img2->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\scroll.png', array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));
+            $img2->addImage($image1, array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));
             $img3= $table->addCell();
-            $img3->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\scroll.png', array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));
+            $img3->addImage($image2, array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));
 
             $this->section->addText(strtoupper($chassi['veiculo_id']).' PERICIADA', $this->config->arial12Bold(),$this->config->paragraphCenter());
          //Do exame
-            $this->doExame($laudo->laudoEfetConst,$chassi['veiculo_id']);
+            //$this->doExame($laudo->laudoEfetConst,$chassi['veiculo_id']);
           return $this->section;
 
     } 
+    //trnasformar a imagem em base64
+    public function img64base($a){
         
+        $imageR = $a; // decodifica do banco a image em base 64
+        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imageR)); // tira #^data:image/\w+;base64,#i
+        
+        $tempFilePath = storage_path('app/public/imagensChassi'). '/' . uniqid() . '.jpg'; // cria um diretorio temporariosys_get_temp_dir() 
+         file_put_contents($tempFilePath, $imageData);//colocar arquivo
+         
+        // quando a image vêm de um input do tipo file não precisa transforma em um objeto porque ela já é, porem quando ta em base64 sim ae se usa o UploadedFile
+          $imageConvertida = new UploadedFile($tempFilePath, 'diario_num_one.jpg', 'image/jpeg', null, true);
+       
+            
+        $fileC = file_get_contents($imageConvertida); //pegar arquivo
+        return $fileC;
+    }
    public function doExame($tipoExame,$veiculo){
     switch ($tipoExame) {
         case 'I801':

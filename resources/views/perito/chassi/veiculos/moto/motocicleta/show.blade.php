@@ -34,10 +34,10 @@
 <hr>
 
 <div id="showLaudo" class="col-lg-12">
-        <span><strong>REP:</strong> 654654</span><br>
-        <span><strong>Oficio:</strong> 56456</span><br>
-        <span><strong>Cidade:</strong> 546546</span><br>
-        <span><strong>Órgão solicitante:</strong> 54645645</span><br>
+        <span><strong>REP:</strong> {{$laudo->rep}}</span><br>
+        <span><strong>Oficio:</strong> {{$laudo->oficio}}</span><br>
+        <span><strong>Cidade:</strong> {{$laudo->cidade_id}}</span><br>
+        <span><strong>Órgão solicitante:</strong>{{$laudo->solicitante->nome}}</span><br>
         
         
        
@@ -48,6 +48,7 @@
 
 <hr>
 
+
 <div class="col-lg-12">
     
     
@@ -56,7 +57,7 @@
         <table class="table table-bordered table-hover table-striped" id="tabela_chassis">
             <thead align="center">
                 <tr>
-                    <th>id</th>
+                
                     <th>Tipo</th>
                     <th>Marca</th>
                     <th>Modelo</th>
@@ -74,8 +75,8 @@
     <td>{{$chassi['modelo']}}</td>
     <td>{{$chassi['ano']}}</td>
     <td>{{$chassi['placa']}}</td>
-    <td><button>Excluir</button></td>
-    <td><button>Deletar</button></td>
+    
+    <td><button>Deletar</button><button>Excluir</button></td>
             
  
 

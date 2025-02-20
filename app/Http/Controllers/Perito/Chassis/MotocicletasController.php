@@ -20,6 +20,7 @@ class MotocicletasController extends Controller
       return view('perito.chassi.veiculos.moto.motocicleta.index',compact('laudo'));
    }
    public function tela3(Request $request){
+    
        $laudo=Laudo::find($request->laudo_id);
        //salva os dados
        Chassi::create($request->all());
@@ -34,12 +35,21 @@ class MotocicletasController extends Controller
 
    }
    public function tela4(Request $request){
-      
+
+      if ($request->hasFile('imagem1')) {
+         $image1 = base64_encode(file_get_contents($request->file('imagem1')));
+         
+      }
+
+      if ($request->hasFile('imagem2')) {
+         $image2 = base64_encode(file_get_contents($request->file('imagem2')));
+         
+      }
       $laudo=Laudo::find($request->laudo_id);
       $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
       $chassi->update([
-         'image1' => $request->imagem1,
-         'image2' => $request->imagem2
+         'image1' => $image1,
+         'image2' => $image2
       ]);
       return view('perito.chassi.veiculos.moto.motocicleta.teladois',compact('laudo'));
       }
