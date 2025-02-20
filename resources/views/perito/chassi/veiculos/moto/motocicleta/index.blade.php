@@ -214,8 +214,7 @@
         <div class="form-group">
             <label for="estado-conservacao">Estado de conservação:</label>
             <select id="estado-conservacao" name="estado_conservacao" required>
-                <option>Selecione</option>
-                <option>BAIXADO</option>
+                <option>Selecione</option>      
                 <option>MAU</option>
                 <option>BOM</option>
                 <option>REGULAR</option>
