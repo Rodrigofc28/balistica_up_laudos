@@ -75,7 +75,7 @@
     <td>{{$chassi['placa']}}</td>
     <td><button>Excluir</button></td>
     <td><button>Deletar</button></td>
-              
+            <td><button>fgdf</button></td>  
  
 
             </tbody>
