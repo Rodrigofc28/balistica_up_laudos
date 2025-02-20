@@ -24,18 +24,29 @@ class MotocicletasController extends Controller
        //salva os dados
        Chassi::create($request->all());
        //update dos dados
-       $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
-       $chassi->update($request->all());
+      // $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
+       //$chassi->update($request->all());
       return view('perito.chassi.veiculos.moto.motocicleta.telaum',compact('laudo'));
    }
-   public function tela4(Laudo $laudo){
+   public function tela4(Request $request){
+      
+      $laudo=Laudo::find($request->laudo_id);
+      $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
+      $chassi->update([
+         'image1' => $request->imagem1,
+         'image2' => $request->imagem2
+      ]);
       return view('perito.chassi.veiculos.moto.motocicleta.teladois',compact('laudo'));
       }
    public function exame(Request $request) {
   
-   // Isso mostrará todos os dados enviados na requisição
+      $laudo=Laudo::find($request->laudo_id);
+
+      
+      $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
+      $chassi->update($request->all());
       VeiculoInspecao::create($request->all());
-      return view('perito.chassi.veiculos.moto.motocicleta.show');
+      return view('perito.chassi.veiculos.moto.motocicleta.show',compact('chassi','laudo'));
   }
   
   

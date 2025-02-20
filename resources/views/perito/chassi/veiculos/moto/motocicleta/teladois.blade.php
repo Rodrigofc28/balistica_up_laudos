@@ -236,6 +236,7 @@
     <h2>Motocicleta</h2>
  <form id="form" action="{{route('motocicleta.exame')}}" method="POST">
         {{ csrf_field() }}
+        <input hidden  name="laudo_id" value="{{ $laudo->id}}">
     <div class="button-group" id="chassiSection"> <!-- Seção do Chassi -->
         <div class="section-title" style="font-size: 25px;">Chassi</div>
         <div class="radio-group">
@@ -542,6 +543,7 @@
     </div>
     <button type="submit">Avançar</button>
     </form>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script>
     

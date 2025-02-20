@@ -37,6 +37,7 @@ class Geral
                 $exame = "(NUMERAÇÕES IDENTIFICADORAS)";
                 $linha3preambulo='ao exame no veículo adiante descrito';
                 $tipoExame='ao exame nas numerações identificadoras do veículo apresentado.';
+
                 break;
             case 'I802':
                 $titulo = "LAUDO DE EXAME DE COMPARTIMENTOS";
@@ -167,7 +168,7 @@ class Geral
             $textrun->addText(' e em '.$chassi['estado_conservacao'].' estado de conservação.', $this->config->arial12()),
             $this->section->addTextBreak(1),
             $this->section->addText(''),'phpWord' => $this->phpWord]; 
-        //Imagens da moto 
+        //Das Imagens 
             $table = $this->section->addTable('tabela2img');
             $table->addRow(); 
             $img2=$table->addCell();
@@ -175,12 +176,52 @@ class Geral
             $img3= $table->addCell();
             $img3->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\scroll.png', array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));
 
-            $this->section->addText(strtoupper($chassi['veiculo_id']).' PERICIDA', $this->config->arial12Bold(),$this->config->paragraphCenter());
+            $this->section->addText(strtoupper($chassi['veiculo_id']).' PERICIADA', $this->config->arial12Bold(),$this->config->paragraphCenter());
+         //Do exame
+            $this->doExame($laudo->laudoEfetConst,$chassi['veiculo_id']);
           return $this->section;
 
     } 
         
-   
+   public function doExame($tipoExame,$veiculo){
+    switch ($tipoExame) {
+        case 'I801':
+            $exame = 'numerações identificadoras';
+            $text = 'número do chassi: esta numeração na xxxxxxxxx periciada se encontra gravada no xxxxxxxxxxxxxxxxx.';
+            if($situacao=='integro'){
+                $texto2= 'Ao exame de referido suporte, após a devida limpeza, foi verificada a gravação da sequência alfanumérica xxxxxxxxxxxxxxx, a qual apresenta-se íntegra, sem sinais ou vestígios de adulteração.';
+            }else if($situacao=='adulterado'){
+
+                $texto2= 'Ao exame de referido suporte, após a devida limpeza, verificou o perito evidentes sinais deixados pela operação ali procedida, que consistiu no desbaste, por ação abrasiva, o que ocasionou a destruição da numeração original, possibilitando a gravação da atual xxxxxxxxxxx. Submetida à superfície em referência a tratamento químico-metalográfico, destinado a revelar remanescentes da gravação original, foi obtida a sequência alfanumérica xxxxxxxxxxxx.';
+            }
+               
+            break;
+        case 'I802':
+            
+            break;
+        case 'I806':
+            
+            break;
+        case 'I812':
+            
+            break;
+        default:
+            
+            break;
+    }
+    $text4 = [
+        $this->section->addText('DO EXAME', $this->config->arial12Bold(), $this->config->paragraphJustify()),
+        $this->section->addTextBreak(1),
+        $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
+        $textrun->addText('Com relação às '.$exame.' da '.$veiculo. ' foram observados:', $this->config->arial12()),
+        $this->section->addTextBreak(1),
+        $textrun2 = $this->section->addTextRun($this->config->paragraphJustify()),
+        $textrun2->addText('a) '.$text, $this->config->arial12()),
+        //$textrun2->addText($text2, $this->config->arial12()),
+        $this->section->addTextBreak(1),
+        $this->section->addText(''),'phpWord' => $this->phpWord]; 
+        return $this->section;
+   }
             
             
             

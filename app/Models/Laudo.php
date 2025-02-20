@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\User;
 class Laudo extends Model
 {
     use SoftDeletes;
@@ -172,4 +172,5 @@ class Laudo extends Model
                 'quantidade' => $laudos_ano->quantidade]);
         return $laudos_anos;
     }
+    
 }
