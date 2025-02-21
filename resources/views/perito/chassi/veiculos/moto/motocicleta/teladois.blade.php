@@ -63,6 +63,27 @@
         margin-top: 20px;
     }
 
+    .nav-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 40px;
+    }
+
+    .nav-buttons button {
+        flex: 1;
+        padding: 12px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        margin: 0 10px;
+        background-color: #031d20c7;
+        color: #f8f8f8;
+    }
+
+    .nav-buttons button:hover {
+        background-color: #0691eeb7;
+    }
     .form-group {
         display: block;
         margin: 15px 0;
@@ -228,10 +249,10 @@
 
     <div class="progress-container">
         <div class="progress-bar"></div>
-        <div class="step active" id="step1">1</div>
-        <div class="step" id="step2">2</div>
-        <div class="step" id="step3">3</div>
-        <div class="step" id="step4">4</div>
+        <div class="step active">1</div>
+        <div class="step active">2</div>
+        <div class="step active">3</div>
+        <div class="step ">4</div>
     </div>
 
     <h2>Motocicleta</h2>
@@ -258,12 +279,12 @@
                     oninput="updateChassiDisplay(this, 'chassiAtualDisplay')">
                 <div id="chassiAtualDisplay" class="chassi-display"></div>
             </div>
-    
+
             <div class="form-group">
                 <label for="fotoChassiAtual">Foto do Chassi:</label>
                 <input type="file" id="fotoChassiAtual" name="chassi_foto" class="image-input">
                 <label>
-                    <input type="checkbox" id="nao-tem-foto-chassi" name="chassi_nao_tem_foto"
+                    <input type="checkbox" id="nao-tem-foto-chassi"
                         onchange="toggleFotoChassi()"> Não tem foto
                 </label>
             </div>
@@ -283,11 +304,12 @@
                     oninput="updateChassiDisplay(this, 'chassiAdulteradoDisplay')">
                 <div id="chassiAdulteradoDisplay" class="chassi-display"></div>
             </div>
+
             <div class="form-group">
                 <label for="arquivoChassiAdulterado">Foto do chassi adulterado:</label>
                 <input type="file" id="arquivo_chassi_adulterado" name="chassi_adulterado_foto" class="image-input">
                 <label>
-                    <input type="checkbox" id="nao-tem-foto-chassi-adulterado" name="chassi_adulterado_nao_tem_foto"
+                    <input type="checkbox" id="nao-tem-foto-chassi-adulterado" 
                         onchange="toggleFotoChassiAdulterado()"> Não tem foto
                 </label>
             </div>
@@ -299,14 +321,14 @@
             <div class="form-group">
                 <label for="tipoadulteracao">Tipo de adulteração:</label>
                 <select id="tipoadulteracao" name="chassi_tipo_adulteracao" onchange="bloquearrCampos('chassi', 'Chassi')">
-                    <option value="selecione">Selecione</option>
-                    <option value="desbaste_regravação_revelado">Desbaste e regravação</option>
-                    <option value="contundencia_parcial">Contundência</option>
-                    <option value="remarcado_corroborado">Remarcado</option>
-                    <option value="desbaste_nao_revelado">Desbaste</option>
+                    <option >Selecione</option>
+                    <option value="desbaste_regravacao">Desbaste e regravação</option>
+                    <option value="contundencia">Contundência</option>
+                    <option value="remarcado">Remarcado</option>
+                    <option value="desbaste">Desbaste</option>
                     <option value="adulteracao_simples">Adulteração simples</option>
                     <option value="recortado">Recortado</option>
-                    <option value="implante_chassi">Implante</option>
+                    <!--<option value="implante_chassi">Implante</option>-->
                     <option value="nao_localizado">Não localizado</option>
                     <option value="substituido_transplante">Substituído (transplante)</option>
                 </select>
@@ -314,15 +336,15 @@
     
             <div class="form-group">
                 <label for="metodologiaChassi">Metodologia Aplicada:</label>
-                <select id="metodologiaChassi" name="chassi_nao_se_aplica_metodologia">
+                <select id="metodologiaChassi" name="chassi_metodologia">
                     <option value="">Selecione</option>
                     <option value="tratamento_quimico">Aplicar tratamento químico - Metalográfico</option>
                     <option value="instrumento_optico">Utilização de instrumento óptico adequado (LUPA)</option>
                 </select>
-                <label>
+               <!-- <label>
                     <input type="checkbox" id="nao-se-aplica-metodologia-chassi"
                         name="nao-se-aplica-metodologia-chassi" onchange="toggleMetodologiaChassi()"> Não se aplica
-                </label>
+                </label>-->
             </div>
     
             <div class="form-group">
@@ -335,10 +357,10 @@
                     <option value="corroborado">Corroborado</option>
                     <option value="nao_confirmado">Não confirmado</option>
                 </select>
-                <label>
+               <!-- <label>
                     <input type="checkbox" id="nao-se-aplica-resultado-chassi" name="chassi_nao_se_aplica_resultado"
                         onchange="toggleResultadoChassi()"> Não se aplica
-                </label>
+                </label>-->
             </div>
             <div class="chassi-revelado-fields" id="chassi-revelado">
                 <div class="form-group">
@@ -352,7 +374,7 @@
                     <label for="fotoChassiRevelado">Foto do Chassi:</label>
                     <input type="file" id="fotoChassiRevelado" name="chassi_revelado_foto" class="image-input">
                     <label>
-                        <input type="checkbox" id="nao-tem-foto-chassi-revelado" name="chassi_revelado_nao_tem_foto"
+                        <input type="checkbox" id="nao-tem-foto-chassi-revelado" 
                             onchange="toggleFotoChassiRevelado()"> Não tem foto
                     </label>
                 </div>
@@ -376,7 +398,7 @@
                         class="image-input">
                     <label>
                         <input type="checkbox" id="nao-tem-foto-chassi-revelado-parcialmente"
-                            name="chassi_revelado_parcialmente_nao_tem_fot"
+                            
                             onchange="toggleFotoChassiReveladoParcialmente()"> Não tem foto
                     </label>
                 </div>
@@ -416,7 +438,7 @@
                 <label for="fotoMotorAtual">Foto do Motor:</label>
                 <input type="file" id="fotoMotorAtual" name="motor_adulterado_foto" class="image-input">
                 <label>
-                    <input type="checkbox" id="nao-tem-foto-motor" name="motor_adulterado_nao_tem_foto"
+                    <input type="checkbox" id="nao-tem-foto-motor" 
                         onchange="toggleFotoMotor()"> Não tem foto
                 </label>
             </div>
@@ -440,7 +462,7 @@
                 <label for="arquivoMotorAdulterado">Arquivo do Motor Adulterado:</label>
                 <input type="file" id="arquivoMotorAdulterado" name="motor_adulterado_nao_tem_foto" class="image-input">
                 <label>
-                    <input type="checkbox" id="nao-tem-foto-motor-adulterado" name="nao-tem-foto-motor-adulterado"
+                    <input type="checkbox" id="nao-tem-foto-motor-adulterado" 
                         onchange="toggleFotoMotorAdulterado()"> Não tem foto
                 </label>
             </div>
@@ -453,14 +475,14 @@
                 <label for="tipoadulteracaoMotor">Tipo de adulteração:</label>
                 <select id="tipoadulteracaoMotor" name="motor_tipo_adulteracao"
                     onchange="bloquearCampos('motor', 'Motor')">
-                    <option value="selecione">Selecione</option>
+                    <option>Selecione</option>
                     <option value="desbaste_regravação_nao_revelado">Desbaste e regravação</option>
                     <option value="contundencia_nao_revelado">Contundência</option>
                     <option value="desbaste_revelado">Desbaste</option>
                     <option value="remarcado_nao_confirmado">Remarcado</option>
                     <option value="recortado">Recortado</option>
                      <option value="adulteracao_simples">Adulteração simples</option>
-                     <option value="implante_motor">Implante</option>
+                    <!-- <option value="implante_motor">Implante</option>-->
                     <option value="nao_localizado">Não localizado</option>
                     <option value="substituido_transplante">Substituído (transplante)</option>
                 </select>
@@ -473,10 +495,10 @@
                     <option value="tratamento_quimico">Aplicar tratamento químico - Metalográfico</option>
                     <option value="instrumento_optico">Utilização de instrumento óptico adequado (LUPA)</option>
                 </select>
-                <label>
+               <!-- <label>
                     <input type="checkbox" id="nao-se-aplica-metodologia-motor"
                         name="motor_nao_se_aplica_metodologia" onchange="toggleMetodologiaMotor()"> Não se aplica
-                </label>
+                </label>-->
             </div>
     
             <div class="form-group">
@@ -489,10 +511,10 @@
                     <option value="corroborado">Corroborado</option>
                     <option value="nao_confirmado">Não confirmado</option>
                 </select>
-                <label>
+               <!-- <label>
                     <input type="checkbox" id="nao-se-aplica-resultado-motor" name="motor_nao_se_aplica_resultado"
                         onchange="toggleResultadoMotor()"> Não se aplica
-                </label>
+                </label>-->
             </div>
 
             <div class="motor-revelado-fields" id="motor-revelado">
@@ -507,7 +529,7 @@
                     <label for="fotoMotorRevelado">Foto do motor:</label>
                     <input type="file" id="fotoMotorRevelado" name="motor_revelado_foto" class="image-input">
                     <label>
-                        <input type="checkbox" id="nao-tem-foto-motor-revelado" name="nmotor_revelado_nao_tem_foto"
+                        <input type="checkbox" id="nao-tem-foto-motor-revelado" 
                             onchange="toggleFotoMotorRevelado()"> Não tem foto
                     </label>
                 </div>
@@ -531,7 +553,7 @@
                         class="image-input">
                     <label>
                         <input type="checkbox" id="nao-tem-foto-motor-revelado-parcialmente"
-                            name="motor_revelado_parcialmente_nao_tem_foto"
+                            
                             onchange="toggleFotoMotorReveladoParcialmente()"> Não tem foto
                     </label>
                 </div>
@@ -544,67 +566,66 @@
         </div>
        
     </div>
+    <div class="nav-buttons">
+    <button id="prev" onclick="window.history.back()">Voltar</button>
     <button type="submit">Avançar</button>
+    </div>
     </form>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script>
     
-        function initializeCropper(inputId, previewId, cropButtonId, resultId) {
-            let cropper;
-    
-            document.getElementById(inputId).addEventListener("change", function (event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        const imagePreview = document.getElementById(previewId);
-                        imagePreview.src = e.target.result;
-                        imagePreview.style.display = "block";
-    
-    
-                        if (cropper) {// Remove o cropper anterior (se existir)
-                            cropper.destroy();
-                        }
-    
-    
-                        cropper = new Cropper(imagePreview, {// Inicia o Cropper.js com mais liberdade de movimento
-                            aspectRatio: NaN, // Permite ajuste livre (removendo a restrição fixa)
-                            viewMode: 1,      // Permite que a imagem saia um pouco da área de recorte
-                            zoomable: true,   // Permite dar zoom
-                            movable: true,    // Permite mover livremente
-                            scalable: true,   // Permite redimensionar
-                            autoCropArea: 0.7 // Define uma área inicial de recorte maior
-                        });
-    
-    
-                        document.getElementById(cropButtonId).style.display = "block";     // Mostra o botão de recorte
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-    
-            document.getElementById(cropButtonId).addEventListener("click", function () {
+    function initializeCropper(inputId, previewId, cropButtonId, resultId) {
+    let cropper;
+
+    document.getElementById(inputId).addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imagePreview = document.getElementById(previewId);
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = "block";
+
                 if (cropper) {
-                    const canvas = cropper.getCroppedCanvas({
-                        width: 600, // Mantém um recorte mais largo
-                        height: 300
-                    });
-    
-    
-                    const croppedResult = document.getElementById(resultId);       // Exibe o recorte no <canvas>
-                    const ctx = croppedResult.getContext("2d");
-                    croppedResult.width = canvas.width;
-                    croppedResult.height = canvas.height;
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(canvas, 0, 0);
+                    cropper.destroy();
                 }
-            });
+
+                cropper = new Cropper(imagePreview, {
+                    aspectRatio: NaN,
+                    viewMode: 1,
+                    zoomable: true,
+                    movable: true,
+                    scalable: true,
+                    autoCropArea: 0.7
+                });
+
+                document.getElementById(cropButtonId).style.display = "block";
+            };
+            reader.readAsDataURL(file);
         }
+    });
+
+    document.getElementById(cropButtonId).addEventListener("click", function () {
+        if (cropper) {
+            const canvas = cropper.getCroppedCanvas({
+                width: 600,
+                height: 300
+            });
+
+            const croppedResult = document.getElementById(resultId);
+            const ctx = croppedResult.getContext("2d");
+            croppedResult.width = canvas.width;
+            croppedResult.height = canvas.height;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(canvas, 0, 0);
+        }
+    });
+}
     
     
         initializeCropper("fotoChassiAtual", "image-preview-chassi", "crop-button-chassi", "cropped-result-chassi");
-        initializeCropper("arquivoChassiAdulterado", "image-preview-chassi-adulterado", "crop-button-chassi-adulterado", "cropped-result-chassi-adulterado");
+        initializeCropper("arquivo_chassi_adulterado", "image-preview-chassi-adulterado", "crop-button-chassi-adulterado", "cropped-result-chassi-adulterado");
         initializeCropper("fotoChassiRevelado", "image-preview-chassi-revelado", "crop-button-chassi-revelado", "cropped-result-chassi-revelado");
         initializeCropper("fotoChassiReveladoParcialmente", "image-preview-chassi-revelado-parcialmente", "crop-button-chassi-revelado-parcialmente", "cropped-result-chassi-revelado-parcialmente");
         initializeCropper("fotoMotorAtual", "image-preview-motor", "crop-button-motor", "cropped-result-motor");
@@ -613,6 +634,7 @@
         initializeCropper("fotoMotorReveladoParcialmente", "image-preview-motor-revelado-parcialmente", "crop-button-motor-revelado-parcialmente", "cropped-result-motor-revelado-parcialmente");
     
     
+ 
         // Bloquear campos
         function bloquearCampos(tipo, secao) {
     const select = document.getElementById(`tipoadulteracao${secao}`);
@@ -766,7 +788,7 @@
     
         // Toggle foto chassi adulterado
         function toggleFotoChassiAdulterado() {
-            toggleFotoInput("nao-tem-foto-chassi-adulterado", "arquivoChassiAdulterado");
+            toggleFotoInput("nao-tem-foto-chassi-adulterado", "arquivo_chassi_adulterado");
         }
     
         // Toggle foto motor adulterado

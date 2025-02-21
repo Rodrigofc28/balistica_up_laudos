@@ -199,10 +199,10 @@
     <br>
     <div class="progress-container">
         <div class="progress-bar"></div>
-        <div class="step active"></div>
-        <div class="step"></div>
-        <div class="step"></div>
-        <div class="step"></div>
+        <div class="step active">1</div>
+        <div class="step">2</div>
+        <div class="step ">3</div>
+        <div class="step">4</div>
     </div>
     <br>
     <h2>Motocicleta</h2>
@@ -266,14 +266,47 @@
                 <label><input type="radio" name="cor" value="Marrom"> Marrom</label>
                 <label><input type="radio" name="cor" value="Amarelo"> Amarelo</label>
                 <label><input type="radio" name="cor" value="Laranja"> Laranja</label>
-
-                <!-- Campo para adicionar cor personalizada -->
+        
+                <!-- Opção "Outras" -->
                 <label><input type="radio" name="cor" value="Outras" id="outra-cor-radio"> Outras</label>
             </div>
-
-            <!-- Campo de texto que aparece apenas quando 'Outras' é selecionado -->
-            <input type="text" id="outro-cor" name="outro-cor" placeholder="Digite a cor" style="display:none;">
+        
+            <!-- Campo de texto para cor personalizada -->
+            <input type="text" id="outra-cor" placeholder="Digite a cor" style="display:none;">
         </div>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const outraCorRadio = document.getElementById("outra-cor-radio");
+                const outraCorInput = document.getElementById("outra-cor");
+                const radios = document.querySelectorAll("input[name='cor']");
+                
+                radios.forEach(radio => {
+                    radio.addEventListener("change", function () {
+                        if (outraCorRadio.checked) {
+                            outraCorInput.style.display = "block";
+                            outraCorInput.required = true;
+                        } else {
+                            outraCorInput.style.display = "none";
+                            outraCorInput.required = false;
+                        }
+                    });
+                });
+        
+                // Ajustar valor antes de enviar o formulário
+                document.querySelector("form").addEventListener("submit", function (e) {
+                    if (outraCorRadio.checked) {
+                        if (outraCorInput.value.trim() === "") {
+                            e.preventDefault();
+                            alert("Por favor, insira a cor desejada.");
+                        } else {
+                            outraCorRadio.value = outraCorInput.value; // Substitui "Outras" pelo valor digitado
+                        }
+                    }
+                });
+            });
+        </script>
+        
 
         <div class="nav-buttons">
             <button id="prev" onclick="window.history.back()">Voltar</button>

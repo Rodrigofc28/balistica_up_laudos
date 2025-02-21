@@ -176,10 +176,10 @@
 
     <div class="progress-container">
         <div class="progress-bar"></div>
-        <div class="step active">✔</div>
-        <div class="step">✔</div>
-        <div class="step">✔</div>
-        <div class="step">✔</div>
+        <div class="step active">1</div>
+        <div class="step active">2</div>
+        <div class="step ">3</div>
+        <div class="step">4</div>
     </div>
 
     <h2>Motocicleta</h2>
