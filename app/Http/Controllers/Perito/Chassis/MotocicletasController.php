@@ -74,4 +74,15 @@ class MotocicletasController extends Controller
         }
         return redirect()->back()->with('error', 'Registro não encontrado!');
     }
+    // VeiculoController.php
+public function destroy($id)
+{
+    // Buscar o veículo pelo id e deletar
+    $veiculo = Veiculo::findOrFail($id);
+    $veiculo->delete();
+
+    // Redirecionar de volta com uma mensagem de sucesso
+    return redirect()->route('veiculo.index')->with('success', 'Veículo deletado com sucesso!');
+}
+
 }

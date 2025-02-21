@@ -218,6 +218,9 @@ Route::delete('/deletar/{id}', [MotocicletasController::class, 'delete'])->name(
 
 
 
+// Rota de teste para deletar
+
+Route::delete('/veiculo/{id}', [VeiculoController::class, 'destroy'])->name('veiculo.deletar');
 
 
 
