@@ -238,11 +238,11 @@
 
         <div class="form-group">
             <label for="data">Ano fabricação:</label>
-            <input type="text" id="data" maxlength="4" placeholder="0000" name="ano" required>
+            <input type="text" id="data" maxlength="4" placeholder="0000" name="ano_fab" required>
         </div>
         <div class="form-group">
             <label for="anomodelo">Ano do modelo:</label>
-            <input type="text" id="data" maxlength="4" placeholder="0000" name="ano_modelo" required>
+            <input type="text" id="data" maxlength="4" placeholder="0000" name="ano" required>
 
         </div>
         <div class="form-group">
