@@ -54,7 +54,7 @@ class MotocicletasController extends Controller
       return view('perito.chassi.veiculos.moto.motocicleta.teladois',compact('laudo'));
       }
    public function exame(Request $request) {
-  
+      
       $laudo=Laudo::find($request->laudo_id);
 
       

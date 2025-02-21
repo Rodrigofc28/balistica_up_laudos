@@ -9,7 +9,7 @@ class VeiculoInspecao extends Model
     protected $table = 'veiculo_inspecao';
 
     protected $fillable = [
-        'chassi_status', 'chassi_numero', 'chassi_foto', 'chassi_nao_tem_foto',
+        'chassi_status', 'chassi_numero','laudo_id', 'chassi_foto', 'chassi_nao_tem_foto',
         'chassi_adulterado_numero', 'chassi_adulterado_foto', 'chassi_adulterado_nao_tem_foto',
         'chassi_tipo_adulteracao', 'chassi_metodologia', 'chassi_nao_se_aplica_metodologia',
         'chassi_resultado', 'chassi_nao_se_aplica_resultado', 'chassi_revelado_numero',
