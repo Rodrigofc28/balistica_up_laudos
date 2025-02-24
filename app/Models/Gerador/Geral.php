@@ -276,7 +276,7 @@ class Geral extends Tabelas
                     $this->section->addText($tituloConclusao, $this->config->arial12Bold(), $this->config->paragraphJustify());
                     $this->section->addText($descricaoConclusao, $this->config->arial12(), $this->config->paragraphJustify());}
             }
-                $item=count($laudo->armas)+1;
+                $item=1;
                 $municaoFuncionamento=false;
                 
                 foreach($laudo->municoes as $municao){
