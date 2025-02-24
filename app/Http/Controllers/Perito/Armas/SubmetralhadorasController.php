@@ -78,8 +78,8 @@ class SubmetralhadorasController extends Controller
      */
     public function update(SubmetralhadoraRequest $request, $laudo_id, Arma $submetralhadora)
     {
-        $updated_arma = $request->all();
-        Arma::find($submetralhadora->id)->fill($updated_arma)->save();
+        
+        atualizaImagemArm($request, $submetralhadora->id);
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_f', ['model' => 'Submetralhadora']));
     }

@@ -28,12 +28,12 @@ class Geral extends Tabelas
     {
        
         
-        if ($laudo =='efetivacao') {
+        if ($laudo =='B602') {
             $titulo = "LAUDO DE PERÍCIA CRIMINAL";
             $exame = "(EXAME DE EFICIÊNCIA EM ARMA DE FOGO E MUNIÇÃO)";
             $codigo ="Código: B602 - EFICIÊNCIA E PRESTABILIDADE";
         } else {
-            if ($laudo=='constatacao') {
+            if ($laudo=='B601') {
                 $titulo = "LAUDO DE PERÍCIA CRIMINAL";
                 $exame = "(EXAME DE CONSTATAÇÃO DE VESTÍGIOS BALÍSTICOS)";
                 $codigo = "Código: B601 - CONSTATAÇÃO";

@@ -125,8 +125,8 @@ class GarruchasController extends Controller
      */
     public function update(GarruchaRequest $request, $laudo_id, Arma $garrucha)
     {
-        $updated_arma = $request->all();
-        Arma::find($garrucha->id)->fill($updated_arma)->save();
+        
+        atualizaImagemArm($request, $garrucha->id);
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_f', ['model' => 'Garrucha']));
     }

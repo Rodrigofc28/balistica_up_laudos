@@ -8,6 +8,7 @@ use App\Models\Armas\Carabina;
 use App\Models\Armas\Garrucha;
 use App\Models\Armas\Pistola;
 use App\Models\Armas\Revolver;
+use App\Models\Laudo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

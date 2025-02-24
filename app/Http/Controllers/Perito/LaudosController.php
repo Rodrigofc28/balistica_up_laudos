@@ -40,7 +40,7 @@ class LaudosController extends Controller
     
         
         
-            $documents = Post::where('expert', 'RAISA REQUI JAKUBIAK') //strtoupper(Auth::user()->nome)
+            $documents = Post::where('expert', strtoupper(Auth::user()->nome)) //strtoupper(Auth::user()->nome)
             
             ->where(function ($query) {
                 $query->where('examNature', 'B602 - EXAME DE EFICIÊNCIA E PRESTABILIDADE')

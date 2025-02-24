@@ -11,14 +11,14 @@
     @endif
     <!--Exame de Balística-->
     @if($tipo_exame=='balistica')
-        <label class="btn btn-dark btn-md btn-block mb-3 text-left" for="eficiencia">
+        <label class="btn btn-dark btn-md btn-block mb-3 text-left" for="B602">
             B602 - Exame de eficiência e prestabilidade &nbsp;&nbsp;
-            <input type="radio" name="laudoEfetConst" id="eficiencia" value="efetivacao"> 
+            <input type="radio" name="laudoEfetConst" id="eficiencia" value="B602"> 
         </label>
-        <label class="btn btn-dark btn-md btn-block mb-3 text-left"  for="constatacao">
+        <label class="btn btn-dark btn-md btn-block mb-3 text-left"  for="B601">
             B601 -  Exame de constatação&nbsp;&nbsp;
             
-        <input type="radio" name="laudoEfetConst"  id="constatacao" value="constatacao"> 
+        <input type="radio" name="laudoEfetConst"  id="constatacao" value="B601"> 
         </label>
         <label class="btn btn-dark btn-md btn-block mb-3 text-left"  for="constatacao">
            B603 - Coleta de Padrão &nbsp;&nbsp;

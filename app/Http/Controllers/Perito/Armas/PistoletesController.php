@@ -120,8 +120,8 @@ class PistoletesController extends Controller
      */
     public function update(PistoleteRequest $request, $laudo_id, Arma $pistolete)
     {
-        $updated_arma = $request->all();
-        Arma::find($pistolete->id)->fill($updated_arma)->save();
+        
+        atualizaImagemArm($request, $pistolete->id);
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_f', ['model' => 'Pistolete']));
     }

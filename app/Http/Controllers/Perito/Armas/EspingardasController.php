@@ -142,8 +142,8 @@ class EspingardasController extends Controller
     public function update(EspingardaRequest $request, $laudo_id, Arma $espingarda)
     {
         
-        $updated_arma = $request->all();
-        Arma::find($espingarda->id)->fill($updated_arma)->save();
+        
+        atualizaImagemArm($request, $espingarda->id);
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_f', ['model' => 'Espingarda']));
     }
