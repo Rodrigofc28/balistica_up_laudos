@@ -1,31 +1,7 @@
 /* Armazena os dados LocalStorage */
 /* Tambor  */
-console.log('cartucho/estojo')
-var tipo_municao = $("#tipo_municao")
-if($('#tipo_item_gdl').attr('item')!=''){
-    if($('#tipo_item_gdl').attr('item')==undefined){
-        tipo_municao.on('change',function(){
-    
-            sessionStorage.setItem('tipo_municao',tipo_municao.val());
-        })
-        tipo_municao.val(sessionStorage.getItem('tipo_municao'))
-        tipo_municao.trigger('change')
-    }else{
-        if($('#tipo_item_gdl').attr('item')=="CARTUCHO(S)")
-        {
-        sessionStorage.setItem('tipo_municao','CARTUCHO');
-        }else if($('#tipo_item_gdl').attr('item')=="ESTOJO(S)"){
-            sessionStorage.setItem('tipo_municao','ESTOJO');
-        }
-    }
-}else{
-tipo_municao.on('change',function(){
-    
-    sessionStorage.setItem('tipo_municao',tipo_municao.val());
-})
-tipo_municao.val(sessionStorage.getItem('tipo_municao'))
-tipo_municao.trigger('change')
-}
+
+
 /* Marca e Pais */
 /* Armazena os dados sessionStorage */
 /* Session */
@@ -136,28 +112,7 @@ tipo_projetil.on('change',function(){
 })
 tipo_projetil.val(sessionStorage.getItem('tipo_projetil'))
 tipo_projetil.trigger('change')
-/* Condição Cartucho */
-var condicaoCartucho = $("#condicaoCartucho")
-condicaoCartucho.on('change',function(){
-    
-    sessionStorage.setItem('condicaoCartucho',condicaoCartucho.val());
-})
-condicaoCartucho.val(sessionStorage.getItem('condicaoCartucho'))
-condicaoCartucho.trigger('change')
-/* Condição Estojo */
-var condicaoEstojo = $("#condicaoEstojo")
-condicaoEstojo.on('change',function(){
-    
-    sessionStorage.setItem('condicaoEstojo',condicaoEstojo.val());
-})
-condicaoEstojo.val(sessionStorage.getItem('condicaoEstojo'))
-condicaoEstojo.trigger('change')
-/* Condição cartucho/Estojo */
-if(tipo_municao.val()=="cartucho"){
-    condicaoEstojo.val("")
-}else if(tipo_municao.val()=="estojo"){
-    condicaoCartucho.val("")
-}
+
 /* Observação */
 var observacao = $("#observacao")
 observacao.on('input',function(){

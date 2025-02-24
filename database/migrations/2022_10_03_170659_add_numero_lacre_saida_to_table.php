@@ -13,10 +13,11 @@ class AddNumeroLacreSaidaToTable extends Migration
      */
     public function up()
     {
-        schema::table('armas',function(Blueprint $table){
+        Schema::table('armas', function (Blueprint $table) {
             $table->string('num_lacre_saida')->nullable();
-    });
-}
+        });
+    }
+
     /**
      * Reverse the migrations.
      *
@@ -24,9 +25,8 @@ class AddNumeroLacreSaidaToTable extends Migration
      */
     public function down()
     {
-        schema::table('laudos',function(Blueprint $table){
+        Schema::table('armas', function (Blueprint $table) {
             $table->dropColumn('num_lacre_saida');
-            
-           });
+        });
     }
 }

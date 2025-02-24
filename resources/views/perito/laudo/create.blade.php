@@ -10,8 +10,14 @@
     <h4>Cadastrar Informações Gerais do Laudo</h4>
 </div>
 <hr>
+@if ($tipo_exame == 'chassi')
+    {{ Form::open(['route' => 'chassi.index']) }}
+           
+             
+@else
+    {{ Form::open(['route' => 'laudos.store']) }}
+@endif
 
-{{ Form::open(['route' => 'laudos.store']) }}
 
 <div>
 
@@ -90,7 +96,9 @@
             <i class="fas fa-save"></i> Salvar e Continuar
         </button>
     </div>
+   
 </div>
+
 {{ Form::close() }}
 @include('perito.modals.solicitante_modal')
 <script>

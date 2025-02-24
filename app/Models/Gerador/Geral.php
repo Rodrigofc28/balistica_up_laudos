@@ -75,7 +75,7 @@ class Geral extends Tabelas
         $intCrim = "POLÍCIA CIENTÍFICA DO PARANÁ";
         $constatacao="a constatação de calibre nominal, ";
         $eficiencia="a sua eficiência e prestabilidade, ";
-        $textEfecienciConstatacao=($laudo->laudoEfetConst=="constatacao")?($constatacao):($eficiencia);
+        $textEfecienciConstatacao=($laudo->laudoEfetConst=="B601")?($constatacao):($eficiencia);
         $objetivo=['1. OBJETIVO','A perícia tem como objetivo a efetivação do exame descritivo da totalidade do material, bem como '. $textEfecienciConstatacao.'para instruir os autos da investigação policial abaixo descrita:'];
         
         
@@ -131,7 +131,7 @@ class Geral extends Tabelas
         
         
        
-
+        //PREÂMBULO ARMAS
         $text = [
             
             $textrun = $this->section->addTextRun($this->config->paragraphCenter()),

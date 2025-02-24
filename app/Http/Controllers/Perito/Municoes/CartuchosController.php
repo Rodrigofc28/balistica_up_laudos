@@ -7,7 +7,7 @@ use App\Models\Calibre;
 use App\Models\Marca;
 use App\Models\Municao;
 use App\Models\Armas_Gdl;
-class ArmasCurtasController extends Controller
+class CartuchosController extends Controller
 {
     /**
      * Show the form for creating a new resource.
@@ -17,20 +17,13 @@ class ArmasCurtasController extends Controller
     public function create(Request $request,$laudo)
     {
         
-        $arma_estojo_gdl=Armas_Gdl::find($request->id);
-        if ($arma_estojo_gdl) {
         
-            $arma_estojo_gdl->status = "CADASTRADO"; // Muda o status para Não pendente
-            // tem que criar a coluna updated_at tipo TIMESTAMP
-            $arma_estojo_gdl->save(); // Savando no banco de dados
-        
-        }
         
         $marcas = Marca::categoria('municoes');
         $calibres = Calibre::whereNotArmas();
         
-        return view('perito.laudo.materiais.municoes.arma_curta.create',
-            compact('laudo', 'marcas', 'calibres','arma_estojo_gdl'));
+        return view('perito.laudo.materiais.municoes.cartucho.create',
+            compact('laudo', 'marcas', 'calibres'));
     }
 
     /**
@@ -54,7 +47,7 @@ class ArmasCurtasController extends Controller
     {
         $marcas = Marca::marcasWithTrashed('municoes', $municao->marca);
         $calibres = Calibre::calibresMunicoesWithTrashed(['revólver', 'pistola'], $municao->calibre);
-        return view('perito.laudo.materiais.municoes.arma_curta.edit',
+        return view('perito.laudo.materiais.municoes.cartucho.edit',
             compact('municao', 'laudo', 'marcas', 'calibres'));
     }
 }

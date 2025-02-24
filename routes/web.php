@@ -103,10 +103,10 @@ Route::prefix('laudos/{laudo}')->group(function () {
     Route::resource('municoes', 'Perito\Municoes\MunicoesController')
         ->parameters(['municoes' => 'municao'])->except(['create', 'index', 'show']);
 
-    Route::resource('municoes/armas_curtas', 'Perito\Municoes\ArmasCurtasController')
+    Route::resource('municoes/armas_curtas', 'Perito\Municoes\CartuchosController')
         ->parameters(['armas_curtas' => 'municao'])->only(['create', 'edit', 'show']);
 
-    Route::resource('municoes/armas_longas', 'Perito\Municoes\ArmasLongasController')
+    Route::resource('municoes/armas_longas', 'Perito\Municoes\EstojosController')
         ->parameters(['armas_longas' => 'municao'])->only(['create', 'edit', 'show']);
 
     Route::resource('componentes', 'Perito\Componentes\ComponentesController')
@@ -185,6 +185,44 @@ Route::get('/notifications', function() {
         'notification' => $notificacoes->isNotEmpty()
     ]);
 });
+//Rotas de chassi
+//Exibe a Tela para escolha dos veiculos
+Route::post('chassi','Perito\Chassis\ChassisController@store')->name('chassi.index');
+//Exibe a tela inicial
+Route::get('carro.index','Perito\Chassis\CarrosController@index')->name('carro.index');
+//Exibe a  tela 1 da Motocicleta
+Route::get('motocicleta.index','Perito\Chassis\MotocicletasController@index')->name('motocicleta.index');
+//exibe a tela 2 de motocicleta
+Route::post('motocicleta.tela3', 'Perito\Chassis\MotocicletasController@tela3')->name('motocicletas.tela3');
+
+Route::post('motocicleta.exame', 'Perito\Chassis\MotocicletasController@exame')->name('motocicleta.exame');
+
+
+
+Route::get('motocicleta.tela4/{laudo}', 'Perito\Chassis\Moto\MotocicletasController@tela4')->name('motocicleta.tela4');
+
+Route::get('motocicleta.tela5/{laudo}', 'Perito\Chassis\Moto\MotocicletasController@tela5')->name('motocicleta.tela5');
+
+Route::get('motocicleta.tela2/{laudo}', 'Perito\Chassis\MotocicletasController@tela2')->name('motocicletas.tela2');
+
+
+Route::post('motocicleta.tela3', 'Perito\Chassis\MotocicletasController@tela3')->name('motocicletas.tela3');
+Route::get('laudosChassi.docx/{laudo}', 'Perito\Chassis\ChassisController@generate_docx')->name('laudosChassi.docx');
+
+Route:: post ('motocicleta.tela4' , 'Perito\Chassis\MotocicletasController@tela4')->name ('motocicleta.tela4');
+//Rotas de editar e deletar
+
+Route::get('/editar/{id}', [MotocicletasController::class, 'edite'])->name('editar');
+
+Route::delete('/deletar/{id}', [MotocicletasController::class, 'delete'])->name('deletar');
+
+
+
+// Rota de teste para deletar
+
+Route::delete('/veiculo/{id}', [VeiculoController::class, 'destroy'])->name('veiculo.deletar');
+
+
 
 
 

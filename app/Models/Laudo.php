@@ -172,4 +172,5 @@ class Laudo extends Model
                 'quantidade' => $laudos_ano->quantidade]);
         return $laudos_anos;
     }
+    
 }
