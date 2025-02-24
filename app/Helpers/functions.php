@@ -180,6 +180,7 @@ function plural_tipo_municoes($tipo_municao)
             return '';
     }
 }
+//salvando as imagens das armas
 function salvaImagemArm($request){
         
             $data = $request->all();
@@ -208,4 +209,36 @@ function salvaImagemArm($request){
         }
         Arma::create($data);
         
+}
+//upload das imagens das armas
+function atualizaImagemArm($request, $id)
+{
+    $arma = Arma::findOrFail($id);
+    $data = $request->all();
+
+    // Verifica e processa a imagem imagemCantoSuperior
+    if ($request->hasFile('imagemCantoSuperior') && $request->file('imagemCantoSuperior')->isValid()) {
+        $file = $request->file('imagemCantoSuperior');
+        $fileContent = file_get_contents($file->getPathname());
+        $base64Image = 'data:' . $file->getMimeType() . ';base64,' . base64_encode($fileContent);
+        $data['imagemCantoSuperior'] = $base64Image;
+    }
+
+    // Verifica e processa a imagem imagemCantoInferior
+    if ($request->hasFile('imagemCantoInferior') && $request->file('imagemCantoInferior')->isValid()) {
+        $file = $request->file('imagemCantoInferior');
+        $fileContent = file_get_contents($file->getPathname());
+        $base64Image = 'data:' . $file->getMimeType() . ';base64,' . base64_encode($fileContent);
+        $data['imagemCantoInferior'] = $base64Image;
+    }
+
+    // Verifica e processa a imagem imagemSerie
+    if ($request->hasFile('imagemNumSerie') && $request->file('imagemNumSerie')->isValid()) {
+        $file = $request->file('imagemNumSerie');
+        $fileContent = file_get_contents($file->getPathname());
+        $base64Image = 'data:' . $file->getMimeType() . ';base64,' . base64_encode($fileContent);
+        $data['imagemNumSerie'] = $base64Image;
+    }
+
+    $arma->update($data);
 }
