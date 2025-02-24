@@ -125,6 +125,8 @@ public function cartuchoPercutido($phpWord,$section,$config,$laudo){
  
  
 public function tabelaCartuchoPersonalizada($laudo){
+    global $itensCartucho;
+    $itensCartucho=1;
     $arraymunicao1=[];
     $arraymunicao2=[];
     $arraymunicao3=[];
@@ -594,7 +596,7 @@ if(count($arraymunicao1)>0){
 
     
 public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficiencia,$percutido){
-    
+    global $itensCartucho;
         $legendaArray=[];
         $numeroContagem=[];
         foreach($arraymunicao as $municao){
@@ -612,9 +614,9 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
     */ 
         $extenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);
         global $numTab;
-        $itens=1;
+        
         foreach($arraymunicao as $municao){ $condicao= mb_strtoupper($municao->funcionamento).'S';};
-            
+            $itens=1;
             $text=[
             
             $this->section->addText('3.'.$item.' DOS CARTUCHOS '.$condicao, $this->config->arial12Bold(), $this->config->paragraphJustify()) , 
@@ -629,26 +631,26 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
             $table->addRow(10),
             $table->addCell(null,['bgColor'=>'d3d3d3'])->addText(' TABELA '.$numTab.' – DESCRIÇÃO DOS CARTUCHOS', $this->fontStyle, $this->paraStyle),//cabeçalho tabela
             $table->addRow(10),
-            
+            $table->addCell(450)->addText('Item', $this->fontStyle,$this->paraStyle),
             $table->addCell(400)->addText('Qtd', $this->fontStyle,$this->paraStyle),
             $table->addCell(1100)->addText('Calibre Nominal', $this->fontStyle,$this->paraStyle),
             $table->addCell(1187)->addText('Marca', $this->fontStyle,$this->paraStyle),
-            $table->addCell(1600)->addText('Procedência', $this->fontStyle,$this->paraStyle),
+            $table->addCell(1550)->addText('Procedência', $this->fontStyle,$this->paraStyle),
             $table->addCell(1200)->addText('Espoleta', $this->fontStyle,$this->paraStyle),
-            $table->addCell(1550)->addText('Estojo (Lote)', $this->fontStyle,$this->paraStyle),
+            $table->addCell(1400)->addText('Estojo (Lote)', $this->fontStyle,$this->paraStyle),
             $table->addCell(820)->addText('Projétil', $this->fontStyle,$this->paraStyle),
             $table->addCell(1250)->addText('Condição Observação', $this->fontStyle,$this->paraStyle)];
               
             $table->addRow();   
             foreach($arraymunicao as $municao){
                 $lote=($municao->lote=='')?'':"($municao->lote)";
-              
+                $table->addCell(400)->addText($itensCartucho,null,$this->paraStyle);
                 $table->addCell(400)->addText($municao->quantidade,null,$this->paraStyle);
                 $table->addCell(1100)->addText($municao->calibre->nome,null,$this->paraStyle);
                 $table->addCell(1187)->addText(mb_strtoupper($municao->marca->nome),null,$this->paraStyle);
                 $table->addCell(1600)->addText(mb_strtoupper($municao->marca->fabricacao),null,$this->paraStyle);
-                $table->addCell(1200)->addText(mb_strtoupper($municao->tipo_projetil),null,$this->paraStyle);
-                $estojoCell=$table->addCell(1550);
+                $table->addCell(1100)->addText(mb_strtoupper($municao->tipo_projetil),null,$this->paraStyle);
+                $estojoCell=$table->addCell(1400);
                 $estojoCell->addText(mb_strtoupper($municao->estojo),null,$this->paraStyle);
                 $estojoCell->addText(mb_strtoupper($lote),null,$this->paraStyle);
                 $table->addCell(820)->addText(strtoupper($municao->projetil),null,$this->paraStyle);
@@ -658,7 +660,7 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
                 $table->addRow(10);
                 
                 array_push($legendaArray,$municao->projetil);
-                
+                $itensCartucho++; 
             }
             $cell=$table->addCell();
             $cell->addText('Legenda:',['bold'=>true,'size'=>9]);
@@ -679,25 +681,18 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
                 $textrun->addText('Nestas condições, verificou-se estar a ',$this->config->arial12());
                 $textrun->addText($eficiencia,$this->config->arial12Bold());
                 $this->section->addTextBreak(1);}
-               $this->i++;
+                $this->i++;
 
                 $this->section->addTextBreak(1);
                 
-                
-                    
-                        $inicio=0;
+                $inicio=0;
                         
-                        $this->imagemMuniCartucho($arraymunicao,$inicio);
+                $this->imagemMuniCartucho($arraymunicao,$inicio);
                    
-                   
-
-                        $this->section->addTextBreak(1);
+                $this->section->addTextBreak(1);
             
-                    
-             
-            
-           global $i;
-           $i=$this->i;
+                global $i;
+                $i=$this->i;
            
         }
 
