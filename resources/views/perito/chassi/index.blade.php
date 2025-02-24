@@ -112,6 +112,10 @@
             <a href="{{route('motocicleta.index')}}"><img src="{{asset('image/img/outros.png')}}" alt="Outros"></a>
             <span>Outros</span>
         </div>
+        <div class="option">
+            <a href="{{route('motocicleta.index')}}"><img src="{{asset('image/img/outros.png')}}" alt="Outros"></a>
+            <span>Outros</span>
+        </div>
         
 
         

@@ -103,10 +103,10 @@ Route::prefix('laudos/{laudo}')->group(function () {
     Route::resource('municoes', 'Perito\Municoes\MunicoesController')
         ->parameters(['municoes' => 'municao'])->except(['create', 'index', 'show']);
 
-    Route::resource('municoes/armas_curtas', 'Perito\Municoes\ArmasCurtasController')
+    Route::resource('municoes/armas_curtas', 'Perito\Municoes\CartuchosController')
         ->parameters(['armas_curtas' => 'municao'])->only(['create', 'edit', 'show']);
 
-    Route::resource('municoes/armas_longas', 'Perito\Municoes\ArmasLongasController')
+    Route::resource('municoes/armas_longas', 'Perito\Municoes\EstojosController')
         ->parameters(['armas_longas' => 'municao'])->only(['create', 'edit', 'show']);
 
     Route::resource('componentes', 'Perito\Componentes\ComponentesController')

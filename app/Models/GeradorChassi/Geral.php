@@ -185,13 +185,13 @@ class Geral
             $img4->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\carabina.png', array('alignment' => Jc::CENTER, 'width' => 440, 'height'=>100));
             $this->section->addText('NUMERAÇÃO DO CHASSI', $this->config->arial12Bold(),$this->config->paragraphCenter());
         // do exame motor  
-            $this->exameMotor($laudo);
+           // $this->exameMotor($laudo);
         // imagens numeração do motor
-            $table3 = $this->section->addTable('tabela2img');
-            $table3->addRow(); 
-            $img5=$table3->addCell();
-            $img5->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\carabina.png', array('alignment' => Jc::CENTER, 'width' => 440, 'height'=>100));
-            $this->section->addText('NUMERAÇÃO DO MOTOR', $this->config->arial12Bold(),$this->config->paragraphCenter());
+          //  $table3 = $this->section->addTable('tabela2img');
+          //  $table3->addRow(); 
+          //  $img5=$table3->addCell();
+          //  $img5->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\carabina.png', array('alignment' => Jc::CENTER, 'width' => 440, 'height'=>100));
+          //  $this->section->addText('NUMERAÇÃO DO MOTOR', $this->config->arial12Bold(),$this->config->paragraphCenter());
           return $this->section;
 
     } 
