@@ -370,7 +370,7 @@ for($i=0;$i<count($arrayImageProjetil);$i++){
             $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomadas fotográficas Projétil', $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
             $table->addRow(10,['cantSplit'=>false]);
             
-            $table->addCell()->addImage($contagem[$cont], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));
+            $table->addCell()->addImage($contagem[$cont], array('alignment' => Jc::CENTER, 'width' => 220));
             
             $cont++;
         }
@@ -380,7 +380,7 @@ for($i=0;$i<count($arrayImageProjetil);$i++){
 
         if(!empty($contagem[$cont]))
         {
-                $table->addCell()->addImage($contagem[$cont], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)); 
+                $table->addCell()->addImage($contagem[$cont], array('alignment' => Jc::CENTER, 'width' => 220)); 
                  $table->addRow(1,['cantSplit'=>false]);
                 $table->addCell()->addText('Projétil Base PQ 0'.$pq,$this->fontStyle, $this->paraStyle);
                 $table->addCell()->addText('Projétil Lateral PQ 0'.$pq,$this->fontStyle, $this->paraStyle);

@@ -890,14 +890,14 @@ $extenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);
                             $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomada(s) fotográfica(s) Estojo(s) Lacre '.$laudo->municoes[$inicio]->lacrecartucho, $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
                             $table->addRow(10,['cantSplit'=>false]);
                             $tabelaImg=$table->addCell();
-                            $tabelaImg->addImage($this->imagem($laudo->municoes[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)); 
+                            $tabelaImg->addImage($this->imagem($laudo->municoes[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 220)); 
                             $tabelaImg->addText('Estojo(s) calibre '.$laudo->municoes[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
                             
                             
                             
                             if(!empty($this->imagem($laudo->municoes[$inicio])[1])){
                             $tabelaImg=$table->addCell();
-                            $tabelaImg->addImage($this->imagem($laudo->municoes[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)); 
+                            $tabelaImg->addImage($this->imagem($laudo->municoes[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 220)); 
                             $tabelaImg->addText('Estojo(s) calibre '.$laudo->municoes[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
                             }
                             $inicio++;
@@ -969,14 +969,14 @@ $extenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);
 
         }else{
             $tabelaImg=$table->addCell();
-            $tabelaImg->addImage($this->imagem($municao[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)); 
+            $tabelaImg->addImage($this->imagem($municao[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 220)); 
             $tabelaImg->addText('Base-Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
             
             
             
             if(!empty($this->imagem($municao[$inicio])[1])){
                 $tabelaImg=$table->addCell();
-                $tabelaImg->addImage($this->imagem($municao[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)); 
+                $tabelaImg->addImage($this->imagem($municao[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 220)); 
                 $tabelaImg->addText('Lateral-Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
             }
             $inicio++;

@@ -421,14 +421,14 @@ class Geral extends Tabelas
             $table->addRow(10);
             $numTab++;
             $test=$table->addCell();
-            $test->addImage($this->imagem($laudo)[$b], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));
+            $test->addImage($this->imagem($laudo)[$b], array('alignment' => Jc::CENTER, 'width' => 220));
             $test->addText('Frente', $fontStyle, $paraStyle); 
             $b++;
            
             if(!empty($this->imagem($laudo)[$b])){
                 
                 $test2=$table->addCell();
-                $test2->addImage($this->imagem($laudo)[$b], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));}
+                $test2->addImage($this->imagem($laudo)[$b], array('alignment' => Jc::CENTER, 'width' => 220));}
                 $test2->addText('Verso', $fontStyle, $paraStyle);
                 $this->section->addTextBreak(1);
                 $b++;

@@ -7,8 +7,8 @@
 'model_name_plural' => 'Cadastrar modelo armas',
 'model_name_singular' => 'cadastrar modelo de arma',
 
-'ths' => ['CADASTRADO','ARMA CADASTRADA PELO(A) PERITO(A)','ARMA','MARCA', 'MODELO','FABRICAÇÃO','AÇÃO']])
-'ths' => ['CADASTRADO','ARMA CADASTRADA PELO(A) PERITO(A)','ARMA','MARCA', 'MODELO','FABRICAÇÃO','AÇÃO']])
+'ths' => ['CADASTRADO','ARMA CADASTRADA PELO(A) PERITO(A)','ARMA','MARCA', 'MODELO','FABRICAÇÃO','ORIGEM','AÇÃO']])
+
                 
             
             @php
