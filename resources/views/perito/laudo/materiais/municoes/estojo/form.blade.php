@@ -41,7 +41,7 @@
         @include('perito.laudo.materiais.attributes.condicao_estojo', ['funcionamento2' => $municao->funcionamento ??
         old('funcionamento')])
         @include('perito.laudo.materiais.attributes.municao_observacao',['observacao'=>$municao->observacao??old('observacao')])
-        @include('perito.laudo.materiais.attributes.funcionamentoCartucho',['funcionamentoCartucho'=>$municao->funcionamentoCartucho??old('funcionamentoCartucho')])
+        
         @include('perito.laudo.materiais.attributes.material_coletado_municao',['rep'=>empty($municao->rep_materialColetado)?session('rep_coleta'):$municao->rep_materialColetado ?? old('rep')])
         @include('perito.laudo.materiais.attributes.lote',['lote'=>$municao->lote ??old('lote')])
         @include('perito.laudo.materiais.attributes.lacrecartucho', [$name='lacrecartucho',$label='Nº lacre de entrada','lacre'=>empty($municao->lacrecartucho)?session('lacre_entrada'):$municao->lacrecartucho ?? old('lacre')])

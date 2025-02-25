@@ -37,18 +37,17 @@ class MunicoesText extends Tabelas
     public function addText($municoes,$laudo)
     {
         
-        
-        
         return $this->cartuchoPercutido($this->phpWord,$this->section,$this->config,$laudo);
     }
 
 public function cartuchoPercutido($phpWord,$section,$config,$laudo){
-
+    $this->i=1;
+    
     $this->tabelaCartuchoPersonalizada($laudo);
 
     $this->phpWord->addTableStyle('tabela2img', $this->styleTable, $this->styleFirstRow);
 
-    $this->i=1;
+    
     
   
             } 
@@ -146,6 +145,7 @@ public function tabelaCartuchoPersonalizada($laudo){
     $arraymunicao23=[];
     $arraymunicao24=[];
     $arraymunicao25=[];
+    $arraymunicao26=[];
     foreach($laudo->municoes as $municao){  
         switch($municao->tipo_municao){
             case 'cartucho':
@@ -356,17 +356,14 @@ public function tabelaCartuchoPersonalizada($laudo){
 
                         }  
                     break; 
-                    default:
-                        
+                    case "preservado":
                         switch ($municao->funcionamento) {
                             case "percutido e não deflagrado":
-                                    
-                                    array_push($arraymunicao17,$municao);
-                                    
-                                    break;
+                                array_push($arraymunicao26,$municao);
 
-                        }break;  
-                    break;   
+                        }  
+                    break; 
+                     
                 }
                 
     
@@ -378,6 +375,10 @@ public function tabelaCartuchoPersonalizada($laudo){
 
 
 }
+if($municao->tipo_municao=='cartucho'){
+    $this->section->addText('3.'.$this->i.' DOS CARTUCHOS ', $this->config->arial12Bold(), $this->config->paragraphJustify());
+}
+
 if(count($arraymunicao1)>0){
     
      $instituto='usando arma fornecida por este Instituto';
@@ -582,6 +583,15 @@ if(count($arraymunicao1)>0){
     $eficiencia="munição parcialmente eficiente para a realização de tiros.";
     $this->tabela2($arraymunicao25,$this->i,$laudo,$instituto,$coleta,$eficiencia,$percutido);
  }
+ //melhorar condições
+ if(count($arraymunicao26)>0){
+   
+    $instituto='';
+    $coleta='';
+    $percutido=['',''];
+    $eficiencia="";
+    $this->tabela2($arraymunicao26,$this->i,$laudo,$instituto,$coleta,$eficiencia,$percutido);
+ }
  //----------
 }
 
@@ -610,7 +620,6 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
             $itens=1;
             $text=[
             
-            $this->section->addText('3.'.$item.' DOS CARTUCHOS '.$condicao, $this->config->arial12Bold(), $this->config->paragraphJustify()) , 
             $textrun = $this->section->addTextRun($this->config->paragraphJustify()),         
             $textrun->addText('Trata-se de ',$this->config->arial12()),
             $textrun->addText($extenso->format($qunttcartucho).' cartuchos ',$this->config->arial12Underline()),
@@ -620,7 +629,7 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
         
             $table = $this->section->addTable('tabela'),
             $table->addRow(10),
-            $table->addCell(null,['bgColor'=>'d3d3d3'])->addText(' TABELA '.$numTab.' – DESCRIÇÃO DOS CARTUCHOS', $this->fontStyle, $this->paraStyle),//cabeçalho tabela
+            $table->addCell(null,['bgColor'=>'d3d3d3'])->addText(' TABELA '.$numTab.' – DESCRIÇÃO DOS CARTUCHOS '.$condicao, $this->fontStyle, $this->paraStyle),//cabeçalho tabela
             $table->addRow(10),
             $table->addCell(450)->addText('Item', $this->fontStyle,$this->paraStyle),
             $table->addCell(400)->addText('Qtd', $this->fontStyle,$this->paraStyle),
@@ -665,13 +674,21 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
                 
                 $textrun->addText($percutido[1],$this->config->arial12());
                 if($eficiencia!=''){
-                [$textrun->addText('Buscando testar a eficiência dos cartuchos, o Perito submeteu-os ao teste de tiro, ',$this->config->arial12()),
-                $textrun->addText($instituto,$this->config->arial12()),
-                $textrun->addText(' e efetuando disparos. Foram observados os funcionamentos normais dos seus componentes, os quais deflagraram as respectivas cargas de projeção ao serem as espoletas percutidas por uma só vez. Os remanescentes foram devidamente descartados. ',$this->config->arial12()),
-                $textrun->addText($coleta,$this->config->arial12()),];
-                $textrun->addText('Nestas condições, verificou-se estar a ',$this->config->arial12());
-                $textrun->addText($eficiencia,$this->config->arial12Bold());
-                $this->section->addTextBreak(1);}
+                    [$textrun->addText('Buscando testar a eficiência dos cartuchos, o Perito submeteu-os ao teste de tiro, ',$this->config->arial12()),
+                    $textrun->addText($instituto,$this->config->arial12()),
+                    $textrun->addText(' e efetuando disparos. Foram observados os funcionamentos normais dos seus componentes, os quais deflagraram as respectivas cargas de projeção ao serem as espoletas percutidas por uma só vez. Os remanescentes foram devidamente descartados. ',$this->config->arial12()),
+                    $textrun->addText($coleta,$this->config->arial12()),];
+                    $textrun->addText('Nestas condições, verificou-se estar a ',$this->config->arial12());
+                    $textrun->addText($eficiencia,$this->config->arial12Bold());
+                    $this->section->addTextBreak(1);
+                }else{
+                    [$textrun->addText('Os cartuchos percutidos e não deflagados não tiveram sua eficiência testada, ',$this->config->arial12()),
+                    $textrun->addText($instituto,$this->config->arial12()),
+                    $textrun->addText('sendo preservados para eventual exame complementar e servindo também como da intenção de tiro.',$this->config->arial12()),
+                    $textrun->addText($coleta,$this->config->arial12()),];
+                    
+                    $this->section->addTextBreak(1);
+                }
                 $this->i++;
 
                 $this->section->addTextBreak(1);

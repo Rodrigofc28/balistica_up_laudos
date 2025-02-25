@@ -213,14 +213,6 @@ condicaoCartucho.on('change',function(){
 condicaoCartucho.val(sessionStorage.getItem('condicaoCartucho'))
 condicaoCartucho.trigger('change')
     
-$(document).ready(function () {
-    $("#condicaoCartucho").change(function () {
-        if ($(this).val() === "percutido e não deflagrado") {
-            $("#funcionamentoCartucho").prop("disabled", true);
-        } else {
-            $("#funcionamentoCartucho").prop("disabled", false);
-        }
-    });
-});
+
  
 

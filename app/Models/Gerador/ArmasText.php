@@ -114,7 +114,9 @@ class ArmasText
             $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' -Tomadas fotográficas- '.$arma->tipo_arma, $fontStyle, $paraStyle);//cabeçalho da tabela
             $imagemCantoSuperior!=''?[$table->addRow(10,['cantSplit'=>true]),
             $img=$table->addCell(),
+            
             $img->addImage($imagemCantoSuperior, array('alignment' => Jc::CENTER, 'width' => 250)),
+            
             $img->addText('Vista lateral direita', $fontStyle, $paraStyle)]:'';
             $imagemCantoInferior!=''||$imagemNumSerie!=''?$table->addRow(10):'';
             $imagemCantoInferior!=''?[$img2=$table->addCell(),

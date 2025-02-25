@@ -4,5 +4,5 @@
         <h4>Atualizar Munição</h4>
     </div>
     <hr>
-    @include('perito.laudo.materiais.municoes.arma_curta.form', ['acao' => 'Atualizar'])
+    @include('perito.laudo.materiais.municoes.estojo.form', ['acao' => 'Atualizar'])
 @endsection
