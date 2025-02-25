@@ -42,12 +42,6 @@ class MunicoesText extends Tabelas
         return $this->cartuchoPercutido($this->phpWord,$this->section,$this->config,$laudo);
     }
 
- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 
- 
-
-    
-
 public function cartuchoPercutido($phpWord,$section,$config,$laudo){
 
     $this->tabelaCartuchoPersonalizada($laudo);
@@ -515,9 +509,6 @@ if(count($arraymunicao1)>0){
      $this->tabela2($arraymunicao16,$this->i,$laudo,$instituto,$coleta,$eficiencia,$percutido);
   }
 
-
-///////////////////////////////////
-
   if(count($arraymunicao17)>0){
     
     $instituto='';
@@ -791,12 +782,6 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
             }
             }  
                 
-         
-
-        
-
-
-
     public function tabelaEstojo($laudo,$item,$identificacaoEstojo,$numeroTabela){
 
         $numeroContagem=[];

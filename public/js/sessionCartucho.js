@@ -203,7 +203,24 @@ lacre_saida.on('input',function(){
     sessionStorage.setItem('lacreSaida_cartucho',lacre_saida.val());
 })}
 lacre_saida.val(sessionStorage.getItem('lacreSaida_cartucho'))
+/*condição do cartucho*/
 
+var condicaoCartucho = $("#condicaoCartucho")
+condicaoCartucho.on('change',function(){
     
+    sessionStorage.setItem('condicaoCartucho',condicaoCartucho.val());
+})
+condicaoCartucho.val(sessionStorage.getItem('condicaoCartucho'))
+condicaoCartucho.trigger('change')
     
+$(document).ready(function () {
+    $("#condicaoCartucho").change(function () {
+        if ($(this).val() === "percutido e não deflagrado") {
+            $("#funcionamentoCartucho").prop("disabled", true);
+        } else {
+            $("#funcionamentoCartucho").prop("disabled", false);
+        }
+    });
+});
+ 
 
