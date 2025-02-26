@@ -94,5 +94,89 @@ public function destroy($id)
     // Redirecionar de volta com uma mensagem de sucesso
     return redirect()->route('veiculo.index')->with('success', 'Veículo deletado com sucesso!');
 }
+// Adicionando métodos de busca no Controller
+
+public function buscarMarcas(Request $request)
+{
+    // Verifique se o usuário digitou algo
+    if ($request->has('query')) {
+        $query = $request->input('query');
+        
+        // Buscar marcas que contenham a string
+        $marcas = Marca::where('nome', 'like', "%$query%")->get();
+
+        return response()->json($marcas);
+    }
+
+    return response()->json([]);
+}
+
+public function buscarModelos(Request $request)
+{
+    // Verifique se o usuário digitou algo
+    if ($request->has('query')) {
+        $query = $request->input('query');
+
+        // Buscar modelos que contenham a string
+        $modelos = Modelo::where('nome', 'like', "%$query%")->get();
+
+        return response()->json($modelos);
+    }
+
+    return response()->json([]);
+}
+public function salvar(Request $request)
+{
+    // Validação dos dados do formulário
+    $request->validate([
+        'cor_selecionada' => 'required|string|max:100',
+        // Outras validações...
+    ]);
+
+    // Salvar no banco de dados
+    $veiculo = new Veiculo();
+    $veiculo->cor = $request->input('cor_selecionada'); // Usar o valor de cor_selecionada
+    $veiculo->marca_fabricacao = $request->input('marca_fabricacao');
+    $veiculo->modelo = $request->input('modelo');
+    $veiculo->ano = $request->input('ano');
+    $veiculo->placa = $request->input('placa');
+    $veiculo->estado_conservacao = $request->input('estado_conservacao');
+    // Outros campos...
+
+    $veiculo->save();
+
+    return redirect()->back()->with('success', 'Veículo salvo com sucesso!');
+}
+
+public function inspecaoVeiculo(Request $request) {
+    // Validação dos dados
+    $request->validate([
+        'motor_tipo_adulteracao' => 'nullable|string|max:200',
+        'transplante_chassi' => 'nullable|string',
+        'reparo_chassi' => 'nullable|string',
+        'transplante_motor' => 'nullable|string',
+        'reparo_motor' => 'nullable|string',
+        // Outras validações...
+    ]);
+
+    // Atualiza o chassi
+    $laudo = Laudo::find($request->laudo_id);
+    $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
+    $chassi->update($request->all());
+
+    // Cria a inspeção do veículo
+    VeiculoInspecao::create([
+        'laudo_id' => $request->laudo_id,
+        'transplante_chassi' => $request->transplante_chassi,
+        'reparo_chassi' => $request->reparo_chassi,
+        'motor_tipo_adulteracao' => $request->motor_tipo_adulteracao, // Campo adicional
+        'transplante_motor' => $request->transplante_motor,
+        'reparo_motor' => $request->reparo_motor,
+        // Outros campos...
+    ]);
+
+    return view('perito.chassi.veiculos.moto.motocicleta.show', compact('chassi', 'laudo'));
+}
+
 
 }

@@ -25,7 +25,7 @@
 
     h1 {
         font-size: 36px;
-        text-decoration: underline;
+       
     }
 
     .option-container {
@@ -113,6 +113,10 @@
             <span>Outros</span>
         </div>
         
+        <div class="option">
+            <a href="{{route('motocicleta.index')}}"><img src="{{asset('image/img/outros.png')}}" alt="Outros"></a>
+            <span>Outros</span>
+        </div>
 
         
         

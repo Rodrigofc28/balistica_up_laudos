@@ -148,7 +148,21 @@
 
 
 
-
+        .progress-container {
+        display: flex;
+        justify-content: space-between;
+      
+        max-width: 400px;
+        margin: 20px auto;
+     
+        top: 50%;
+        left: 10%;
+        width: 80%;
+        height: 4px;
+        background-color: #ddd;
+      
+        transition: width 0.4s ease;
+    }
 
         .nav-buttons {
             display: flex;
@@ -166,29 +180,44 @@
             border: none;
 
         }
+        .step {
+        width: 40px;
+        height: 40px;
+        background-color: #ddd;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: white;
+    }
+
+    .step.active {
+        background-color: #00bcd4;
+    }
 
         .back-button {
 
-            background-color: white;
+            background-color: #031d20c7;
             border: 2px solid #031416;
-            color: #0e2529;
+            color: #eeeeee;
             margin-right: 10px;
         }
 
         .next-button {
-            background-color: #5cc7d8;
+            background-color: #031d20c7;
             color: #f8f8f8;
             margin-left: 10px;
 
         }
 
         .back-button:hover {
-            background-color: #5cc7d8;
+            background-color: #0691eeb7;
             color: aliceblue;
         }
 
         .next-button:hover {
-            background-color: #4bb2c4;
+            background-color: #0691eeb7;
         }
     </style>
     <header>
@@ -197,11 +226,12 @@
         <h1>Exame de Identificação Veicular</h1>
     </header>
     <br>
-    <div class="progress-bar">
-        <div class=>Informações Gerais</div>
-        <div class=>Dados do Básicos</div>
-        <div class=>Peça</div>
-        <div class=>Exame</div>
+    <div class="progress-container">
+        <div class="progress-bar"></div>
+        <div class="step active">1</div>
+        <div class="step ">2</div>
+        <div class="step ">3</div>
+        <div class="step ">4</div>
     </div>
     <br><br>
     <h2>Carro</h2>
@@ -215,7 +245,7 @@
     <div class="aggregated">
         <label for="aggregated">Adicionar Agregado</label>
         <select id="aggregated">
-            <option>Selecione um agregado</option>
+            <option>Selecione</option>
         </select>
         <button class="add-button">+</button>
     </div>
@@ -224,50 +254,50 @@
         <div>
             <h3></h3>
             <a href="">
-                <img src="../img/vidro.png" alt="Exemplo de imagem" />
+                <img src="{{asset('image/scroll.png')}}" alt="Exemplo de imagem" />
             </a>
         </div>
         <div>
             <h3></h3>
             <a href="">
-                <img src="../img/vidro.png" alt="Exemplo de imagem" />
+                <img src="{{asset('image/scroll.png')}}"  alt="Exemplo de imagem" />
             </a>
         </div>
         <div>
             <h3></h3>
             <a href="">
-                <img src="../img/vidro.png" alt="Exemplo de imagem" />
+                <img src="{{asset('image/scroll.png')}}"  alt="Exemplo de imagem" />
             </a>
         </div>
         <div>
             <h3></h3>
             <a href="">
-                <img src="../img/vidro.png" alt="Exemplo de imagem" />
+                <img src="{{asset('image/scroll.png')}}"  alt="Exemplo de imagem" />
             </a>
         </div>
         <div>
             <h3></h3>
             <a href="">
-                <img src="../img/vidro.png" alt="Exemplo de imagem" />
+                <img src="{{asset('image/scroll.png')}}"  alt="Exemplo de imagem" />
             </a>
         </div>
         <div>
             <h3></h3>
             <a href="">
-                <img src="../img/vidro.png" alt="Exemplo de imagem" />
+                <img src="{{asset('image/scroll.png')}}"  alt="Exemplo de imagem" />
             </a>
         </div>
 
     </div>
-
-</div>
-
-
-
-<br><br><br>
+<br><br>
 <div class="nav-buttons">
     <button class="back-button">&#8592; Voltar</button>
     <br>
     <button class="next-button">Próximo &#8594;</button>
 </div>
+</div>
+
+
+
+
 @endsection

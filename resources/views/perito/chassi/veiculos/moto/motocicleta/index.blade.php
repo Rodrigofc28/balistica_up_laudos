@@ -207,6 +207,8 @@
     <br>
     <h2>Motocicleta</h2>
 
+   
+
     <form id="form" action="{{route('motocicletas.tela3')}}" method="POST">
         {{ csrf_field() }}
         <input hidden  name="laudo_id" value="{{$laudo->id}}" type="text">
@@ -250,11 +252,8 @@
             <input type="text" id="placa" name="placa"maxlength="7" placeholder="XXX0X00" >
             <label><input type="checkbox" id="nao-tem-placa" name="nao-tem-placa"> Não tem placa</label>
         </div>
-
-
-        <div class="form-group">
-            <label>Cor predominante:</label><br>
-            <div class="color-options">
+        <form action="{{ route('veiculo.salvar') }}" method="POST">
+            <div class="form-group">
                 <label><input type="radio" name="cor" value="Vermelho" required> Vermelho</label>
                 <label><input type="radio" name="cor" value="Azul"> Azul</label>
                 <label><input type="radio" name="cor" value="Verde"> Verde</label>
@@ -266,47 +265,60 @@
                 <label><input type="radio" name="cor" value="Marrom"> Marrom</label>
                 <label><input type="radio" name="cor" value="Amarelo"> Amarelo</label>
                 <label><input type="radio" name="cor" value="Laranja"> Laranja</label>
-        
+                
                 <!-- Opção "Outras" -->
-                <label><input type="radio" name="cor" value="Outras" id="outra-cor-radio"> Outras</label>
+                <label>
+                    <input type="radio" name="cor" value="Outras" id="outras-radio">
+                    Outras
+                </label>
+                <input type="text" name="cor_outros" id="outra-cor" placeholder="Digite a cor" disabled>
             </div>
         
-            <!-- Campo de texto para cor personalizada -->
-            <input type="text" id="outra-cor" placeholder="Digite a cor" style="display:none;">
-        </div>
-        
+  
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const outraCorRadio = document.getElementById("outra-cor-radio");
-                const outraCorInput = document.getElementById("outra-cor");
-                const radios = document.querySelectorAll("input[name='cor']");
-                
-                radios.forEach(radio => {
-                    radio.addEventListener("change", function () {
-                        if (outraCorRadio.checked) {
-                            outraCorInput.style.display = "block";
-                            outraCorInput.required = true;
-                        } else {
-                            outraCorInput.style.display = "none";
-                            outraCorInput.required = false;
-                        }
-                    });
-                });
+        document.addEventListener("DOMContentLoaded", function () {
+            const outraCorRadio = document.getElementById("outras-radio");
+            const outraCorInput = document.getElementById("outra-cor");
+            const radios = document.querySelectorAll("input[name='cor']");
         
-                // Ajustar valor antes de enviar o formulário
-                document.querySelector("form").addEventListener("submit", function (e) {
+            // Mostrar ou ocultar o campo de texto baseado na seleção do radio
+            radios.forEach(radio => {
+                radio.addEventListener("change", function () {
                     if (outraCorRadio.checked) {
-                        if (outraCorInput.value.trim() === "") {
-                            e.preventDefault();
-                            alert("Por favor, insira a cor desejada.");
-                        } else {
-                            outraCorRadio.value = outraCorInput.value; // Substitui "Outras" pelo valor digitado
-                        }
+                        outraCorInput.style.display = "block";
+                        outraCorInput.disabled = false;
+                        outraCorInput.required = true;
+                    } else {
+                        outraCorInput.style.display = "none";
+                        outraCorInput.disabled = true;
+                        outraCorInput.required = false;
                     }
                 });
             });
-        </script>
         
+            // Ajustar valor antes de enviar o formulário
+            document.querySelector("form").addEventListener("submit", function (e) {
+                if (outraCorRadio.checked) {
+                    if (outraCorInput.value.trim() === "") {
+                        e.preventDefault();
+                        alert("Por favor, insira a cor desejada.");
+                    } else {
+                        // Define o valor da coluna cor_outros
+                        document.querySelector("input[name='cor_outros']").value = outraCorInput.value;
+                        // Define o valor da coluna cor como "Outras"
+                        document.querySelector("input[name='cor']").value = "Outras";
+                    }
+                } else {
+                    // Define o valor da coluna cor como a cor selecionada
+                    document.querySelector("input[name='cor']").value = document.querySelector("input[name='cor']:checked").value;
+                }
+            });
+        });
+            </script>
+        </form>
+        
+            </script>
+          </form>
 
         <div class="nav-buttons">
             <button id="prev" onclick="window.history.back()">Voltar</button>

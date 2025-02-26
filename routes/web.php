@@ -198,12 +198,23 @@ Route::post('motocicleta.tela3', 'Perito\Chassis\MotocicletasController@tela3')-
 Route::post('motocicleta.exame', 'Perito\Chassis\MotocicletasController@exame')->name('motocicleta.exame');
 
 
+// Rota para buscar marcas
+Route::get('/buscar-marcas', [MotocicletasController::class, 'buscarMarcas']);
+
+// Rota para buscar modelos
+Route::get('/buscar-modelos', [MotocicletasController::class, 'buscarModelos']);
+
+//Salvar a cor escolhida no banco
+Route::post('/veiculo/salvar', [MotocicletasController::class, 'storeVeiculo'])->name('veiculo.salvar');
 
 Route::get('motocicleta.tela4/{laudo}', 'Perito\Chassis\Moto\MotocicletasController@tela4')->name('motocicleta.tela4');
 
 Route::get('motocicleta.tela5/{laudo}', 'Perito\Chassis\Moto\MotocicletasController@tela5')->name('motocicleta.tela5');
 
 Route::get('motocicleta.tela2/{laudo}', 'Perito\Chassis\MotocicletasController@tela2')->name('motocicletas.tela2');
+
+
+Route::post('/inspecaoVeiculo', [MotocicletasController::class, 'inspecaoVeiculo'])->name('inspecao.veiculo');
 
 
 Route::post('motocicleta.tela3', 'Perito\Chassis\MotocicletasController@tela3')->name('motocicletas.tela3');

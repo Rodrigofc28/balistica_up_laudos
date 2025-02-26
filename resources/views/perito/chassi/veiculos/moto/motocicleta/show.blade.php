@@ -202,8 +202,7 @@
             <span><strong>Órgão solicitante:</strong> 54645645</span><br>
             
             
-           
-           
+      
           </div>
            
     
@@ -296,5 +295,14 @@
         });
 
     </script>
+<script>
+    document.querySelector("form").addEventListener("submit", function(e) {
+        e.preventDefault(); // Previne o envio normal
+        // Submete o formulário de forma assíncrona (AJAX, fetch, etc.) se necessário
+        // Após o envio, redireciona o usuário para uma página diferente
+        window.location.replace("nova-pagina-de-sucesso");
+    });
+    </script>
+    
 </div>
 @endsection

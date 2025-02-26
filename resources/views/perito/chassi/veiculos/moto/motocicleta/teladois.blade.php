@@ -198,8 +198,41 @@
         font-weight: bold;
     }
 
-/* Estilo do contêiner */
-/* Estilo do contêiner */
+
+.button-group button {
+    background-color: #031d20c7;
+    color: white; /* Cor do texto */
+    font-size: 16px; /* Tamanho da fonte */
+    padding: 10px 20px; /* Espaçamento interno do botão */
+    border: none; /* Remove a borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de ponteiro ao passar por cima */
+    transition: all 0.3s ease; /* Transição suave para efeitos de hover */
+}
+
+.button-group button:hover {
+    background-color: #0691eeb7;
+    transform: scale(1.05); /* Leve aumento no tamanho ao passar o mouse */
+}
+
+.button-group button:active {
+    background-color: #0691eeb7;
+    transform: scale(0.98); /* Leve redução no tamanho ao clicar */
+}
+
+.button-group button:focus {
+    outline: none; /* Remove a borda de foco */
+}
+
+.button-group button:disabled {
+    background-color: #ccc; /* Cor do botão desativado */
+    cursor: not-allowed; /* Cursor de bloqueio */
+}
+
+
+.cropper-container { /*isso aqui limita para que não fuja para a esquerda*/
+    overflow: hidden;
+}
 /* Estilo do contêiner */
 .crop-container {
     display: flex;
@@ -216,16 +249,18 @@
 
 /* Estilo da imagem com zoom */
 .preview img {
-    max-width: none; /* Permite que a imagem ultrapasse a largura máxima para zoom */
+    max-width: 100%; /* Impede que a imagem ultrapasse a largura do contêiner */
+    max-height: 400PX; /* Impede que a imagem ultrapasse a altura do contêiner */
     transform-origin: center center; /* Zoom centrado */
     transition: transform 0.3s ease; /* Transição suave */
-    position: absolute; /* Para poder mover a imagem dentro do contêiner */
+    position: relative; /* Ao invés de absolute, para limitar seu movimento */
+    object-fit: contain; /* Garante que a imagem se ajuste ao tamanho do contêiner */
 }
 
 /* Limitação do tamanho do preview */
 .image-preview {
-    max-width: 300px;
-    max-height: 100px;
+    max-width: 400px;
+    max-height: 1000px;
     overflow: hidden;
     border: 1px solid #220000;
 }
@@ -236,6 +271,29 @@
     max-height: 300px;
     border: 1px solid #000000;
 }
+
+
+
+    /* CSS para as caixas de texto */
+    .caixaTexto {
+        margin-bottom: 10px; /* Espaçamento entre a caixa de texto e os elementos abaixo */
+    }
+
+    .caixaTexto label {
+        display: block; /* Faz o label ocupar uma linha inteira */
+        font-weight: bold; /* Deixa o texto do label em negrito */
+        margin-bottom: 5px; /* Espaçamento entre o label e a caixa de texto */
+    }
+
+    .caixaTexto textarea {
+        width: 100%; /* Faz a caixa de texto ocupar toda a largura disponível */
+        padding: 8px; /* Adiciona um pequeno padding dentro da caixa de texto */
+        border: 1px solid #ccc; /* Bordas suaves */
+        border-radius: 4px; /* Bordas arredondadas */
+        font-size: 14px; /* Tamanho da fonte */
+        box-sizing: border-box; /* Garantir que padding e border não aumentem a largura total */
+    }
+
 
 
 </style>
@@ -264,13 +322,14 @@
         <div class="radio-group">
             <label>Situação:</label>
             <label>
-                <input type="radio" name="chassi_status" value="integro" onchange="toggleFields('chassi')"> Íntegro
+                <input type="radio" name="chassi_status" value="integro" onchange="toggleFields('chassi')" required> Íntegro
             </label>
             <label>
-                <input type="radio" name="chassi_status" value="adulterado" onchange="toggleFields('chassi')">
+                <input type="radio" name="chassi_status" value="adulterado" onchange="toggleFields('chassi')" required>
                 Adulterado
             </label>
         </div>
+        
         <div class="conditional-fields" id="integroFieldsChassi">
             <div class="form-group">
                 <label for="chassiAtual">Número do Chassi:</label>
@@ -284,16 +343,20 @@
                 <label for="fotoChassiAtual">Foto do Chassi:</label>
                 <input type="file" id="fotoChassiAtual" name="chassi_foto" class="image-input">
                 <label>
-                    <input type="checkbox" id="nao-tem-foto-chassi"
+                    <input type="checkbox" id="nao-tem-foto-chassi" name="chassi_nao_tem_foto">
                         onchange="toggleFotoChassi()"> Não tem foto
                 </label>
             </div>
             <div class="crop-container">
-                <img id="image-preview-chassi" alt="Preview" class="image-preview">
+                <img s id="image-preview-chassi" alt="Preview" style="width: 0px" src="{{ asset('image/add-image.png') }}" class="image-preview">
             </div>
             <button id="crop-button-chassi" style="display:none;">Recortar</button>
             <canvas id="cropped-result-chassi"></canvas>
-       
+            <br><br>
+            <div class="button-group">
+                <button type="button" id="limparCamposIntegro" onclick="limparCampos('integro')">Limpar campos</button>
+            
+            </div>
         </div>
     
         <div class="conditional-fields" id="adulteradoFieldsChassi">
@@ -314,26 +377,39 @@
                 </label>
             </div>
             <div class="crop-container">
-                <img id="image-preview-chassi-adulterado" alt="Preview" class="image-preview">
+                <img id="image-preview-chassi-adulterado" alt="Preview" style="width: 0px" src="{{ asset('image/add-image.png') }}" class="image-preview">
             </div>
             <button id="crop-button-chassi-adulterado" style="display:none;">Recortar</button>
             <canvas id="cropped-result-chassi-adulterado"></canvas>
             <div class="form-group">
                 <label for="tipoadulteracao">Tipo de adulteração:</label>
-                <select id="tipoadulteracao" name="chassi_tipo_adulteracao" onchange="bloquearrCampos('chassi', 'Chassi')">
-                    <option >Selecione</option>
-                    <option value="desbaste_regravacao">Desbaste e regravação</option>
-                    <option value="contundencia">Contundência</option>
-                    <option value="remarcado">Remarcado</option>
-                    <option value="desbaste">Desbaste</option>
+                <select id="tipoadulteracao" name="chassi_tipo_adulteracao" onchange="bloquearrCampos('chassi', 'Chassi'); mostrarInformacoesTransplante(); mostrarInformacoesReparos();">
+                    <option value="">Selecione</option>
                     <option value="adulteracao_simples">Adulteração simples</option>
-                    <option value="recortado">Recortado</option>
-                    <!--<option value="implante_chassi">Implante</option>-->
+                    <option value="sem_numero_chassi">Chapa sem número</option>
+                    <option value="contundencia">Contundência</option>   
+                    <option value="desbaste">Desbaste</option>
+                    <option value="desbaste_regravacao">Desbaste e regravação</option>
+                    <option value="implante_chassi">Implante</option>
                     <option value="nao_localizado">Não localizado</option>
-                    <option value="substituido_transplante">Substituído (transplante)</option>
+                    <option value="oxidacao_chassi">Oxidação</option>
+                    <option value="recortado">Recortado</option>
+                    <option value="remarcado">Remarcado</option>
+                    <option value="reparos_chassi">Reparos</option>       
+                    <option value="substituido_transplante">Substituído</option>
+                    <option value="transplante_chassi">Transplante</option>
                 </select>
             </div>
-    
+            
+            <div id="caixaTextoTransplante" class="caixaTexto" style="display: none;">
+                <label for="campoTransplante">Informações sobre o Transplante:</label>
+                <textarea id="campoTransplante" name="transplante_chassi" rows="4" cols="50"></textarea>
+            </div>
+            
+            <div id="caixaTextoReparos" class="caixaTexto" style="display: none;">
+                <label for="campoReparos">Informações sobre os Reparos:</label>
+                <textarea id="campoReparos" name="reparo_chassi" rows="4" cols="50"></textarea>
+            </div>
             <div class="form-group">
                 <label for="metodologiaChassi">Metodologia Aplicada:</label>
                 <select id="metodologiaChassi" name="chassi_metodologia">
@@ -341,10 +417,10 @@
                     <option value="tratamento_quimico">Aplicar tratamento químico - Metalográfico</option>
                     <option value="instrumento_optico">Utilização de instrumento óptico adequado (LUPA)</option>
                 </select>
-               <!-- <label>
+               {{-- <label>
                     <input type="checkbox" id="nao-se-aplica-metodologia-chassi"
                         name="nao-se-aplica-metodologia-chassi" onchange="toggleMetodologiaChassi()"> Não se aplica
-                </label>-->
+                </label>--}}
             </div>
     
             <div class="form-group">
@@ -357,21 +433,22 @@
                     <option value="corroborado">Corroborado</option>
                     <option value="nao_confirmado">Não confirmado</option>
                 </select>
-               <!-- <label>
+               {{-- <label>
                     <input type="checkbox" id="nao-se-aplica-resultado-chassi" name="chassi_nao_se_aplica_resultado"
                         onchange="toggleResultadoChassi()"> Não se aplica
-                </label>-->
+                </label>--}}
             </div>
+            
             <div class="chassi-revelado-fields" id="chassi-revelado">
                 <div class="form-group">
-                    <label for="chassiRevelado">Número do Chassi:</label>
+                    <label for="chassiRevelado">Número do chassi revelado:</label>
                     <input type="text" id="chassiRevelado" name="chassi_revelado_numero" maxlength="17"
                         placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                         oninput="updateChassiDisplay(this, 'chassiReveladoDisplay')">
                     <div id="chassiReveladoDisplay" class="chassi-display"></div>
                 </div>
                 <div class="form-group">
-                    <label for="fotoChassiRevelado">Foto do Chassi:</label>
+                    <label for="fotoChassiRevelado">Foto do chassi revelado:</label>
                     <input type="file" id="fotoChassiRevelado" name="chassi_revelado_foto" class="image-input">
                     <label>
                         <input type="checkbox" id="nao-tem-foto-chassi-revelado" 
@@ -379,11 +456,34 @@
                     </label>
                 </div>
                 <div class="crop-container">
-                    <img id="image-preview-chassi-revelado" alt="Preview" class="image-preview">
+                    <img id="image-preview-chassi-revelado" alt="Preview"  style="width: 0px" src="{{ asset('image/add-image.png') }}" class="image-preview">
                 </div>
                 <button id="crop-button-chassi-revelado" style="display:none;">Recortar</button>
                 <canvas id="cropped-result-chassi-revelado"></canvas>
             </div>
+  <!-- Campo Corroborado para o Chassi -->
+<div class="chassi-revelado-fields" id="chassi-corroborado">
+    <div class="form-group">
+        <label for="chassiCorroborado">Número do chassi corroborado:</label>
+        <input type="text" id="chassiCorroborado" name="chassi_corroborado_numero" maxlength="17"
+            placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
+            oninput="updateChassiDisplay(this, 'chassiCorroboradoDisplay')">
+        <div id="chassiCorroboradoDisplay" class="chassi-display"></div>
+    </div>
+    <div class="form-group">
+        <label for="fotoChassiCorroborado">Foto do chassi corroborado:</label>
+        <input type="file" id="fotoChassiCorroborado" name="chassi_corroborado_foto" class="image-input">
+        <label>
+            <input type="checkbox" id="nao-tem-foto-chassi-corroborado" 
+                onchange="toggleFotoChassiCorroborado()"> Não tem foto
+        </label>
+    </div>
+    <div class="crop-container">
+        <img id="image-preview-chassi-corroborado" alt="Preview"  style="width: 0px" src="{{ asset('image/add-image.png') }}" class="image-preview">
+    </div>
+    <button id="crop-button-chassi-corroborado" style="display:none;">Recortar</button>
+    <canvas id="cropped-result-chassi-corroborado"></canvas>
+</div>
             <div class="chassi-revelado-fields" id="chassi-revelado-parcialmente">
                 <div class="form-group">
                     <label for="chassiReveladoParcialmente">Chassi Revelado Parcialmente:</label>
@@ -403,14 +503,142 @@
                     </label>
                 </div>
                 <div class="crop-container">
-                    <img id="image-preview-chassi-revelado-parcialmente" alt="Preview" class="image-preview">
+                    <img id="image-preview-chassi-revelado-parcialmente" alt="Preview"  style="width: 0px" src="{{ asset('image/add-image.png') }}" class="image-preview">
                 </div>
                 <button id="crop-button-chassi-revelado-parcialmente" style="display:none;">Recortar</button>
                 <canvas id="cropped-result-chassi-revelado-parcialmente"></canvas>
             </div>
             
+        <div class="button-group">
+            <button type="button" id="limparCamposAdulterado" onclick="limparCampos('adulterado')">Limpar campos</button>
         </div>
+        </div>
+
     </div>
+    <script>
+
+
+function limparCampos(tipo) {
+    if (tipo === 'integro') {
+        // Limpa os campos da seção Integro
+        document.getElementById("chassiAtual").value = "";
+        document.getElementById("fotoChassiAtual").value = "";
+        document.getElementById("chassiAtualDisplay").innerHTML = "";
+        document.getElementById("image-preview-chassi").style.width = '0px';
+        document.getElementById("cropped-result-chassi").getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Desabilita os campos da seção Adulterado
+        document.getElementById('chassi_adulterado').disabled = true;
+        document.getElementById('arquivo_chassi_adulterado').disabled = true;
+        document.getElementById('nao-tem-foto-chassi-adulterado').disabled = true;
+        document.getElementById('tipoadulteracao').disabled = true;
+        document.getElementById('metodologiaChassi').disabled = true;
+        document.getElementById('resultadoChassi').disabled = true;
+        document.getElementById('chassiRevelado').disabled = true;
+        document.getElementById('fotoChassiRevelado').disabled = true;
+        document.getElementById('nao-tem-foto-chassi-revelado').disabled = true;
+        document.getElementById('chassiReveladoParcialmente').disabled = true;
+        document.getElementById('fotoChassiReveladoParcialmente').disabled = true;
+        document.getElementById('nao-tem-foto-chassi-revelado-parcialmente').disabled = true;
+        
+        // Habilita os campos da seção Integro
+        document.getElementById("chassiAtual").disabled = false;
+        document.getElementById("fotoChassiAtual").disabled = false;
+    } else if (tipo === 'adulterado') {
+        // Limpa os campos da seção Adulterado
+        document.getElementById('chassi_adulterado').value = "";
+        document.getElementById('chassiAdulteradoDisplay').innerHTML = "";
+        document.getElementById('arquivo_chassi_adulterado').value = "";
+        document.getElementById('nao-tem-foto-chassi-adulterado').checked = false;
+        document.getElementById('image-preview-chassi-adulterado').style.width = '0px';
+        document.getElementById('campoTransplante').value = "";
+        document.getElementById('campoReparos').value = "";
+        document.getElementById('tipoadulteracao').value = "";
+        document.getElementById('metodologiaChassi').value = "";
+        document.getElementById('resultadoChassi').value = "";
+        document.getElementById('chassiRevelado').value = "";
+        document.getElementById('chassiReveladoDisplay').innerHTML = "";
+        document.getElementById('fotoChassiRevelado').value = "";
+        document.getElementById('nao-tem-foto-chassi-revelado').checked = false;
+        document.getElementById('image-preview-chassi-revelado').style.width = '0px';
+        document.getElementById('chassiReveladoParcialmente').value = "";
+        document.getElementById('chassiReveladoParcialmenteDisplay').innerHTML = "";
+        document.getElementById('fotoChassiReveladoParcialmente').value = "";
+        document.getElementById('nao-tem-foto-chassi-revelado-parcialmente').checked = false;
+        document.getElementById('image-preview-chassi-revelado-parcialmente').style.width = '0px';
+        
+        // Desabilita os campos da seção Integro
+        document.getElementById("chassiAtual").disabled = true;
+        document.getElementById("fotoChassiAtual").disabled = true;
+        
+        // Habilita os campos da seção Adulterado
+        document.getElementById('chassi_adulterado').disabled = false;
+        document.getElementById('arquivo_chassi_adulterado').disabled = false;
+        document.getElementById('nao-tem-foto-chassi-adulterado').disabled = false;
+        document.getElementById('tipoadulteracao').disabled = false;
+        document.getElementById('metodologiaChassi').disabled = false;
+        document.getElementById('resultadoChassi').disabled = false;
+        document.getElementById('chassiRevelado').disabled = false;
+        document.getElementById('fotoChassiRevelado').disabled = false;
+        document.getElementById('nao-tem-foto-chassi-revelado').disabled = false;
+        document.getElementById('chassiReveladoParcialmente').disabled = false;
+        document.getElementById('fotoChassiReveladoParcialmente').disabled = false;
+        document.getElementById('nao-tem-foto-chassi-revelado-parcialmente').disabled = false;
+    }
+}
+
+// Adiciona evento de mudança nos botões de opção
+document.querySelectorAll('input[name="chassi_status"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+        const tipo = this.value;
+        limparCampos(tipo);
+    });
+});
+
+// Função para alternar campos visíveis entre Íntegro e Adulterado
+function toggleFields(tipo) {
+    if (tipo === 'chassi') {
+        const integroFieldsChassi = document.getElementById("integroFieldsChassi");
+        const adulteradoFieldsChassi = document.getElementById("adulteradoFieldsChassi");
+        
+        // Verifica o status selecionado (radio button)
+        const statusChassi = document.querySelector('input[name="chassi_status"]:checked').value;
+        
+        if (statusChassi === 'integro') {
+            // Limpa os campos da seção Adulterado antes de ocultá-la
+            limparCampos('adulterado', 'chassi');
+            integroFieldsChassi.style.display = 'block';
+            adulteradoFieldsChassi.style.display = 'none';
+        } else {
+            // Limpa os campos da seção Integro antes de ocultá-la
+            limparCampos('integro', 'chassi');
+            integroFieldsChassi.style.display = 'none';
+            adulteradoFieldsChassi.style.display = 'block';
+        }
+    } else if (tipo === 'motor') {
+        const integroFieldsMotor = document.getElementById("integroFieldsMotor");
+        const adulteradoFieldsMotor = document.getElementById("adulteradoFieldsMotor");
+        
+        // Verifica o status selecionado (radio button)
+        const statusMotor = document.querySelector('input[name="motor_status"]:checked').value;
+        
+        if (statusMotor === 'integro') {
+            // Limpa os campos da seção Adulterado antes de ocultá-la
+            limparCampos('adulterado', 'motor');
+            integroFieldsMotor.style.display = 'block';
+            adulteradoFieldsMotor.style.display = 'none';
+        } else {
+            // Limpa os campos da seção Integro antes de ocultá-la
+            limparCampos('integro', 'motor');
+            integroFieldsMotor.style.display = 'none';
+            adulteradoFieldsMotor.style.display = 'block';
+        }
+    }
+}
+
+
+
+    </script>
     <br>  <hr><br>  
    
     <div class="button-group"><!-- Seção do Motor -->
@@ -418,14 +646,16 @@
         <div class="radio-group">
             <label>Situação:</label>
             <label>
-                <input type="radio" name="motor_status" value="integro" onchange="toggleFields('motor')"> Íntegro
+                <input type="radio" name="motor_status" value="integro" onchange="toggleFields('motor')" required> Íntegro
             </label>
             <label>
-                <input type="radio" name="motor_status" value="adulterado" onchange="toggleFields('motor')">
+                <input type="radio" name="motor_status" value="adulterado" onchange="toggleFields('motor')" required>
                 Adulterado
             </label>
         </div>
+        
     
+
         <div class="conditional-fields" id="integroFieldsMotor">
             <div class="form-group">
                 <label for="motorAtual">Número do Motor:</label>
@@ -436,57 +666,81 @@
             </div>
             <div class="form-group">
                 <label for="fotoMotorAtual">Foto do Motor:</label>
-                <input type="file" id="fotoMotorAtual" name="motor_adulterado_foto" class="image-input">
+                <input type="file" id="fotoMotorAtual" name="motor_foto" class="image-input">
                 <label>
-                    <input type="checkbox" id="nao-tem-foto-motor" 
+                    <input type="checkbox" id="nao-tem-foto-motor" name="motor_nao_tem_foto" 
                         onchange="toggleFotoMotor()"> Não tem foto
                 </label>
             </div>
             <div class="crop-container">
-                <img id="image-preview-motor" alt="Preview" class="image-preview">
+                <img id="image-preview-motor" alt="Preview"  style="width: 0px" src="{{ asset('image/add-image.png') }}" class="image-preview">
             </div>
             <button id="crop-button-motor" style="display:none;">Recortar</button>
             <canvas id="cropped-result-motor"></canvas>
-          
+            <br><br>
+          <div class="button-group">
+<!-- Botões tradicionais para alternar entre o status do motor -->
+<button type="button" onclick="toggleFieldsMotor(); limparCamposMotor('integro');">Limpar campos</button>
+
+
+</div>
+
         </div>
     
         <div class="conditional-fields" id="adulteradoFieldsMotor">
             <div class="form-group">
                 <label for="motorAdulterado">Motor Adulterado:</label>
-                <input type="text" id="motorAdulterado" name="motor_tipo_adulteracao" maxlength="20"
+                <input type="text" id="motorAdulterado" name="motor_adulterado_numero" maxlength="20"
                     placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                     oninput="updateChassiDisplay(this, 'motorAdulteradoDisplay')">
                 <div id="motorAdulteradoDisplay" class="chassi-display"></div>
             </div>
             <div class="form-group">
-                <label for="arquivoMotorAdulterado">Arquivo do Motor Adulterado:</label>
-                <input type="file" id="arquivoMotorAdulterado" name="motor_adulterado_nao_tem_foto" class="image-input">
+                <label for="arquivoMotorAdulterado">Foto do Motor Adulterado:</label>
+                <input type="file" id="arquivoMotorAdulterado" name="motor_adulterado_foto" class="image-input">
                 <label>
                     <input type="checkbox" id="nao-tem-foto-motor-adulterado" 
                         onchange="toggleFotoMotorAdulterado()"> Não tem foto
                 </label>
             </div>
             <div class="crop-container">
-                <img id="image-preview-motor-adulterado" alt="Preview" class="image-preview">
+                <img id="image-preview-motor-adulterado" alt="Preview"  style="width: 0px" src="{{ asset('image/add-image.png') }}" class="image-preview">
             </div>
             <button id="crop-button-motor-adulterado" style="display:none;">Recortar</button>
             <canvas id="cropped-result-motor-adulterado"></canvas>
             <div class="form-group">
                 <label for="tipoadulteracaoMotor">Tipo de adulteração:</label>
                 <select id="tipoadulteracaoMotor" name="motor_tipo_adulteracao"
-                    onchange="bloquearCampos('motor', 'Motor')">
-                    <option>Selecione</option>
-                    <option value="desbaste_regravação_nao_revelado">Desbaste e regravação</option>
+                    onchange="bloquearCampos('motor', 'Motor'); mostrarInformacoesReparosMotor(); mostrarInformacoesTransplanteMotor();">
+                    <option value="">Selecione</option>
+                    <option value="adulteracao_simples">Adulteração simples</option>
+                    <option value="sem_numero_motor">Chapa sem número</option>
                     <option value="contundencia_nao_revelado">Contundência</option>
                     <option value="desbaste_revelado">Desbaste</option>
-                    <option value="remarcado_nao_confirmado">Remarcado</option>
-                    <option value="recortado">Recortado</option>
-                     <option value="adulteracao_simples">Adulteração simples</option>
-                    <!-- <option value="implante_motor">Implante</option>-->
+                    <option value="desbaste_regravação_nao_revelado">Desbaste e regravação</option>
+                    <option value="implante_motor">Implante</option>
                     <option value="nao_localizado">Não localizado</option>
-                    <option value="substituido_transplante">Substituído (transplante)</option>
+                    <option value="oxidacao_motor">Oxidação</option>
+                    <option value="recortado">Recortado</option>
+                    <option value="remarcado_nao_confirmado">Remarcado</option>
+                    <option value="reparos_motor">Reparos</option>     
+                    <option value="substituido_transplante">Substituído</option>
+                    <option value="transplate_motor">Transplante</option>
                 </select>
             </div>
+            
+            <div id="caixaTextoReparosMotor" class="caixaTexto" style="display: none;">
+                <label for="campoReparosMotor">Informações sobre os Reparos:</label>
+                <textarea id="campoReparosMotor" name="reparo_motor" rows="4" cols="50"></textarea>
+            </div>
+             
+            <div id="caixaTextoTransplanteMotor" class="caixaTexto" style="display: none;">
+                <label for="campoTransplanteMotor">Informações sobre o Transplante:</label>
+                <textarea id="campoTransplanteMotor" name="transplante_motor" rows="4" cols="50"></textarea>
+            </div>
+            
+            
+ 
     
             <div class="form-group">
                 <label for="metodologiaMotor">Metodologia Aplicada:</label>
@@ -495,10 +749,10 @@
                     <option value="tratamento_quimico">Aplicar tratamento químico - Metalográfico</option>
                     <option value="instrumento_optico">Utilização de instrumento óptico adequado (LUPA)</option>
                 </select>
-               <!-- <label>
+               {{-- <label>
                     <input type="checkbox" id="nao-se-aplica-metodologia-motor"
                         name="motor_nao_se_aplica_metodologia" onchange="toggleMetodologiaMotor()"> Não se aplica
-                </label>-->
+                </label>--}}
             </div>
     
             <div class="form-group">
@@ -511,15 +765,15 @@
                     <option value="corroborado">Corroborado</option>
                     <option value="nao_confirmado">Não confirmado</option>
                 </select>
-               <!-- <label>
+               {{--<label>
                     <input type="checkbox" id="nao-se-aplica-resultado-motor" name="motor_nao_se_aplica_resultado"
                         onchange="toggleResultadoMotor()"> Não se aplica
-                </label>-->
+                </label> --}} 
             </div>
 
             <div class="motor-revelado-fields" id="motor-revelado">
                 <div class="form-group">
-                    <label for="motorRevelado">Número do motor:</label>
+                    <label for="motorRevelado">Número do motor revelado:</label>
                     <input type="text" id="motorRevelado" name="motor_revelado_numero" maxlength="20"
                         placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                         oninput="updateChassiDisplay(this, 'motorReveladoDisplay')">
@@ -534,11 +788,34 @@
                     </label>
                 </div>
                 <div class="crop-container">
-                    <img id="image-preview-motor-revelado" alt="Preview" class="image-preview">
+                    <img id="image-preview-motor-revelado" alt="Preview"  style="width: 0px" src="{{ asset('image/add-image.png') }}" class="image-preview">
                 </div>
                 <button id="crop-button-motor-revelado" style="display:none;">Recortar</button>
                 <canvas id="cropped-result-motor-revelado"></canvas>
             </div>
+            <!-- Campo Corroborado para o Motor -->
+<div class="motor-revelado-fields" id="motor-corroborado">
+    <div class="form-group">
+        <label for="motorCorroborado">Número do motor corroborado:</label>
+        <input type="text" id="motorCorroborado" name="motor_corroborado_numero" maxlength="20"
+            placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
+            oninput="updateChassiDisplay(this, 'motorCorroboradoDisplay')">
+        <div id="motorCorroboradoDisplay" class="chassi-display"></div>
+    </div>
+    <div class="form-group">
+        <label for="fotoMotorCorroborado">Foto do motor corroborado:</label>
+        <input type="file" id="fotoMotorCorroborado" name="motor_corroborado_foto" class="image-input">
+        <label>
+            <input type="checkbox" id="nao-tem-foto-motor-corroborado" 
+                onchange="toggleFotoMotorCorroborado()"> Não tem foto
+        </label>
+    </div>
+    <div class="crop-container">
+        <img id="image-preview-motor-corroborado" alt="Preview"  style="width: 0px" src="{{ asset('image/add-image.png') }}" class="image-preview">
+    </div>
+    <button id="crop-button-motor-corroborado" style="display:none;">Recortar</button>
+    <canvas id="cropped-result-motor-corroborado"></canvas>
+
             <div class="motor-revelado-fields" id="motor-revelado-parcialmente">
                 <div class="form-group">
                     <label for="motorReveladoParcialmente">Motor Revelado Parcialmente:</label>
@@ -558,20 +835,184 @@
                     </label>
                 </div>
                 <div class="crop-container">
-                    <img id="image-preview-motor-revelado-parcialmente" alt="Preview" class="image-preview">
+                    <img id="image-preview-motor-revelado-parcialmente" alt="Preview"  style="width: 0px" src="{{ asset('image/add-image.png') }}" class="image-preview">
                 </div>
                 <button id="crop-button-motor-revelado-parcialmente" style="display:none;">Recortar</button>
                 <canvas id="cropped-result-motor-revelado-parcialmente"></canvas>
             
         </div>
-       
+        <div class="button-group">
+          
+            <button type="button" onclick="limparCamposMotor('adulterado')">Limpar campos</button>
+        </div>
+
     </div>
+
+
+
+    <script>
+ 
+// Função para limpar campos do motor
+// Função para limpar campos do motor
+function limparCamposMotor(tipo) {
+    if (tipo === 'integro') {
+        // Limpa os campos da seção Integro do motor
+        document.getElementById("motorAtual").value = "";
+        document.getElementById("fotoMotorAtual").value = "";
+        document.getElementById("motorAtualDisplay").innerHTML = "";
+        document.getElementById("image-preview-motor").style.width = '0px';
+        document.getElementById("cropped-result-motor").getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Desabilita os campos da seção Adulterado do motor
+        document.getElementById('motorAdulterado').disabled = true;
+        document.getElementById('arquivoMotorAdulterado').disabled = true;
+        document.getElementById('nao-tem-foto-motor-adulterado').disabled = true;
+        document.getElementById('tipoadulteracaoMotor').disabled = true;
+        document.getElementById('metodologiaMotor').disabled = true;
+        document.getElementById('resultadoMotor').disabled = true;
+        document.getElementById('motorRevelado').disabled = true;
+        document.getElementById('fotoMotorRevelado').disabled = true;
+        document.getElementById('nao-tem-foto-motor-revelado').disabled = true;
+        document.getElementById('motorReveladoParcialmente').disabled = true;
+        document.getElementById('fotoMotorReveladoParcialmente').disabled = true;
+        document.getElementById('nao-tem-foto-motor-revelado-parcialmente').disabled = true;
+        
+        // Habilita os campos da seção Integro do motor
+        document.getElementById("motorAtual").disabled = false;
+        document.getElementById("fotoMotorAtual").disabled = false;
+    } else if (tipo === 'adulterado') {
+        // Limpa os campos da seção Adulterado do motor
+        document.getElementById('motorAdulterado').value = "";
+        document.getElementById('motorAdulteradoDisplay').innerHTML = "";
+        document.getElementById('arquivoMotorAdulterado').value = "";
+        document.getElementById('nao-tem-foto-motor-adulterado').checked = false;
+        document.getElementById('image-preview-motor-adulterado').style.width = '0px';
+        document.getElementById('campoTransplanteMotor').value = "";
+        document.getElementById('campoReparosMotor').value = "";
+        document.getElementById('tipoadulteracaoMotor').value = "";
+        document.getElementById('metodologiaMotor').value = "";
+        document.getElementById('resultadoMotor').value = "";
+        document.getElementById('motorRevelado').value = "";
+        document.getElementById('motorReveladoDisplay').innerHTML = "";
+        document.getElementById('fotoMotorRevelado').value = "";
+        document.getElementById('nao-tem-foto-motor-revelado').checked = false;
+        document.getElementById('image-preview-motor-revelado').style.width = '0px';
+        document.getElementById('motorReveladoParcialmente').value = "";
+        document.getElementById('motorReveladoParcialmenteDisplay').innerHTML = "";
+        document.getElementById('fotoMotorReveladoParcialmente').value = "";
+        document.getElementById('nao-tem-foto-motor-revelado-parcialmente').checked = false;
+        document.getElementById('image-preview-motor-revelado-parcialmente').style.width = '0px';
+        
+        // Desabilita os campos da seção Integro do motor
+        document.getElementById("motorAtual").disabled = true;
+        document.getElementById("fotoMotorAtual").disabled = true;
+        
+        // Habilita os campos da seção Adulterado do motor
+        document.getElementById('motorAdulterado').disabled = false;
+        document.getElementById('arquivoMotorAdulterado').disabled = false;
+        document.getElementById('nao-tem-foto-motor-adulterado').disabled = false;
+        document.getElementById('tipoadulteracaoMotor').disabled = false;
+        document.getElementById('metodologiaMotor').disabled = false;
+        document.getElementById('resultadoMotor').disabled = false;
+        document.getElementById('motorRevelado').disabled = false;
+        document.getElementById('fotoMotorRevelado').disabled = false;
+        document.getElementById('nao-tem-foto-motor-revelado').disabled = false;
+        document.getElementById('motorReveladoParcialmente').disabled = false;
+        document.getElementById('fotoMotorReveladoParcialmente').disabled = false;
+        document.getElementById('nao-tem-foto-motor-revelado-parcialmente').disabled = false;
+    }
+}
+// Adiciona evento de mudança nos botões de opção do motor
+document.querySelectorAll('input[name="motor_status"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+        const tipo = this.value;
+        limparCamposMotor(tipo);
+    });
+});
+        // Função para alternar campos visíveis entre Íntegro e Adulterado para o motor
+        function toggleFieldsMotor() {
+            const integroFieldsMotor = document.getElementById("integroFieldsMotor");
+            const adulteradoFieldsMotor = document.getElementById("adulteradoFieldsMotor");
+            
+            // Verifica o status selecionado (radio button)
+            const statusMotor = document.querySelector('input[name="motor_status"]:checked');
+            
+            if (statusMotor) {
+                if (statusMotor.value === 'integro') {
+                    integroFieldsMotor.style.display = 'block';
+                    adulteradoFieldsMotor.style.display = 'none';
+                } else {
+                    integroFieldsMotor.style.display = 'none';
+                    adulteradoFieldsMotor.style.display = 'block';
+                }
+            }
+        }
+        </script>
+        
+
+
+    
     <div class="nav-buttons">
     <button id="prev" onclick="window.history.back()">Voltar</button>
     <button type="submit">Avançar</button>
     </div>
     </form>
     
+               <script>
+                // Função para mostrar/ocultar o campo de "Informações sobre os Reparos" no motor
+                function mostrarInformacoesReparosMotor() {
+                    const tipoadulteracaoMotor = document.getElementById('tipoadulteracaoMotor').value;
+                    const caixaTextoReparosMotor = document.getElementById('caixaTextoReparosMotor');
+                    
+                    if (tipoadulteracaoMotor === 'reparos_motor') {
+                        caixaTextoReparosMotor.style.display = 'block';  // Exibe o campo
+                    } else {
+                        caixaTextoReparosMotor.style.display = 'none';  // Oculta o campo
+                    }
+                }
+            
+                // Função para mostrar/ocultar o campo de "Informações sobre o Transplante" no motor
+                function mostrarInformacoesTransplanteMotor() {
+                    const tipoadulteracaoMotor = document.getElementById('tipoadulteracaoMotor').value;
+                    const caixaTextoTransplanteMotor = document.getElementById('caixaTextoTransplanteMotor');
+                    
+                    if (tipoadulteracaoMotor === 'transplate_motor') {
+                        caixaTextoTransplanteMotor.style.display = 'block';  // Exibe o campo
+                    } else {
+                        caixaTextoTransplanteMotor.style.display = 'none';  // Oculta o campo
+                    }
+                }
+            
+ 
+            </script>
+              
+            <script>
+                // Função para mostrar/ocultar o campo de "Informações sobre o Transplante"
+                function mostrarInformacoesTransplante() {
+                    const tipoadulteracao = document.getElementById('tipoadulteracao').value;
+                    const caixaTextoTransplante = document.getElementById('caixaTextoTransplante');
+                    
+                    if (tipoadulteracao === 'transplante_chassi') {
+                        caixaTextoTransplante.style.display = 'block';  // Exibe o campo
+                    } else {
+                        caixaTextoTransplante.style.display = 'none';  // Oculta o campo
+                    }
+                }
+            
+                // Função para mostrar/ocultar o campo de "Informações sobre os Reparos"
+                function mostrarInformacoesReparos() {
+                    const tipoadulteracao = document.getElementById('tipoadulteracao').value;
+                    const caixaTextoReparos = document.getElementById('caixaTextoReparos');
+                    
+                    if (tipoadulteracao === 'reparos_chassi') {
+                        caixaTextoReparos.style.display = 'block';  // Exibe o campo
+                    } else {
+                        caixaTextoReparos.style.display = 'none';  // Oculta o campo
+                    }
+                }
+            
+   
+            </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script>
     
@@ -632,10 +1073,11 @@
         initializeCropper("arquivoMotorAdulterado", "image-preview-motor-adulterado", "crop-button-motor-adulterado", "cropped-result-motor-adulterado");
         initializeCropper("fotoMotorRevelado", "image-preview-motor-revelado", "crop-button-motor-revelado", "cropped-result-motor-revelado");
         initializeCropper("fotoMotorReveladoParcialmente", "image-preview-motor-revelado-parcialmente", "crop-button-motor-revelado-parcialmente", "cropped-result-motor-revelado-parcialmente");
-    
+        initializeCropper("fotoChassiCorroborado", "image-preview-chassi-corroborado", "crop-button-chassi-corroborado", "cropped-result-chassi-corroborado");
+initializeCropper("fotoMotorCorroborado", "image-preview-motor-corroborado", "crop-button-motor-corroborado", "cropped-result-motor-corroborado");
     
  
-        // Bloquear campos
+        // Bloquear campos motor
         function bloquearCampos(tipo, secao) {
     const select = document.getElementById(`tipoadulteracao${secao}`);
     const numeroInput = document.getElementById(`${tipo}Adulterado`);
@@ -643,22 +1085,22 @@
     const metodologiaSelect = document.getElementById(`metodologia${secao}`);
     const resultadoSelect = document.getElementById(`resultado${secao}`);
 
-    if (select.value === 'recortado') {
-        if (numeroInput) numeroInput.disabled = true;
-        if (fotoInput) fotoInput.disabled = false; // Apenas a foto fica ativa
-        if (metodologiaSelect) metodologiaSelect.disabled = true;
-        if (resultadoSelect) resultadoSelect.disabled = true;
-    } else if (['substituido_transplante', 'nao_localizado'].includes(select.value)) {
-        if (numeroInput) numeroInput.disabled = true;
-        if (fotoInput) fotoInput.disabled = true;
-        if (metodologiaSelect) metodologiaSelect.disabled = true;
-        if (resultadoSelect) resultadoSelect.disabled = true;
-    } else {
-        if (numeroInput) numeroInput.disabled = false;
-        if (fotoInput) fotoInput.disabled = false;
-        if (metodologiaSelect) metodologiaSelect.disabled = false;
-        if (resultadoSelect) resultadoSelect.disabled = false;
-    }
+    if (select.value === 'recortado' || select.value === 'sem_numero_motor') {
+    if (numeroInput) numeroInput.disabled = true;
+    if (fotoInput) fotoInput.disabled = false; // Apenas a foto fica ativa
+    if (metodologiaSelect) metodologiaSelect.disabled = true;
+    if (resultadoSelect) resultadoSelect.disabled = true;
+} else if (['substituido_transplante', 'nao_localizado'].includes(select.value)) {
+    if (numeroInput) numeroInput.disabled = true;
+    if (fotoInput) fotoInput.disabled = true;
+    if (metodologiaSelect) metodologiaSelect.disabled = true;
+    if (resultadoSelect) resultadoSelect.disabled = true;
+} else {
+    if (numeroInput) numeroInput.disabled = false;
+    if (fotoInput) fotoInput.disabled = false;
+    if (metodologiaSelect) metodologiaSelect.disabled = false;
+    if (resultadoSelect) resultadoSelect.disabled = false;
+}
 }
 
         // bloquear campos Chassi
@@ -669,7 +1111,8 @@
     const metodologiaChassi = document.getElementById('metodologiaChassi');
     const resultadoChassi = document.getElementById('resultadoChassi');
 
-    if (tipoadulteracao === 'recortado') {
+    if (tipoadulteracao === 'recortado' || 
+        tipoadulteracao === 'sem_numero_chassi') {
         if (chassiAdulterado) chassiAdulterado.disabled = true;
         if (arquivoChassiAdulterado) arquivoChassiAdulterado.disabled = false; // Apenas a foto fica ativa
         if (metodologiaChassi) metodologiaChassi.disabled = true;
@@ -680,7 +1123,7 @@
         if (arquivoChassiAdulterado) arquivoChassiAdulterado.disabled = true;
         if (metodologiaChassi) metodologiaChassi.disabled = true;
         if (resultadoChassi) resultadoChassi.disabled = true;
-    } else {
+    } else  {
         if (chassiAdulterado) chassiAdulterado.disabled = false;
         if (arquivoChassiAdulterado) arquivoChassiAdulterado.disabled = false;
         if (metodologiaChassi) metodologiaChassi.disabled = false;
@@ -730,30 +1173,40 @@
     
     
         // Toggle revelado fields
-        function toggleReveladoFields(type) {// 
-            const resultado = document.getElementById(`resultado${type.charAt(0).toUpperCase() + type.slice(1)}`).value;
-            const reveladoFields = document.getElementById(`${type}-revelado`);
-            const reveladoParcialmenteFields = document.getElementById(`${type}-revelado-parcialmente`);
-            const naoReveladoFields = document.getElementById(`nao-revelado-${type}`);
-    
-            if (resultado === "revelado" || resultado === "corroborado") {
-                reveladoFields.style.display = "block";
-                reveladoParcialmenteFields.style.display = "none";
-                naoReveladoFields.style.display = "none";
-            } else if (resultado === "revelado_parcialmente") {
-                reveladoFields.style.display = "none";
-                reveladoParcialmenteFields.style.display = "block";
-                naoReveladoFields.style.display = "none";
-            } else if (resultado === "nao_revelado" || resultado === "nao_confirmado") {
-                reveladoFields.style.display = "none";
-                reveladoParcialmenteFields.style.display = "none";
-                naoReveladoFields.style.display = "block";
-            } else {
-                reveladoFields.style.display = "none";
-                reveladoParcialmenteFields.style.display = "none";
-                naoReveladoFields.style.display = "none";
-            }
-        }
+        function toggleReveladoFields(type) {
+    const resultado = document.getElementById(`resultado${type.charAt(0).toUpperCase() + type.slice(1)}`).value;
+    const reveladoFields = document.getElementById(`${type}-revelado`);
+    const corroboradoFields = document.getElementById(`${type}-corroborado`);
+    const reveladoParcialmenteFields = document.getElementById(`${type}-revelado-parcialmente`);
+    const naoReveladoFields = document.getElementById(`nao-revelado-${type}`);
+
+    if (resultado === "revelado") {
+        reveladoFields.style.display = "block";
+        corroboradoFields.style.display = "none";
+        reveladoParcialmenteFields.style.display = "none";
+        naoReveladoFields.style.display = "none";
+    } else if (resultado === "corroborado") {
+        reveladoFields.style.display = "none";
+        corroboradoFields.style.display = "block";
+        reveladoParcialmenteFields.style.display = "none";
+        naoReveladoFields.style.display = "none";
+    } else if (resultado === "revelado_parcialmente") {
+        reveladoFields.style.display = "none";
+        corroboradoFields.style.display = "none";
+        reveladoParcialmenteFields.style.display = "block";
+        naoReveladoFields.style.display = "none";
+    } else if (resultado === "nao_revelado" || resultado === "nao_confirmado") {
+        reveladoFields.style.display = "none";
+        corroboradoFields.style.display = "none";
+        reveladoParcialmenteFields.style.display = "none";
+        naoReveladoFields.style.display = "block";
+    } else {
+        reveladoFields.style.display = "none";
+        corroboradoFields.style.display = "none";
+        reveladoParcialmenteFields.style.display = "none";
+        naoReveladoFields.style.display = "none";
+    }
+}
     
     
         // Toggle foto chassi
@@ -860,6 +1313,15 @@
                 select.disabled = false;
             }
         }
-    
+        // Toggle foto motor corroborado
+function toggleFotoMotorCorroborado() {
+    toggleFotoInput("nao-tem-foto-motor-corroborado", "fotoMotorCorroborado");
+}
+
+// Toggle foto chassi corroborado
+function toggleFotoChassiCorroborado() {
+    toggleFotoInput("nao-tem-foto-chassi-corroborado", "fotoChassiCorroborado");
+}
+
     </script>
 @endsection
