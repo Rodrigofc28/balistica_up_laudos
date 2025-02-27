@@ -17,33 +17,35 @@ class Tabelas {
     private $cellStyle=array('borderSize'=>50);
 
      //adicionando a tabela
-
+//Função para criação da tabela material apresentado a exame
     protected function tabelaExame($phpWord,$section,$config,$laudo){
 
  
     $this->phpWord->addTableStyle('tabela', $this->styleTable, $this->styleFirstRow);
 
     $text=[
-        $table = $this->section->addTable('tabela'),
+            $table = $this->section->addTable('tabela'),
             $table->addRow(10,['tblHeader'=>true]),
             $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('TABELA 2 – MATERIAL ENCAMINHADO A EXAME', $this->fontStyle, $this->paraStyle),//cabeçalho tabela
             $table->addRow(10,['tblHeader'=>true]),
-            $table->addCell(null)->addText('Item', $this->fontStyle,$this->paraStyle),
+            //$table->addCell(null)->addText('Item', $this->fontStyle,$this->paraStyle),
             $table->addCell()->addText('Natureza', $this->fontStyle,$this->paraStyle),
             $table->addCell()->addText('Quantidade', $this->fontStyle,$this->paraStyle),
             $table->addCell()->addText('Tipo', $this->fontStyle,$this->paraStyle),
             $table->addCell()->addText('Dito no ofício', $this->fontStyle,$this->paraStyle),
             $table->addCell()->addText('Lacre de Entrada', $this->fontStyle,$this->paraStyle),
+            //chama a função tabelaMaterialExame
             $this->tabelaMaterialExame($laudo->armas,$laudo->municoes,$table,$laudo)
         
     ];
 
  }
+ //função para a criação dos campos em caso arma ou munição
  protected function tabelaMaterialExame($armalaudo,$municaolaudo,$table,$laudo){//laudo eficiencia arma e munições
         
     $item=1;
     $quantidade='';
-    
+    //caso arma
     if($armalaudo!=''){
         
                 foreach ($armalaudo as $arma ){
@@ -51,8 +53,9 @@ class Tabelas {
                     
                       $naturezaArma=substr_replace($arma->marca->categoria,'',4,1);
 
-                    [$table->addRow(10,['tblHeader'=>true]),
-                    $table->addCell()->addText($item,null,$this->paraStyle),
+                    [
+                    $table->addRow(10,['tblHeader'=>true]),
+                    //$table->addCell()->addText($item,null,$this->paraStyle),
                     $table->addCell()->addText(mb_strtoupper($naturezaArma),null,$this->paraStyle),
                     $table->addCell()->addText($quantidade,null,$this->paraStyle),
                     $table->addCell()->addText(mb_strtoupper($arma->tipo_arma),null,$this->paraStyle),
@@ -64,7 +67,7 @@ class Tabelas {
                 $item++;
 
                 }}
-                
+    //caso munição            
     if($municaolaudo!=''){
          
         $tabelaNecropsia=DB::select('select lacrecartucho,tipo_municao,calibre_id,sum(quantidade),marca_id from municoes where laudo_id = :id group by lacrecartucho,tipo_municao,marca_id,calibre_id ',['id'=>$laudo->id]); 
@@ -86,7 +89,7 @@ class Tabelas {
                         } 
                     $naturezaMunicao="munição";
                         [$table->addRow(10,['tblHeader'=>true]),
-                                $table->addCell()->addText($item,null,$this->paraStyle),
+                                //$table->addCell()->addText($item,null,$this->paraStyle),
                                 $table->addCell()->addText(mb_strtoupper($naturezaMunicao),null,$this->paraStyle),
                                 $table->addCell()->addText($municao->{'sum(quantidade)'},null,$this->paraStyle),
                                 $table->addCell()->addText(mb_strtoupper($municao->tipo_municao),null,$this->paraStyle),
@@ -111,7 +114,7 @@ class Tabelas {
             $ti_projetil=explode(',',$projetil->{'group_concat(tipo_projetil)'});
             $cali_projetil=explode(',',$projetil->{'group_concat(calibreNominal)'});
             [$table->addRow(10,['tblHeader'=>true]),
-                    $table->addCell()->addText($item,null,$this->paraStyle),
+                    //$table->addCell()->addText($item,null,$this->paraStyle),
                     $table->addCell()->addText(mb_strtoupper('Projetil'),null,$this->paraStyle),
                     $table->addCell()->addText($projetil->{'sum(quantidade_frascos)'},null,$this->paraStyle),
                     $table->addCell()->addText(mb_strtoupper($ti_projetil[0]),null,$this->paraStyle),
@@ -194,7 +197,7 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
             $table->addRow(10,['tblHeader'=>true]),
             $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('TABELA 2 – MATERIAL ENCAMINHADO A EXAME ', $this->fontStyle, $this->paraStyle),//cabeçalho tabela
             $table->addRow(10,['tblHeader'=>true]),
-            $table->addCell()->addText('Item', $this->fontStyle,$this->paraStyle),
+           // $table->addCell()->addText('Item', $this->fontStyle,$this->paraStyle),
             $table->addCell()->addText('Tipo', $this->fontStyle,$this->paraStyle),
             $table->addCell()->addText('Qtde', $this->fontStyle,$this->paraStyle),
             $table->addCell()->addText('Origem', $this->fontStyle,$this->paraStyle),
@@ -218,7 +221,7 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
                         $quantidade=1;
 
                     [$table->addRow(10,['tblHeader'=>true]),
-                    $table->addCell()->addText($item,null,$this->paraStyle),
+                    //$table->addCell()->addText($item,null,$this->paraStyle),
                     $table->addCell()->addText(mb_strtoupper($arma->tipo_arma),null,$this->paraStyle),
                     $table->addCell()->addText($quantidade,null,$this->paraStyle),
                     $table->addCell()->addText($arma->origem_coletaPerito,null,$this->paraStyle),
@@ -242,7 +245,7 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
   
                        if($municao->tipo_municao=="cartucho"){
                         [$table->addRow(10,['tblHeader'=>true]),
-                                $table->addCell()->addText($item,null,$this->paraStyle),
+                               // $table->addCell()->addText($item,null,$this->paraStyle),
                                 $table->addCell()->addText(mb_strtoupper($municao->tipo_municao),null,$this->paraStyle),
                                 $table->addCell()->addText($municao->{'sum(quantidade)'},null,$this->paraStyle),
                                 $table->addCell()->addText($municao->origem_coletaPerito,null,$this->paraStyle),
@@ -264,7 +267,7 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
               
                                    if($municao->tipo_municao=="estojo"){
                                     [$table->addRow(10,['tblHeader'=>true]),
-                                            $table->addCell()->addText($item,null,$this->paraStyle),
+                                          //  $table->addCell()->addText($item,null,$this->paraStyle),
                                             $table->addCell()->addText(mb_strtoupper($municao->tipo_municao),null,$this->paraStyle),
                                             $table->addCell()->addText($municao->{'sum(quantidade)'},null,$this->paraStyle),
                                             $table->addCell()->addText($municao->origem_coletaPerito,null,$this->paraStyle),
@@ -288,7 +291,7 @@ $tabelaNecropsia=DB::select('select lacrecartucho,origem_coletaPerito,rep_materi
   foreach($tabelaNecropsia as $tabela){
 
     [$table->addRow(10,['tblHeader'=>true]),
-            $table->addCell()->addText($item,null,$this->paraStyle),
+           // $table->addCell()->addText($item,null,$this->paraStyle),
             $table->addCell()->addText(mb_strtoupper('projétil'),null,$this->paraStyle),
             $table->addCell()->addText($tabela->{'sum(quantidade_frascos)'},null,$this->paraStyle),
             $table->addCell()->addText($tabela->origem_coletaPerito,null,$this->paraStyle),
