@@ -259,11 +259,13 @@ $('#trava_gatilho').val(objetoBuscaCadastro.trava_gatilho);
 $('#trava_gatilho').trigger('change');
 $('#trava_seguranca').val(objetoBuscaCadastro.trava_seguranca);sistema_disparo
 $('#trava_seguranca').trigger('change');
+
 $('#sistema_disparo').val(objetoBuscaCadastro.sistema_disparo);
 $('#sistema_disparo').trigger('change');
 $('#tipo_carregador').val(objetoBuscaCadastro.tipo_carregador);
 $('#tipo_carregador').trigger('change');
-$('#imagemModeloCantoSuperior').attr('src', objetoBuscaCadastro.imagemCantoSuperior);
+$('#imagemModeloCantoDireito').attr('src', objetoBuscaCadastro.imagemCantoInferior);
+$('#imagemModeloCantoEsquerdo').attr('src', objetoBuscaCadastro.imagemCantoSuperior);
 });
 
 

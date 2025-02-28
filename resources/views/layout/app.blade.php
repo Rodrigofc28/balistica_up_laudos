@@ -29,6 +29,7 @@
         <link rel="stylesheet" href="{{ URL::asset('css/my_select2.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/btnAcao.css')}}">
         <link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.min.css">
+        
 {{--        <link rel="stylesheet" href="{{ URL::asset('css/dropzone_custom.css') }}">--}}
 
         @yield('style')

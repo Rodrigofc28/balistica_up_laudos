@@ -37,8 +37,22 @@ class MunicoesText extends Tabelas
     //Função para adionar o texto referente ao cartucho
     public function addText($municoes,$laudo)
         {
-             //adicona apenas um subtítulo que no caso é cartucho
-            $this->section->addText('3.'.$this->i.' DOS CARTUCHOS ', $this->config->arial12Bold(), $this->config->paragraphJustify());
+            $ligaTituloCartucho=false;//verefica se tem algum exame de cartucho
+            foreach($laudo->municoes as $municao){  
+                if($municao->tipo_municao=='cartucho'){ 
+                    $ligaTituloCartucho=true;//verefica se tem algum exame de cartucho e passa a variavel para true
+                } }
+             //adicona apenas um subtítulo que no caso é cartucho caso tenha cartuchos no exame 
+             if(count($laudo->componentes)>0){ 
+                //caso tenha componentes(orjetil) no exame adiciona um ao item do subtitulo
+                $tituloCartucho=3;
+            }else{
+                $tituloCartucho=2;
+            }
+             if($ligaTituloCartucho){
+                $this->section->addText('3.'.$tituloCartucho.' DOS CARTUCHOS ', $this->config->arial12Bold(), $this->config->paragraphJustify());
+             }
+            
             return $this->cartuchoPercutido($this->phpWord,$this->section,$this->config,$laudo);
         }
 
@@ -787,12 +801,13 @@ class MunicoesText extends Tabelas
             }
         
         $ligaTabela=false;
+       
         $identificacaoEstojo=1;
             foreach($laudo->municoes as $municao){  
                 
-            if($municao->tipo_municao=='estojo'){ 
-                $ligaTabela=true;
-            }}
+                if($municao->tipo_municao=='estojo'){ 
+                    $ligaTabela=true;
+                }}
                 if($ligaTabela){
                     $this->tabelaEstojo($laudo,$i,$identificacaoEstojo,$numeroTabela);
                     $this->section->addTextBreak(1);
@@ -830,11 +845,15 @@ class MunicoesText extends Tabelas
                 }  
         //Função para a criação do texto e da tabela de estojo          
     public function tabelaEstojo($laudo,$item,$identificacaoEstojo,$numeroTabela){
-
+        $ligaItemCartucho=false;//verefica se tem algum exame de cartucho
+            foreach($laudo->municoes as $municao){  
+                if($municao->tipo_municao=='cartucho'){ 
+                    $ligaItemCartucho=true;//verefica se tem algum exame de cartucho e passa a variavel para true
+                } }
             $numeroContagem=[];
             foreach($laudo->municoes as $municao){
                 if($municao->tipo_municao=="estojo"){
-                array_push($numeroContagem,$municao->quantidade);
+                    array_push($numeroContagem,$municao->quantidade);
                 }
             }
             $qunttestojo=array_sum($numeroContagem);
@@ -854,11 +873,20 @@ class MunicoesText extends Tabelas
                 }}
 
         global $numTab;
-
+        //caso o cartuchos exista ele adiciona 
+        if($ligaItemCartucho){
+            $itemEstojo=3;
+        }else{
+            $itemEstojo=2;
+        }
+        if(count($laudo->componentes)>0){ 
+            //adiciona mais um caso tenha projetil 
+            $itemEstojo+=1;
+        }
         $extenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);       
         $text=[
         
-                $this->section->addText('3.'.$item.' DOS ESTOJOS', $this->config->arial12Bold(), $this->config->paragraphJustify()),
+                $this->section->addText('3.'.$itemEstojo.' DOS ESTOJOS', $this->config->arial12Bold(), $this->config->paragraphJustify()),
                 $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
                 $textrun->addText('Trata-se de ',$this->config->arial12()),
                 $textrun->addText($extenso->format($qunttestojo).' estojos ',$this->config->arial12Underline()),

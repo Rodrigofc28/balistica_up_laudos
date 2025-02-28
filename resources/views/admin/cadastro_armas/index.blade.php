@@ -7,7 +7,7 @@
 'model_name_plural' => 'Cadastrar modelo armas',
 'model_name_singular' => 'cadastrar modelo de arma',
 
-'ths' => ['CADASTRADO','ARMA CADASTRADA PELO(A) PERITO(A)','ARMA','MARCA', 'MODELO','FABRICAÇÃO','ORIGEM','AÇÃO']])
+'ths' => ['CADASTRADO','ARMA CADASTRADA PELO(A) PERITO(A)','ARMA','MARCA', 'MODELO','FABRICAÇÃO','AÇÃO']])
 
                 
             
@@ -101,7 +101,7 @@ $arrayReverte=array_reverse($armaArray,true);
     <td>{{ optional($arma->laudo)->perito->nome ?? 'N/A' }}</td>
 
     
-    <td>{{ optional($arma->laudo)->perito->nome ?? 'N/A' }}</td>
+    
     <td> {{($arma->tipo_arma==null)?($arma-> tipo_arma='sem valor'):($arma-> tipo_arma) }}</td>
     <td> {{ $arma->marca->nome }}</td>
     <td>{{ $arma-> modelo }}</td>
