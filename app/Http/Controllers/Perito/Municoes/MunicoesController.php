@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Perito\Municoes;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MunicaoRequest;
 use App\Models\Municao;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class MunicoesController extends Controller
 {

@@ -12,6 +12,8 @@ use PhpOffice\PhpWord\Style\Font;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\UploadedFile;
 use App\Models\ChassiDate\Chassi;
+use App\Models\Laudo;
+use App\Models\VeiculoInspecao;
 use NumberFormatter;
 
 
@@ -71,13 +73,7 @@ class Geral
         
         return [ 'titulo' => $titulo,'codigo'=>$codigo,'linha3preambulo'=>$linha3preambulo,'tipoExame'=>$tipoExame,'exame'=>$exame];
     }
-    private function tipo_exame($laudo){
-        //função para determinar o tipo de exame
-        if($laudo->laudoEfetConst=='I801'){
-            $tipo_exame = 'numerações identificadoras';
-        }
-        return $tipo_exame;
-    }
+    
         //Corpo do laudo
     public function addText($laudo)
     {
@@ -180,8 +176,22 @@ class Geral
             $img3->addImage($image2, array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));
 
             $this->section->addText(strtoupper($chassi['veiculo_id']).' PERICIADA', $this->config->arial12Bold(),$this->config->paragraphCenter());
-         //Do exame
-            //$this->doExame($laudo->laudoEfetConst,$chassi['veiculo_id']);
+        //Do exame chassi
+            $this->doExameChassi($laudo);
+        // imagens numeração do chassi
+            $table2 = $this->section->addTable('tabela2img');
+            $table2->addRow(); 
+            $img4=$table2->addCell();
+            $img4->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\carabina.png', array('alignment' => Jc::CENTER, 'width' => 440, 'height'=>100));
+            $this->section->addText('NUMERAÇÃO DO CHASSI', $this->config->arial12Bold(),$this->config->paragraphCenter());
+        // do exame motor  
+           // $this->exameMotor($laudo);
+        // imagens numeração do motor
+          //  $table3 = $this->section->addTable('tabela2img');
+          //  $table3->addRow(); 
+          //  $img5=$table3->addCell();
+          //  $img5->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\carabina.png', array('alignment' => Jc::CENTER, 'width' => 440, 'height'=>100));
+          //  $this->section->addText('NUMERAÇÃO DO MOTOR', $this->config->arial12Bold(),$this->config->paragraphCenter());
           return $this->section;
 
     } 
@@ -201,17 +211,27 @@ class Geral
         $fileC = file_get_contents($imageConvertida); //pegar arquivo
         return $fileC;
     }
-   public function doExame($tipoExame,$veiculo){
-    switch ($tipoExame) {
+
+    //Parte do texto dedicado ao exame
+   public function doExameChassi($laudo){
+    $laudo = Laudo::find($laudo->id);
+    $exameChassi=VeiculoInspecao::where('laudo_id', $laudo->id)->first();
+    $dadosVeiculo=Chassi::where('laudo_id', $laudo->id)->first();
+    
+    switch ($laudo->laudoEfetConst) {
         case 'I801':
             $exame = 'numerações identificadoras';
-            $text = 'número do chassi: esta numeração na xxxxxxxxx periciada se encontra gravada no xxxxxxxxxxxxxxxxx.';
-            if($situacao=='integro'){
-                $texto2= 'Ao exame de referido suporte, após a devida limpeza, foi verificada a gravação da sequência alfanumérica xxxxxxxxxxxxxxx, a qual apresenta-se íntegra, sem sinais ou vestígios de adulteração.';
-            }else if($situacao=='adulterado'){
-
-                $texto2= 'Ao exame de referido suporte, após a devida limpeza, verificou o perito evidentes sinais deixados pela operação ali procedida, que consistiu no desbaste, por ação abrasiva, o que ocasionou a destruição da numeração original, possibilitando a gravação da atual xxxxxxxxxxx. Submetida à superfície em referência a tratamento químico-metalográfico, destinado a revelar remanescentes da gravação original, foi obtida a sequência alfanumérica xxxxxxxxxxxx.';
+            
+            if($exameChassi->chassi_status=='integro'){
+                $texto2= "Ao exame de referido suporte, após a devida limpeza, foi verificada a gravação da sequência alfanumérica $exameChassi->chassi_numero, a qual apresenta-se íntegra, sem sinais ou vestígios de adulteração.";
+            }else if($exameChassi->chassi_status=='adulterado' && $exameChassi->chassi_tipo_adulteracao=='desbaste_regravação_revelado'){
+                $texto2= "Ao exame de referido suporte, após a devida limpeza, verificou o perito evidentes sinais deixados pela operação ali procedida, que consistiu no desbaste, por ação abrasiva, o que ocasionou a destruição da numeração original, possibilitando a gravação da atual $exameChassi->chassi_revelado_numero. Submetida à superfície em referência a tratamento químico-metalográfico, destinado a revelar remanescentes da gravação original, foi obtida a sequência alfanumérica $exameChassi->chassi_adulterado_numero.";
+            }else if($exameChassi->chassi_status=='adulterado' && $exameChassi->chassi_tipo_adulteracao=='contundencia_parcial'){
+                $texto2= 'Ao exame de referido suporte, após a devida limpeza, verificou o perito evidentes sinais deixados pela operação ali procedida, que consistiu na aplicação de ação contundente, o que ocasionou a destruição da numeração original. Submetida à superfície em referência a '. ($exameChassi->chassi_metodologia=='tratamento_quimico')?'químico-metalográfico':'instrumento óptico'.", destinado a revelar remanescentes da gravação original, foi obtida a sequência alfanumérica $exameChassi->chassi_adulterado_numero.";
+            }else if($exameChassi->chassi_status=='adulterado' && $exameChassi->chassi_tipo_adulteracao=='desbaste_nao_revelado'){
+                $texto2= 'Ao exame de referido suporte, após a devida limpeza, verificou o perito evidentes sinais deixados pela operação ali procedida, que consistiu na aplicação de ação contundente, o que ocasionou a destruição da numeração original. Submetida à superfície em referência a '. ($exameChassi->chassi_metodologia=='tratamento_quimico')?'químico-metalográfico':'instrumento óptico'.", destinado a revelar remanescentes da gravação original, foi obtida a sequência alfanumérica $exameChassi->chassi_adulterado_numero.";
             }
+                
                
             break;
         case 'I802':
@@ -231,17 +251,55 @@ class Geral
         $this->section->addText('DO EXAME', $this->config->arial12Bold(), $this->config->paragraphJustify()),
         $this->section->addTextBreak(1),
         $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
-        $textrun->addText('Com relação às '.$exame.' da '.$veiculo. ' foram observados:', $this->config->arial12()),
+        $textrun->addText('Com relação às '.$exame.' da '.$dadosVeiculo['veiculo_id']. ' foram observados:', $this->config->arial12()),
         $this->section->addTextBreak(1),
         $textrun2 = $this->section->addTextRun($this->config->paragraphJustify()),
-        $textrun2->addText('a) '.$text, $this->config->arial12()),
-        //$textrun2->addText($text2, $this->config->arial12()),
+        $textrun2->addText('a) '.$texto2, $this->config->arial12()),
+        
         $this->section->addTextBreak(1),
         $this->section->addText(''),'phpWord' => $this->phpWord]; 
         return $this->section;
    }
             
+    public function exameMotor($laudo){
+        $laudo = Laudo::find($laudo->id);
+        $exameMotor=VeiculoInspecao::where('laudo_id', $laudo->id)->first();
+        $dadosVeiculo=Chassi::where('laudo_id', $laudo->id)->first();
+        
+        switch ($laudo->laudoEfetConst) {
+            case 'I801':
+                $exame = 'numerações identificadoras';
+                
+                if($exameMotor->motor_status=='integro'){
+                    $texto2= "Ao exame de referido suporte, após a devida limpeza, foi verificada a gravação da sequência alfanumérica $exameMotor->motor_numero, a qual apresenta-se íntegra, sem sinais ou vestígios de adulteração.";
+                }else if($exameMotor->motor_status=='adulterado' && $exameMotor->motor_tipo_adulteracao=='desbaste_regravação_revelado'){
+                    $texto2= "Ao exame de referido suporte, após a devida limpeza, verificou o perito evidentes sinais deixados pela operação ali procedida, que consistiu no desbaste, por ação abrasiva, o que ocasionou a destruição da numeração original, possibilitando a gravação da atual $exameMotor->motor_revelado_numero. Submetida à superfície em referência a tratamento químico-metalográfico, destinado a revelar remanescentes da gravação original, foi obtida a sequência alfanumérica $exameMotor->motor_adulterado_numero.";
+                }
+                    
+                   
+                break;
+            case 'I802':
+                
+                break;
+            case 'I806':
+                
+                break;
+            case 'I812':
+                
+                break;
+            default:
+                
+                break;
+        }
+        $text5 = [
+           
+            $this->section->addTextBreak(1),
+            $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
+            $textrun->addText('b) número do motor:'.$exameMotor->motor_numero, $this->config->arial12()),
             
+        ];
+
+    }       
             
             
            

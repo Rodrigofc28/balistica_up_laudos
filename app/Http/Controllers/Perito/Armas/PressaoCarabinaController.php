@@ -61,8 +61,8 @@ class PressaoCarabinaController extends Controller
     }
     public function update(Request $request, $laudo_id, Arma $pressaocarabina)
     {
-        $updated_arma = $request->all();
-        Arma::find($pressaocarabina->id)->fill($updated_arma)->save();
+        
+        atualizaImagemArm($request, $pressaocarabina->id);
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_f', ['model' => 'carabina de Pressão']));
     }

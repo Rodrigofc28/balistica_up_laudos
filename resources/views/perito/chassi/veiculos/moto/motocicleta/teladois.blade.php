@@ -4,11 +4,11 @@
 <style>
        
     .container {
-        width: 90%;
-        max-width: 1000px;
+        width: 100%;
+        max-width: 80%;
         background: white;
         padding: 20px;
-        border-radius: 10px;
+        
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         text-align: center;
         box-sizing: border-box;
@@ -198,7 +198,39 @@
         font-weight: bold;
     }
 
+    /* Botões para limpar campos
+    .button-grouplimpar button {
+    background-color: #1da518c7;
+    color: white;
+    font-size: 16px; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+}
 
+.button-grouplimpar button:hover {
+    background-color: #0691eeb7;
+    transform: scale(1.05); 
+}
+
+.button-grouplimpar button:active {
+    background-color: #0691eeb7;
+    transform: scale(0.98); 
+}
+
+.button-grouplimpar button:focus {
+    outline: none;
+}
+
+.button-grouplimpar button:disabled {
+    background-color: #ccc; 
+    cursor: not-allowed; 
+}
+*/
+
+/*Botões de Voltar/Avançar/Recortar*/
 .button-group button {
     background-color: #031d20c7;
     color: white; /* Cor do texto */
@@ -314,9 +346,10 @@
     </div>
 
     <h2>Motocicleta</h2>
- <form id="form" action="{{route('motocicleta.exame')}}" method="POST">
+    <form id="form" action="{{ route('motocicleta.exame') }}" method="POST" onsubmit="handleFormSubmit(event)">
         {{ csrf_field() }}
-        <input hidden  name="laudo_id" value="{{ $laudo->id}}">
+        <input hidden name="laudo_id" value="{{ $laudo->id}}">
+        
     <div class="button-group" id="chassiSection"> <!-- Seção do Chassi -->
         <div class="section-title" style="font-size: 25px;">Chassi</div>
         <div class="radio-group">
@@ -343,7 +376,7 @@
                 <label for="fotoChassiAtual">Foto do Chassi:</label>
                 <input type="file" id="fotoChassiAtual" name="chassi_foto" class="image-input">
                 <label>
-                    <input type="checkbox" id="nao-tem-foto-chassi" name="chassi_nao_tem_foto">
+                    <input type="checkbox" id="nao-tem-foto-chassi" name="chassi_nao_tem_foto"
                         onchange="toggleFotoChassi()"> Não tem foto
                 </label>
             </div>
@@ -353,7 +386,7 @@
             <button id="crop-button-chassi" style="display:none;">Recortar</button>
             <canvas id="cropped-result-chassi"></canvas>
             <br><br>
-            <div class="button-group">
+            <div class="button-grouplimpar">
                 <button type="button" id="limparCamposIntegro" onclick="limparCampos('integro')">Limpar campos</button>
             
             </div>
@@ -427,11 +460,11 @@
                 <label for="resultadoChassi">Resultado:</label>
                 <select id="resultadoChassi" name="chassi_resultado" onchange="toggleReveladoFields('chassi')">
                     <option value="">Selecione</option>
-                    <option value="revelado">Revelado</option>
-                    <option value="revelado_parcialmente">Revelado parcialmente</option>
-                    <option value="nao_revelado">Não revelado</option>
                     <option value="corroborado">Corroborado</option>
                     <option value="nao_confirmado">Não confirmado</option>
+                     <option value="nao_revelado">Não revelado</option>
+                    <option value="revelado">Revelado</option>
+                    <option value="revelado_parcialmente">Revelado parcialmente</option>
                 </select>
                {{-- <label>
                     <input type="checkbox" id="nao-se-aplica-resultado-chassi" name="chassi_nao_se_aplica_resultado"
@@ -509,7 +542,7 @@
                 <canvas id="cropped-result-chassi-revelado-parcialmente"></canvas>
             </div>
             
-        <div class="button-group">
+        <div class="button-grouplimpar">
             <button type="button" id="limparCamposAdulterado" onclick="limparCampos('adulterado')">Limpar campos</button>
         </div>
         </div>
@@ -540,6 +573,9 @@ function limparCampos(tipo) {
         document.getElementById('chassiReveladoParcialmente').disabled = true;
         document.getElementById('fotoChassiReveladoParcialmente').disabled = true;
         document.getElementById('nao-tem-foto-chassi-revelado-parcialmente').disabled = true;
+        document.getElementById('chassiCorroborado').disabled = true; // Adicionado
+        document.getElementById('fotoChassiCorroborado').disabled = true; // Adicionado
+        document.getElementById('nao-tem-foto-chassi-corroborado').disabled = true; // Adicionado
         
         // Habilita os campos da seção Integro
         document.getElementById("chassiAtual").disabled = false;
@@ -566,6 +602,10 @@ function limparCampos(tipo) {
         document.getElementById('fotoChassiReveladoParcialmente').value = "";
         document.getElementById('nao-tem-foto-chassi-revelado-parcialmente').checked = false;
         document.getElementById('image-preview-chassi-revelado-parcialmente').style.width = '0px';
+        document.getElementById('chassiCorroborado').value = ""; // Adicionado
+        document.getElementById('chassiCorroboradoDisplay').innerHTML = ""; // Adicionado
+        document.getElementById('fotoChassiCorroborado').value = ""; // Adicionado
+        document.getElementById('nao-tem-foto-chassi-corroborado').checked = false; // Adicionado
         
         // Desabilita os campos da seção Integro
         document.getElementById("chassiAtual").disabled = true;
@@ -584,6 +624,9 @@ function limparCampos(tipo) {
         document.getElementById('chassiReveladoParcialmente').disabled = false;
         document.getElementById('fotoChassiReveladoParcialmente').disabled = false;
         document.getElementById('nao-tem-foto-chassi-revelado-parcialmente').disabled = false;
+        document.getElementById('chassiCorroborado').disabled = false; // Adicionado
+        document.getElementById('fotoChassiCorroborado').disabled = false; // Adicionado
+        document.getElementById('nao-tem-foto-chassi-corroborado').disabled = false; // Adicionado
     }
 }
 
@@ -678,8 +721,7 @@ function toggleFields(tipo) {
             <button id="crop-button-motor" style="display:none;">Recortar</button>
             <canvas id="cropped-result-motor"></canvas>
             <br><br>
-          <div class="button-group">
-<!-- Botões tradicionais para alternar entre o status do motor -->
+          <div class="button-grouplimpar">
 <button type="button" onclick="toggleFieldsMotor(); limparCamposMotor('integro');">Limpar campos</button>
 
 
@@ -758,12 +800,14 @@ function toggleFields(tipo) {
             <div class="form-group">
                 <label for="resultadoMotor">Resultado:</label>
                 <select id="resultadoMotor" name="motor_resultado" onchange="toggleReveladoFields('motor')">
-                    <option value="">Selecione</option>
-                    <option value="revelado">Revelado</option>
-                    <option value="revelado_parcialmente">Revelado parcialmente</option>
-                    <option value="nao_revelado">Não revelado</option>
+                    <option value="">Selecione</option>                    
                     <option value="corroborado">Corroborado</option>
                     <option value="nao_confirmado">Não confirmado</option>
+                    <option value="nao_revelado">Não revelado</option>
+                    <option value="revelado">Revelado</option>
+                    <option value="revelado_parcialmente">Revelado parcialmente</option>
+                    
+                    
                 </select>
                {{--<label>
                     <input type="checkbox" id="nao-se-aplica-resultado-motor" name="motor_nao_se_aplica_resultado"
@@ -841,18 +885,40 @@ function toggleFields(tipo) {
                 <canvas id="cropped-result-motor-revelado-parcialmente"></canvas>
             
         </div>
-        <div class="button-group">
-          
+   
+    </div>    
+     <div class="button-grouplimpar">
             <button type="button" onclick="limparCamposMotor('adulterado')">Limpar campos</button>
         </div>
-
-    </div>
-
-
+</div>
 
     <script>
  
 // Função para limpar campos do motor
+// Função para alternar campos visíveis entre Íntegro e Adulterado para o motor
+function toggleFieldsMotor() {
+    console.log('toggleFieldsMotor executado');
+    const integroFieldsMotor = document.getElementById("integroFieldsMotor");
+    const adulteradoFieldsMotor = document.getElementById("adulteradoFieldsMotor");
+    
+    // Verifica o status selecionado (radio button)
+    const statusMotor = document.querySelector('input[name="motor_status"]:checked');
+    
+    if (statusMotor) {
+        if (statusMotor.value === 'integro') {
+            integroFieldsMotor.style.display = 'block';
+            adulteradoFieldsMotor.style.display = 'none';
+            // Exibe os botões de voltar e avançar
+            document.querySelector('.nav-buttons').style.display = 'block';
+        } else {
+            integroFieldsMotor.style.display = 'none';
+            adulteradoFieldsMotor.style.display = 'block';
+            // Exibe os botões de voltar e avançar
+            document.querySelector('.nav-buttons').style.display = 'block';
+        }
+    }
+}
+
 // Função para limpar campos do motor
 function limparCamposMotor(tipo) {
     if (tipo === 'integro') {
@@ -876,6 +942,9 @@ function limparCamposMotor(tipo) {
         document.getElementById('motorReveladoParcialmente').disabled = true;
         document.getElementById('fotoMotorReveladoParcialmente').disabled = true;
         document.getElementById('nao-tem-foto-motor-revelado-parcialmente').disabled = true;
+        document.getElementById('motorCorroborado').disabled = true; // Adicionado
+        document.getElementById('fotoMotorCorroborado').disabled = true; // Adicionado
+        document.getElementById('nao-tem-foto-motor-corroborado').disabled = true; // Adicionado
         
         // Habilita os campos da seção Integro do motor
         document.getElementById("motorAtual").disabled = false;
@@ -902,6 +971,10 @@ function limparCamposMotor(tipo) {
         document.getElementById('fotoMotorReveladoParcialmente').value = "";
         document.getElementById('nao-tem-foto-motor-revelado-parcialmente').checked = false;
         document.getElementById('image-preview-motor-revelado-parcialmente').style.width = '0px';
+        document.getElementById('motorCorroborado').value = ""; // Adicionado
+        document.getElementById('motorCorroboradoDisplay').innerHTML = ""; // Adicionado
+        document.getElementById('fotoMotorCorroborado').value = ""; // Adicionado
+        document.getElementById('nao-tem-foto-motor-corroborado').checked = false; // Adicionado
         
         // Desabilita os campos da seção Integro do motor
         document.getElementById("motorAtual").disabled = true;
@@ -920,8 +993,12 @@ function limparCamposMotor(tipo) {
         document.getElementById('motorReveladoParcialmente').disabled = false;
         document.getElementById('fotoMotorReveladoParcialmente').disabled = false;
         document.getElementById('nao-tem-foto-motor-revelado-parcialmente').disabled = false;
+        document.getElementById('motorCorroborado').disabled = false; // Adicionado
+        document.getElementById('fotoMotorCorroborado').disabled = false; // Adicionado
+        document.getElementById('nao-tem-foto-motor-corroborado').disabled = false; // Adicionado
     }
 }
+
 // Adiciona evento de mudança nos botões de opção do motor
 document.querySelectorAll('input[name="motor_status"]').forEach(function(radio) {
     radio.addEventListener('change', function() {
@@ -929,25 +1006,7 @@ document.querySelectorAll('input[name="motor_status"]').forEach(function(radio) 
         limparCamposMotor(tipo);
     });
 });
-        // Função para alternar campos visíveis entre Íntegro e Adulterado para o motor
-        function toggleFieldsMotor() {
-            const integroFieldsMotor = document.getElementById("integroFieldsMotor");
-            const adulteradoFieldsMotor = document.getElementById("adulteradoFieldsMotor");
-            
-            // Verifica o status selecionado (radio button)
-            const statusMotor = document.querySelector('input[name="motor_status"]:checked');
-            
-            if (statusMotor) {
-                if (statusMotor.value === 'integro') {
-                    integroFieldsMotor.style.display = 'block';
-                    adulteradoFieldsMotor.style.display = 'none';
-                } else {
-                    integroFieldsMotor.style.display = 'none';
-                    adulteradoFieldsMotor.style.display = 'block';
-                }
-            }
-        }
-        </script>
+ </script>
         
 
 
@@ -957,6 +1016,7 @@ document.querySelectorAll('input[name="motor_status"]').forEach(function(radio) 
     <button type="submit">Avançar</button>
     </div>
     </form>
+    
     
                <script>
                 // Função para mostrar/ocultar o campo de "Informações sobre os Reparos" no motor

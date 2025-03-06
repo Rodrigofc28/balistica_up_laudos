@@ -4,11 +4,10 @@
     <style>
         /* Estilos para o container */
         .container {
-            width: 90%;
-            max-width: 1000px;
+            width: 100%;
+            max-width: 80%;
             background: white;
             padding: 20px;
-            border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: center;
             box-sizing: border-box;
@@ -230,14 +229,13 @@
             <button id="add-marca" type="button">Adicionar marca</button>
             <div id="marca-suggestions"></div>
         </div>
-
+        
         <div class="form-group">
             <label for="modelo">Modelo:</label>
             <input type="text" id="modelo" name="modelo" placeholder="Digite o modelo" required>
             <button id="add-modelo" type="button">Adicionar modelo</button>
             <div id="modelo-suggestions"></div>
         </div>
-
         <div class="form-group">
             <label for="data">Ano fabricação:</label>
             <input type="text" id="data" maxlength="4" placeholder="0000" name="ano_fab" required>
@@ -252,7 +250,6 @@
             <input type="text" id="placa" name="placa"maxlength="7" placeholder="XXX0X00" >
             <label><input type="checkbox" id="nao-tem-placa" name="nao-tem-placa"> Não tem placa</label>
         </div>
-        <form action="{{ route('veiculo.salvar') }}" method="POST">
             <div class="form-group">
                 <label><input type="radio" name="cor" value="Vermelho" required> Vermelho</label>
                 <label><input type="radio" name="cor" value="Azul"> Azul</label>
@@ -271,7 +268,7 @@
                     <input type="radio" name="cor" value="Outras" id="outras-radio">
                     Outras
                 </label>
-                <input type="text" name="cor_outros" id="outra-cor" placeholder="Digite a cor" disabled>
+                <input type="text" name="cor" id="outra-cor" placeholder="Digite a cor" disabled>
             </div>
         
   
@@ -324,7 +321,126 @@
             <button id="prev" onclick="window.history.back()">Voltar</button>
             <button id="next" class="btn btn-primary" type="button" >Avançar</button>
         </div>
-    </form>
+
+        <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+    const marcaInput = document.getElementById('marca');
+    const modeloInput = document.getElementById('modelo');
+    const marcaSuggestions = document.getElementById('marca-suggestions');
+    const modeloSuggestions = document.getElementById('modelo-suggestions');
+
+    // Função para buscar marcas
+    function buscarMarcas(termo) {
+        if (termo.length >= 2) {
+            fetch(`/veiculos/buscar-marcas?termo=${termo}`)
+                .then(response => response.json())
+                .then(data => {
+                    marcaSuggestions.innerHTML = data.map(marca => `
+                        <div onclick="selecionarMarca('${marca}')">${marca}</div>
+                    `).join('');
+                });
+        } else {
+            marcaSuggestions.innerHTML = '';
+        }
+    }
+
+    // Função para buscar modelos
+    function buscarModelos(termo) {
+        if (termo.length >= 2) {
+            fetch(`/veiculos/buscar-modelos?termo=${termo}`)
+                .then(response => response.json())
+                .then(data => {
+                    modeloSuggestions.innerHTML = data.map(modelo => `
+                        <div onclick="selecionarModelo('${modelo}')">${modelo}</div>
+                    `).join('');
+                });
+        } else {
+            modeloSuggestions.innerHTML = '';
+        }
+    }
+
+    // Buscar marcas ao digitar
+    marcaInput.addEventListener('input', function () {
+        buscarMarcas(marcaInput.value);
+    });
+
+    // Buscar modelos ao digitar
+    modeloInput.addEventListener('input', function () {
+        buscarModelos(modeloInput.value);
+    });
+
+    // Adicionar nova marca
+    document.getElementById('add-marca').addEventListener('click', function () {
+        const marca = marcaInput.value;
+        if (marca) {
+            fetch('/veiculos/adicionar-marca', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({ marca_fabricacao: marca })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Marca adicionada com sucesso!');
+                marcaInput.value = ''; // Limpar o campo
+                buscarMarcas(''); // Atualizar sugestões
+            })
+            .catch(error => {
+                console.error('Erro ao adicionar marca:', error);
+            });
+        }
+    });
+
+    // Adicionar novo modelo
+    document.getElementById('add-modelo').addEventListener('click', function () {
+        const modelo = modeloInput.value;
+        if (modelo) {
+            fetch('/veiculos/adicionar-modelo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({ modelo: modelo })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Modelo adicionado com sucesso!');
+                modeloInput.value = ''; // Limpar o campo
+                buscarModelos(''); // Atualizar sugestões
+            })
+            .catch(error => {
+                console.error('Erro ao adicionar modelo:', error);
+            });
+        }
+    });
+});
+
+// Funções para selecionar marca/modelo
+function selecionarMarca(nome) {
+    document.getElementById('marca').value = nome;
+    document.getElementById('marca-suggestions').innerHTML = '';
+}
+
+function selecionarModelo(nome) {
+    document.getElementById('modelo').value = nome;
+    document.getElementById('modelo-suggestions').innerHTML = '';
+
+    document.querySelector('form').addEventListener('submit', function (event) {
+    const marca = document.getElementById('marca').value;
+    const modelo = document.getElementById('modelo').value;
+
+    // Verificar se a marca/modelo foi selecionada ou adicionada
+    if (!marca || !modelo) {
+        event.preventDefault();
+        alert('Por favor, selecione ou adicione uma marca e um modelo.');
+    }
+});
+}
+        </script>
 
     <script>
         // Função para adicionar marca

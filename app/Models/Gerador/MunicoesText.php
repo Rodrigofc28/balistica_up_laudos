@@ -37,24 +37,17 @@ class MunicoesText extends Tabelas
     public function addText($municoes,$laudo)
     {
         
-        
-        
         return $this->cartuchoPercutido($this->phpWord,$this->section,$this->config,$laudo);
     }
 
- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 
- 
-
-    
-
 public function cartuchoPercutido($phpWord,$section,$config,$laudo){
-
+    $this->i=1;
+    
     $this->tabelaCartuchoPersonalizada($laudo);
 
     $this->phpWord->addTableStyle('tabela2img', $this->styleTable, $this->styleFirstRow);
 
-    $this->i=1;
+    
     
   
             } 
@@ -125,6 +118,8 @@ public function cartuchoPercutido($phpWord,$section,$config,$laudo){
  
  
 public function tabelaCartuchoPersonalizada($laudo){
+    global $itensCartucho;
+    $itensCartucho=1;
     $arraymunicao1=[];
     $arraymunicao2=[];
     $arraymunicao3=[];
@@ -150,6 +145,7 @@ public function tabelaCartuchoPersonalizada($laudo){
     $arraymunicao23=[];
     $arraymunicao24=[];
     $arraymunicao25=[];
+    $arraymunicao26=[];
     foreach($laudo->municoes as $municao){  
         switch($municao->tipo_municao){
             case 'cartucho':
@@ -360,17 +356,14 @@ public function tabelaCartuchoPersonalizada($laudo){
 
                         }  
                     break; 
-                    default:
-                        
+                    case "preservado":
                         switch ($municao->funcionamento) {
                             case "percutido e não deflagrado":
-                                    
-                                    array_push($arraymunicao17,$municao);
-                                    
-                                    break;
+                                array_push($arraymunicao26,$municao);
 
-                        }break;  
-                    break;   
+                        }  
+                    break; 
+                     
                 }
                 
     
@@ -382,6 +375,10 @@ public function tabelaCartuchoPersonalizada($laudo){
 
 
 }
+if($municao->tipo_municao=='cartucho'){
+    $this->section->addText('3.'.$this->i.' DOS CARTUCHOS ', $this->config->arial12Bold(), $this->config->paragraphJustify());
+}
+
 if(count($arraymunicao1)>0){
     
      $instituto='usando arma fornecida por este Instituto';
@@ -513,9 +510,6 @@ if(count($arraymunicao1)>0){
      $this->tabela2($arraymunicao16,$this->i,$laudo,$instituto,$coleta,$eficiencia,$percutido);
   }
 
-
-///////////////////////////////////
-
   if(count($arraymunicao17)>0){
     
     $instituto='';
@@ -589,12 +583,21 @@ if(count($arraymunicao1)>0){
     $eficiencia="munição parcialmente eficiente para a realização de tiros.";
     $this->tabela2($arraymunicao25,$this->i,$laudo,$instituto,$coleta,$eficiencia,$percutido);
  }
+ //melhorar condições
+ if(count($arraymunicao26)>0){
+   
+    $instituto='';
+    $coleta='';
+    $percutido=['',''];
+    $eficiencia="";
+    $this->tabela2($arraymunicao26,$this->i,$laudo,$instituto,$coleta,$eficiencia,$percutido);
+ }
  //----------
 }
 
     
 public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficiencia,$percutido){
-    
+    global $itensCartucho;
         $legendaArray=[];
         $numeroContagem=[];
         foreach($arraymunicao as $municao){
@@ -614,10 +617,9 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
         global $numTab;
         
         foreach($arraymunicao as $municao){ $condicao= mb_strtoupper($municao->funcionamento).'S';};
-            
+            $itens=1;
             $text=[
             
-            $this->section->addText('3.'.$item.' DOS CARTUCHOS '.$condicao, $this->config->arial12Bold(), $this->config->paragraphJustify()) , 
             $textrun = $this->section->addTextRun($this->config->paragraphJustify()),         
             $textrun->addText('Trata-se de ',$this->config->arial12()),
             $textrun->addText($extenso->format($qunttcartucho).' cartuchos ',$this->config->arial12Underline()),
@@ -627,26 +629,28 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
         
             $table = $this->section->addTable('tabela'),
             $table->addRow(10),
-            $table->addCell(null,['bgColor'=>'d3d3d3'])->addText(' TABELA '.$numTab.' – DESCRIÇÃO DOS CARTUCHOS', $this->fontStyle, $this->paraStyle),//cabeçalho tabela
+            $table->addCell(null,['bgColor'=>'d3d3d3'])->addText(' TABELA '.$numTab.' – DESCRIÇÃO DOS CARTUCHOS '.$condicao, $this->fontStyle, $this->paraStyle),//cabeçalho tabela
             $table->addRow(10),
+            $table->addCell(450)->addText('Item', $this->fontStyle,$this->paraStyle),
             $table->addCell(400)->addText('Qtd', $this->fontStyle,$this->paraStyle),
             $table->addCell(1100)->addText('Calibre Nominal', $this->fontStyle,$this->paraStyle),
             $table->addCell(1187)->addText('Marca', $this->fontStyle,$this->paraStyle),
-            $table->addCell(1600)->addText('Procedência', $this->fontStyle,$this->paraStyle),
+            $table->addCell(1550)->addText('Procedência', $this->fontStyle,$this->paraStyle),
             $table->addCell(1200)->addText('Espoleta', $this->fontStyle,$this->paraStyle),
-            $table->addCell(1550)->addText('Estojo (Lote)', $this->fontStyle,$this->paraStyle),
+            $table->addCell(1400)->addText('Estojo (Lote)', $this->fontStyle,$this->paraStyle),
             $table->addCell(820)->addText('Projétil', $this->fontStyle,$this->paraStyle),
             $table->addCell(1250)->addText('Condição Observação', $this->fontStyle,$this->paraStyle)];
               
             $table->addRow();   
             foreach($arraymunicao as $municao){
                 $lote=($municao->lote=='')?'':"($municao->lote)";
+                $table->addCell(400)->addText($itensCartucho,null,$this->paraStyle);
                 $table->addCell(400)->addText($municao->quantidade,null,$this->paraStyle);
                 $table->addCell(1100)->addText($municao->calibre->nome,null,$this->paraStyle);
                 $table->addCell(1187)->addText(mb_strtoupper($municao->marca->nome),null,$this->paraStyle);
                 $table->addCell(1600)->addText(mb_strtoupper($municao->marca->fabricacao),null,$this->paraStyle);
-                $table->addCell(1200)->addText(mb_strtoupper($municao->tipo_projetil),null,$this->paraStyle);
-                $estojoCell=$table->addCell(1550);
+                $table->addCell(1100)->addText(mb_strtoupper($municao->tipo_projetil),null,$this->paraStyle);
+                $estojoCell=$table->addCell(1400);
                 $estojoCell->addText(mb_strtoupper($municao->estojo),null,$this->paraStyle);
                 $estojoCell->addText(mb_strtoupper($lote),null,$this->paraStyle);
                 $table->addCell(820)->addText(strtoupper($municao->projetil),null,$this->paraStyle);
@@ -654,9 +658,9 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
                 $condicaoCell->addText(mb_strtoupper($municao->funcionamento),null,$this->paraStyle);
                 $condicaoCell->addText(mb_strtoupper($municao->observacao),null,$this->paraStyle);
                 $table->addRow(10);
-            
-                array_push($legendaArray,$municao->projetil);
                 
+                array_push($legendaArray,$municao->projetil);
+                $itensCartucho++; 
             }
             $cell=$table->addCell();
             $cell->addText('Legenda:',['bold'=>true,'size'=>9]);
@@ -670,32 +674,33 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
                 
                 $textrun->addText($percutido[1],$this->config->arial12());
                 if($eficiencia!=''){
-                [$textrun->addText('Buscando testar a eficiência dos cartuchos, o Perito submeteu-os ao teste de tiro, ',$this->config->arial12()),
-                $textrun->addText($instituto,$this->config->arial12()),
-                $textrun->addText(' e efetuando disparos. Foram observados os funcionamentos normais dos seus componentes, os quais deflagraram as respectivas cargas de projeção ao serem as espoletas percutidas por uma só vez. Os remanescentes foram devidamente descartados. ',$this->config->arial12()),
-                $textrun->addText($coleta,$this->config->arial12()),];
-                $textrun->addText('Nestas condições, verificou-se estar a ',$this->config->arial12());
-                $textrun->addText($eficiencia,$this->config->arial12Bold());
-                $this->section->addTextBreak(1);}
-               $this->i++;
+                    [$textrun->addText('Buscando testar a eficiência dos cartuchos, o Perito submeteu-os ao teste de tiro, ',$this->config->arial12()),
+                    $textrun->addText($instituto,$this->config->arial12()),
+                    $textrun->addText(' e efetuando disparos. Foram observados os funcionamentos normais dos seus componentes, os quais deflagraram as respectivas cargas de projeção ao serem as espoletas percutidas por uma só vez. Os remanescentes foram devidamente descartados. ',$this->config->arial12()),
+                    $textrun->addText($coleta,$this->config->arial12()),];
+                    $textrun->addText('Nestas condições, verificou-se estar a ',$this->config->arial12());
+                    $textrun->addText($eficiencia,$this->config->arial12Bold());
+                    $this->section->addTextBreak(1);
+                }else{
+                    [$textrun->addText('Os cartuchos percutidos e não deflagados não tiveram sua eficiência testada, ',$this->config->arial12()),
+                    $textrun->addText($instituto,$this->config->arial12()),
+                    $textrun->addText('sendo preservados para eventual exame complementar e servindo também como da intenção de tiro.',$this->config->arial12()),
+                    $textrun->addText($coleta,$this->config->arial12()),];
+                    
+                    $this->section->addTextBreak(1);
+                }
+                $this->i++;
 
                 $this->section->addTextBreak(1);
                 
-                
-                    
-                        $inicio=0;
+                $inicio=0;
                         
-                        $this->imagemMuniCartucho($arraymunicao,$inicio);
+                $this->imagemMuniCartucho($arraymunicao,$inicio);
                    
-                   
-
-                        $this->section->addTextBreak(1);
+                $this->section->addTextBreak(1);
             
-                    
-             
-            
-           global $i;
-           $i=$this->i;
+                global $i;
+                $i=$this->i;
            
         }
 
@@ -706,7 +711,7 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
     global $i;
     $arraynum=[];
     foreach($laudo->municoes as $municao){
-        if($municao->tipo_municao=='cartucho'){
+        if($municao->tipo_municao=='estojo'){
              array_push($arraynum,1);
         
     }}
@@ -750,10 +755,6 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
 
             }
         }
-    //$this->i+=count($arraynum);
-    
-    
-
     
     $ligaTabela=false;
     $identificacaoEstojo=1;
@@ -778,7 +779,7 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
                     $estojoDescricao="percutido e não deflagrado";
                 }
                 
-                if($laudo->laudoEfetConst=="efetivacao"&&$municao->funcionamento=="percutido e deflagrado"){
+                if($laudo->laudoEfetConst=="B601"&&$municao->funcionamento=="percutido e deflagrado"){
                 $textrun->addText('Os ',$this->config->arial12()); 
                 $textrun->addText($estojoDescricao,$this->config->arial12Underline());
                 $textrun->addText(' foram retornados à Central de Custódia, devidamente embalados, garantindo a integridade das marcas de percussão para futuros exames de comparação microbalística, prestando ainda como ',$this->config->arial12());
@@ -798,12 +799,6 @@ public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficienci
             }
             }  
                 
-         
-
-        
-
-
-
     public function tabelaEstojo($laudo,$item,$identificacaoEstojo,$numeroTabela){
 
         $numeroContagem=[];
@@ -881,56 +876,76 @@ $extenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);
             
     }
     
-
+    //Imagens dos estojos
     public function imagemMuni($laudo,$inicio){
         
                     global $numTab;
-                    
-                    $imagem = $this->imagem($laudo->municoes[$inicio]);
-                    if(isset($imagem[0]) || isset($imagem[1]))
-                    {
+                    //verefica se é estojo
+                    if($laudo->municoes[$inicio]->tipo_municao=='estojo'){
                         
-                        $table = $this->section->addTable('tabela2img');
-                        $table->addRow(10,['tblHeader'=>true]);   
-                        $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomada(s) fotográfica(s) Estojo(s) Lacre '.$laudo->municoes[$inicio]->lacrecartucho, $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
-                        $table->addRow(10,['cantSplit'=>false]);
-                        $tabelaImg=$table->addCell();
-                        $tabelaImg->addImage($this->imagem($laudo->municoes[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)); 
-                        $tabelaImg->addText('Estojo(s) calibre '.$laudo->municoes[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
-                        
-                        
-                        
-                        if(!empty($this->imagem($laudo->municoes[$inicio])[1])){
-                        $tabelaImg=$table->addCell();
-                        $tabelaImg->addImage($this->imagem($laudo->municoes[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)); 
-                        $tabelaImg->addText('Estojo(s) calibre '.$laudo->municoes[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
-                        }
-                        $inicio++;
-                        if(!empty($laudo->municoes[$inicio])){
-                        
-                            $this->imagemMuni($laudo,$inicio);
+                        $imagem = $this->imagem($laudo->municoes[$inicio]);
+                        if(isset($imagem[0]) || isset($imagem[1]))
+                        {
                             
-                        } 
-                    
+                            $table = $this->section->addTable('tabela2img');
+                            $table->addRow(10,['tblHeader'=>true]);   
+                            $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomada(s) fotográfica(s) Estojo(s) Lacre '.$laudo->municoes[$inicio]->lacrecartucho, $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
+                            $table->addRow(10,['cantSplit'=>false]);
+                            $tabelaImg=$table->addCell();
+                            $tabelaImg->addImage($this->imagem($laudo->municoes[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 220)); 
+                            $tabelaImg->addText('Estojo(s) calibre '.$laudo->municoes[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
+                            
+                            
+                            
+                            if(!empty($this->imagem($laudo->municoes[$inicio])[1])){
+                            $tabelaImg=$table->addCell();
+                            $tabelaImg->addImage($this->imagem($laudo->municoes[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 220)); 
+                            $tabelaImg->addText('Estojo(s) calibre '.$laudo->municoes[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
+                            }
+                            $inicio++;
+                            if(!empty($laudo->municoes[$inicio])){
+                                
+                                $this->imagemMuni($laudo,$inicio);
+                                
+                            } 
+                        
 
-                    }else{  
-                        $inicio++;
-                                    if(!empty($laudo->municoes[$inicio])){
-                                    
-                                        $this->imagemMuni($laudo,$inicio);
+                        }else{  
+                            $inicio++;
+                            
+                                        if(!empty($laudo->municoes[$inicio])){
                                         
-                                    } 
+                                            $this->imagemMuni($laudo,$inicio);
+                                            
+                                        } 
+                        }
+                        $this->section->addTextBreak(1);
                     }
-                    $this->section->addTextBreak(1);
-                
+                    else{
+                        //caso não seje estojo ele pula para o proximo até encontrar um estojo
+                        if (!empty($laudo->municoes) && is_array($laudo->municoes) && array_key_exists($inicio, $laudo->municoes)) {
+                            $this->imagemMuni($laudo, $inicio);
+                        } else {
+                            // Enquanto o índice existir e não for "estojo", continue procurando
+                            while (isset($laudo->municoes[$inicio]) && $laudo->municoes[$inicio] !== 'estojo') {
+                                $inicio++;
+                            }
+                        
+                            // Verifica novamente se o índice existe antes de chamar a função
+                            if (isset($laudo->municoes[$inicio])) {
+                                $this->imagemMuni($laudo, $inicio);
+                            }
+                        }
+                        
+                        }
                                 
                     
                 $numTab++;
-                //dd($contador);
-
+               
 
         
- }        
+ }      
+ //imagens dos cartuchos  
  public function imagemMuniCartucho($municao,$inicio){
    
     global $numTab;
@@ -956,14 +971,14 @@ $extenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);
 
         }else{
             $tabelaImg=$table->addCell();
-            $tabelaImg->addImage($this->imagem($municao[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)); 
+            $tabelaImg->addImage($this->imagem($municao[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 220)); 
             $tabelaImg->addText('Base-Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
             
             
             
             if(!empty($this->imagem($municao[$inicio])[1])){
                 $tabelaImg=$table->addCell();
-                $tabelaImg->addImage($this->imagem($municao[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)); 
+                $tabelaImg->addImage($this->imagem($municao[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 220)); 
                 $tabelaImg->addText('Lateral-Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
             }
             $inicio++;
@@ -983,7 +998,7 @@ $numTab++;
 
    
     
-
+    //Função para adicionar imagens na tabela
     public function imagem($municao){
        
       

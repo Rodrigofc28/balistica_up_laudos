@@ -6,11 +6,10 @@
 
 
     .container {
-        width: 90%;
-        max-width: 1000px;
+        width: 100%;
+        max-width: 80%;
         background: white;
         padding: 20px;
-        border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         text-align: center;
         box-sizing: border-box;
@@ -93,7 +92,7 @@
         cursor: not-allowed;
     }
 
-    /* Estilos para as imagens e containers de foto */
+    //* Estilos para as imagens e containers de foto */
     .conteinerImagemRecebida {
         border: solid 1px #E0E0E0;
         text-align: center;
@@ -101,15 +100,19 @@
         margin: 5%;
         margin-top: 20px;
         margin-bottom: 20px;
+        overflow: hidden; /* Impede que a imagem ultrapasse o contêiner */
+        width: 100%; /* Garante que o contêiner ocupe 100% da largura disponível */
+        position: relative;
     }
 
     .conteinerImg {
         margin-left: 15%;
-        width: 200px;
+        width: 400px;
         padding: 5%;
         max-height: 400px;
         overflow: hidden;
         margin: right;
+        position: relative;
     }
 
     .preview {
@@ -120,7 +123,7 @@
         height: 500px;
         display: hidden;
         max-width: 400px;
-      
+        overflow: hidden;
         max-height: 300px;
         object-fit: contain;
         border: 1px solid #ccc;
@@ -132,8 +135,12 @@
         width: 100%;
         height: 100%;
         object-fit: contain;
+        overflow: hidden;
     }
+    
 
+
+    
     .photo-container {
         margin: 20px 0;
     }
@@ -213,6 +220,11 @@
                 <button class="btnNext" id="rotateButton_frente"><img style="width: 20px" src="{{ asset('image/rotate.png') }}"
                         alt="rotacionar"> </button>
                 <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b>
+                    <br><br>
+                <div>
+                    <input type="checkbox" id="nao_tem_imagem_frente" name="nao_tem_imagem_frente" onclick="desativarImagemFrente()">
+                    <label for="nao_tem_imagem_frente">Não tem imagem</label>
+                </div>
             </div>
             <br>
             <hr>
@@ -232,6 +244,11 @@
                 <button class="btnNext" id="rotateButton_tras"><img style="width: 20px" src="{{ asset('image/rotate.png') }}"
                         alt="rotacionar"> </button>
                 <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b>
+                <br><br>
+                <div>
+                    <input type="checkbox" id="nao_tem_imagem_tras"  name="nao_tem_imagem_tras" onclick="desativarImagemTras()">
+                    <label for="nao_tem_imagem_tras">Não tem imagem</label>
+                </div>
             </div>
         </div>
     </div>
@@ -243,7 +260,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://unpkg.com/cropperjs"></script>
+
 <script>
     let scale = 1;
     const preview = document.querySelector('.preview');
@@ -362,21 +379,25 @@
         let cropper;
         carrega(inputFile, image, cropper, preview, upImage, rotateButton, "#preview_tras");
     }
-    function salvaContinuar(imagem1, imagem2) {
-            const img1 = document.getElementById(imagem1);
-            const img2 = document.getElementById(imagem2);
-            const fileimg = img1.files[0];
-            const fileimg2 = img2.files[0];
 
-            
-            if (!fileimg || !fileimg2) {
-             console.log('imagem vazia')
-               console
-            } else {
-               console.log('imagem carregada')
-                document.querySelector('.uploadForm').submit();
-            }
-        }
+    //Função para possibilitar o avanço para a proxima tela, com duas regras por ora
+    function salvaContinuar(imagem1, imagem2) {
+    const img1 = document.getElementById(imagem1);
+    const img2 = document.getElementById(imagem2);
+    const fileimg = img1.files[0];
+    const fileimg2 = img2.files[0];
+    const checkbox1 = document.getElementById("nao_tem_imagem_frente");
+    const checkbox2 = document.getElementById("nao_tem_imagem_tras");
+
+    if (checkbox1.checked || checkbox2.checked) {
+        document.querySelector('.uploadForm').submit();
+    } else if (!fileimg || !fileimg2) {
+        console.log('imagem vazia')
+    } else {
+        console.log('imagem carregada')
+        document.querySelector('.uploadForm').submit();
+    }
+}
 
     $(document).ready(function () {
     const steps = $(".step");
@@ -421,6 +442,33 @@
     // Inicializa com a primeira etapa visível
     updateProgress();
 });
+
+//Funão de controle dos checkbox "Não tem imagem"
+function desativarImagemFrente() {
+    var checkbox = document.getElementById("nao_tem_imagem_frente");
+    var imagem = document.getElementById("imagem1");
+    var botao = document.getElementById("seta_frente");
+    if (checkbox.checked) {
+        imagem.disabled = true;
+        botao.disabled = true;
+    } else {
+        imagem.disabled = false;
+        botao.disabled = false;
+    }
+}
+
+function desativarImagemTras() {
+    var checkbox = document.getElementById("nao_tem_imagem_tras");
+    var imagem = document.getElementById("imagem2");
+    var botao = document.getElementById("seta_verso");
+    if (checkbox.checked) {
+        imagem.disabled = true;
+        botao.disabled = true;
+    } else {
+        imagem.disabled = false;
+        botao.disabled = false;
+    }
+}
 
 </script>
 

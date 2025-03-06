@@ -92,7 +92,7 @@
 
     <div class="option-container">
         <div class="option">
-            <a href="{{route('carro.index')}}"><img src="{{asset('image/img/carro.png')}}" alt="Carro"></a>
+            <a href="{{route('carro.index', $laudo_id)}}"><img src="{{asset('image/img/carro.png')}}" alt="Carro"></a>
             <span>Carro</span>
         </div>
 
@@ -101,21 +101,22 @@
             <span>Moto</span>
         </div>  
         <div class="option">
-            <a href="{{route('motocicleta.index')}}"><img src="{{asset('image/img/caminhao.png')}}" alt="Caminhão"></a>
+            <a href="{{route('caminhao.index')}}"><img src="{{asset('image/img/caminhao.png')}}" alt="Caminhão"></a>
             <span>Caminhão</span>
         </div>
         <div class="option">
-            <a href="{{route('motocicleta.index')}}"><img src="{{asset('image/img/semi-reboque.png')}}" alt="Semi-reboque"></a>
+            <a href="{{route('semireboque.index')}}"><img src="{{asset('image/img/semi-reboque.png')}}" alt="Semi-reboque"></a>
             <span>Semi-reboque</span>
         </div>
+ 
         <div class="option">
-            <a href="{{route('motocicleta.index')}}"><img src="{{asset('image/img/outros.png')}}" alt="Outros"></a>
+            <a href="{{route('outros.index')}}"><img src="{{asset('image/img/outros.png')}}" alt="Outros"></a>
             <span>Outros</span>
         </div>
         
         <div class="option">
-            <a href="{{route('motocicleta.index')}}"><img src="{{asset('image/img/outros.png')}}" alt="Outros"></a>
-            <span>Outros</span>
+            <a href="{{route('onibus.index')}}"><img src="{{asset('image/img/outros.png')}}" alt="Outros"></a>
+            <span>Onibus</span>
         </div>
 
         

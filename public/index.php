@@ -1,5 +1,9 @@
 <?php
+session_start(); // Garante que a sessão está ativa
 
+if (!isset($_SESSION['VeiculoInspecaoInseridos'])) {
+    $_SESSION['VeiculoInspecaoInseridos'] = []; // Inicializa a lista se não existir
+}
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -11,7 +15,7 @@ define('LARAVEL_START', microtime(true));
 
 /*
 |--------------------------------------------------------------------------
-| Register The Auto Loader
+| Register The Auto Loader  
 |--------------------------------------------------------------------------
 |
 | Composer provides a convenient, automatically generated class loader for

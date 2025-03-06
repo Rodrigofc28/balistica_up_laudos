@@ -37,10 +37,11 @@
                 
               },
               crop() {
-                const canvas = cropper.getCroppedCanvas({
+                const canvas = cropper.getCroppedCanvas(/*{
+                  DEFINI COMO ORIGINAL CASO NÃO SEJA PASSADO NENHUM VALOR
                   width: 400, // Largura do canvas
                   height: 400, // Altura do canvas
-                });
+                }*/);
 
                 preview.innerHTML = ''; // Limpa a pré-visualização anterior
                 const croppedImage = document.createElement('img');

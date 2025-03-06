@@ -50,7 +50,7 @@ class Geral extends Tabelas
                 
             }else{
                 
-            $this->tabelaExame($this->phpWord,$this->section,$this->config,$laudo);
+                $this->tabelaExame($this->phpWord,$this->section,$this->config,$laudo);
         
         }
         }
@@ -120,7 +120,7 @@ class Geral extends Tabelas
         $fileContent = file_get_contents($source);
         //oficio requisitante
         
-        if($laudo->laudoEfetConst!="constatacao"){//$oficio!=null
+        if($laudo->laudoEfetConst!="B601"){//$oficio!=null
             $paragrafo_material="Foi encaminhado a esta Unidade de Execução Técnico-científica, em embalagens plásticas transparentes lacradas, conforme ofício recebido, o seguinte material:";
             $requisicaoOficio=['materiais abaixo discriminados ',' a fim de ser atendida solicitação contida no Ofício nº '.$oficio.', datado de '.$data_solic.', oriundo da '.$delegacia.'.'];
         }else{
@@ -203,7 +203,7 @@ class Geral extends Tabelas
         $ordemAlfabeto=[1=>'A',2=>'B',3=>'C',4=>'D',5=>'E',6=>'F',7=>'G',8=>'H',9=>'I',10=>'J',11=>'K',12=>'L',13=>'M',14=>'N',15=>'O',16=>'P',17=>'Q',18=>'R',19=>'S',20=>'T',21=>'U',22=>'V',23=>'W',24=>'X',25=>'Z',26=>'Y'];
         foreach ($laudo->armas as $armaLacre){
             
-            $arrayNumeroLacre[$i]=' nº '.$armaLacre->num_lacre.' (Arma AF-'.$ordemAlfabeto[$g].'),';
+            $arrayNumeroLacre[$i]=' nº '.$armaLacre->num_lacre_saida.' (Arma AF-'.$ordemAlfabeto[$g].'),';
             
             
            
@@ -276,7 +276,7 @@ class Geral extends Tabelas
                     $this->section->addText($tituloConclusao, $this->config->arial12Bold(), $this->config->paragraphJustify());
                     $this->section->addText($descricaoConclusao, $this->config->arial12(), $this->config->paragraphJustify());}
             }
-                $item=count($laudo->armas)+1;
+                $item=1;
                 $municaoFuncionamento=false;
                 
                 foreach($laudo->municoes as $municao){
@@ -421,14 +421,14 @@ class Geral extends Tabelas
             $table->addRow(10);
             $numTab++;
             $test=$table->addCell();
-            $test->addImage($this->imagem($laudo)[$b], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));
+            $test->addImage($this->imagem($laudo)[$b], array('alignment' => Jc::CENTER, 'width' => 220));
             $test->addText('Frente', $fontStyle, $paraStyle); 
             $b++;
            
             if(!empty($this->imagem($laudo)[$b])){
                 
                 $test2=$table->addCell();
-                $test2->addImage($this->imagem($laudo)[$b], array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150));}
+                $test2->addImage($this->imagem($laudo)[$b], array('alignment' => Jc::CENTER, 'width' => 220));}
                 $test2->addText('Verso', $fontStyle, $paraStyle);
                 $this->section->addTextBreak(1);
                 $b++;

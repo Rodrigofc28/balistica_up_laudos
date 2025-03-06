@@ -2,181 +2,189 @@
 
 namespace App\Http\Controllers\Perito\Chassis;
 
-
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use App\Models\Laudo;
 use App\Models\VeiculoInspecao;
 use App\Models\ChassiDate\Chassi;
+use App\Models\Veiculo;
+use App\Models\Marca;
+
 class MotocicletasController extends Controller
 {
-   public function index(Laudo $laudo){
-
-        return view('perito.chassi.index',compact('laudo'));
-   }
-   public function tela2(Laudo $laudo){
-      
-      return view('perito.chassi.veiculos.moto.motocicleta.index',compact('laudo'));
-   }
-   public function tela3(Request $request){
-    
-       $laudo=Laudo::find($request->laudo_id);
-       //salva os dados
-       Chassi::create($request->all());
-       //update dos dados
-       $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
-       $chassi->update($request->all());
-      return view('perito.chassi.veiculos.moto.motocicleta.telaum',compact('laudo','chassi'));
-
-      // $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
-       //$chassi->update($request->all());
-      return view('perito.chassi.veiculos.moto.motocicleta.telaum',compact('laudo'));
-
-   }
-   public function tela4(Request $request){
-
-      if ($request->hasFile('imagem1')) {
-         $image1 = base64_encode(file_get_contents($request->file('imagem1')));
-         
-      }
-
-      if ($request->hasFile('imagem2')) {
-         $image2 = base64_encode(file_get_contents($request->file('imagem2')));
-         
-      }
-      $laudo=Laudo::find($request->laudo_id);
-      $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
-      $chassi->update([
-         'image1' => $image1,
-         'image2' => $image2
-      ]);
-      return view('perito.chassi.veiculos.moto.motocicleta.teladois',compact('laudo'));
-      }
-   public function exame(Request $request) {
-  
-      $laudo=Laudo::find($request->laudo_id);
-
-      
-      $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
-      $chassi->update($request->all());
-      VeiculoInspecao::create($request->all());
-      return view('perito.chassi.veiculos.moto.motocicleta.show',compact('chassi','laudo'));
-  }
-  //funções de deletar e editar
-  public function delete($id)
+    public function index(Laudo $laudo)
     {
-        // Encontra o registro pelo ID e deleta
+        return view('perito.chassi.index', compact('laudo'));
+    }
+
+    public function tela2(Laudo $laudo)
+    {
+        return view('perito.chassi.veiculos.moto.motocicleta.index', compact('laudo'));
+    }
+
+    public function tela3(Request $request)
+    {
+        $laudo = Laudo::find($request->laudo_id);
+
+        // Salva os dados do chassi
+        Chassi::create($request->all());
+
+        // Atualiza os dados
+        $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
+        if ($chassi) {
+            $chassi->update($request->all());
+        }
+
+        return view('perito.chassi.veiculos.moto.motocicleta.telaum', compact('laudo', 'chassi'));
+    }
+
+    public function tela4(Request $request)
+    {
+        $laudo = Laudo::find($request->laudo_id);
+        $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
+
+        if ($chassi) {
+            $data = [];
+
+            if ($request->hasFile('imagem1')) {
+                $data['image1'] = base64_encode(file_get_contents($request->file('imagem1')));
+            }
+
+            if ($request->hasFile('imagem2')) {
+                $data['image2'] = base64_encode(file_get_contents($request->file('imagem2')));
+            }
+
+            $chassi->update($data);
+        }
+
+        return view('perito.chassi.veiculos.moto.motocicleta.teladois', compact('laudo'));
+    }
+
+    //Bug do relogar na tela 4 resolvido V
+//-------------------------------------------------------------------------------
+    public function exame(Request $request)
+    {
+        $laudo = Laudo::find($request->laudo_id);
+        $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
+
+        if ($chassi) {
+            $chassi->update($request->all());
+        }
+      
+        $dadosRequest = $request->all(); // Obtém os dados do request
+
+        $dadosRequestJson = json_encode($dadosRequest);
+        $listaJson = array_map('json_encode', $_SESSION['VeiculoInspecaoInseridos']);
+      
+
+        if (!in_array($dadosRequestJson, $listaJson)) {
+           VeiculoInspecao::create($request->all());
+
+            $_SESSION['VeiculoInspecaoInseridos'][] = $dadosRequest;
+        } 
+//--------------------------------------------------------------------------------
+
+        return view('perito.chassi.veiculos.moto.motocicleta.show', compact('chassi', 'laudo'));
+    }
+
+    //teste veiculo tela 1 motocicleta para tela 2, bug relogar
+    public function veiculoTela2(Request $request)
+{
+    $laudo = Laudo::find($request->laudo_id);
+    $veiculo = Veiculo::where('laudo_id', $request->laudo_id)->first();
+
+    if ($veiculo) {
+        $veiculo->update($request->all());
+    }
+
+
+
+    $dadosRequest = $request->all();
+    $dadosRequestJson = json_encode($dadosRequest);
+    $listaJson = array_map('json_encode', $_SESSION['VeiculoInseridosTela2']);
+
+    if (!in_array($dadosRequestJson, $listaJson)) {
+        Veiculo::create($request->all()); // Insere na tabela 'veiculo'
+        $_SESSION['VeiculoInseridosTela2'][] = $dadosRequest; // Adiciona à sessão
+    }
+
+    return view('perito.chassi.veiculos.moto.motocicletatelaum', compact('veiculo', 'laudo'));
+}
+
+
+    // Função para deletar um chassi
+    public function delete($id)
+    {
         $registro = Chassi::find($id);
+
         if ($registro) {
             $registro->delete();
             return redirect()->back()->with('success', 'Registro deletado com sucesso!');
         }
+
         return redirect()->back()->with('error', 'Registro não encontrado!');
     }
 
+    // Função para editar um chassi
     public function edite($id)
     {
-        // Encontra o registro pelo ID e retorna para a view de edição
         $registro = Chassi::find($id);
+
         if ($registro) {
             return view('sua_view_de_edicao', compact('registro'));
         }
+
         return redirect()->back()->with('error', 'Registro não encontrado!');
     }
-    // VeiculoController.php
-public function destroy($id)
-{
-    // Buscar o veículo pelo id e deletar
-    $veiculo = Veiculo::findOrFail($id);
-    $veiculo->delete();
 
-    // Redirecionar de volta com uma mensagem de sucesso
-    return redirect()->route('veiculo.index')->with('success', 'Veículo deletado com sucesso!');
-}
-// Adicionando métodos de busca no Controller
+    // Função para deletar um veículo
+    public function destroy($id)
+    {
+        $veiculo = Veiculo::findOrFail($id);
+        $veiculo->delete();
 
-public function buscarMarcas(Request $request)
-{
-    // Verifique se o usuário digitou algo
-    if ($request->has('query')) {
-        $query = $request->input('query');
-        
-        // Buscar marcas que contenham a string
-        $marcas = Marca::where('nome', 'like', "%$query%")->get();
+        return redirect()->route('veiculo.index')->with('success', 'Veículo deletado com sucesso!');
+    }
+
+    // Métodos de busca
+
+    public function buscarMarcas(Request $request)
+    {
+        $termo = $request->input('termo');
+        $marcas = Veiculo::where('marca_fabricacao', 'LIKE', "%$termo%")
+                         ->distinct()
+                         ->pluck('marca_fabricacao');
 
         return response()->json($marcas);
     }
 
-    return response()->json([]);
-}
-
-public function buscarModelos(Request $request)
-{
-    // Verifique se o usuário digitou algo
-    if ($request->has('query')) {
-        $query = $request->input('query');
-
-        // Buscar modelos que contenham a string
-        $modelos = Modelo::where('nome', 'like', "%$query%")->get();
+    public function buscarModelos(Request $request)
+    {
+        $termo = $request->input('termo');
+        $modelos = Veiculo::where('modelo', 'LIKE', "%$termo%")
+                          ->distinct()
+                          ->pluck('modelo');
 
         return response()->json($modelos);
     }
 
-    return response()->json([]);
-}
-public function salvar(Request $request)
-{
-    // Validação dos dados do formulário
-    $request->validate([
-        'cor_selecionada' => 'required|string|max:100',
-        // Outras validações...
-    ]);
+    // Adicionar novo veículo
+    public function adicionar(Request $request)
+    {
+        $request->validate([
+            'marca_fabricacao' => 'required',
+            'modelo' => 'required',
+            'ano' => 'required|integer',
+            'ano_fab' => 'required|integer',
+            'placa' => 'required',
+            'estado_conservacao' => 'required',
+            'cor' => 'nullable',
+        ]);
 
-    // Salvar no banco de dados
-    $veiculo = new Veiculo();
-    $veiculo->cor = $request->input('cor_selecionada'); // Usar o valor de cor_selecionada
-    $veiculo->marca_fabricacao = $request->input('marca_fabricacao');
-    $veiculo->modelo = $request->input('modelo');
-    $veiculo->ano = $request->input('ano');
-    $veiculo->placa = $request->input('placa');
-    $veiculo->estado_conservacao = $request->input('estado_conservacao');
-    // Outros campos...
+        $veiculo = Veiculo::create($request->all());
 
-    $veiculo->save();
-
-    return redirect()->back()->with('success', 'Veículo salvo com sucesso!');
-}
-
-public function inspecaoVeiculo(Request $request) {
-    // Validação dos dados
-    $request->validate([
-        'motor_tipo_adulteracao' => 'nullable|string|max:200',
-        'transplante_chassi' => 'nullable|string',
-        'reparo_chassi' => 'nullable|string',
-        'transplante_motor' => 'nullable|string',
-        'reparo_motor' => 'nullable|string',
-        // Outras validações...
-    ]);
-
-    // Atualiza o chassi
-    $laudo = Laudo::find($request->laudo_id);
-    $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
-    $chassi->update($request->all());
-
-    // Cria a inspeção do veículo
-    VeiculoInspecao::create([
-        'laudo_id' => $request->laudo_id,
-        'transplante_chassi' => $request->transplante_chassi,
-        'reparo_chassi' => $request->reparo_chassi,
-        'motor_tipo_adulteracao' => $request->motor_tipo_adulteracao, // Campo adicional
-        'transplante_motor' => $request->transplante_motor,
-        'reparo_motor' => $request->reparo_motor,
-        // Outros campos...
-    ]);
-
-    return view('perito.chassi.veiculos.moto.motocicleta.show', compact('chassi', 'laudo'));
+        return response()->json($veiculo);
+    }
 }
 
 
-}

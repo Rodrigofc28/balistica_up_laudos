@@ -15,7 +15,7 @@
 
 <input type="hidden" name="laudo_id" id="laudo_id" value="{{ $laudo->id }}">
 <input type="hidden" name="municao_de" id="laudo_id" value="arma curta">
-
+<input type="hidden" value="estojo" name="tipo_municao"   class="form-control" type="text">
 
 <div class="col-lg-12" style="padding: 0 5% 0">
     <div class="row mb-3">
@@ -24,8 +24,8 @@
         @else
             @include('perito.laudo.materiais.attributes.atributes_arma_gdl',['name_arma_gdl'=>$arma_estojo_gdl])
         @endempty
-        @include('perito.laudo.materiais.attributes.tipo_municao', ['tipo_municao2' => $municao->tipo_municao ??
-        old('tipo_municao')])
+        
+        
         @include('perito.laudo.materiais.attributes.marca', ['marca2' => $municao->marca->id ?? old('marca_id')])
         @include('perito.laudo.materiais.attributes.origem', ['origem2' => $municao->marca->id ?? old('origem_id')])
         
@@ -34,14 +34,14 @@
         @include('perito.laudo.materiais.attributes.quantidade', ['quantidade' => $municao->quantidade ??
         old('quantidade')])
         @include('perito.laudo.materiais.attributes.estojo', ['estojo2' => $municao->estojo ?? old('estojo')])
-        @include('perito.laudo.materiais.attributes.projetil_arma_curta', ['projetil2' => $municao->projetil ??
-        old('projetil')])
+        
         @include('perito.laudo.materiais.attributes.tipo_espoleta', ['tipo_espoleta2' => $municao->tipo_projetil ??
         old('tipo_projetil')])
-        @include('perito.laudo.materiais.attributes.condicao', ['funcionamento2' => $municao->funcionamento ??
+       
+        @include('perito.laudo.materiais.attributes.condicao_estojo', ['funcionamento2' => $municao->funcionamento ??
         old('funcionamento')])
         @include('perito.laudo.materiais.attributes.municao_observacao',['observacao'=>$municao->observacao??old('observacao')])
-        @include('perito.laudo.materiais.attributes.funcionamentoCartucho',['funcionamentoCartucho'=>$municao->funcionamentoCartucho??old('funcionamentoCartucho')])
+        
         @include('perito.laudo.materiais.attributes.material_coletado_municao',['rep'=>empty($municao->rep_materialColetado)?session('rep_coleta'):$municao->rep_materialColetado ?? old('rep')])
         @include('perito.laudo.materiais.attributes.lote',['lote'=>$municao->lote ??old('lote')])
         @include('perito.laudo.materiais.attributes.lacrecartucho', [$name='lacrecartucho',$label='Nº lacre de entrada','lacre'=>empty($municao->lacrecartucho)?session('lacre_entrada'):$municao->lacrecartucho ?? old('lacre')])

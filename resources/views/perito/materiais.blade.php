@@ -63,17 +63,20 @@
     </div>
 </div>
 @endif
-<h5><strong>Cartucho/Estojo e Projeteis</strong></h5>
+<h5><strong>Munição</strong></h5>
 <div class="col-12">
     <div class="row border mb-3 mt-3">
         <div class="col-lg-3 mt-3">
             @include('shared.block_button', ['col_name' => 'tipo_municao',
-            'value' => 'Cartucho/Estojo', 'route' => 'armas_curtas.create'])
+            'value' => 'Cartucho', 'route' => 'armas_curtas.create'])
         </div>
-
+        <div class="col-lg-3 mt-3">
+            @include('shared.block_button', ['col_name' => 'tipo_municao',
+            'value' => 'Estojo', 'route' => 'armas_longas.create'])
+        </div>
         <div class="col-lg-3 mt-3">
             @include('shared.block_button', ['col_name' => 'componente',
-            'value' => 'Projeteis ', 'route' => 'balins_chumbo.create'])
+            'value' => 'Projétil', 'route' => 'balins_chumbo.create'])
         </div>
         
         

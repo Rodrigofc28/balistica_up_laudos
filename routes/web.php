@@ -103,10 +103,10 @@ Route::prefix('laudos/{laudo}')->group(function () {
     Route::resource('municoes', 'Perito\Municoes\MunicoesController')
         ->parameters(['municoes' => 'municao'])->except(['create', 'index', 'show']);
 
-    Route::resource('municoes/armas_curtas', 'Perito\Municoes\ArmasCurtasController')
+    Route::resource('municoes/armas_curtas', 'Perito\Municoes\CartuchosController')
         ->parameters(['armas_curtas' => 'municao'])->only(['create', 'edit', 'show']);
 
-    Route::resource('municoes/armas_longas', 'Perito\Municoes\ArmasLongasController')
+    Route::resource('municoes/armas_longas', 'Perito\Municoes\EstojosController')
         ->parameters(['armas_longas' => 'municao'])->only(['create', 'edit', 'show']);
 
     Route::resource('componentes', 'Perito\Componentes\ComponentesController')
@@ -188,39 +188,90 @@ Route::get('/notifications', function() {
 //Rotas de chassi
 //Exibe a Tela para escolha dos veiculos
 Route::post('chassi','Perito\Chassis\ChassisController@store')->name('chassi.index');
-//Exibe a tela inicial
-Route::get('carro.index','Perito\Chassis\CarrosController@index')->name('carro.index');
-//Exibe a  tela 1 da Motocicleta
 Route::get('motocicleta.index','Perito\Chassis\MotocicletasController@index')->name('motocicleta.index');
-//exibe a tela 2 de motocicleta
+
+//Rotas Motocicleta Tela 1 da Motocicleta--------------------------------------------------------------------------
+Route::get('motocicleta.tela2/{laudo}', 'Perito\Chassis\MotocicletasController@tela2')->name('motocicletas.tela2');
+//exibe a tela 2 de fotos
 Route::post('motocicleta.tela3', 'Perito\Chassis\MotocicletasController@tela3')->name('motocicletas.tela3');
-
+//exibe a tela 3 de chassi/motor
+Route:: post ('motocicleta.tela4' , 'Perito\Chassis\MotocicletasController@tela4')->name ('motocicleta.tela4');
+//exibe tela final Motocicleta 
 Route::post('motocicleta.exame', 'Perito\Chassis\MotocicletasController@exame')->name('motocicleta.exame');
+//-----------------------------------------------------------------------------------------------------------------
 
 
-// Rota para buscar marcas
-Route::get('/buscar-marcas', [MotocicletasController::class, 'buscarMarcas']);
+//Rotas para Carro Tela 1 -----------------------------------------------------------------------------------------
+Route::get('carro.index ','Perito\Chassis\CarroController@index')->name('carro.index');
+//Rota para tela de fotos
+Route::post('carro.tela1', 'Perito\Chassis\CarroController@tela1') -> name ('carro.tela1');
+//Rota para a tela Chassi/Motor
+Route::post('carro.tela2', 'Perito\Chassi\CarroController@tela2') -> name ('carro.tela2');
+//Rota para a tela final de Carro
+Route::post('carro.tela3', 'Perito\Chassis\CarroController@tela3') -> name ('carro.tela3');
+//-----------------------------------------------------------------------------------------------------------------
 
-// Rota para buscar modelos
-Route::get('/buscar-modelos', [MotocicletasController::class, 'buscarModelos']);
+
+//Rotas para Caminhão (Está funcionando) Tela 1--------------------------------------------------------------------
+Route::get('caminhao.index','Perito\Chassis\CaminhaoController@index')->name('caminhao.index');
+//Rota para tela de fotos
+Route ::post('caminhao.tela1', 'Perito\Chassis\CaminhaoController@tela1') -> name ('caminhao.tela1');
+//Rota para a tela Chassi/Motor
+Route::post('caminhao.tela2', 'Perito\Chassis\CaminhaoController@tela2') -> name ('caminhao.tela2');
+//Rota para final de Caminhão
+Route::post('caminhao.tela3', 'Perito\Chassis\CaminhaoController@tela3') -> name ('caminhao.tela3');
+//-----------------------------------------------------------------------------------------------------------------
+
+
+//Rotas de Semi-reboque (Está funcionando) Tela 1------------------------------------------------------------------
+Route::get('semireboque.index','Perito\Chassis\SemiReboqueController@index') -> name ('semireboque.index');
+//Rota para a tela de fotos
+Route::post('semireboque.tela1', 'Perito\Chassis\SemiReboqueController@tela1') -> name ('semireboque.tela1');
+//Rota para a tela Chassi/Motor
+Route::post('semireboque.tela2', 'Perito\Chassis\SemiReboqueController@tela2') -> name ('semireboque.tela2');
+//Rota para a tela final de Semi-Reboque
+Route::post('semireboque.tela3', 'Perito\Chassis\SemiReboqueController@tela3') -> name ('semireboque.tela3');
+//-----------------------------------------------------------------------------------------------------------------
+
+
+//Rotas de Onibus (Está funcionando) Tela 1------------------------------------------------------------------------
+Route::get('onibus.index','Perito\Chassis\OnibusController@index') -> name('onibus.index');
+//Rota para a tela de fotos
+Route::post('onibus.tela1', 'Perito\Chassis\OnibusController@tela1') -> name ('onibus.tela1');
+//Rota para a tela Chassi/Motor 
+Route::post('onibus.tela2', 'Perito\Chassis\OnibusController@tela4') -> name ('onibus.tela2');
+//Rota para a tela final de Onibus
+Route::post('onibus.tela3', 'Perito\Chassis\OnibusController@tela3') -> name ('onibus.tela3');
+//-----------------------------------------------------------------------------------------------------------------
+
+
+//Rotas de Outros (Está funcionando) Tela 1------------------------------------------------------------------------
+Route::get('outros.index', 'Perito\Chassi\OutrosController@index') -> name ('outros.index');
+//Rota para a tela de fotos
+Route::post('outros.tela1', 'Perito\Chassis\OutrosController@tela1') -> name ('outros.tela1');
+//Rota para a tela Chassi/Motor
+Route::post('outros.tela2', 'Perito\Chassis\OutrosController@tela2') -> name ('outros.tela2');
+//Rota para a tela final de Outros
+Route::post('outros.tela3', 'Perito\Chassis\OutrosController@tela3') -> name ('outros.tela3');
+//-----------------------------------------------------------------------------------------------------------------
+
 
 //Salvar a cor escolhida no banco
 Route::post('/veiculo/salvar', [MotocicletasController::class, 'storeVeiculo'])->name('veiculo.salvar');
 
-Route::get('motocicleta.tela4/{laudo}', 'Perito\Chassis\Moto\MotocicletasController@tela4')->name('motocicleta.tela4');
 
-Route::get('motocicleta.tela5/{laudo}', 'Perito\Chassis\Moto\MotocicletasController@tela5')->name('motocicleta.tela5');
 
-Route::get('motocicleta.tela2/{laudo}', 'Perito\Chassis\MotocicletasController@tela2')->name('motocicletas.tela2');
+
+
 
 
 Route::post('/inspecaoVeiculo', [MotocicletasController::class, 'inspecaoVeiculo'])->name('inspecao.veiculo');
 
 
-Route::post('motocicleta.tela3', 'Perito\Chassis\MotocicletasController@tela3')->name('motocicletas.tela3');
+
+
 Route::get('laudosChassi.docx/{laudo}', 'Perito\Chassis\ChassisController@generate_docx')->name('laudosChassi.docx');
 
-Route:: post ('motocicleta.tela4' , 'Perito\Chassis\MotocicletasController@tela4')->name ('motocicleta.tela4');
 //Rotas de editar e deletar
 
 Route::get('/editar/{id}', [MotocicletasController::class, 'edite'])->name('editar');

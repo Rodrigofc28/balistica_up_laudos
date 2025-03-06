@@ -114,16 +114,18 @@ class ArmasText
             $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' -Tomadas fotográficas- '.$arma->tipo_arma, $fontStyle, $paraStyle);//cabeçalho da tabela
             $imagemCantoSuperior!=''?[$table->addRow(10,['cantSplit'=>true]),
             $img=$table->addCell(),
-            $img->addImage($imagemCantoSuperior, array('alignment' => Jc::CENTER, 'width' => 450, 'height'=>250)),
+            
+            $img->addImage($imagemCantoSuperior, array('alignment' => Jc::CENTER, 'width' => 250)),
+            
             $img->addText('Vista lateral direita', $fontStyle, $paraStyle)]:'';
             $imagemCantoInferior!=''||$imagemNumSerie!=''?$table->addRow(10):'';
             $imagemCantoInferior!=''?[$img2=$table->addCell(),
-            $img2->addImage($imagemCantoInferior, array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)),
+            $img2->addImage($imagemCantoInferior, array('alignment' => Jc::CENTER, 'width' => 150)),
             
             $img2->addText('Vista lateral esquerda', $fontStyle, $paraStyle)]:'';
             
             $imagemNumSerie!=''?[$img3= $table->addCell(),
-            $img3->addImage($imagemNumSerie, array('alignment' => Jc::CENTER, 'width' => 220, 'height'=>150)),
+            $img3->addImage($imagemNumSerie, array('alignment' => Jc::CENTER, 'width' => 150)),
             $img3->addText('Número de série', $fontStyle, $paraStyle)]:'';
             $numTab++;
             
@@ -269,7 +271,7 @@ class ArmasText
             $this->section->addTextBreak(1);
             
             $textrun = $this->section->addTextRun($this->config->paragraphJustify());
-            $textrun->addText('3. '.$dig2.'. '. $contagem.' -DA ARMA AF-'.$ordemAlfabeto[$contadorAlfanumerico].' - '.mb_strtoupper($arma->marca->nome).' '.$arma->modelo.' – LACRE DE ENTRADA '.$arma->num_lacre_saida, $this->config->arial12Bold());
+            $textrun->addText('3. '.$dig2.'. '. $contagem.' DA ARMA AF-'.$ordemAlfabeto[$contadorAlfanumerico].' - '.mb_strtoupper($arma->marca->nome).' '.$arma->modelo.' – LACRE DE ENTRADA '.$arma->num_lacre_saida, $this->config->arial12Bold());
             $this->section->addTextBreak(1);
             $this->section->addText('a) Descrição da arma:', $this->config->arial12Bold()); 
             $table=$this->section->addTable('tabelaArmas');

@@ -78,8 +78,8 @@ class MetralhadorasController extends Controller
      */
     public function update(MetralhadoraRequest $request, $laudo_id, Arma $metralhadora)
     {
-        $updated_arma = $request->all();
-        Arma::find($metralhadora->id)->fill($updated_arma)->save();
+        
+        atualizaImagemArm($request, $metralhadora->id);
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_f', ['model' => 'Metralhadora']));
     }

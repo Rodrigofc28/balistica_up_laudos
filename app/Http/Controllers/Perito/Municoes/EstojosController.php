@@ -1,26 +1,28 @@
 <?php
 
 namespace App\Http\Controllers\Perito\Municoes;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Calibre;
 use App\Models\Marca;
 use App\Models\Municao;
-
-class ArmasLongasController extends Controller
+use App\Models\Armas_Gdl;
+class EstojosController extends Controller
 {
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($laudo)
+    public function create(Request $request,$laudo)
     {
+        
        
         $marcas = Marca::categoria('municoes');
-        $calibres = Calibre::whereArma('espingarda');
-        return view('perito.laudo.materiais.municoes.arma_longa.create',
-            compact('laudo', 'marcas',  'calibres'));//'origens' não definida
+        $calibres = Calibre::whereNotArmas();
+        
+        return view('perito.laudo.materiais.municoes.estojo.create',
+            compact('laudo', 'marcas', 'calibres'));
     }
 
     /**
@@ -43,8 +45,8 @@ class ArmasLongasController extends Controller
     public function edit($laudo, Municao $municao)
     {
         $marcas = Marca::marcasWithTrashed('municoes', $municao->marca);
-        $calibres = Calibre::calibresWithTrashed('espingarda', $municao->calibre);
-        return view('perito.laudo.materiais.municoes.arma_longa.edit',
+        $calibres = Calibre::calibresMunicoesWithTrashed(['revólver', 'pistola'], $municao->calibre);
+        return view('perito.laudo.materiais.municoes.estojo.edit',
             compact('municao', 'laudo', 'marcas', 'calibres'));
     }
 }

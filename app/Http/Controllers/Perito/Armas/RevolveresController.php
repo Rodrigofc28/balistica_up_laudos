@@ -126,8 +126,8 @@ class RevolveresController extends Controller
      */
     public function update(RevolverRequest $request, $laudo_id, Arma $revolver)
     {
-        $updated_arma = $request->all();
-        Arma::find($revolver->id)->fill($updated_arma)->save();
+        
+        atualizaImagemArm($request, $revolver->id);
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_m', ['model' => 'Revólver']));
     }

@@ -78,8 +78,8 @@ class FuzilsController extends Controller
      */
     public function update(FuzilRequest $request, $laudo_id, Arma $fuzil)
     {
-        $updated_arma = $request->all();
-        Arma::find($fuzil->id)->fill($updated_arma)->save();
+        
+        atualizaImagemArm($request, $fuzil->id);
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_f', ['model' => 'Fuzil']));
     }

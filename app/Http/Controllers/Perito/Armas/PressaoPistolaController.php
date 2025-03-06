@@ -110,8 +110,8 @@ class PressaoPistolaController extends Controller
      */
     public function update(Request $request, $laudo_id, Arma $pressaopistola)
     {
-        $updated_arma = $request->all();
-        Arma::find($pressaopistola->id)->fill($updated_arma)->save();
+        
+        atualizaImagemArm($request, $pressaopistola->id);
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_f', ['model' => 'Pistola de Pressão']));
     }

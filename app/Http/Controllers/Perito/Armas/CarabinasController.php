@@ -126,8 +126,8 @@ class CarabinasController extends Controller
      */
     public function update(CarabinaRequest $request, $laudo_id, Arma $carabina)
     {
-        $updated_arma = $request->all();
-        Arma::find($carabina->id)->fill($updated_arma)->save();
+        
+        atualizaImagemArm($request, $carabina->id);
         return redirect()->route('laudos.show', ['id' => $laudo_id])
             ->with('success', __('flash.update_f', ['model' => 'Carabina']));
     }
