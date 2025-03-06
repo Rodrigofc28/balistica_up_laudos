@@ -28,7 +28,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
         <link rel="stylesheet" href="{{ URL::asset('css/my_select2.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/btnAcao.css')}}">
-        <link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
         
 {{--        <link rel="stylesheet" href="{{ URL::asset('css/dropzone_custom.css') }}">--}}
 
@@ -48,10 +48,11 @@
            
         </div>
         @include('layout.scripts')
-       
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+
         <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
-        <script src="https://unpkg.com/cropperjs/dist/cropper.min.js"></script>
+       
         
         
       
