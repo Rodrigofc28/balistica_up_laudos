@@ -131,7 +131,7 @@ class Geral extends Tabelas
         
         
        
-        //PREÂMBULO ARMAS
+        //PREÂMBULO DO LAUDO BALISTICO
         $text = [
             
             $textrun = $this->section->addTextRun($this->config->paragraphCenter()),
@@ -198,12 +198,14 @@ class Geral extends Tabelas
         $numberExtenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);
         $cartuchosEstojosTipo=[];
         $arrayNumeroLacre=[];
+        global $itensCartuchoTeste;//variavel para itens na conclusão de laudo de cartucho  
+        
         $i=0;
         $g=1;
         $ordemAlfabeto=[1=>'A',2=>'B',3=>'C',4=>'D',5=>'E',6=>'F',7=>'G',8=>'H',9=>'I',10=>'J',11=>'K',12=>'L',13=>'M',14=>'N',15=>'O',16=>'P',17=>'Q',18=>'R',19=>'S',20=>'T',21=>'U',22=>'V',23=>'W',24=>'X',25=>'Z',26=>'Y'];
         foreach ($laudo->armas as $armaLacre){
             
-            $arrayNumeroLacre[$i]=' nº '.$armaLacre->num_lacre_saida.' (Arma AF-'.$ordemAlfabeto[$g].'),';
+            $arrayNumeroLacre[$i]=' nº '.$armaLacre->num_lacre.' (Arma AF-'.$ordemAlfabeto[$g].'),';
             
             
            
@@ -256,7 +258,7 @@ class Geral extends Tabelas
                 $cartuchoNome="($cartuchoNome";
                $funcionamentoCondicao="$municao->funcionamento),";
                
-                array_push($cartuchosEstojosTipo,' nº',$municao->lacrecartucho,$cartuchoNome,$funcionamentoCondicao);}
+                array_push($cartuchosEstojosTipo,' nº',$municao->lacre_saida,$cartuchoNome,$funcionamentoCondicao);}
 
                 if($municao->tipo_municao=="estojo"){
                   
@@ -271,37 +273,28 @@ class Geral extends Tabelas
             if(count($laudo->municoes)>0 && count($laudo->municoes)!=count($arrayEstojo) ){
                 if(count($laudo->armas)==0){
                     if(count($laudo->municoes)!=count($verifica)){
-                    $tituloConclusao='4. CONCLUSÃO:';
-                    $descricaoConclusao="Concluídos os exames descritos neste laudo, constatou-se que:";
-                    $this->section->addText($tituloConclusao, $this->config->arial12Bold(), $this->config->paragraphJustify());
-                    $this->section->addText($descricaoConclusao, $this->config->arial12(), $this->config->paragraphJustify());}
+                        $tituloConclusao='4. CONCLUSÃO:';
+                        $descricaoConclusao="Concluídos os exames descritos neste laudo, constatou-se que:";
+                        $this->section->addText($tituloConclusao, $this->config->arial12Bold(), $this->config->paragraphJustify());
+                        $this->section->addText($descricaoConclusao, $this->config->arial12(), $this->config->paragraphJustify());}
             }
                 $item=1;
                 $municaoFuncionamento=false;
+                //conclusão de laudo de cartucho 
+                foreach($itensCartuchoTeste as $indice => $valor) {
+                    $indiceCorrigido = $indice + 1; // Ajusta o índice para começar em 1
                 
-                foreach($laudo->municoes as $municao){
-                    
-        
-                      
-                    if($municao->tipo_municao=="cartucho"){
-                        
-                    if($municao->funcionamentoCartucho=="eficiente"){
-                        
-                        
-                        $this->section->addText("•   cartuchos item $item encontravam-se eficientes para a realização de tiros.", $this->config->arial12());
-                        $item++;
+                    if ($valor == "eficiente") {
+                        $this->section->addText("•   cartucho(s) item $indiceCorrigido encontrava(m)-se eficiente(s) para a realização de tiros.", $this->config->arial12());
+                    } elseif ($valor == "Ineficiente") {
+                        $this->section->addText("•   cartucho(s) item $indiceCorrigido encontrava(m)-se ineficiente(s) para a realização de tiros.", $this->config->arial12());
+                    } elseif ($valor == "parcialmente") {
+                        $this->section->addText('•   cartucho(s) item '.$indiceCorrigido.' encontrava(m)-se parcialmente eficiente(s) para a realização de tiros (Quantidade eficiente '. $numberExtenso->format($municao->qtEficiente).', Ineficiente '. $numberExtenso->format($municao->qtIneficiente).')', $this->config->arial12());
+                    } elseif ($valor == "preservado") {
+                        $this->section->addText('•   cartucho(s) item '.$indiceCorrigido.' não tiveram sua eficiência testada e foram preservados para eventual exame futuro ou indexação.', $this->config->arial12());
                     }
-                    elseif($municao->funcionamentoCartucho=="ineficiente"){
-    
-                        $this->section->addText("•   cartuchos item $item encontravam-se ineficiente para a realização de tiros.", $this->config->arial12());
-                        $item++;
-    
-                    }elseif($municao->funcionamentoCartucho=="parcial"){
-                        $this->section->addText('•   cartuchos item '.$item.' encontravam-se parcialmente eficiente para a realização de tiros (Quantidade eficiente '. $numberExtenso->format($municao->qtEficiente).', Ineficiente '. $numberExtenso->format($municao->qtIneficiente).')', $this->config->arial12());
-                        $item++;
-                    }
+                }
                 
-                }}
         
         
        } 
@@ -339,11 +332,7 @@ class Geral extends Tabelas
         $styleFirstRow = array('bgColor'=>' #F0FFFF');
         $this->phpWord->addTableStyle('tabela', $styleTable, $styleFirstRow);
 
-
-        
         $unidade=(!empty($laudo->secao->nome)?$laudo->secao->nome:$laudo->unidadeGdl);
-
-
 
         $final = [
             $this->section->addText(($tituloConclusao=='')?'5. ENCERRAMENTO:':'6. ENCERRAMENTO: ', $this->config->arial12Bold(), $this->config->paragraphJustify()),//encerramento
@@ -367,16 +356,8 @@ class Geral extends Tabelas
             
             $cell->addText('UETC '.$unidade.' – Polícia Científica do Paraná',array('bold' => true,
             'size' =>14 ), array('alignment' => Jc::CENTER)),
-            
-            
-           
+              
     ];
-
-    
-    
-    
-
-
 
         //return [$final,$conclusao,$finalConsideracoesTexto];
     }

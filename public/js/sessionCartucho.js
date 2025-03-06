@@ -8,8 +8,7 @@
 
 var marca=$("#marca")
 console.log('Marca: '+marca.val())
-/* captura os dados gdl *****************************************************/
-console.log('Marca: ',$('#marca_gdl').attr('marca'))
+
 var valorCorrespondente;
 if($('#marca_gdl').attr('marca')!=''){
     if($('#marca_gdl').attr('marca')===undefined){
@@ -212,7 +211,19 @@ condicaoCartucho.on('change',function(){
 })
 condicaoCartucho.val(sessionStorage.getItem('condicaoCartucho'))
 condicaoCartucho.trigger('change')
-    
 
+
+  //função para a criação e manipulação do campo condição do cartucho  
+$(document).ready(function () {
+    $("#condicaoCartucho").change(function () {
+        if ($(this).val() === "percutido e não deflagrado") {
+            $("#funcionamentoCartucho").val("preservado").change(); // Define o valor como "preservado"
+            $("#lacre_saida").attr("required", true);// Define o lacre de saida como campo obrigatorio
+        } else {
+            
+            $("#lacre_saida").removeAttr("required");
+        }
+    });
+});
  
 

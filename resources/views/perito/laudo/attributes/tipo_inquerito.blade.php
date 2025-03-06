@@ -1,5 +1,5 @@
 <div class="col-lg-3 mt-2">
-    <label for="tipo_inquerito"><strong>Tipo do Inquérito<strong><code>*</code></strong></strong></label>
+    <label for="tipo_inquerito"><strong>Tipo de documento<strong><code>*</code></strong></strong></label>
     
     <select required class="js-single-select form-control {{ $errors->has('tipo_inquerito') ? ' is-invalid' : '' }}"
             name="tipo_inquerito" id="tipo_inquerito">

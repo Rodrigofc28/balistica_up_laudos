@@ -169,6 +169,7 @@ class ComponentesText
                 $this->legenda($componentes,$cell,$table)
 
         ];
+        
         $numTab++;
         $arrayImageProjetil=[];
         foreach($componentes as $componente){

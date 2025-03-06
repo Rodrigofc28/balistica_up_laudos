@@ -51,23 +51,7 @@
        
     </div>
        @include('perito.laudo.materiais.attributes.imagem_municao',['tipo'=>'DA MUNIÇÃO'])
-    @if($acao == 'Atualizar')
-    <div>
-        <hr>
-       <strong>• Imagem salva •</strong><br>
-       @if(isset($municao->imagens[0]->nome))
-        <img src="{{asset('../storage/imagensMunicao/'.$municao->imagens[0]->nome)}}" style="width:100px;height:100px"alt="">
-        <strong><a href="{{route('imagemCartuchoExcluir',$municao->imagens[0])}}" style="color:red">Excluir Imagem</a></strong>
-        @else
-        <p>• Sem Imagem</p>
-        @endif
-        @if(isset($municao->imagens[1]->nome))
-        <img src="{{asset('../storage/imagensMunicao/'.$municao->imagens[1]->nome)}}" style="width:100px;height:100px"alt="">
-        <strong><a href="{{route('imagemCartuchoExcluir',$municao->imagens[1])}}"style="color:red">Excluir Imagem</a></strong>
-        @endif  
-       
-    </div>
-     @endif
+    
      
     <div id="btnAcao" class="row justify-content-between mb-4">
         <div  class="col-lg-4 mt-1">

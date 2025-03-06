@@ -29,7 +29,8 @@ class Gerar
     {
         $tempoAtual = now();
         Laudo::where('id', $laudo->id)->update(['tempo_execucao' => $tempoAtual]);
-
+        global $itensCartuchoTeste;
+        $itensCartuchoTeste = []; //variavel criada para a conclusão de laudo de cartucho, para mostrar a eficiencia ou não do cartucho.
         global $i;
         $i = 0;
 

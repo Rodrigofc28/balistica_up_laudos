@@ -49,7 +49,7 @@
     @include('perito.laudo.attributes.tipo_inquerito', ['tipo_inquerito2' => $laudo->tipo_inquerito ??
     old('tipo_inquerito')])
     @include('perito.laudo.attributes.inquerito', ['inquerito' => '' ?? old('inquerito')])
-    @include('perito.laudo.attributes.boletim_ocorrencia',['boletim2'=>$reps['bo']??old('boletim')])
+    
     @include('shared.input_calendar', ['label' => 'Data da Solicitação', 'name' => 'data_solicitacao', 'size' => '3',
     'value' => $dataRecebimento])
     @include('shared.input_calendar', ['label' => 'Data do recebimento', 'name' => 'data_recebimento', 'size' => '3',

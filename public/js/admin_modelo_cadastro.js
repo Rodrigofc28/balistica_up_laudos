@@ -18,7 +18,7 @@ $(".model-arma").on('click',async function () {
     const { value: formValues } = await Swal.fire({
       title: '',
       html: `
-        <img src="${arma.imagemCantoSuperior}">
+        <img width="80%" src="${arma.imagemCantoSuperior}">
         
         <div class="input-container">
           <input id="swal-input0" class="form-control" value="${arma.tipo_arma || ''}">

@@ -149,6 +149,8 @@ class ArmasText
         }      
         
         if ($arma->funcionamento == 'eficiente') {
+            $textoColetaBalistico='';
+            $tituloColetaBalistico='';
             $textoEficiencia="Buscando atestar tais atributos da arma, o Perito(a) submeteu-a ao teste de tiro, usando as munições de correspondente calibre $testeMunicao e efetuando disparos em ação simples e ação dupla. Foram observados os funcionamentos normais dos seus componentes, os quais deflagraram as respectivas cargas de projeção ao serem as espoletas percutidas por uma só vez. Os remanescentes da munição foram devidamente descartados. Nestas condições, verificou-se estar a";
             $textoEficienciaSublinhado=" arma eficiente para a realização de tiros.";
            
@@ -164,13 +166,13 @@ class ArmasText
            $textrun->addText($textoEficiencia, $this->config->arial12());
            $textrun->addText($textoEficienciaSublinhado,$this->config->arial12Underline());
           // $this->section->addPageBreak(1);
-           $tituloColetaBalistico=$this->section->addText('c) Coleta de Padrões Balísticos:', $this->config->arial12Bold());
-           $this->section->addTextBreak(1);
-           $textoColetaBalistico=$this->section->addText($coletaPadraoBalistico,$this->config->arial12(),$this->config->paragraphJustify());
-           
+          if($laudo->sinab=="1"){
+            $tituloColetaBalistico=$this->section->addText('c) Coleta de Padrões Balísticos:', $this->config->arial12Bold());
+            $this->section->addTextBreak(1);
+            $textoColetaBalistico=$this->section->addText($coletaPadraoBalistico,$this->config->arial12(),$this->config->paragraphJustify());
+          }
            return [$textrun, $tituloColetaBalistico,$textoColetaBalistico ];
-            
-             
+               
         }
         if ($arma->funcionamento == 'ineficiente') {
             $textoInificiente="Submetida esta arma de fogo a prova de disparo foi observado o funcionamento dos seus mecanismos, porém a mesma não percutiu eficientemente os estojos a fim de deflagrar a munição, não estando apta para realização de disparos, podendo ainda ser utilizada como instrumento contundente e/ou de intimidação.";
