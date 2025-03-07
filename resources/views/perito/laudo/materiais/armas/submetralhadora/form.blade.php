@@ -44,8 +44,7 @@
         @include('perito.laudo.materiais.attributes.dito_oficio')
         @include('perito.laudo.materiais.attributes.sistema_funcionamento', ['sistema_funcionamento2' =>
         $submetralhadora->sistema_funcionamento ?? old('sistema_funcionamento')])
-        @include('perito.laudo.materiais.attributes.numero_canos', ['num_canos2' => $submetralhadora->num_canos ??
-        old('num_canos')])
+        
         @include('perito.laudo.materiais.attributes.capacidade_carregador', ['capacidade_carregador' =>
         $submetralhadora->capacidade_carregador ?? old('capacidade_carregador')])
         @include('perito.laudo.materiais.attributes.sistema_percussao', ['sistema_percussao2' =>

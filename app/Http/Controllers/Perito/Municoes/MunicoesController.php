@@ -58,7 +58,12 @@ class MunicoesController extends Controller
     }
 
     Municao::create($data);
-
+    //enviando as munições tipo cartucho para a view
+    $municoes = Municao::where('tipo_municao', 'cartucho')
+        ->where('laudo_id', $laudo->id)
+        ->get()
+        ->toArray();
+    session()->put('municoes', $municoes);
     return redirect()->back()
         ->with('success', __('flash.create_f', ['model' => $tipoMunicao]))
         ->with('lacre_entrada', $request->lacrecartucho)

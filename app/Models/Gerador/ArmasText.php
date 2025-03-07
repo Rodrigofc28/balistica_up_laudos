@@ -271,7 +271,11 @@ class ArmasText
             $numTab;
             $extenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);
             $this->section->addTextBreak(1);
-            
+            if(mb_strtoupper($arma->tipo_serie)=='ADULTERADO'){
+                $tipo_arma_serie='ADULTERADO (NÃO REVELADO)';
+            }else{
+                $tipo_arma_serie=mb_strtoupper($arma->tipo_serie);
+            }
             $textrun = $this->section->addTextRun($this->config->paragraphJustify());
             $textrun->addText('3. '.$dig2.'. '. $contagem.' DA ARMA AF-'.$ordemAlfabeto[$contadorAlfanumerico].' - '.mb_strtoupper($arma->marca->nome).' '.$arma->modelo.' – LACRE DE ENTRADA '.$arma->num_lacre_saida, $this->config->arial12Bold());
             $this->section->addTextBreak(1);
@@ -300,10 +304,10 @@ class ArmasText
             $table->addCell(2000)->addText('Procedência:', $fontStyle,$paraStyle);
             $table->addCell(5050)->addText(mb_strtoupper($arma->marca->fabricacao),null,$paraStyle);
             //Nº de serie
-            ($arma->num_serie!="")?[$table->addRow(50,['cantSplit'=>true]),                
+            [$table->addRow(50,['cantSplit'=>true]),                
             $table->addCell(2000,['vMerge'=>'continue'])->addText(''),  
-            $table->addCell(3050)->addText('Nº de série:', $fontStyle,$paraStyle), 
-            $table->addCell(5050)->addText(mb_strtoupper($arma->num_serie),null,$paraStyle)]:'';
+            $table->addCell(3050)->addText('Número de série:', $fontStyle,$paraStyle), 
+            $table->addCell(5050)->addText(mb_strtoupper($arma->num_serie).' '.$tipo_arma_serie,null,$paraStyle)];
             //Nº de patrimonio
             $arma->numero_patrimonio!=''?[$table->addRow(50,['cantSplit'=>true]),
             $table->addCell(2000,['vMerge'=>'continue'])->addText(''),

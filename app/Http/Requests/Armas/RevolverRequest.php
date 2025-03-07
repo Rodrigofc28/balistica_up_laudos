@@ -50,7 +50,7 @@ class RevolverRequest extends FormRequest
             'tipo_acabamento' => 'required|between:5,30',
             'tipo_arma' => 'required|between:5,30',
             'numeracao_montagem' => 'nullable|max: 50',
-            'num_canos'=>'required',
+            
             'sistema_carregamento'=>'required',
             'sistema_funcionamento'=>'required',
             'tipo_tambor'=>'required',

@@ -47,8 +47,7 @@
         $revolver->calibre->id ?? old('calibre_id')])
         @include('perito.laudo.materiais.attributes.sistema_funcionamento', ['sistema_funcionamento2' =>
         $revolver->sistema_funcionamento ?? old('sistema_funcionamento')])
-        @include('perito.laudo.materiais.attributes.numero_canos', ['num_canos2' => $revolver->num_canos ??
-        old('num_canos')]) 
+        
         @include('perito.laudo.materiais.attributes.tipo_tambor',['tipo_tambor2'=>$revolver->tipo_tambor ?? old('tipo_tambor')])
         @include('perito.laudo.materiais.attributes.tambor', ['tambor_rebate2' => $revolver->tambor_rebate ?? old('tambor_rebate')])
         @include('perito.laudo.materiais.attributes.capacidade_carregador', ['capacidade_carregador' =>                                            
