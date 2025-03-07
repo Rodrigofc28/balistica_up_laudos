@@ -79,6 +79,7 @@ class Geral
     {
         
         $chassi = Chassi::where('laudo_id', $laudo->id)->first();
+         
         //pegando as imagens e alocando na variavel
         $image1 = $this->img64base($chassi['image1']);
         $image2 = $this->img64base($chassi['image2']);
@@ -177,21 +178,21 @@ class Geral
 
             $this->section->addText(strtoupper($chassi['veiculo_id']).' PERICIADA', $this->config->arial12Bold(),$this->config->paragraphCenter());
         //Do exame chassi
-            $this->doExameChassi($laudo);
+           $this->doExameChassi($laudo);
         // imagens numeração do chassi
-            $table2 = $this->section->addTable('tabela2img');
-            $table2->addRow(); 
-            $img4=$table2->addCell();
-            $img4->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\carabina.png', array('alignment' => Jc::CENTER, 'width' => 440, 'height'=>100));
-            $this->section->addText('NUMERAÇÃO DO CHASSI', $this->config->arial12Bold(),$this->config->paragraphCenter());
+        //    $table2 = $this->section->addTable('tabela2img');
+         //   $table2->addRow(); 
+          //  $img4=$table2->addCell();
+        //    $img4->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\carabina.png', array('alignment' => Jc::CENTER, 'width' => 440, 'height'=>100));
+        //    $this->section->addText('NUMERAÇÃO DO CHASSI', $this->config->arial12Bold(),$this->config->paragraphCenter());
         // do exame motor  
-            $this->exameMotor($laudo);
+        //   $this->exameMotor($laudo);
         // imagens numeração do motor
-            $table3 = $this->section->addTable('tabela2img');
-            $table3->addRow(); 
-            $img5=$table3->addCell();
-            $img5->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\carabina.png', array('alignment' => Jc::CENTER, 'width' => 440, 'height'=>100));
-            $this->section->addText('NUMERAÇÃO DO MOTOR', $this->config->arial12Bold(),$this->config->paragraphCenter());
+        //    $table3 = $this->section->addTable('tabela2img');
+         //   $table3->addRow(); 
+        //    $img5=$table3->addCell();
+        //    $img5->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\carabina.png', array('alignment' => Jc::CENTER, 'width' => 440, 'height'=>100));
+        //    $this->section->addText('NUMERAÇÃO DO MOTOR', $this->config->arial12Bold(),$this->config->paragraphCenter());
           return $this->section;
 
     } 
@@ -216,13 +217,15 @@ class Geral
    public function doExameChassi($laudo){
     $laudo = Laudo::find($laudo->id);
     $exameChassi=VeiculoInspecao::where('laudo_id', $laudo->id)->first();
-    $dadosVeiculo=Chassi::where('laudo_id', $laudo->id)->first();
     
+    $dadosVeiculo=Chassi::where('laudo_id', $laudo->id)->first();
+   
     switch ($laudo->laudoEfetConst) {
         case 'I801':
             $exame = 'numerações identificadoras';
             
-            if($exameChassi->chassi_status=='integro'){
+            if($exameChassi->chassi_status=='integro'&& $exameChassi->chassi_tipo_adulteracao==NULL){
+                
                 $texto2= "Ao exame de referido suporte, após a devida limpeza, foi verificada a gravação da sequência alfanumérica $exameChassi->chassi_numero, a qual apresenta-se íntegra, sem sinais ou vestígios de adulteração.";
             }else if($exameChassi->chassi_status=='adulterado' && $exameChassi->chassi_tipo_adulteracao=='desbaste_regravação_revelado'){
                 $texto2= "Ao exame de referido suporte, após a devida limpeza, verificou o perito evidentes sinais deixados pela operação ali procedida, que consistiu no desbaste, por ação abrasiva, o que ocasionou a destruição da numeração original, possibilitando a gravação da atual $exameChassi->chassi_revelado_numero. Submetida à superfície em referência a tratamento químico-metalográfico, destinado a revelar remanescentes da gravação original, foi obtida a sequência alfanumérica $exameChassi->chassi_adulterado_numero.";
@@ -247,6 +250,7 @@ class Geral
             
             break;
     }
+     
     $text4 = [
         $this->section->addText('DO EXAME', $this->config->arial12Bold(), $this->config->paragraphJustify()),
         $this->section->addTextBreak(1),
@@ -258,6 +262,7 @@ class Geral
         
         $this->section->addTextBreak(1),
         $this->section->addText(''),'phpWord' => $this->phpWord]; 
+       
         return $this->section;
    }
        //função para exame de motor      

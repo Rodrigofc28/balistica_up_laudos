@@ -636,6 +636,7 @@ class MunicoesText extends Tabelas
         //Função para a criação da tabela e seus campos
     public function tabela2($arraymunicao,$item,$laudo,$instituto,$coleta,$eficiencia,$percutido,$condicoes){
         global $itensCartuchoTeste;//variavel criada para referencia os itens da tabela na conclusão final do laudo
+        $itensCartuchoFotografia=[];
         global $itensCartucho;//variavel para o item da coluna
             $legendaArray=[];
             $numeroContagem=[];
@@ -705,7 +706,9 @@ class MunicoesText extends Tabelas
                 array_push($legendaArray,$municao->projetil);
                 $itensCartucho++; 
                 $itensCartuchoTeste[] = $condicoes;
+                $itensCartuchoFotografia[] = $condicoes;
             }
+           
             $cell=$table->addCell();
             $cell->addText('Legenda:',['bold'=>true,'size'=>9]);
             $this->legenda($legendaArray,$cell);
@@ -739,7 +742,7 @@ class MunicoesText extends Tabelas
                 
                 $inicio=0;
                         
-                $this->imagemMuniCartucho($arraymunicao,$inicio);
+                $this->imagemMuniCartucho($arraymunicao,$inicio,$condicao,$itensCartuchoFotografia);
                     
                 $this->section->addTextBreak(1);
             
@@ -1004,8 +1007,13 @@ class MunicoesText extends Tabelas
             
     }      
     //imagens dos cartuchos  
-    public function imagemMuniCartucho($municao,$inicio){
-    
+    public function imagemMuniCartucho($municao,$inicio,$condicao,$itensCartuchoFotografia){
+        $tamanho=count($itensCartuchoFotografia);
+        if ($tamanho > 0) {
+            $itensFormatados = implode(', ', range(1, $tamanho));
+            
+        } 
+       
         global $numTab;
         $numTab++;
         /*  */
@@ -1016,7 +1024,7 @@ class MunicoesText extends Tabelas
         }else{
             $table = $this->section->addTable('tabela2img');
             $table->addRow(10,['tblHeader'=>true]);   
-            $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomada(s) fotográfica(s) Cartucho(s) Lacre '.$municao[$inicio]->lacrecartucho, $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
+            $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomada(s) fotográfica(s) do(s) Cartucho(s) '.$condicao.' Lacre '.$municao[$inicio]->lacrecartucho, $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
             $table->addRow(10,['cantSplit'=>false]);
         }
         $this->section->addTextBreak(1);
@@ -1042,7 +1050,7 @@ class MunicoesText extends Tabelas
                 $inicio++;
                     if(!empty($municao[$inicio])){
                     
-                    $this->imagemMuniCartucho($municao,$inicio);
+                    $this->imagemMuniCartucho($municao,$inicio,$condicao,$itensCartuchoFotografia);
                     
                 } 
             }
