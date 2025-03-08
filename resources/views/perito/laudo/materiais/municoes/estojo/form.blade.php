@@ -18,7 +18,7 @@
 <input type="hidden" value="estojo" name="tipo_municao"   class="form-control" type="text">
 
 <div class="col-lg-12" style="padding: 0 5% 0">
-@if (session('estojo'))
+@if (session('estojo')&&$acao == 'Cadastrar')
     @php
         $municoes = collect(session('estojo', []))->map(fn($item) => (object) $item);
     @endphp
@@ -54,12 +54,7 @@
             </div>
         </div> 
     @else
-        <div class="itemCartuchoCadastro">
-            <span class="subTituloCadastroCartucho">Itens Cadastrados nesta Sessão</span>   
-            <div class="marcasCadastradasCartuchos">
-                <p>Sem nenhum item cadastrado</p>
-            </div>
-        </div> 
+        
     @endif
     <div class="row mb-3">
         

@@ -20,49 +20,44 @@
 <div class="col-lg-12" style="padding: 0 5% 0">
     
    
-     @if (session('municoes'))
-    @php
-        $municoes = collect(session('municoes', []))->map(fn($item) => (object) $item);
-    @endphp
+     @if (session('municoes')&&$acao == 'Cadastrar')
+            @php
+                $municoes = collect(session('municoes', []))->map(fn($item) => (object) $item);
+            @endphp
 
-    <div class="itemCartuchoCadastro">
-        <span class="subTituloCadastroCartucho">Itens Cadastrados nesta Sessão</span>   
-        <div class="marcasCadastradasCartuchos">
-            <table border="1" width="100%" style="border-collapse: collapse; text-align: left;">
-                <thead>
-                    <tr>
-                        <th>Marca</th>
-                        <th>Calibre</th>
-                        <th>Quantidade</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($municoes as $item)
-                        <tr>
-                            <td style="text-align:center">{{ $item->marca->nome ?? 'N/A' }}</td>
-                            <td style="text-align:center">{{ $item->calibre->nome ?? 'N/A' }}</td>
-                            <td style="text-align:center">{{ $item->quantidade ?? 0 }}</td>
-                            <td style="text-align:center">
-                                <button value="{{ route('municoes.destroy', [$laudo, $item]) }}" type="submit" class="btn btn-danger delete">
-                                    <i class="far fa-trash-alt"></i>
-                                </button>
-                            </td>
-                             
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div> 
-@else
-    <div class="itemCartuchoCadastro">
-        <span class="subTituloCadastroCartucho">Itens Cadastrados nesta Sessão</span>   
-        <div class="marcasCadastradasCartuchos">
-            <p>Sem nenhum item cadastrado</p>
-        </div>
-    </div> 
-@endif
+            <div class="itemCartuchoCadastro">
+                <span class="subTituloCadastroCartucho">Itens Cadastrados nesta Sessão</span>   
+                <div class="marcasCadastradasCartuchos">
+                    <table border="1" width="100%" style="border-collapse: collapse; text-align: left;">
+                        <thead>
+                            <tr>
+                                <th>Marca</th>
+                                <th>Calibre</th>
+                                <th>Quantidade</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($municoes as $item)
+                                <tr>
+                                    <td style="text-align:center">{{ $item->marca->nome ?? 'N/A' }}</td>
+                                    <td style="text-align:center">{{ $item->calibre->nome ?? 'N/A' }}</td>
+                                    <td style="text-align:center">{{ $item->quantidade ?? 0 }}</td>
+                                    <td style="text-align:center">
+                                        <button value="{{ route('municoes.destroy', [$laudo, $item]) }}" type="submit" class="btn btn-danger delete">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                    
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div> 
+        @else
+            
+        @endif
 
 
         
