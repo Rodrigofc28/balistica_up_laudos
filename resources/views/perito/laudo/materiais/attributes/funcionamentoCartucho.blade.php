@@ -25,7 +25,7 @@
 <div class="col-lg-3"id="qtdIne">
     <div class="form-group">
         
-        <label for="" ><strong>Quantidade ineficiente</strong></label>
+        <label for="" ><strong>Quantidade Ineficiente</strong></label>
         <input type="number"  class="form-control" name="qtIneficiente">
     </div>
 </div>

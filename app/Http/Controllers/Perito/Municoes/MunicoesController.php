@@ -26,9 +26,15 @@ class MunicoesController extends Controller
 
     // Verifica se já existe um calibre com os mesmos dados
     
-    $existe = Municao::where('tipo_municao', $tipoMunicao)
+    $existe = Municao::where('tipo_municao', 'cartucho')
         ->where('calibre_id', $request->calibre_id)
         ->where('marca_id', $request->marca_id)
+        ->where('laudo_id', $request->laudo_id)
+        ->where('estojo', $request->estojo)
+        ->where('projetil', $request->projetil)
+        ->where('tipo_projetil', $request->tipo_projetil)
+        ->where('funcionamento', $request->funcionamento)
+        ->where('funcionamentoCartucho', $request->funcionamentoCartucho)
         ->exists();
 
     if ($existe) {
@@ -59,11 +65,11 @@ class MunicoesController extends Controller
 
     Municao::create($data);
     //enviando as munições tipo cartucho para a view
-    $municoes = Municao::where('tipo_municao', 'cartucho')
+      
+    session()->put('municoes', Municao::where('tipo_municao', 'cartucho')//cria uma sessao e armazena as munições
         ->where('laudo_id', $laudo->id)
-        ->get()
-        ->toArray();
-    session()->put('municoes', $municoes);
+        ->get()); 
+     
     return redirect()->back()
         ->with('success', __('flash.create_f', ['model' => $tipoMunicao]))
         ->with('lacre_entrada', $request->lacrecartucho)
