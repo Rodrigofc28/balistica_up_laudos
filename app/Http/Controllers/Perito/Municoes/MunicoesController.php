@@ -23,10 +23,21 @@ class MunicoesController extends Controller
     ]);
 
     $tipoMunicao = $request->input('tipo_municao');
-
-    // Verifica se já existe um calibre com os mesmos dados
+    // Verifica se já existe um estojo com os mesmos dados
+    $existeEstojo = Municao::where('tipo_municao', 'estojo')
+    ->where('calibre_id', $request->calibre_id)
+    ->where('marca_id', $request->marca_id)
+    ->where('laudo_id', $request->laudo_id)
+    ->where('estojo', $request->estojo)
     
-    $existe = Municao::where('tipo_municao', 'cartucho')
+    ->exists();
+
+    if ($existeEstojo) {
+        return redirect()->back()->with('error', 'Esse estojo já foi cadastrado.');
+    }
+    
+    // Verifica se já existe um cartucho com os mesmos dados
+    $existeCartucho = Municao::where('tipo_municao', 'cartucho')
         ->where('calibre_id', $request->calibre_id)
         ->where('marca_id', $request->marca_id)
         ->where('laudo_id', $request->laudo_id)
@@ -37,8 +48,8 @@ class MunicoesController extends Controller
         ->where('funcionamentoCartucho', $request->funcionamentoCartucho)
         ->exists();
 
-    if ($existe) {
-        return redirect()->back()->with('error', 'Essa munição já foi cadastrada.');
+    if ($existeCartucho) {
+        return redirect()->back()->with('error', 'Esse cartucho já foi cadastrado.');
     }
 
     // Processamento das imagens
@@ -69,7 +80,9 @@ class MunicoesController extends Controller
     session()->put('municoes', Municao::where('tipo_municao', 'cartucho')//cria uma sessao e armazena as munições
         ->where('laudo_id', $laudo->id)
         ->get()); 
-     
+    session()->put('estojo', Municao::where('tipo_municao', 'estojo')//cria uma sessao e armazena as munições
+        ->where('laudo_id', $laudo->id)
+        ->get()); 
     return redirect()->back()
         ->with('success', __('flash.create_f', ['model' => $tipoMunicao]))
         ->with('lacre_entrada', $request->lacrecartucho)

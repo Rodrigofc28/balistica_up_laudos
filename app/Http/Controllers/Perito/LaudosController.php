@@ -116,9 +116,8 @@ class LaudosController extends Controller
     public function store(LaudoRequest $request)
     {   
         
-        
-        
-        
+        session()->forget('municoes');//limpa a sessao de municoes criado no controller MunicoesController
+        session()->forget('estojo');//limpa a sessao de municoes criado no controller MunicoesController
         $arma=Arma::all();
         
         $laudo = Laudo::config_laudo_info($request);
@@ -133,7 +132,7 @@ class LaudosController extends Controller
     
     public function show(Laudo $laudo,$lacre=null)
     {
-        session()->forget('municoes');//limpa a sessao de municoes criado no controller CartuchosController
+        
         $id_gdl_armas=session('id_gdl');
         //$armasGdl=DB::select('select * from tabela_pecas_gdl where rep = :id  ',['id'=>$laudo->rep]);
         $armasGdl=Armas_Gdl::all()->where('rep',$laudo->rep);

@@ -17,7 +17,7 @@ class CartuchosController extends Controller
     public function create(Request $request,$laudo)
     {
       
-         
+       
         $marcas = Marca::categoria('municoes');
         $calibres = Calibre::whereNotArmas();
         
