@@ -8,11 +8,15 @@ $(function () {
                 $("#num_serie").prop('disabled', false); //mostrar o elemento
                 break;
             case 'ilegível':
+                $("#num_serie").prop('disabled', true); //mostrar o elemento
+                break;
             case 'suprimido intencionalmente':
             case 'não aparente':
+                $("#num_serie").prop('disabled', true); //mostrar o elemento
+                break;
             case 'adulterado':
                 $('#num_serie').val("");
-                $("#num_serie").prop('disabled', true);
+                $("#num_serie").prop('disabled', false);
                 break;
         }
     });

@@ -56,7 +56,7 @@ class CarabinaRequest extends FormRequest
             'tipo_carregador'=>'nullable',
             'salva_cadastro'=>'nullable',
             'num_lacre' => 'nullable',
-            'num_canos'=>'required'
+            
         ];
     }
 }

@@ -20,7 +20,7 @@
 
             // Inicializa o Cropper.js
             cropper = new Cropper(image, {
-              aspectRatio: NaN, // Proporção do quadrado
+              aspectRatio: 1, // Proporção do quadrado
               viewMode: 0, // Garante que a área visível esteja dentro dos limites
               autoCrop: true, // Habilita o crop box automaticamente
               autoCropArea: 0.8, // Define 80% da imagem como área inicial de corte

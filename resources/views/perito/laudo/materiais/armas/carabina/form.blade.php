@@ -44,8 +44,7 @@
         @include('perito.laudo.materiais.attributes.calibre', ['obrigatorio' => true,'calibre2' => $carabina->calibre->id
         ?? old('calibre_id')])
         @include('perito.laudo.materiais.attributes.dito_oficio')
-        @include('perito.laudo.materiais.attributes.numero_canos', ['num_canos2' => $carabina->num_canos ??
-        old('num_canos')])
+        
         @include('perito.laudo.materiais.attributes.sistema_funcionamento', ['sistema_funcionamento2' =>
         $carabina->sistema_funcionamento ?? old('sistema_funcionamento')])
         @include('perito.laudo.materiais.attributes.tipo_carregador', ['tipo_carregador2' =>

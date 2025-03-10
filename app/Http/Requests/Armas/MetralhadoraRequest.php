@@ -50,7 +50,7 @@ class MetralhadoraRequest extends FormRequest
             'quantidade_raias' => 'required|integer|min:0|max:30',
             'sentido_raias' => 'required|between:5,30',
             'telha'=>'nullable',
-            'num_canos'=>'required',
+            
             'sistema_funcionamento'=>'required',
             'salva_cadastro'=>'nullable'
         ];

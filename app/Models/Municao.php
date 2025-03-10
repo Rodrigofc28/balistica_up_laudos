@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Municao extends Model
 {
-    use SoftDeletes;
+    
 
     protected $fillable = ['marca_id', 'origem_id', 'calibre_id', 'laudo_id', 'estojo',
         'projetil', 'funcionamento', 'quantidade', 'tipo_municao', 'tipo_projetil',

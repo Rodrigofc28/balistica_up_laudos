@@ -18,13 +18,45 @@
 <input type="hidden" value="estojo" name="tipo_municao"   class="form-control" type="text">
 
 <div class="col-lg-12" style="padding: 0 5% 0">
+@if (session('estojo')&&$acao == 'Cadastrar')
+    @php
+        $municoes = collect(session('estojo', []))->map(fn($item) => (object) $item);
+    @endphp
+
+    <div class="itemCartuchoCadastro">
+        <span class="subTituloCadastroCartucho">Itens Cadastrados nesta Sessão</span>   
+        <div class="marcasCadastradasCartuchos">
+            <table border="1" width="100%" style="border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr>
+                        <th>Marca</th>
+                        <th>Calibre</th>
+                        <th>Quantidade</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($municoes as $item)
+                        <tr>
+                            <td style="text-align:center">{{ $item->marca->nome ?? 'N/A' }}</td>
+                            <td style="text-align:center">{{ $item->calibre->nome ?? 'N/A' }}</td>
+                            <td style="text-align:center">{{ $item->quantidade ?? 0 }}</td>
+                            <td style="text-align:center">
+                                <button value="{{ route('municoes.destroy', [$laudo, $item]) }}" type="submit" class="btn btn-danger delete">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </td>
+                             
+                        </tr>
+                    @endforeach
+                </tbody>
+                </table>
+            </div>
+        </div> 
+    @else
+        
+    @endif
     <div class="row mb-3">
-        @empty($arma_estojo_gdl)
-        
-        @else
-            @include('perito.laudo.materiais.attributes.atributes_arma_gdl',['name_arma_gdl'=>$arma_estojo_gdl])
-        @endempty
-        
         
         @include('perito.laudo.materiais.attributes.marca', ['marca2' => $municao->marca->id ?? old('marca_id')])
         @include('perito.laudo.materiais.attributes.origem', ['origem2' => $municao->marca->id ?? old('origem_id')])

@@ -51,7 +51,7 @@ class PistolaRequest extends FormRequest
             
             'sistema_funcionamento'=>'required',
             'sistema_carregamento'=>'required',
-            'num_canos'=>'required',
+            
             'tipo_carregador'=>'nullable', 
             'sistema_percussao'=>'required',   
             'sistema_disparo'=>'required',

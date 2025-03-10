@@ -106,5 +106,19 @@
 .btn-cancel:hover {
   background-color: #c82333;
 }
-
+/* Estilo de cadastro no cartuchos itens */
+.subTituloCadastroCartucho{
+  font-weight: bolder;
+  text-decoration: underline;
+}
+.itemCartuchoCadastro{
+  border:1px solid rgb(184, 178, 178);
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+}
+.marcasCadastradasCartuchos{
+  display: flex;
+ 
+}
 

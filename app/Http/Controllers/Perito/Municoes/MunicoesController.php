@@ -16,53 +16,80 @@ class MunicoesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(MunicaoRequest $request, $laudo)
-    {   
-        
-        $request->validate([
-            'up_image' => 'image|mimes:jpeg,png,jpg',
-            'up_image2' => 'image|mimes:jpeg,png,jpg',
-            // outras validações, se necessário
-        ]);
-        
-        $tipoMunicao=$request->input('tipo_municao');
-        
-       $data = $request->except('up_image','up_image2'); // Excluir 'up_image' do array
-        if (($request->hasFile('up_image') && $request->file('up_image')->isValid())&&($request->hasFile('up_image2') && $request->file('up_image2')->isValid())) {
-            // Gerar um nome único para o arquivo
-            
-            $base = md5($request->file('up_image'). strtotime("now")) . '.jpg';
-            $lateral = md5($request->file('up_image2'). strtotime("now")) . '.jpg';
-            
-              $uploadPath = storage_path('app/public/imagensMunicao');
-            // Caminho onde o arquivo será movido
-            
-            // Verificar se a pasta existe, se não, criar
-            if (!is_dir($uploadPath)) {
-                mkdir($uploadPath, 0755, true);
-            }
-            
-            // Mover o arquivo para a pasta
-            $request->file('up_image')->move($uploadPath, $base);
-            $request->file('up_image2')->move($uploadPath, $lateral);
+{   
+    $request->validate([
+        'up_image' => 'image|mimes:jpeg,png,jpg',
+        'up_image2' => 'image|mimes:jpeg,png,jpg',
+    ]);
 
-            
+    $tipoMunicao = $request->input('tipo_municao');
+    // Verifica se já existe um estojo com os mesmos dados
+    $existeEstojo = Municao::where('tipo_municao', 'estojo')
+    ->where('calibre_id', $request->calibre_id)
+    ->where('marca_id', $request->marca_id)
+    ->where('laudo_id', $request->laudo_id)
+    ->where('estojo', $request->estojo)
+    
+    ->exists();
 
-            // Salvar o caminho da imagem no array de dados
-            $data['up_image'] = 'imagensMunicao/' . $base;
-            $data['up_image2'] = 'imagensMunicao/' . $lateral;
-            // Criar o registro no banco
-            Municao::create($data);
-           
-        }else{
-            Municao::create($data);
-        }
-        
-        return redirect()->back()//route('laudos.show',['laudo_id' => $laudo->id])
-            ->with('success', __('flash.create_f', ['model' => $tipoMunicao]))
-            ->with('lacre_entrada', $request->lacrecartucho)
-            ->with('lacre_saida',$request->lacre_saida )
-            ->with('rep_coleta',$request->rep_materialColetado );
+    if ($existeEstojo) {
+        return redirect()->back()->with('error', 'Esse estojo já foi cadastrado.');
     }
+    
+    // Verifica se já existe um cartucho com os mesmos dados
+    $existeCartucho = Municao::where('tipo_municao', 'cartucho')
+        ->where('calibre_id', $request->calibre_id)
+        ->where('marca_id', $request->marca_id)
+        ->where('laudo_id', $request->laudo_id)
+        ->where('estojo', $request->estojo)
+        ->where('projetil', $request->projetil)
+        ->where('tipo_projetil', $request->tipo_projetil)
+        ->where('funcionamento', $request->funcionamento)
+        ->where('funcionamentoCartucho', $request->funcionamentoCartucho)
+        ->exists();
+
+    if ($existeCartucho) {
+        return redirect()->back()->with('error', 'Esse cartucho já foi cadastrado.');
+    }
+
+    // Processamento das imagens
+    $data = $request->except('up_image', 'up_image2');
+    
+    if (($request->hasFile('up_image') && $request->file('up_image')->isValid()) &&
+        ($request->hasFile('up_image2') && $request->file('up_image2')->isValid())) {
+        
+        $base = md5($request->file('up_image') . strtotime("now")) . '.jpg';
+        $lateral = md5($request->file('up_image2') . strtotime("now")) . '.jpg';
+
+        $uploadPath = storage_path('app/public/imagensMunicao');
+
+        if (!is_dir($uploadPath)) {
+            mkdir($uploadPath, 0755, true);
+        }
+
+        $request->file('up_image')->move($uploadPath, $base);
+        $request->file('up_image2')->move($uploadPath, $lateral);
+
+        $data['up_image'] = 'imagensMunicao/' . $base;
+        $data['up_image2'] = 'imagensMunicao/' . $lateral;
+    }
+
+    Municao::create($data);
+    //enviando as munições tipo cartucho para a view
+      
+    session()->put('municoes', Municao::where('tipo_municao', 'cartucho')//cria uma sessao e armazena as munições
+        ->where('laudo_id', $laudo->id)
+        ->get()); 
+    session()->put('estojo', Municao::where('tipo_municao', 'estojo')//cria uma sessao e armazena as munições
+        ->where('laudo_id', $laudo->id)
+        ->get()); 
+    return redirect()->back()
+        ->with('success', __('flash.create_f', ['model' => $tipoMunicao]))
+        ->with('lacre_entrada', $request->lacrecartucho)
+        ->with('lacre_saida', $request->lacre_saida)
+        ->with('rep_coleta', $request->rep_materialColetado);
+}
+
 
     /**
      * Show the form for editing the specified resource.
