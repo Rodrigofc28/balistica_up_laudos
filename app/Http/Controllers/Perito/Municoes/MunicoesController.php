@@ -29,7 +29,8 @@ class MunicoesController extends Controller
     ->where('marca_id', $request->marca_id)
     ->where('laudo_id', $request->laudo_id)
     ->where('estojo', $request->estojo)
-    
+    ->where('funcionamento', $request->funcionamento)
+    ->where('tipo_projetil', $request->tipo_projetil)
     ->exists();
 
     if ($existeEstojo) {

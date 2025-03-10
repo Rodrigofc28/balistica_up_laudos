@@ -704,11 +704,12 @@ class MunicoesText extends Tabelas
                 $table->addRow(10);
                 
                 array_push($legendaArray,$municao->projetil);
+                $itensCartuchoFotografia[] = $itensCartucho;
                 $itensCartucho++; 
                 $itensCartuchoTeste[] = $condicoes;
-                $itensCartuchoFotografia[] = $condicoes;
+                
             }
-           
+          
             $cell=$table->addCell();
             $cell->addText('Legenda:',['bold'=>true,'size'=>9]);
             $this->legenda($legendaArray,$cell);
@@ -741,8 +742,13 @@ class MunicoesText extends Tabelas
                 $this->section->addTextBreak(1);
                 
                 $inicio=0;
-                        
-                $this->imagemMuniCartucho($arraymunicao,$inicio,$condicao,$itensCartuchoFotografia);
+                
+                $indiceItem = 0; 
+                foreach($arraymunicao as $municao){
+                    $this->imagemMuniCartucho($municao,$inicio,$condicao,$itensCartuchoFotografia,$indiceItem);
+                    $indiceItem++; 
+                };
+                
                     
                 $this->section->addTextBreak(1);
             
@@ -1007,29 +1013,27 @@ class MunicoesText extends Tabelas
             
     }      
     //imagens dos cartuchos  
-    public function imagemMuniCartucho($municao,$inicio,$condicao,$itensCartuchoFotografia){
-        $tamanho=count($itensCartuchoFotografia);
-        if ($tamanho > 0) {
-            $itensFormatados = implode(', ', range(1, $tamanho));
-            
-        } 
-       
+    public function imagemMuniCartucho($municao,$inicio,$condicao,$itensCartuchoFotografia, $indiceItem){
+        if (!isset($itensCartuchoFotografia[$indiceItem])) {
+            return; // Sai da função se não houver mais itens
+        }
+        
         global $numTab;
         $numTab++;
         /*  */
-        $imagem = $this->imagem($municao[$inicio]);
-        if(!isset($imagem[0]) || !isset($imagem[1]) || !$imagem[0] || !$imagem[1])
-        {
-            
-        }else{
+        
+        $imagem = $this->imagem($municao);
+        
             $table = $this->section->addTable('tabela2img');
-            $table->addRow(10,['tblHeader'=>true]);   
-            $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomada(s) fotográfica(s) do(s) Cartucho(s) '.$condicao.' Lacre '.$municao[$inicio]->lacrecartucho, $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
+            $table->addRow(10,['tblHeader'=>true]); 
+            
+                $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomada(s) fotográfica(s) do(s) Cartucho(s) '.$condicao. ' item ' .$itensCartuchoFotografia[$indiceItem]. ' Lacre ' .$municao->lacrecartucho, $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
+            
             $table->addRow(10,['cantSplit'=>false]);
-        }
+        
         $this->section->addTextBreak(1);
     
-        if($municao[$inicio]->tipo_municao=='cartucho')
+        if($municao->tipo_municao=='cartucho')
             {
             
 
@@ -1037,27 +1041,24 @@ class MunicoesText extends Tabelas
 
             }else{
                 $tabelaImg=$table->addCell();
-                $tabelaImg->addImage($this->imagem($municao[$inicio])[0], array('alignment' => Jc::CENTER, 'width' => 220)); 
-                $tabelaImg->addText('Base-Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
+                $tabelaImg->addImage($this->imagem($municao)[0], array('alignment' => Jc::CENTER, 'width' => 220)); 
+                $tabelaImg->addText('Base-Cartucho(s) calibre '.$municao->calibre->nome,$this->fontStyle,$this->paraStyle);
                 
                 
                 
-                if(!empty($this->imagem($municao[$inicio])[1])){
+                if(!empty($this->imagem($municao)[1])){
                     $tabelaImg=$table->addCell();
-                    $tabelaImg->addImage($this->imagem($municao[$inicio])[1], array('alignment' => Jc::CENTER, 'width' => 220)); 
-                    $tabelaImg->addText('Lateral-Cartucho(s) calibre '.$municao[$inicio]->calibre->nome,$this->fontStyle,$this->paraStyle);
+                    $tabelaImg->addImage($this->imagem($municao)[1], array('alignment' => Jc::CENTER, 'width' => 220)); 
+                    $tabelaImg->addText('Lateral-Cartucho(s) calibre '.$municao->calibre->nome,$this->fontStyle,$this->paraStyle);
                 }
-                $inicio++;
-                    if(!empty($municao[$inicio])){
-                    
-                    $this->imagemMuniCartucho($municao,$inicio,$condicao,$itensCartuchoFotografia);
-                    
-                } 
+                
+               
             }
                     
             
     
     }
+   
     $numTab++;
 
     }        
