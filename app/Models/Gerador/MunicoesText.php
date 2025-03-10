@@ -1021,13 +1021,13 @@ class MunicoesText extends Tabelas
         global $numTab;
         $numTab++;
         /*  */
-        
+       
         $imagem = $this->imagem($municao);
         
             $table = $this->section->addTable('tabela2img');
             $table->addRow(10,['tblHeader'=>true]); 
             
-                $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomada(s) fotográfica(s) do(s) Cartucho(s) '.$condicao. ' item ' .$itensCartuchoFotografia[$indiceItem]. ' Lacre ' .$municao->lacrecartucho, $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
+            $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Tabela '.$numTab.' Tomada(s) fotográfica(s) do(s) Cartucho(s) '.$condicao. ' item ' .$itensCartuchoFotografia[$indiceItem]. ' Lacre ' .$municao->lacrecartucho, $this->fontStyle, $this->paraStyle);//cabeçalho da tabela
             
             $table->addRow(10,['cantSplit'=>false]);
         
