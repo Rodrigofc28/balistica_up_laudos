@@ -9,7 +9,6 @@
         background: white;
         padding: 20px;
         
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         text-align: center;
         box-sizing: border-box;
     }
@@ -345,7 +344,8 @@
         <div class="step ">4</div>
     </div>
 
-    <h2>Motocicleta</h2>
+    <h2 style="text-decoration: underline;">Motocicleta</h2>
+    <br>
     <form id="form" action="{{ route('motocicleta.exame') }}" method="POST" onsubmit="handleFormSubmit(event)">
         {{ csrf_field() }}
         <input hidden name="laudo_id" value="{{ $laudo->id}}">
@@ -386,10 +386,10 @@
             <button id="crop-button-chassi" style="display:none;">Recortar</button>
             <canvas id="cropped-result-chassi"></canvas>
             <br><br>
-            <div class="button-grouplimpar">
+           <!-- <div class="button-grouplimpar">
                 <button type="button" id="limparCamposIntegro" onclick="limparCampos('integro')">Limpar campos</button>
             
-            </div>
+            </div>-->
         </div>
     
         <div class="conditional-fields" id="adulteradoFieldsChassi">
@@ -542,9 +542,9 @@
                 <canvas id="cropped-result-chassi-revelado-parcialmente"></canvas>
             </div>
             
-        <div class="button-grouplimpar">
+        <!--<div class="button-grouplimpar">
             <button type="button" id="limparCamposAdulterado" onclick="limparCampos('adulterado')">Limpar campos</button>
-        </div>
+        </div>-->
         </div>
 
     </div>
@@ -560,27 +560,6 @@ function limparCampos(tipo) {
         document.getElementById("image-preview-chassi").style.width = '0px';
         document.getElementById("cropped-result-chassi").getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
         
-        // Desabilita os campos da seção Adulterado
-        document.getElementById('chassi_adulterado').disabled = true;
-        document.getElementById('arquivo_chassi_adulterado').disabled = true;
-        document.getElementById('nao-tem-foto-chassi-adulterado').disabled = true;
-        document.getElementById('tipoadulteracao').disabled = true;
-        document.getElementById('metodologiaChassi').disabled = true;
-        document.getElementById('resultadoChassi').disabled = true;
-        document.getElementById('chassiRevelado').disabled = true;
-        document.getElementById('fotoChassiRevelado').disabled = true;
-        document.getElementById('nao-tem-foto-chassi-revelado').disabled = true;
-        document.getElementById('chassiReveladoParcialmente').disabled = true;
-        document.getElementById('fotoChassiReveladoParcialmente').disabled = true;
-        document.getElementById('nao-tem-foto-chassi-revelado-parcialmente').disabled = true;
-        document.getElementById('chassiCorroborado').disabled = true; // Adicionado
-        document.getElementById('fotoChassiCorroborado').disabled = true; // Adicionado
-        document.getElementById('nao-tem-foto-chassi-corroborado').disabled = true; // Adicionado
-        
-        // Habilita os campos da seção Integro
-        document.getElementById("chassiAtual").disabled = false;
-        document.getElementById("fotoChassiAtual").disabled = false;
-    } else if (tipo === 'adulterado') {
         // Limpa os campos da seção Adulterado
         document.getElementById('chassi_adulterado').value = "";
         document.getElementById('chassiAdulteradoDisplay').innerHTML = "";
@@ -607,26 +586,39 @@ function limparCampos(tipo) {
         document.getElementById('fotoChassiCorroborado').value = ""; // Adicionado
         document.getElementById('nao-tem-foto-chassi-corroborado').checked = false; // Adicionado
         
-        // Desabilita os campos da seção Integro
-        document.getElementById("chassiAtual").disabled = true;
-        document.getElementById("fotoChassiAtual").disabled = true;
+    } else if (tipo === 'adulterado') {
+        // Limpa os campos da seção Integro
+        document.getElementById("chassiAtual").value = "";
+        document.getElementById("fotoChassiAtual").value = "";
+        document.getElementById("chassiAtualDisplay").innerHTML = "";
+        document.getElementById("image-preview-chassi").style.width = '0px';
+        document.getElementById("cropped-result-chassi").getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
         
-        // Habilita os campos da seção Adulterado
-        document.getElementById('chassi_adulterado').disabled = false;
-        document.getElementById('arquivo_chassi_adulterado').disabled = false;
-        document.getElementById('nao-tem-foto-chassi-adulterado').disabled = false;
-        document.getElementById('tipoadulteracao').disabled = false;
-        document.getElementById('metodologiaChassi').disabled = false;
-        document.getElementById('resultadoChassi').disabled = false;
-        document.getElementById('chassiRevelado').disabled = false;
-        document.getElementById('fotoChassiRevelado').disabled = false;
-        document.getElementById('nao-tem-foto-chassi-revelado').disabled = false;
-        document.getElementById('chassiReveladoParcialmente').disabled = false;
-        document.getElementById('fotoChassiReveladoParcialmente').disabled = false;
-        document.getElementById('nao-tem-foto-chassi-revelado-parcialmente').disabled = false;
-        document.getElementById('chassiCorroborado').disabled = false; // Adicionado
-        document.getElementById('fotoChassiCorroborado').disabled = false; // Adicionado
-        document.getElementById('nao-tem-foto-chassi-corroborado').disabled = false; // Adicionado
+        // Limpa os campos da seção Adulterado
+        document.getElementById('chassi_adulterado').value = "";
+        document.getElementById('chassiAdulteradoDisplay').innerHTML = "";
+        document.getElementById('arquivo_chassi_adulterado').value = "";
+        document.getElementById('nao-tem-foto-chassi-adulterado').checked = false;
+        document.getElementById('image-preview-chassi-adulterado').style.width = '0px';
+        document.getElementById('campoTransplante').value = "";
+        document.getElementById('campoReparos').value = "";
+        document.getElementById('tipoadulteracao').value = "";
+        document.getElementById('metodologiaChassi').value = "";
+        document.getElementById('resultadoChassi').value = "";
+        document.getElementById('chassiRevelado').value = "";
+        document.getElementById('chassiReveladoDisplay').innerHTML = "";
+        document.getElementById('fotoChassiRevelado').value = "";
+        document.getElementById('nao-tem-foto-chassi-revelado').checked = false;
+        document.getElementById('image-preview-chassi-revelado').style.width = '0px';
+        document.getElementById('chassiReveladoParcialmente').value = "";
+        document.getElementById('chassiReveladoParcialmenteDisplay').innerHTML = "";
+        document.getElementById('fotoChassiReveladoParcialmente').value = "";
+        document.getElementById('nao-tem-foto-chassi-revelado-parcialmente').checked = false;
+        document.getElementById('image-preview-chassi-revelado-parcialmente').style.width = '0px';
+        document.getElementById('chassiCorroborado').value = ""; // Adicionado
+        document.getElementById('chassiCorroboradoDisplay').innerHTML = ""; // Adicionado
+        document.getElementById('fotoChassiCorroborado').value = ""; // Adicionado
+        document.getElementById('nao-tem-foto-chassi-corroborado').checked = false; // Adicionado
     }
 }
 
@@ -695,6 +687,10 @@ function toggleFields(tipo) {
                 <input type="radio" name="motor_status" value="adulterado" onchange="toggleFields('motor')" required>
                 Adulterado
             </label>
+            <label>
+                <input type="radio" name ="motor_status" value="sem_motor" onchange="toggleFields('motor')" required>
+                Sem motor
+            </label>
         </div>
         
     
@@ -721,11 +717,11 @@ function toggleFields(tipo) {
             <button id="crop-button-motor" style="display:none;">Recortar</button>
             <canvas id="cropped-result-motor"></canvas>
             <br><br>
-          <div class="button-grouplimpar">
+          <!--<div class="button-grouplimpar">
 <button type="button" onclick="toggleFieldsMotor(); limparCamposMotor('integro');">Limpar campos</button>
 
 
-</div>
+</div>-->
 
         </div>
     
@@ -767,7 +763,7 @@ function toggleFields(tipo) {
                     <option value="remarcado_nao_confirmado">Remarcado</option>
                     <option value="reparos_motor">Reparos</option>     
                     <option value="substituido_transplante">Substituído</option>
-                    <option value="transplate_motor">Transplante</option>
+                    <option value="transplate_motor">Transplante</option><!--Ta errado mesmo - transplante -->
                 </select>
             </div>
             
@@ -778,7 +774,7 @@ function toggleFields(tipo) {
              
             <div id="caixaTextoTransplanteMotor" class="caixaTexto" style="display: none;">
                 <label for="campoTransplanteMotor">Informações sobre o Transplante:</label>
-                <textarea id="campoTransplanteMotor" name="transplante_motor" rows="4" cols="50"></textarea>
+                <textarea id="campoTransplanteMotor" name="transplante_motor_text" rows="4" cols="50"></textarea>
             </div>
             
             
@@ -815,6 +811,7 @@ function toggleFields(tipo) {
                 </label> --}} 
             </div>
 
+            <!--Campos para preencher quando for motor revelado no resultado-->
             <div class="motor-revelado-fields" id="motor-revelado">
                 <div class="form-group">
                     <label for="motorRevelado">Número do motor revelado:</label>
@@ -860,6 +857,7 @@ function toggleFields(tipo) {
     <button id="crop-button-motor-corroborado" style="display:none;">Recortar</button>
     <canvas id="cropped-result-motor-corroborado"></canvas>
 
+            <!--Campos para preencher caso resultaso de motor seja Revelado parcialmente-->
             <div class="motor-revelado-fields" id="motor-revelado-parcialmente">
                 <div class="form-group">
                     <label for="motorReveladoParcialmente">Motor Revelado Parcialmente:</label>
@@ -887,14 +885,13 @@ function toggleFields(tipo) {
         </div>
    
     </div>    
-     <div class="button-grouplimpar">
+   <!--  <div class="button-grouplimpar">
             <button type="button" onclick="limparCamposMotor('adulterado')">Limpar campos</button>
-        </div>
+        </div>-->
 </div>
 
     <script>
  
-// Função para limpar campos do motor
 // Função para alternar campos visíveis entre Íntegro e Adulterado para o motor
 function toggleFieldsMotor() {
     console.log('toggleFieldsMotor executado');
@@ -908,13 +905,15 @@ function toggleFieldsMotor() {
         if (statusMotor.value === 'integro') {
             integroFieldsMotor.style.display = 'block';
             adulteradoFieldsMotor.style.display = 'none';
-            // Exibe os botões de voltar e avançar
-            document.querySelector('.nav-buttons').style.display = 'block';
-        } else {
+        } else if (statusMotor.value === 'adulterado') {
             integroFieldsMotor.style.display = 'none';
             adulteradoFieldsMotor.style.display = 'block';
-            // Exibe os botões de voltar e avançar
-            document.querySelector('.nav-buttons').style.display = 'block';
+        } else if (statusMotor.value === 'sem_motor') {
+            integroFieldsMotor.style.display = 'none';
+            adulteradoFieldsMotor.style.display = 'none';
+            // Limpa os campos do motor
+            limparCamposMotor('integro');
+            limparCamposMotor('adulterado');
         }
     }
 }
@@ -929,27 +928,6 @@ function limparCamposMotor(tipo) {
         document.getElementById("image-preview-motor").style.width = '0px';
         document.getElementById("cropped-result-motor").getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
         
-        // Desabilita os campos da seção Adulterado do motor
-        document.getElementById('motorAdulterado').disabled = true;
-        document.getElementById('arquivoMotorAdulterado').disabled = true;
-        document.getElementById('nao-tem-foto-motor-adulterado').disabled = true;
-        document.getElementById('tipoadulteracaoMotor').disabled = true;
-        document.getElementById('metodologiaMotor').disabled = true;
-        document.getElementById('resultadoMotor').disabled = true;
-        document.getElementById('motorRevelado').disabled = true;
-        document.getElementById('fotoMotorRevelado').disabled = true;
-        document.getElementById('nao-tem-foto-motor-revelado').disabled = true;
-        document.getElementById('motorReveladoParcialmente').disabled = true;
-        document.getElementById('fotoMotorReveladoParcialmente').disabled = true;
-        document.getElementById('nao-tem-foto-motor-revelado-parcialmente').disabled = true;
-        document.getElementById('motorCorroborado').disabled = true; // Adicionado
-        document.getElementById('fotoMotorCorroborado').disabled = true; // Adicionado
-        document.getElementById('nao-tem-foto-motor-corroborado').disabled = true; // Adicionado
-        
-        // Habilita os campos da seção Integro do motor
-        document.getElementById("motorAtual").disabled = false;
-        document.getElementById("fotoMotorAtual").disabled = false;
-    } else if (tipo === 'adulterado') {
         // Limpa os campos da seção Adulterado do motor
         document.getElementById('motorAdulterado').value = "";
         document.getElementById('motorAdulteradoDisplay').innerHTML = "";
@@ -976,35 +954,45 @@ function limparCamposMotor(tipo) {
         document.getElementById('fotoMotorCorroborado').value = ""; // Adicionado
         document.getElementById('nao-tem-foto-motor-corroborado').checked = false; // Adicionado
         
-        // Desabilita os campos da seção Integro do motor
-        document.getElementById("motorAtual").disabled = true;
-        document.getElementById("fotoMotorAtual").disabled = true;
+    } else if (tipo === 'adulterado') {
+        // Limpa os campos da seção Integro do motor
+        document.getElementById("motorAtual").value = "";
+        document.getElementById("fotoMotorAtual").value = "";
+        document.getElementById("motorAtualDisplay").innerHTML = "";
+        document.getElementById("image-preview-motor").style.width = '0px';
+        document.getElementById("cropped-result-motor").getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
         
-        // Habilita os campos da seção Adulterado do motor
-        document.getElementById('motorAdulterado').disabled = false;
-        document.getElementById('arquivoMotorAdulterado').disabled = false;
-        document.getElementById('nao-tem-foto-motor-adulterado').disabled = false;
-        document.getElementById('tipoadulteracaoMotor').disabled = false;
-        document.getElementById('metodologiaMotor').disabled = false;
-        document.getElementById('resultadoMotor').disabled = false;
-        document.getElementById('motorRevelado').disabled = false;
-        document.getElementById('fotoMotorRevelado').disabled = false;
-        document.getElementById('nao-tem-foto-motor-revelado').disabled = false;
-        document.getElementById('motorReveladoParcialmente').disabled = false;
-        document.getElementById('fotoMotorReveladoParcialmente').disabled = false;
-        document.getElementById('nao-tem-foto-motor-revelado-parcialmente').disabled = false;
-        document.getElementById('motorCorroborado').disabled = false; // Adicionado
-        document.getElementById('fotoMotorCorroborado').disabled = false; // Adicionado
-        document.getElementById('nao-tem-foto-motor-corroborado').disabled = false; // Adicionado
+        // Limpa os campos da seção Adulterado do motor
+        document.getElementById('motorAdulterado').value = "";
+        document.getElementById('motorAdulteradoDisplay').innerHTML = "";
+        document.getElementById('arquivoMotorAdulterado').value = "";
+        document.getElementById('nao-tem-foto-motor-adulterado').checked = false;
+        document.getElementById('image-preview-motor-adulterado').style.width = '0px';
+        document.getElementById('campoTransplanteMotor').value = "";
+        document.getElementById('campoReparosMotor').value = "";
+        document.getElementById('tipoadulteracaoMotor').value = "";
+        document.getElementById('metodologiaMotor').value = "";
+        document.getElementById('resultadoMotor').value = "";
+        document.getElementById('motorRevelado').value = "";
+        document.getElementById('motorReveladoDisplay').innerHTML = "";
+        document.getElementById('fotoMotorRevelado').value = "";
+        document.getElementById('nao-tem-foto-motor-revelado').checked = false;
+        document.getElementById('image-preview-motor-revelado').style.width = '0px';
+        document.getElementById('motorReveladoParcialmente').value = "";
+        document.getElementById('motorReveladoParcialmenteDisplay').innerHTML = "";
+        document.getElementById('fotoMotorReveladoParcialmente').value = "";
+        document.getElementById('nao-tem-foto-motor-revelado-parcialmente').checked = false;
+        document.getElementById('image-preview-motor-revelado-parcialmente').style.width = '0px';
+        document.getElementById('motorCorroborado').value = ""; // Adicionado
+        document.getElementById('motorCorroboradoDisplay').innerHTML = ""; // Adicionado
+        document.getElementById('fotoMotorCorroborado').value = ""; // Adicionado
+        document.getElementById('nao-tem-foto-motor-corroborado').checked = false; // Adicionado
     }
 }
 
 // Adiciona evento de mudança nos botões de opção do motor
 document.querySelectorAll('input[name="motor_status"]').forEach(function(radio) {
-    radio.addEventListener('change', function() {
-        const tipo = this.value;
-        limparCamposMotor(tipo);
-    });
+    radio.addEventListener('change', toggleFieldsMotor);
 });
  </script>
         
@@ -1233,41 +1221,80 @@ initializeCropper("fotoMotorCorroborado", "image-preview-motor-corroborado", "cr
     
     
         // Toggle revelado fields
-        function toggleReveladoFields(type) {
+// Toggle revelado fields
+// Função para mostrar/ocultar o campo de "Informações sobre os Reparos" no motor
+function mostrarInformacoesReparosMotor() {
+    const tipoadulteracaoMotor = document.getElementById('tipoadulteracaoMotor').value;
+    const caixaTextoReparosMotor = document.getElementById('caixaTextoReparosMotor');
+    
+    if (tipoadulteracaoMotor === 'reparos_motor') {
+        caixaTextoReparosMotor.style.display = 'block';  // Exibe o campo
+    } else {
+        caixaTextoReparosMotor.style.display = 'none';  // Oculta o campo
+    }
+}
+
+// Função para mostrar/ocultar o campo de "Informações sobre o Transplante" no motor
+function mostrarInformacoesTransplanteMotor() {
+    const tipoadulteracaoMotor = document.getElementById('tipoadulteracaoMotor').value;
+    const caixaTextoTransplanteMotor = document.getElementById('caixaTextoTransplanteMotor');
+    
+    if (tipoadulteracaoMotor === 'transplate_motor') {
+        caixaTextoTransplanteMotor.style.display = 'block';  // Exibe o campo
+    } else {
+        caixaTextoTransplanteMotor.style.display = 'none';  // Oculta o campo
+    }
+}
+
+// Toggle revelado fields
+function toggleReveladoFields(type) {
     const resultado = document.getElementById(`resultado${type.charAt(0).toUpperCase() + type.slice(1)}`).value;
+    console.log(`Tipo: ${type}, Resultado: ${resultado}`); // Log para depuração
+
     const reveladoFields = document.getElementById(`${type}-revelado`);
     const corroboradoFields = document.getElementById(`${type}-corroborado`);
     const reveladoParcialmenteFields = document.getElementById(`${type}-revelado-parcialmente`);
     const naoReveladoFields = document.getElementById(`nao-revelado-${type}`);
 
     if (resultado === "revelado") {
+        console.log("Mostrando campos Revelado");
         reveladoFields.style.display = "block";
         corroboradoFields.style.display = "none";
         reveladoParcialmenteFields.style.display = "none";
         naoReveladoFields.style.display = "none";
     } else if (resultado === "corroborado") {
+        console.log("Mostrando campos Corroborado");
         reveladoFields.style.display = "none";
         corroboradoFields.style.display = "block";
         reveladoParcialmenteFields.style.display = "none";
         naoReveladoFields.style.display = "none";
     } else if (resultado === "revelado_parcialmente") {
+        console.log("Mostrando campos Revelado Parcialmente");
         reveladoFields.style.display = "none";
         corroboradoFields.style.display = "none";
         reveladoParcialmenteFields.style.display = "block";
         naoReveladoFields.style.display = "none";
     } else if (resultado === "nao_revelado" || resultado === "nao_confirmado") {
+        console.log("Mostrando campos Não Revelado");
         reveladoFields.style.display = "none";
         corroboradoFields.style.display = "none";
         reveladoParcialmenteFields.style.display = "none";
         naoReveladoFields.style.display = "block";
     } else {
+        console.log("Ocultando todos os campos");
         reveladoFields.style.display = "none";
         corroboradoFields.style.display = "none";
         reveladoParcialmenteFields.style.display = "none";
         naoReveladoFields.style.display = "none";
     }
 }
-    
+
+// Adiciona o evento de change para o campo 'resultadoMotor'
+document.getElementById('resultadoMotor').addEventListener('change', function() {
+    toggleReveladoFields('motor');
+});
+
+
     
         // Toggle foto chassi
         function toggleFotoChassi() {

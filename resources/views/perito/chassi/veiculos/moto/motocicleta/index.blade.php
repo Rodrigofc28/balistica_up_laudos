@@ -8,7 +8,7 @@
             max-width: 80%;
             background: white;
             padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+           /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/
             text-align: center;
             box-sizing: border-box;
         }
@@ -204,9 +204,9 @@
         <div class="step">4</div>
     </div>
     <br>
-    <h2>Motocicleta</h2>
+    <h2 style="text-decoration: underline;">Motocicleta</h2>
 
-   
+   <br>
 
     <form id="form" action="{{route('motocicletas.tela3')}}" method="POST">
         {{ csrf_field() }}
