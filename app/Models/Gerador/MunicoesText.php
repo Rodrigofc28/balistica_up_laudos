@@ -743,13 +743,18 @@ class MunicoesText extends Tabelas
                 
                 $inicio=0;
                 
-                $indiceItem = 0; 
+                $indiceItem = 0; //indice dos itens na tabela cartuchos
                 foreach($arraymunicao as $municao){
-                    $this->imagemMuniCartucho($municao,$inicio,$condicao,$itensCartuchoFotografia,$indiceItem);
+                    //se não tiver imagem pula pra proxima interação
+                    if($municao->up_image=="imagem nao salva"||$municao->up_image2=="imagem nao salva"){
+                        $indiceItem++; 
+                        continue; 
+                    }
+                    $this->imagemMuniCartucho($municao,$condicao,$itensCartuchoFotografia,$indiceItem);
                     $indiceItem++; 
                 };
                 
-                    
+                $numTab++;    
                 $this->section->addTextBreak(1);
             
                 global $i;
@@ -1013,7 +1018,7 @@ class MunicoesText extends Tabelas
             
     }      
     //imagens dos cartuchos  
-    public function imagemMuniCartucho($municao,$inicio,$condicao,$itensCartuchoFotografia, $indiceItem){
+    public function imagemMuniCartucho($municao,$condicao,$itensCartuchoFotografia, $indiceItem){
         if (!isset($itensCartuchoFotografia[$indiceItem])) {
             return; // Sai da função se não houver mais itens
         }
@@ -1059,7 +1064,7 @@ class MunicoesText extends Tabelas
     
     }
    
-    $numTab++;
+    
 
     }        
 
