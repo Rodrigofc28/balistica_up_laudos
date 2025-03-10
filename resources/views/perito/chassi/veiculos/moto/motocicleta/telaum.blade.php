@@ -10,7 +10,6 @@
         max-width: 80%;
         background: white;
         padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         text-align: center;
         box-sizing: border-box;
     }
@@ -189,7 +188,7 @@
         <div class="step">4</div>
     </div>
 
-    <h2>Motocicleta</h2>
+    <h2 style="text-decoration: underline;">Motocicleta</h2>
     <br><br>
     <div class="conteinerImagemRecebida">
         <div>
@@ -206,7 +205,7 @@
 
          </form>
             <div id="cont_frente">
-                <h3 class="posicao">Foto 1: </h3>
+                <h3 class="posicao">Primeira foto: </h3>
                 <div class="preview" hidden id="preview_frente"></div>
                 <div style="display:flex">
                     <div class="preview" id="preview_frente"></div>
@@ -230,7 +229,7 @@
             <hr>
             <br>
             <div id="cont_tras">
-                <h3 class="posicao">Foto 2:</h3>
+                <h3 class="posicao">Segunda foto:</h3>
                 <div class="preview" hidden id="preview_tras"></div>
                 <div style="display:flex">
                     <div class="preview" id="preview_tras"></div>

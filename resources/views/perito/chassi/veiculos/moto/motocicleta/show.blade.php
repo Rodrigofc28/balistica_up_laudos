@@ -13,12 +13,12 @@
     <style>
         /* Estilos para o container */
         .container {
-            width: 90%;
-            max-width: 1000px;
+            width: 100%;
+            max-width: 90%;
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);*/
             text-align: center;
             box-sizing: border-box;
         }
@@ -189,7 +189,7 @@
         <div class="step active">4</div>
     </div>
     <br>
-    <h2>Motocicleta</h2>
+    <h2 style="text-decoration: underline;">Motocicleta</h2>
 
   
 

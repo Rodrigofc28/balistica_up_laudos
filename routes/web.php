@@ -195,7 +195,7 @@ Route::get('motocicleta.tela2/{laudo}', 'Perito\Chassis\MotocicletasController@t
 //exibe a tela 2 de fotos
 Route::post('motocicleta.tela3', 'Perito\Chassis\MotocicletasController@tela3')->name('motocicletas.tela3');
 //exibe a tela 3 de chassi/motor
-Route:: post ('motocicleta.tela4' , 'Perito\Chassis\MotocicletasController@tela4')->name ('motocicleta.tela4');
+Route::post ('motocicleta.tela4' , 'Perito\Chassis\MotocicletasController@tela4')->name ('motocicleta.tela4');
 //exibe tela final Motocicleta 
 Route::post('motocicleta.exame', 'Perito\Chassis\MotocicletasController@exame')->name('motocicleta.exame');
 //-----------------------------------------------------------------------------------------------------------------
@@ -205,6 +205,8 @@ Route::post('motocicleta.exame', 'Perito\Chassis\MotocicletasController@exame')-
 Route::get('carro.index ','Perito\Chassis\CarroController@index')->name('carro.index');
 //Rota para tela de fotos
 Route::post('carro.tela1', 'Perito\Chassis\CarroController@tela1') -> name ('carro.tela1');
+Route::get('carro/tela1', 'Perito\Chassis\CarroController@tela1')->name('carro.tela1');
+
 //Rota para a tela Chassi/Motor
 Route::post('carro.tela2', 'Perito\Chassi\CarroController@tela2') -> name ('carro.tela2');
 //Rota para a tela final de Carro
@@ -215,7 +217,7 @@ Route::post('carro.tela3', 'Perito\Chassis\CarroController@tela3') -> name ('car
 //Rotas para Caminhão (Está funcionando) Tela 1--------------------------------------------------------------------
 Route::get('caminhao.index','Perito\Chassis\CaminhaoController@index')->name('caminhao.index');
 //Rota para tela de fotos
-Route ::post('caminhao.tela1', 'Perito\Chassis\CaminhaoController@tela1') -> name ('caminhao.tela1');
+Route::post('caminhao.tela1', 'Perito\Chassis\CaminhaoController@tela1') -> name ('caminhao.tela1');
 //Rota para a tela Chassi/Motor
 Route::post('caminhao.tela2', 'Perito\Chassis\CaminhaoController@tela2') -> name ('caminhao.tela2');
 //Rota para final de Caminhão

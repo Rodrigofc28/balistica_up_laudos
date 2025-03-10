@@ -251,6 +251,8 @@
             <label><input type="checkbox" id="nao-tem-placa" name="nao-tem-placa"> Não tem placa</label>
         </div>
             <div class="form-group">
+                <label for="cor_predominante" style="text-decoration: underline">Cor predominante:</label>
+                
                 <label><input type="radio" name="cor" value="Vermelho" required> Vermelho</label>
                 <label><input type="radio" name="cor" value="Azul"> Azul</label>
                 <label><input type="radio" name="cor" value="Verde"> Verde</label>

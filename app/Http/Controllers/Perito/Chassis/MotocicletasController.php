@@ -20,7 +20,33 @@ class MotocicletasController extends Controller
     public function tela2(Laudo $laudo)
     {
         return view('perito.chassi.veiculos.moto.motocicleta.index', compact('laudo'));
+    }    
+    
+//teste veiculo tela 1 motocicleta para tela 2, bug relogar
+  /*  public function veiculoTela2(Request $request)
+{
+    $laudo = Laudo::find($request->laudo_id);
+    $veiculo = Veiculo::where('laudo_id', $request->laudo_id)->first();
+
+    if ($veiculo) {
+        $veiculo->update($request->all());
     }
+
+
+
+    $dadosRequest = $request->all();
+    $dadosRequestJson = json_encode($dadosRequest);
+    $listaJson = array_map('json_encode', $_SESSION['VeiculoInseridosTela2']);
+
+    if (!in_array($dadosRequestJson, $listaJson)) {
+        Veiculo::create($request->all()); // Insere na tabela 'veiculo'
+        $_SESSION['VeiculoInseridosTela2'][] = $dadosRequest; // Adiciona à sessão
+    }
+
+    return view('perito.chassi.veiculos.moto.motocicletatelaum', compact('veiculo', 'laudo'));
+}
+
+*/
 
     public function tela3(Request $request)
     {
@@ -82,34 +108,9 @@ class MotocicletasController extends Controller
 
             $_SESSION['VeiculoInspecaoInseridos'][] = $dadosRequest;
         } 
-//--------------------------------------------------------------------------------
-
         return view('perito.chassi.veiculos.moto.motocicleta.show', compact('chassi', 'laudo'));
     }
-
-    //teste veiculo tela 1 motocicleta para tela 2, bug relogar
-    public function veiculoTela2(Request $request)
-{
-    $laudo = Laudo::find($request->laudo_id);
-    $veiculo = Veiculo::where('laudo_id', $request->laudo_id)->first();
-
-    if ($veiculo) {
-        $veiculo->update($request->all());
-    }
-
-
-
-    $dadosRequest = $request->all();
-    $dadosRequestJson = json_encode($dadosRequest);
-    $listaJson = array_map('json_encode', $_SESSION['VeiculoInseridosTela2']);
-
-    if (!in_array($dadosRequestJson, $listaJson)) {
-        Veiculo::create($request->all()); // Insere na tabela 'veiculo'
-        $_SESSION['VeiculoInseridosTela2'][] = $dadosRequest; // Adiciona à sessão
-    }
-
-    return view('perito.chassi.veiculos.moto.motocicletatelaum', compact('veiculo', 'laudo'));
-}
+//--------------------------------------------------------------------------------
 
 
     // Função para deletar um chassi
