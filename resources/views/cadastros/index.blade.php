@@ -38,6 +38,11 @@
                                                 <input type="text" name="nome" id="nome"  required><br>
                                                 <label for="email">Email &nbsp;<ion-icon name="mail"></ion-icon>:</label>
                                                 <input type="email" name="email"  requered><br>
+                                                <label for="email">Função &nbsp;:</label>
+                                                <select name="cargo_id" id="swal-input6"><br>
+                                                        <option value="1">Perito</option>
+                                                        <option value="3">Técnico de Perícia</option>
+                                                </select><br>
                                                 <span>Unidade Padrão:</span>
                                                 <span id="secao"> @include('admin.shared.attributes.secao', ['secoes' => $secoes, 'secao2' => $user->secao_id ?? old('secao_id')])</span><br>
                                                 <label >Use Username GDL:<input type="text" name="userGDL"></label><br>
@@ -64,6 +69,7 @@
         <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 </body>
 </html>
+                                                        
 
         
         

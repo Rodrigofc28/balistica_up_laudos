@@ -62,6 +62,7 @@ class RegisterController extends Controller
             foreach ($admins as $admin) {
                 $admin->notify(new Bellnotification('usuarios a ser cadastrado'));
             }
+           
         event(new Registered($user = $this->create($request->all())));
        
         return redirect()->route('users.index')
@@ -81,7 +82,7 @@ class RegisterController extends Controller
             'nome' => $data['nome'],
             'email' => $data['email'],
             'secao_id' => $data['secao_id'],
-            
+            'cargo_id' => $data['cargo_id'],
             'password' => Hash::make($data['password']),
             'senhaGDL' => $data['senhaGDL'],
             'userGDL' => $data['userGDL']

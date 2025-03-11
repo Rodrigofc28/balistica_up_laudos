@@ -82,9 +82,13 @@ class Geral extends Tabelas
         $cidadeGdl=$laudo->cidadeGdl;
         $orgaoGdl=$laudo->orgaoGdl;
         $unidadeGdl=$laudo->unidadeGdl;
-
-
-        $perito = $laudo->perito->nome;
+        //Verefica se for um tecnico fazendo o laudo o $perito vai ser o nome do perito do caso
+        if($laudo->Perito_do_caso!=null){
+            $perito = $laudo->Perito_do_caso;
+        }else{
+            $perito = $laudo->perito->nome;
+        }
+        
         
         $delegacia = (!empty($laudo->solicitante->nome))?$laudo->solicitante->nome:$orgaoGdl;
         $oficio = $laudo->oficio;
@@ -193,8 +197,14 @@ class Geral extends Tabelas
 
 
  
-    public function addFinalText($perito,$laudo)
+    public function addFinalText($laudo)
     {   
+         //Verefica se for um tecnico fazendo o laudo o $perito vai ser o nome do perito do caso
+         if($laudo->Perito_do_caso!=null){
+            $perito = $laudo->Perito_do_caso;
+        }else{
+            $perito = $laudo->perito->nome;
+        }
         $numberExtenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);
         $cartuchosEstojosTipo=[];
         $arrayNumeroLacre=[];
@@ -348,6 +358,7 @@ class Geral extends Tabelas
             $table=$this->section->addTable(), 
             $table->addRow(),
             $cell=$table->addCell(),
+            
             $cell->addText($perito,array('bold' => true,
             'size' =>14 ), array('alignment' => Jc::CENTER)),
             

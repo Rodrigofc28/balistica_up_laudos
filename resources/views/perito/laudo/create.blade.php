@@ -19,11 +19,8 @@
 @endif
 
 
-<div>
 
-</div>
 <div class="row m-auto">
-    
     @php
     
     if(!empty($reps)){
@@ -37,9 +34,31 @@
         $dataRecebimento='';
     }
     @endphp
-    @include('perito.laudo.attributes.constatacao_eficiencia',['tipo_exame'=>$tipo_exame])
+
     
+    @include('perito.laudo.attributes.constatacao_eficiencia',['tipo_exame'=>$tipo_exame])
    
+    @if($usert->cargo_id == 3)
+    
+    @foreach ($userAll as $userItem)
+     
+        @if(is_array($userItem->tecnico_aut) && in_array($usert->nome, $userItem->tecnico_aut))
+            <div class="col-lg-3 mt-2">
+                <label for=""><b>Perito do Caso</b></label>
+                <select class="form-control" name="Perito_do_caso" id="">
+                    {{-- Exibe as opções de peritos, apenas uma vez --}}
+                    @foreach ($userAll as $userPeritos)
+                        <option value="{{$userPeritos->nome}}">{{$userPeritos->nome}}</option>
+                    @endforeach
+                </select>
+            </div>
+        @endif  
+    @endforeach
+@endif
+
+
+
+
     @include('perito.laudo.attributes.envolvidos')
     
 
@@ -60,7 +79,7 @@
     @include('shared.input_calendar', ['label' => 'Data da ocorrência', 'name' => 'data_ocorrencia', 'size' => '3',
     'value' => ''])
     
-
+    
     
     <input class="form-control" type="hidden" name="perito_id" autocomplete="off" value="{{ Auth::id() }}" />
     @include('shared.attributes.secao', ['secao2' => $laudo->secao_id ?? old('secao_id')])

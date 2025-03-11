@@ -42,7 +42,8 @@ $.ajaxSetup({
                     <select name="cargo_id" id="swal-input6"><br>
                             <option value="1">Perito</option><br>
                             <option value="2">Administrador</option><br>
-                        </select><br>
+                            <option value="3">Técnico</option><br>
+                    </select><br>
                     <label for="swal-input7">   Unidade</label><br>
                         <select name="secao_id" id="swal-input7">
                             

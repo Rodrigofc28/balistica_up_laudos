@@ -75,12 +75,15 @@ class LaudosController extends Controller
         $secoes = Secao::all();
         $cidades = Cidade::all();
         $diretores = Diretor::all();
+        $userAll = User::all();
+        $user = Auth::user()->cargo->id;
+        $usert = auth()->user();
         if($request->tipo_laudo=="balistica"){
             $tipo_exame=$request->tipo_laudo;
             $reps="";
             $armasGdl="";
             return view('perito.laudo.create',
-            compact('secoes', 'cidades', 'diretores','reps','tipo_exame'));
+            compact('secoes', 'cidades', 'diretores','reps','tipo_exame','userAll','usert'));
         }
         if($request->tipo_laudo=="chassi"){
             $tipo_exame=$request->tipo_laudo;

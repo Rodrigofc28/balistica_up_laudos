@@ -80,6 +80,8 @@
                 <td >{{ $usuario->email }}</td>
                 @if($usuario->cargo_id==1 )
                     <td>Perito</td>
+                @elseif($usuario->cargo_id==3)
+                    <td>Técnico de Perícia</td>
                 @else
                     <td>Administrador</td>
                 @endif

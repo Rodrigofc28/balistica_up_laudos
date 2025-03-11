@@ -83,7 +83,7 @@ class Gerar
   
        
         //texto final
-        $this->geral->addFinalText($laudo->perito->nome,$laudo);
+        $this->geral->addFinalText($laudo);
 
         $objWriter = IOFactory::createWriter($this->phpW, 'Word2007');
 

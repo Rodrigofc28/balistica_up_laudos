@@ -109,6 +109,8 @@ class UsersController extends Controller
          $user->senhaGDL = $request->input('senhaGDL');
          $user->cargo_id = $request->input('cargo_id');
          $user->secao_id = $request->input('secao_id');
+
+         $user->tecnico_perito_aut = $request->input('tecnico_perito_aut') ?? [];
          $user->save();
     
          // Retorna uma resposta JSON
@@ -156,9 +158,13 @@ class UsersController extends Controller
     }
     public function userPerfil(Request $request)
     {   
+        $userAll=User::all();
         $user=Auth::user();
         $secao = Secao::all();
-        return view('perito.perfil.index', compact('user','secao'));
+        $userAll = $userAll->filter(function($user) {
+            return $user->cargo_id == 3;
+        });
+        return view('perito.perfil.index', compact('user','secao','userAll'));
     }
     function encryptPassword($password, $key) {
         $encryptedPassword = openssl_encrypt($password, 'AES-128-ECB', $key);

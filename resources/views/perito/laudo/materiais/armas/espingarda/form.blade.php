@@ -22,12 +22,7 @@
 
 <div class="col-lg-12" style="padding: 0 5% 0">
     <div class="row mb-3">
-        {{-- Dados capturados GDL --}}
-        @empty($arma_espingarda_gdl)
         
-        @else
-            @include('perito.laudo.materiais.attributes.atributes_arma_gdl',['name_arma_gdl'=>$arma_espingarda_gdl])
-        @endempty
         @empty($armas)
             @else
             @include('perito.laudo.materiais.attributes.buscar_cadastro_salvo',[$nomeArma='Espingarda'])
@@ -62,8 +57,7 @@
         ?? old('tipo_acabamento')])
         @include('perito.laudo.materiais.attributes.acabamento_outra_opcao', ['tipo_acabamento2' => $espingarda->tipo_acabamento
         ?? old('tipo_acabamento')])
-        @include('perito.laudo.materiais.attributes.cabo', ['cabo2' => $espingarda->cabo ?? old('cabo')])
-        @include('perito.laudo.materiais.attributes.cabo_outra_opcao', ['cabo2' => $espingarda->cabo ?? old('cabo')])
+        
         @include('perito.laudo.materiais.attributes.coronha_fuste', ['coronha_fuste2' => $espingarda->coronha_fuste ??
         old('coronha_fuste')])
         @include('perito.laudo.materiais.attributes.telha',['telha'=>$espingarda->telha ?? old('telha')])

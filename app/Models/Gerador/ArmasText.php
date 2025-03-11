@@ -151,7 +151,7 @@ class ArmasText
         if ($arma->funcionamento == 'eficiente') {
             $textoColetaBalistico='';
             $tituloColetaBalistico='';
-            $textoEficiencia="Buscando atestar tais atributos da arma, o Perito(a) submeteu-a ao teste de tiro, usando as munições de correspondente calibre $testeMunicao e efetuando disparos em ação simples e ação dupla. Foram observados os funcionamentos normais dos seus componentes, os quais deflagraram as respectivas cargas de projeção ao serem as espoletas percutidas por uma só vez. Os remanescentes da munição foram devidamente descartados. Nestas condições, verificou-se estar a";
+            $textoEficiencia="Buscando atestar tais atributos da arma, o Perito(a) submeteu-a ao teste de tiro, usando as munições de correspondente calibre $testeMunicao e efetuando disparos em $arma->sistema_disparo. Foram observados os funcionamentos normais dos seus componentes, os quais deflagraram as respectivas cargas de projeção ao serem as espoletas percutidas por uma só vez. Os remanescentes da munição foram devidamente descartados. Nestas condições, verificou-se estar a";
             $textoEficienciaSublinhado=" arma eficiente para a realização de tiros.";
            
            if($laudo->sinab=="1"){

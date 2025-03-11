@@ -47,6 +47,11 @@
         background-color: rgb(255, 255, 255);
     
     }
+    .tecnicos{
+        border: 1px solid rgb(206, 202, 202);
+        padding: 5px;
+        border-radius: 5px;
+    }
 </style>
 <h2>{{$user->cargo->nome}}: {{$user->nome}}</h2>
     
@@ -82,14 +87,22 @@
                 <div class="mb-3 ">
                     <label  class="form-label">Unidade</label>
                     <select class="form-control" name="secao_id" id="">
-                    @foreach ($secao as $s)
-                    <option @if ($s->nome==$user->secao->nome) selected @endif value="{{$s->id}}">{{$s->nome}}</option>
-                    @endforeach
-                </select>
+                        @foreach ($secao as $s)
+                            <option @if ($s->nome==$user->secao->nome) selected @endif value="{{$s->id}}">{{$s->nome}}</option>
+                        @endforeach
+                    </select>
                 </div>
-            
-            
-           
+                @if ($user->cargo->nome == 'Perito' || $user->cargo->nome == 'Administrador')
+                <span>Técnicos autorizados para a realização de laudos periciais</span>
+                <div class="mb-3 tecnicos">
+                    @foreach ($userAll as $tecnico)
+                        <label for="">{{$tecnico->nome}}&nbsp;</label>
+                        <input type="checkbox" name="tecnico_perito_aut[]" value="{{$tecnico->nome}}" 
+                            {{ is_array($user->tecnico_perito_aut) && in_array($tecnico->nome, $user->tecnico_perito_aut) ? 'checked' : '' }}>
+                    @endforeach
+                </div>
+                @endif
+
                 <button value="{{route('users.update', ['user' => $user->id])}}"  class="btn btn-primary form-control">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>

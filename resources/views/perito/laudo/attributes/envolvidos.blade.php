@@ -11,7 +11,7 @@
 </style>
 <div class="col-lg-3 mt-2" >
     
-<label for="nome_vitima"  ><strong>Nome do envolvido </strong></label><br>
+    <label for="nome_vitima"  ><strong>Nome do envolvido </strong></label><br>
     
     <input   class="form-control" type="text"  name="nome_vitima" id="nome_vitima">
     
