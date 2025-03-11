@@ -32,7 +32,8 @@ class UsersController extends Controller
     {   
         $cargos = Cargo::all();
         $secao = Secao::all();
-        $usuarios=User::all();
+        $usuarios = User::orderBy('nome', 'desc') // Ordenação alfabética crescente
+                        ->get();
         $users = User::paginate(10);
        
         return view('admin.users.index', compact('users','usuarios','cargos','secao'));
@@ -145,7 +146,7 @@ class UsersController extends Controller
             return response()->json(['success' => false, 'message' => 'Erro ao deletar: ' . $e->getMessage()]);
         }
     }
-
+    //busca pelo nome do usuario
     public function search(Request $request)
     {
         $cargos = Cargo::all();
@@ -155,10 +156,26 @@ class UsersController extends Controller
 
         $usuarios = User::when($search, function ($query, $search) {
             return $query->where('nome', 'LIKE', "%{$search}%");
-        })->get();
+        })
+        ->orderBy('nome', 'desc') // Ordenação alfabética (A-Z)
+        ->get();
     
         return view('admin.users.index', compact('users','usuarios','cargos','secao'));
     }
+    //Busca os não cadastrados 
+    public function naoCadastrados()
+    {
+        $cargos = Cargo::all();
+        $secao = Secao::all();
+        $users = User::paginate(10); 
+        $search='nao cadastrado';
+
+        $usuarios = User::where('status', 'nao cadastrado')->get();
+    
+        return view('admin.users.index', compact('users','usuarios','cargos','secao'));
+    }
+    
+
     //Perfil do usuario
     public function userPerfil(Request $request)
     {   

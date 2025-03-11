@@ -41,7 +41,12 @@ Route::post('users/update/{user}', 'Admin\UsersController@update')->name('users.
 Route::post('users/store/{user}', 'Admin\UsersController@store')->name('users.store');
 Route::get('users/perfil', 'Admin\UsersController@userPerfil')->name('users.perfil');
 Route::get('admin/laudos/search/{rep}', 'Admin\LaudosController@search')->name('admin.laudos.search');
+/* Busca de Usuarios*/
+//-------------------------------------------------------------------------------------------------------------
 Route::get('admin/users/search', 'Admin\UsersController@search')->name('users.search');
+Route::get('admin/users/search/nao_cadastrados', 'Admin\UsersController@naoCadastrados')->name('naoCadastrados');
+
+//--------------------------------------------------------------------------------------------------------------
 Route::get('admin/laudos', 'Admin\LaudosController@index')->name('admin.laudos.index');
 /* Peritos routes */
 Route::resource('laudos', 'Perito\LaudosController')->except(['edit']);
