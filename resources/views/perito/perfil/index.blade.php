@@ -61,7 +61,7 @@
             <form id="updateUserForm"  method="post">
                 {{ csrf_field() }}
                 <input class="form-control" hidden name="id" value="{{$user->id}}" type="text">
-                <input class="form-control" hidden name="cargo_id" value="1" type="text">
+                
                 <div class="mb-3 input-container">
                     <input id="nomeUser" class="form-control" name="nome" value="{{$user->nome}}" type="text">
                     <label for="nomeUser"  class="form-label">Nome Completo</label>

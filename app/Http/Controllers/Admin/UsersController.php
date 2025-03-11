@@ -89,7 +89,7 @@ class UsersController extends Controller
 
 
 
-
+     
      public function update(Request $request, $id)
      {
          
@@ -107,7 +107,10 @@ class UsersController extends Controller
          $user->email = $request->input('email');
          $user->userGDL = $request->input('userGDL');
          $user->senhaGDL = $request->input('senhaGDL');
-         $user->cargo_id = $request->input('cargo_id');
+         
+         $user->cargo_id = $request->has('cargo_id') ? $request->input('cargo_id') : $user->cargo_id;
+         
+         
          $user->secao_id = $request->input('secao_id');
 
          $user->tecnico_perito_aut = $request->input('tecnico_perito_aut') ?? [];
@@ -156,6 +159,7 @@ class UsersController extends Controller
     
         return view('admin.users.index', compact('users','usuarios','cargos','secao'));
     }
+    //Perfil do usuario
     public function userPerfil(Request $request)
     {   
         $userAll=User::all();

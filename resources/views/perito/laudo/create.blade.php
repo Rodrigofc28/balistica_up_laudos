@@ -37,23 +37,22 @@
 
     
     @include('perito.laudo.attributes.constatacao_eficiencia',['tipo_exame'=>$tipo_exame])
-   
+   {{-- Exibe as opções de tecnico --}}
     @if($usert->cargo_id == 3)
     
-    @foreach ($userAll as $userItem)
-     
-        @if(is_array($userItem->tecnico_aut) && in_array($usert->nome, $userItem->tecnico_aut))
             <div class="col-lg-3 mt-2">
                 <label for=""><b>Perito do Caso</b></label>
                 <select class="form-control" name="Perito_do_caso" id="">
                     {{-- Exibe as opções de peritos, apenas uma vez --}}
                     @foreach ($userAll as $userPeritos)
-                        <option value="{{$userPeritos->nome}}">{{$userPeritos->nome}}</option>
+                        @if(is_array($userPeritos->tecnico_perito_aut) && in_array($usert->nome, $userPeritos->tecnico_perito_aut))
+                            <option value="{{$userPeritos->nome}}">{{$userPeritos->nome}}</option>
+                        @endif     
                     @endforeach
                 </select>
             </div>
-        @endif  
-    @endforeach
+         
+    
 @endif
 
 
