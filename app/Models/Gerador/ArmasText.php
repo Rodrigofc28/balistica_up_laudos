@@ -210,7 +210,17 @@ class ArmasText
 
     public function tabelaarmas($arma,$fontStyle,$paraStyle,$laudo,$contadorAlfanumerico){
             $this->i++;
-        
+        //Ajustando o cabo da arma caso seja espingarda
+       
+        if($arma->cabo!=''||$arma->cabo!=null){
+            $caboArma=$arma->cabo;
+        }else if($arma->coronha_fuste!=''||$arma->coronha_fuste!=null){
+            $caboArma=$arma->coronha_fuste;
+        }else{
+            $caboArma='';
+        }
+    
+        //----------------------------------------------------------------------------------------------
             $contagem=$this->i;
             $dig2 = 1; 
             for ($cn = 0; $this->i > 9; $cn++) {
@@ -391,8 +401,8 @@ class ArmasText
             $table->addRow(50,['cantSplit'=>true]);
             $table->addCell(2000,['vMerge'=>'restart'])->addText('Outras Características', $fontStyle,$paraStyle); 
             //Cabo
-            $arma->cabo!=''?[$table->addCell(3050)->addText('Cabo:', $fontStyle,$paraStyle),
-            $table->addCell(5050)->addText(mb_strtoupper($arma->cabo),null,$paraStyle)]:'';                     
+            $caboArma!=''?[$table->addCell(3050)->addText('Cabo:', $fontStyle,$paraStyle),
+            $table->addCell(5050)->addText(mb_strtoupper($caboArma),null,$paraStyle)]:'';                     
             //Acabamento
             $arma->tipo_acabamento!=''?[$table->addRow(50,['cantSplit'=>true]),
             $table->addCell(2000,['vMerge'=>'continue'])->addText(''),
