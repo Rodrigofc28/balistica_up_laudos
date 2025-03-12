@@ -76,7 +76,7 @@ class LaudosController extends Controller
             $user = Auth::user()->cargo->id;
             $usertecnico = auth()->user();
             //Busca minhas reps
-            $documents = Post::where('expert', strtoupper($request->Perito_do_caso)) //comando para teste da função -> strtoupper(Auth::user()->nome) FABIANO FERREIRA DO AMARAL SCHMIDT
+            $documents = Post::where('expert', strtoupper('FABIANO FERREIRA DO AMARAL SCHMIDT')) //comando para teste da função -> strtoupper(Auth::user()->nome) FABIANO FERREIRA DO AMARAL SCHMIDT $request->Perito_do_caso
             
             ->where(function ($query) {
                 $query->where('examNature', 'B602 - EXAME DE EFICIÊNCIA E PRESTABILIDADE')

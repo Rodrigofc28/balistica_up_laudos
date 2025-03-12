@@ -44,7 +44,7 @@
                         'BALOTE FOSTER'=>'' ,
                         'CHUMBO AMOLGADO'=>'',
                         'FRAGMENTADO'=>'',
-                        'INDERTERMINADO'=>'',
+                        'INDETERMINADO'=>'',
                         'POLYMATCH'=>''
                 
                 ] as $constituicao_formato=>$extensao)
