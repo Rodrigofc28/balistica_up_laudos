@@ -287,7 +287,7 @@ class Geral extends Tabelas
                         $descricaoConclusao="Concluídos os exames descritos neste laudo, constatou-se que:";
                         $this->section->addText($tituloConclusao, $this->config->arial12Bold(), $this->config->paragraphJustify());
                         $this->section->addText($descricaoConclusao, $this->config->arial12(), $this->config->paragraphJustify());}
-            }
+                }
                 $item=1;
                 $municaoFuncionamento=false;
                 //conclusão de laudo de cartucho 
@@ -305,9 +305,14 @@ class Geral extends Tabelas
                     }
                 }
                 
+        } 
         
+        if(count($laudo->municoes)==0 && count($laudo->armas)==0){
+            $tituloConclusao='';
+            
+        }
         
-       } 
+       
 
        
         if($laudo->sinab=='1'&& count($laudo->armas)>0){
@@ -331,7 +336,7 @@ class Geral extends Tabelas
         if($cartuchosEstojosTipo==null&&$arrayNumeroLacre==null){
             $finalConsideracoesTexto=null;
         }else{
-        $finalConsideracoesTexto=[  
+            $finalConsideracoesTexto=[  
             $this->section->addTextBreak(1),
             $this->section->addText(($tituloConclusao=='')?"4. CONSIDERAÇÕES FINAIS:":"5. CONSIDERAÇÕES FINAIS:", $this->config->arial12Bold(), $this->config->paragraphJustify()),//consideracão final
             $this->section->addText($consideracaoFinais, $this->config->arial12(), $this->config->paragraphJustify()),
@@ -345,7 +350,7 @@ class Geral extends Tabelas
         $unidade=(!empty($laudo->secao->nome)?$laudo->secao->nome:$laudo->unidadeGdl);
 
         $final = [
-            $this->section->addText(($tituloConclusao=='')?'5. ENCERRAMENTO:':'6. ENCERRAMENTO: ', $this->config->arial12Bold(), $this->config->paragraphJustify()),//encerramento
+            $this->section->addText(($tituloConclusao=='')?'4. ENCERRAMENTO:':'5. ENCERRAMENTO: ', $this->config->arial12Bold(), $this->config->paragraphJustify()),//encerramento
             $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
             
             $textrun->addText("Este laudo foi redigido pelo(a) Perito(a) que realizou o exame e que o subscreve digitalmente em ", $this->config->arial12(), $this->config->paragraphJustify()),
