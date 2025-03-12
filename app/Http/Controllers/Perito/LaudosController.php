@@ -35,11 +35,15 @@ class LaudosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //Acessa a minhas Reps----------------------------------------------------------------------------------------------------------------
     public function index()
     {
     
         
-        
+            $userAll = User::all();
+            $user = Auth::user()->cargo->id;
+            $usertecnico = auth()->user();
+            //Busca minhas reps
             $documents = Post::where('expert', strtoupper(Auth::user()->nome)) //strtoupper(Auth::user()->nome)
             
             ->where(function ($query) {
@@ -61,9 +65,40 @@ class LaudosController extends Controller
         
         $reps = DB::table('_nome_da_tabela')->where('nome', $usuariosenhaGdl[0]->userGDL)->get();
        
-        return view('perito.laudo.index', compact('laudos','reps','documents'));
+        return view('perito.laudo.index', compact('laudos','reps','documents','userAll','usertecnico'));
     }
-
+    //Busca pelas reps de peritos----------------------------------------------------------------------------------------------------------------
+    public function repsPeritos(Request $request)
+    {
+    
+        
+            $userAll = User::all();
+            $user = Auth::user()->cargo->id;
+            $usertecnico = auth()->user();
+            //Busca minhas reps
+            $documents = Post::where('expert', strtoupper($request->Perito_do_caso)) //comando para teste da função -> strtoupper(Auth::user()->nome) FABIANO FERREIRA DO AMARAL SCHMIDT
+            
+            ->where(function ($query) {
+                $query->where('examNature', 'B602 - EXAME DE EFICIÊNCIA E PRESTABILIDADE')
+                      ->orWhere('examNature', 'B601 - EXAME DE CONSTATAÇÃO')
+                      ->orWhere('examNature', 'I801 - EXAME NAS NUMERAÇÕES IDENTIFICADORAS');
+            })
+            ->where(function ($query) {
+                $query->where('status', 'LAUDO EM EXECUÇÃO')
+                      ->orWhere('status', 'ABERTA E DISTRIBUÍDA');
+            })
+            ->get();
+        
+        $usuariosenhaGdl=User::where('id','=',Auth::id())->get();
+        
+       
+        $user = Auth::id();
+        $laudos = Laudo::findMyReps($user); 
+        
+        $reps = DB::table('_nome_da_tabela')->where('nome', $usuariosenhaGdl[0]->userGDL)->get();
+       
+        return view('perito.laudo.index', compact('laudos','reps','documents','userAll','usertecnico'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -77,13 +112,13 @@ class LaudosController extends Controller
         $diretores = Diretor::all();
         $userAll = User::all();
         $user = Auth::user()->cargo->id;
-        $usert = auth()->user();
+        $usertecnico = auth()->user();
         if($request->tipo_laudo=="balistica"){
             $tipo_exame=$request->tipo_laudo;
             $reps="";
             $armasGdl="";
             return view('perito.laudo.create',
-            compact('secoes', 'cidades', 'diretores','reps','tipo_exame','userAll','usert'));
+            compact('secoes', 'cidades', 'diretores','reps','tipo_exame','userAll','usertecnico'));
         }
         if($request->tipo_laudo=="chassi"){
             $tipo_exame=$request->tipo_laudo;
@@ -154,8 +189,7 @@ class LaudosController extends Controller
         $users_img_municoes = DB::select('select lacrecartucho,lacre_saida, group_concat(id),tipo_municao from municoes where laudo_id = ? group by lacrecartucho,lacre_saida,tipo_municao', [$laudo->id]);
         $objMuni=(object) $users_img_municoes;
         
-        /* $numero = preg_replace('/^(\d+),\d+$/', '$1', $obj->{1}->{'group_concat(id)'});
-         dd($numero);  */
+       
          if(count($armasGdl)==0){
             return view('perito.laudo.show',
                 compact('laudo', 'cidades', 'solicitantes',
@@ -192,6 +226,7 @@ class LaudosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //acessa a meus laudos ---------------------------------------------------------------
     public function meusLaudos()
     {
         
@@ -241,7 +276,7 @@ class LaudosController extends Controller
         
         return view('perito.materiais', compact('laudo'));
     }
-
+//Gera o laudo Balistico----------------------------------------------------------------------
     public function generate_docx(Laudo $laudo)
     {
         if ($laudo->armas->isEmpty() && $laudo->municoes->isEmpty() && $laudo->componentes->isEmpty()) {

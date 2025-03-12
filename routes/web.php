@@ -47,11 +47,14 @@ Route::get('admin/users/search', 'Admin\UsersController@search')->name('users.se
 Route::get('admin/users/search/nao_cadastrados', 'Admin\UsersController@naoCadastrados')->name('naoCadastrados');
 Route::get('admin/users/search/funcao', 'Admin\UsersController@funcao')->name('funcao');
 //--------------------------------------------------------------------------------------------------------------
+
 Route::get('admin/laudos', 'Admin\LaudosController@index')->name('admin.laudos.index');
+
 /* Peritos routes */
 Route::resource('laudos', 'Perito\LaudosController')->except(['edit']);
 Route::get('/create/', 'Perito\LaudosController@create')->name('laudos.rep');
-
+//Busca as reps dos peritos em minhas reps----------------------------------------------------------------------
+Route::get('/buscaRepPeritos/', 'Perito\LaudosController@repsPeritos')->name('repsPeritos');
 Route::get('/show_materias/{laudo_id}', 'Perito\LaudosController@show_materias')->name('show_materias');
 Route::get('/meus_laudos/', 'Perito\LaudosController@meusLaudos')->name('meus_laudos');
 Route::get('/atualiza/{exame}', 'Perito\LaudosController@atualiza')->name('laudos.atualiza');

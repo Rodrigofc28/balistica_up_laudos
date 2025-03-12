@@ -9,7 +9,23 @@
 'ths' => ['REP','Recebimento','Designação', 'Ofício', 'Natureza do Exame','Cidade','Unidade','Status'],])
 
 @section('table-content')
-
+    @if($usertecnico->cargo_id == 3)
+      <form action="{{route('repsPeritos')}}" method="get">
+            <div class="col-lg-3 mt-2 ">
+                <label for=""><b>Perito do Caso</b></label>
+                <select class="form-control" name="Perito_do_caso" id="">
+                    {{-- Exibe as opções de peritos--}}
+                    @foreach ($userAll as $userPeritos)
+                        @if(is_array($userPeritos->tecnico_perito_aut) && in_array($usertecnico->nome, $userPeritos->tecnico_perito_aut))
+                            <option value="{{$userPeritos->nome}}">{{$userPeritos->nome}}</option>
+                        @endif     
+                    @endforeach
+                </select>
+                <button type="submit">Busca REP</button>
+            </div>
+         
+      </form>
+    @endif
 
   @foreach ($documents as $document) 
     <tr>

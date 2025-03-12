@@ -150,7 +150,7 @@
                     <th>Calibre</th>
                     <th>Quantidade</th>
                     
-                    <th>Nº do Lacre</th>
+                    <th>Número do Lacre de Saída</th>
                     <th colspan="2">Ações</th>
                 </tr>
             </thead>
