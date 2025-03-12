@@ -45,7 +45,7 @@ Route::get('admin/laudos/search/{rep}', 'Admin\LaudosController@search')->name('
 //-------------------------------------------------------------------------------------------------------------
 Route::get('admin/users/search', 'Admin\UsersController@search')->name('users.search');
 Route::get('admin/users/search/nao_cadastrados', 'Admin\UsersController@naoCadastrados')->name('naoCadastrados');
-
+Route::get('admin/users/search/funcao', 'Admin\UsersController@funcao')->name('funcao');
 //--------------------------------------------------------------------------------------------------------------
 Route::get('admin/laudos', 'Admin\LaudosController@index')->name('admin.laudos.index');
 /* Peritos routes */

@@ -174,7 +174,19 @@ class UsersController extends Controller
     
         return view('admin.users.index', compact('users','usuarios','cargos','secao'));
     }
+    //Busca pela função 
+    public function funcao(Request $request)
+    {
+      
+        $cargos = Cargo::all();
+        $secao = Secao::all();
+        $users = User::paginate(10); 
+        $search='nao cadastrado';
+
+        $usuarios = User::where('cargo_id', $request->funcao)->get();
     
+        return view('admin.users.index', compact('users','usuarios','cargos','secao'));
+    }
 
     //Perfil do usuario
     public function userPerfil(Request $request)
