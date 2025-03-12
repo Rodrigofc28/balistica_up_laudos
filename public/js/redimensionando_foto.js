@@ -2,8 +2,9 @@
 
       
    // função pra pra redimensiona
-    function carrega(inputFile,image,cropper,preview,upImage,rotateButton,pre){
+    function carrega(inputFile,image,cropper,preview,upImage,rotateButton,pre,scale){
       
+        let aspectRatioAtual = scale; 
         inputFile.addEventListener('change', (event) =>{
           
         const file = event.target.files[0];
@@ -20,7 +21,7 @@
 
             // Inicializa o Cropper.js
             cropper = new Cropper(image, {
-              aspectRatio: 1, // Proporção do quadrado
+              aspectRatio:aspectRatioAtual, // Proporção do quadrado
               viewMode: 0, // Garante que a área visível esteja dentro dos limites
               autoCrop: true, // Habilita o crop box automaticamente
               autoCropArea: 0.8, // Define 80% da imagem como área inicial de corte
@@ -73,6 +74,32 @@
         if (cropper) {
           cropper.rotate(90); // Rotaciona a imagem 90 graus no sentido horário
         }
-  });}
+        
+    });
+    quadradoBtn.addEventListener('click', () => {
+      if (cropper) {
+          // Alterna entre aspectRatio 1 (quadrado) e 0 (livre)
+          aspectRatioAtual = 1;
+          cropper.setAspectRatio(aspectRatioAtual);
+          console.log(`Aspect Ratio alterado para: ${aspectRatioAtual === 1 ? 'Quadrado (1:1)' : 'Livre (0)'}`);
+      }
+  });
+   retanguloBtn.addEventListener('click', () => {
+    if (cropper) {
+        // Alterna entre aspectRatio 1 (quadrado) e 0 (livre)
+        aspectRatioAtual = 2;
+        cropper.setAspectRatio(aspectRatioAtual);
+        console.log(`Aspect Ratio alterado para: ${aspectRatioAtual === 1 ? 'Quadrado (1:1)' : 'Livre (0)'}`);
+    }
+  });
+  retanguloPlusBtn.addEventListener('click', () => {
+    if (cropper) {
+        // Alterna entre aspectRatio 1 (quadrado) e 0 (livre)
+        aspectRatioAtual = 5;
+        cropper.setAspectRatio(aspectRatioAtual);
+        console.log(`Aspect Ratio alterado para: ${aspectRatioAtual === 1 ? 'Quadrado (1:1)' : 'Livre (0)'}`);
+    }
+  });
+}
   
    

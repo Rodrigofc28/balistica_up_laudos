@@ -71,6 +71,10 @@
                     <img id="image" >
                 </div>
             </div>
+            <button class="btnNext" id="retanguloPlusBtn"  ><img style="width: 50px" src="{{ asset('image/retangulo5.png') }}" alt="dimensional"> </button>
+            
+            <button class="btnNext" id="retanguloBtn" ><img style="width: 50px" src="{{ asset('image/retangulo.png') }}" alt="dimensional"> </button>
+            <button class="btnNext"   id="quadradoBtn"  ><img style="width: 50px" src="{{ asset('image/quadrado.png') }}" alt="dimensional"> </button>
             <button class="btnNext" onclick="next('seta_frente')" id="seta_frente"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
             <button class="btnNext"  id="rotateButton"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
             <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b> 
@@ -132,8 +136,9 @@
             let upImage = document.getElementById('upImage'); // Seu input de arquivo
             let prevFrente = "#preview"
             let rotateButton = document.getElementById('rotateButton');
+            let scale = 2;
             let cropper;
-            carrega(inputFile,image,cropper,preview,upImage,rotateButton,prevFrente)
+            carrega(inputFile,image,cropper,preview,upImage,rotateButton,prevFrente,scale)
         
        
     }
@@ -147,8 +152,9 @@
             let preVerso = "#prev"
             let upImage = document.getElementById('upImage2'); // Seu input de arquivo
             let rotateButton = document.getElementById('rotateButton1');
+            let scale = 2;
             let cropper;
-            carrega(inputFile,image,cropper,preview1,upImage,rotateButton,preVerso)
+            carrega(inputFile,image,cropper,preview1,upImage,rotateButton,preVerso,scale)
         
        
     }
