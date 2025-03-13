@@ -83,7 +83,7 @@
                <b>Busca por Função</b>
                
        
-            <select name="funcao" onchange="this.form.submit()">
+            <select name="funcao"  onchange="this.form.submit()">
                 <option selected ></option>
                 <option value="1">Perito</option>
                 <option value="3">Técnico</option>
