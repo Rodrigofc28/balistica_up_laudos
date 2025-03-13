@@ -24,7 +24,7 @@
               aspectRatio:aspectRatioAtual, // Proporção do quadrado
               viewMode: 0, // Garante que a área visível esteja dentro dos limites
               autoCrop: true, // Habilita o crop box automaticamente
-              autoCropArea: 0.8, // Define 80% da imagem como área inicial de corte
+              autoCropArea: 2, // Define área inicial de corte podendo ser 1, 2 ou 0.9...
               movable: true, // Permite mover o crop box
               zoomable: true, // Permite dar zoom na imagem
               scalable: true, // Permite redimensionar

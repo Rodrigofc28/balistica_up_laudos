@@ -83,7 +83,7 @@ function nextButton(arg,tipo){
             quadradoArg="quadradoSerie"
             retanguloArg="retanguloSerie"
             retanguloPlusArg="retanguloPlusSerie"
-            scale = 1
+            scale = 3
         click_input_file(inputFile,image,preview,imagemCanto,id_preview,rotate,quadradoArg,retanguloArg,retanguloPlusArg,scale)
         }
        

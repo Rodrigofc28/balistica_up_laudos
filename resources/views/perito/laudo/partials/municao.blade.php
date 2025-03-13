@@ -21,8 +21,9 @@
     <td> {{ $municao->marca->nome ?? '' }} </td>
     <td> {{ $municao->calibre->nome ?? '' }} </td>
     <td> {{ $municao->quantidade }} (Unidades)</td>
-    
     <td>{{ $municao->lacrecartucho }}</td>
+    <td>{{ $municao->lacre_saida }}</td>{{--Lacre de entrada Banco de dados ta invertido--}}
+    
     <td>
        
         <a class="btn btn-primary" href="{{ route('municoes.edit', [$laudo, $municao]) }}">

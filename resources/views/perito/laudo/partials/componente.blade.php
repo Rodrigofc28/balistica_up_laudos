@@ -21,7 +21,7 @@
         <td>{{$componente->calibreNominal}}</td>
         <td> {{ $componente->quantidade_frascos }}
              </td>
-        
+             <td>{{$componente->lacre_saida}}</td>
         <td>{{$componente->lacrecartucho}}</td>
         <td>
         

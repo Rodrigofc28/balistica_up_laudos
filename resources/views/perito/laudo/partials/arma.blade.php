@@ -7,7 +7,7 @@
     <td> {{ isset($arma->marca->nome) ? $arma->marca->nome : '' }} </td>
     <td> {{isset($arma->calibre->nome) ? $arma->calibre->nome : ""}} </td>
     <td>1</td>
-  
+    <td> {{ $arma->num_lacre_saida }} </td>{{-- No banco o lacre de entrada ta invertido sendo ele  num_lacre_saida--}}
     <td> {{ $arma->num_lacre }} </td>
 
     <td>
