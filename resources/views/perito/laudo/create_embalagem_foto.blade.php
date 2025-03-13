@@ -38,9 +38,10 @@
       position: absolute;
     }
     .btnNext{
+      
       border-radius:5px;
       padding:1%;
-      color:#e7dbdb;
+      color:#635c5c;
       text-decoration:underline ;
       background-color:rgb(255, 253, 253);
     }
@@ -71,10 +72,10 @@
                     <img id="image" >
                 </div>
             </div>
-            <button class="btnNext" id="retanguloPlusBtn"  ><img style="width: 50px" src="{{ asset('image/retangulo5.png') }}" alt="dimensional"> </button>
             
-            <button class="btnNext" id="retanguloBtn" ><img style="width: 50px" src="{{ asset('image/retangulo.png') }}" alt="dimensional"> </button>
-            <button class="btnNext"   id="quadradoBtn"  ><img style="width: 50px" src="{{ asset('image/quadrado.png') }}" alt="dimensional"> </button>
+            <button class="btnNext" id="retanguloPlus"  >4:3</button>
+            <button class="btnNext" id="retangulo" >16:9</button>
+            <button class="btnNext"   id="quadrado"  >1:1</button>
             <button class="btnNext" onclick="next('seta_frente')" id="seta_frente"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
             <button class="btnNext"  id="rotateButton"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
             <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b> 
@@ -89,6 +90,9 @@
                     <img id="image1" >
                 </div>
             </div>
+            <button class="btnNext" id="retanguloPlusVerso"  >4:3</button>
+            <button class="btnNext" id="retanguloVerso" >16:9</button>
+            <button class="btnNext"   id="quadradoVerso"  >1:1</button>
             <button class="btnNext"  onclick="next('seta_verso')"  id="seta_verso"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
             <button class="btnNext"  id="rotateButton1"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
             <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b>
@@ -137,8 +141,12 @@
             let prevFrente = "#preview"
             let rotateButton = document.getElementById('rotateButton');
             let scale = 2;
+            let quadradoBtn = document.getElementById('quadrado');
+            let retanguloBtn = document.getElementById('retangulo');
+            let retanguloPlusBtn = document.getElementById('retanguloPlus');
             let cropper;
-            carrega(inputFile,image,cropper,preview,upImage,rotateButton,prevFrente,scale)
+            //funcao que carrega o cropper
+            carrega(inputFile,image,cropper,preview,upImage,rotateButton,prevFrente,scale,quadradoBtn,retanguloBtn,retanguloPlusBtn)
         
        
     }
@@ -153,11 +161,15 @@
             let upImage = document.getElementById('upImage2'); // Seu input de arquivo
             let rotateButton = document.getElementById('rotateButton1');
             let scale = 2;
+            let quadradoBtn = document.getElementById('quadradoVerso');
+            let retanguloBtn = document.getElementById('retanguloVerso');
+            let retanguloPlusBtn = document.getElementById('retanguloPlusVerso');
             let cropper;
-            carrega(inputFile,image,cropper,preview1,upImage,rotateButton,preVerso,scale)
+            carrega(inputFile,image,cropper,preview1,upImage,rotateButton,preVerso,scale,quadradoBtn,retanguloBtn,retanguloPlusBtn)
         
        
     }
+    //função de carregamento da imagem passando a posição
      function next(arg){
         if(arg=="seta_verso"){
             

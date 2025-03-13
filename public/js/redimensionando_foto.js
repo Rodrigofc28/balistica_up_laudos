@@ -1,8 +1,8 @@
 
 
       
-   // função pra pra redimensiona
-    function carrega(inputFile,image,cropper,preview,upImage,rotateButton,pre,scale){
+   // função pra redimensiona
+    function carrega(inputFile,image,cropper,preview,upImage,rotateButton,pre,scale,quadradoBtn,retanguloBtn,retanguloPlusBtn){
       
         let aspectRatioAtual = scale; 
         inputFile.addEventListener('change', (event) =>{
@@ -70,36 +70,40 @@
           alert('Por favor, selecione um arquivo de imagem válido.');
         }
       })
+      //botao de rotacionar
       rotateButton.addEventListener('click', () => {
         if (cropper) {
           cropper.rotate(90); // Rotaciona a imagem 90 graus no sentido horário
         }
         
     });
-    quadradoBtn.addEventListener('click', () => {
+    //botao de scala quadrada
+      quadradoBtn.addEventListener('click', () => {
+        if (cropper) {
+            // Alterna entre aspectRatio 1 (quadrado) e 0 (livre)
+            aspectRatioAtual = 1;
+            cropper.setAspectRatio(aspectRatioAtual);
+            
+        }
+    });
+    //botao de scala retangular
+    retanguloBtn.addEventListener('click', () => {
       if (cropper) {
           // Alterna entre aspectRatio 1 (quadrado) e 0 (livre)
-          aspectRatioAtual = 1;
+          aspectRatioAtual = 2;
           cropper.setAspectRatio(aspectRatioAtual);
-          console.log(`Aspect Ratio alterado para: ${aspectRatioAtual === 1 ? 'Quadrado (1:1)' : 'Livre (0)'}`);
+          
       }
-  });
-   retanguloBtn.addEventListener('click', () => {
-    if (cropper) {
-        // Alterna entre aspectRatio 1 (quadrado) e 0 (livre)
-        aspectRatioAtual = 2;
-        cropper.setAspectRatio(aspectRatioAtual);
-        console.log(`Aspect Ratio alterado para: ${aspectRatioAtual === 1 ? 'Quadrado (1:1)' : 'Livre (0)'}`);
-    }
-  });
-  retanguloPlusBtn.addEventListener('click', () => {
-    if (cropper) {
-        // Alterna entre aspectRatio 1 (quadrado) e 0 (livre)
-        aspectRatioAtual = 5;
-        cropper.setAspectRatio(aspectRatioAtual);
-        console.log(`Aspect Ratio alterado para: ${aspectRatioAtual === 1 ? 'Quadrado (1:1)' : 'Livre (0)'}`);
-    }
-  });
+    });
+    //botao de scala retangular plus
+    retanguloPlusBtn.addEventListener('click', () => {
+      if (cropper) {
+          // Alterna entre aspectRatio 1 (quadrado) e 0 (livre)
+          aspectRatioAtual = 3;
+          cropper.setAspectRatio(aspectRatioAtual);
+        
+      }
+    });
 }
   
    

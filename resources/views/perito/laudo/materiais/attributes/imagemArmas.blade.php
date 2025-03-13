@@ -43,7 +43,7 @@
     .btnNext{
       border-radius:5px;
       padding:1%;
-      color:#ffff;
+      color:#3b3838;
       text-decoration:underline ;
       background-color:rgb(250, 249, 249);
     }
@@ -53,6 +53,7 @@
     }
 </style>
 <div class="conteinerImagemRecebida">
+    
     <div>
         
        <h2 class="titulo">IMAGENS</h2>
@@ -73,7 +74,10 @@
                     <img class="image" id="image_dir" >
                 </div>
             </div>
-            <button type="button" class="btnNext" onclick="nextButton('dir')" id="dir"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
+            <button type="button" class="btnNext" id="retanguloPlusDireita"  >4:3</button>
+            <button type="button" class="btnNext" id="retanguloDireita" >16:9</button>
+            <button type="button" class="btnNext"   id="quadradoDireita"  >1:1</button>
+            <button type="button" class="btnNext" onclick="nextButton('dir','{{$tipo}}')" id="dir"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
             <button type="button" class="btnNext"  id="rotateButtonDir"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
             <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b> 
        </div> 
@@ -87,7 +91,10 @@
                     <img class="image" id="image_esq" >
                 </div>
             </div>
-            <button type="button" class="btnNext"  onclick="nextButton('esq')"  id="esq"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
+            <button type="button" class="btnNext" id="retanguloPlusEsquerda"  >4:3</button>
+            <button type="button" class="btnNext" id="retanguloEsquerda" >16:9</button>
+            <button type="button" class="btnNext"   id="quadradoEsquerda"  >1:1</button>
+            <button type="button" class="btnNext"  onclick="nextButton('esq','{{$tipo}}')"  id="esq"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
             <button type="button" class="btnNext"  id="rotateButtonEsq"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
             <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b>
             
@@ -102,12 +109,16 @@
                     <img class="image" id="image_serie" >
                 </div>
             </div>
-            <button class="btnNext" type="button"  onclick="nextButton('serie')"  id="serie"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
+            <button type="button" class="btnNext" id="retanguloPlusSerie"  >4:3</button>
+            <button type="button" class="btnNext" id="retanguloSerie" >16:9</button>
+            <button type="button" class="btnNext"   id="quadradoSerie"  >1:1</button>
+            <button class="btnNext" type="button"  onclick="nextButton('serie','{{$tipo}}')"  id="serie"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
             <button class="btnNext" type="button" id="rotateButtonSerie"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
             <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b>
             
         </div>
     </div> 
+    
     <script src="{{asset('js/redimensionando_foto.js')}}"></script>
     <script src="{{asset('js/sessionArmImg.js')}}"></script>
     </div>   

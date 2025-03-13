@@ -39,7 +39,7 @@
     .btnNext{
       border-radius:5px;
       padding:1%;
-      color:#ffff;
+      color:#474444;
       text-decoration:underline ;
       background-color:rgb(248, 247, 247);
     }
@@ -67,6 +67,9 @@
                 <img id="imageBase" >
             </div>
         </div>
+        <button type="button" class="btnNext" id="retanguloPlusBase"  >4:3</button>
+        <button type="button" class="btnNext" id="retanguloBase" >16:9</button>
+        <button type="button" class="btnNext"   id="quadradoBase"  >1:1</button>
         <button type="button" class="btnNext" onclick="nextButton('base')" id="base"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
         <button type="button" class="btnNext"  id="rotateButtonbase"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
         <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b> 
@@ -81,6 +84,9 @@
                 <img id="imageLateral" >
             </div>
         </div>
+        <button type="button" class="btnNext" id="retanguloPlusLateral"  >4:3</button>
+        <button type="button" class="btnNext" id="retanguloLateral" >16:9</button>
+        <button type="button" class="btnNext"   id="quadradoLateral"  >1:1</button>
         <button type="button" class="btnNext"  onclick="nextButton('lateral')"  id="lateral"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
         <button type="button" class="btnNext"  id="rotateButtonLateral"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
         <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b>
