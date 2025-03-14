@@ -36,6 +36,17 @@
         <option value="Envolvido">Envolvido (vitima ou portador)</option>
     </select>
 </div>
-
+<div class="col-lg-3 mt-2" >
+<table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nome do Envolvido</th>
+                <th>Perfil</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaEnvolvidos"></tbody>
+</table>
+<button id="limpar" class="btn btn-danger">Limpar Lista</button>
+ </div>  
     
 

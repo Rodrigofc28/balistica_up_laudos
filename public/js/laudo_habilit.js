@@ -71,38 +71,66 @@ $('#tipo_inquerito').on('change',function(){
         $('#orgaoIn').val(orgao) 
       }
 })
-$('#incluir').on('click',function(){
-   $i=0 
-   var nome=$('#nome_vitima').val()
-    var perfil=$('#perfil_envolvido').val()
-    if(nome==''){
-        swal("Preencha o campo nome do envolvido")
-    }
-    if(perfil==''){
-        swal("Preencha o campo perfil")
-    }
-    if(nome!='' && perfil!=''){
-        swal("Nome adicionado")
-        
-        
-        
-        array.push(nome)
-        array.push(perfil)
-        $('#nomesIDs').append(`<span class="badge bg-secondary me-1">${nome} - ${perfil}</span>`)
-      // Store array in localStorage
-      
-        $('#nome_vitima').val('')
-        $('#perfil_envolvido').val('')
-        
-        
+$(document).ready(function(){
+  let envolvidos = JSON.parse(localStorage.getItem('envolvidos')) || [];
 
-        $('#nomeIncluir').val(array)
-        
-        //alert(`Incluidos: ${array}`)
-    }
-   
-    
-})
+  function atualizarTabela() {
+      $("#tabelaEnvolvidos").empty();
+      envolvidos.forEach((item, index) => {
+          $("#tabelaEnvolvidos").append(`<tr><td>${item.nome}</td><td>${item.perfil}</td></tr>`);
+      });
+
+      atualizarInputEscondido();
+  }
+
+  function atualizarInputEscondido() {
+      $('#nomeIncluir').val(JSON.stringify(envolvidos)); // Transforma a lista em JSON e armazena no input
+  }
+
+  atualizarTabela();
+
+  function adicionarEnvolvido() {
+      var nome = $('#nome_vitima').val().trim();
+      var perfil = $('#perfil_envolvido').val().trim();
+
+      if (nome === '') {
+          swal("Preencha o campo Nome do Envolvido");
+          return;
+      }
+      if (perfil === '') {
+          return;
+      }
+
+      envolvidos.push({ nome, perfil });
+      localStorage.setItem('envolvidos', JSON.stringify(envolvidos));
+
+      atualizarTabela();
+
+      $('#nome_vitima').val('');
+      $('#perfil_envolvido').val('');
+  }
+
+  $('#incluir').on('click', adicionarEnvolvido);
+
+  $('#perfil_envolvido').on('change', adicionarEnvolvido);
+
+  $('#limpar').on('click', function(){
+      swal({
+          title: "Tem certeza?",
+          text: "Isso apagará todos os envolvidos!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+      }).then((confirmado) => {
+          if (confirmado) {
+              localStorage.removeItem('envolvidos');
+              envolvidos = [];
+              atualizarTabela();
+              swal("Lista apagada!", { icon: "success" });
+          }
+      });
+  });
+});
 $(document).ready(function() {
     $('#tabela').on('click',function(){
     console.log('ok deu certo')
