@@ -98,7 +98,7 @@
                     @foreach ($userAll as $tecnico)
                         <label for="">{{$tecnico->nome}}&nbsp;</label>
                         <input type="checkbox" name="tecnico_perito_aut[]" value="{{$tecnico->nome}}" 
-                            {{ is_array($user->tecnico_perito_aut) && in_array($tecnico->nome, $user->tecnico_perito_aut) ? 'checked' : '' }}>
+                            {{ is_array($user->tecnico_perito_aut) && in_array($tecnico->nome, $user->tecnico_perito_aut) ? 'checked' : '' }}><br>
                     @endforeach
                 </div>
                 @endif
