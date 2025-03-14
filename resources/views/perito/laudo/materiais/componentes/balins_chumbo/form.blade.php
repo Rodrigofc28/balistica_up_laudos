@@ -22,15 +22,14 @@
 
 <div class="col-lg-12" style="padding: 0 5% 0">
     <div class="row mb-3">
-        @empty($arma_projetil_gdl)
+        @php
+            //dd($laudo->laudoEfetConst);
+        @endphp
         
-        @else
-            @include('perito.laudo.materiais.attributes.atributes_arma_gdl',['name_arma_gdl'=>$arma_projetil_gdl])
-        @endempty
-        @include('perito.laudo.materiais.attributes.tipo_raiamento', ['tipo_raiamento2' =>
-        $componente->tipo_raiamento ?? old('tipo_raiamento')])
-        @include('perito.laudo.materiais.attributes.tipo_projetil', ['tipo_projetil2' =>
-        $componente->tipo_projetil ?? old('tipo_projetil')])
+            @include('perito.laudo.materiais.attributes.tipo_raiamento', ['tipo_raiamento2' =>
+            $componente->tipo_raiamento ?? old('tipo_raiamento')])
+            @include('perito.laudo.materiais.attributes.tipo_projetil', ['tipo_projetil2' =>
+            $componente->tipo_projetil ?? old('tipo_projetil')])
        
         @include('perito.laudo.materiais.attributes.massa', ['massa' =>(isset($componente))? $componente->massa:'','calibreReal'=>(isset($componente))?$componente->calibreReal:'','calibreNominal'=>(isset($componente))?$componente->calibreNominal:''
          ?? old('massa'), old('calibreReal'),old('calibreNominal') ])
@@ -65,23 +64,7 @@
 
     </div>
      @include('perito.laudo.materiais.attributes.imagem_municao',['tipo'=>'DOS PROJÉTEIS'])
-    @if($acao == 'Atualizar')
-    <!-- <div>
-        <hr>
-       <strong>• Imagem salva •</strong><br>
-       @if(isset($componente->imagensProjetil[0]->nome))
-        <img src="{{asset('../storage/imagensProjetil/'.$componente->imagensProjetil[0]->nome)}}" style="width:100px;height:100px"alt="">
-        <a href="{{route('imagemProjetilExcluir',$componente->imagensProjetil[0])}}" style="color:red">Excluir Imagem</a>
-        @else
-        <p>• Sem Imagem •</p>
-        @endif
-        @if(isset($componente->imagensProjetil[1]->nome))
-        <img src="{{asset('../storage/imagensProjetil/'.$componente->imagensProjetil[1]->nome)}}" style="width:100px;height:100px"alt="">
-        <a href="{{route('imagemProjetilExcluir',$componente->imagensProjetil[0])}}"style="color:red">Excluir Imagem</a>
-        @endif  
-       
-    </div> -->
-     @endif
+    
 
     <div id="btnAcao" class="row justify-content-between mb-4">
         <div class="col-lg-4 mt-1">

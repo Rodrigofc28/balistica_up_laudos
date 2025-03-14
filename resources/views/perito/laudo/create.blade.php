@@ -18,8 +18,23 @@
     {{ Form::open(['route' => 'laudos.store']) }}
 @endif
 
-
-
+{{--Tabela de envolvidos--}}
+<div >
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nome do Envolvido</th>
+                <th>Perfil</th>
+            </tr>
+        </thead>
+        <tbody id="tabelaEnvolvidos">
+            
+        </tbody>
+        <td colspan="2" >
+            <button type="button" id="limpar" class="btn btn-danger">Limpar Lista de Envolvidos</button>
+        </td>
+    </table>
+</div> 
 <div class="row m-auto">
     @php
     
@@ -54,9 +69,6 @@
          
     
     @endif
-
-
-
 
     @include('perito.laudo.attributes.envolvidos')
     
@@ -110,7 +122,7 @@
             <i class="fas fa-arrow-circle-left"></i> Voltar</a>
     </div>
     <div class="col-lg-4 mt-3 mb-4">
-        <button class="btn btn-success btn-block" type="submit">
+        <button id="salvaContinua" class="btn btn-success btn-block" type="submit">
             <i class="fas fa-save"></i> Salvar e Continuar
         </button>
     </div>

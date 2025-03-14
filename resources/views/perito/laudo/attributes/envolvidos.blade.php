@@ -8,6 +8,11 @@
         padding-left: 10%;
         color: #646161;
     }
+    .limpar {
+        display: flex;
+        justify-content: center;
+    
+    }
 </style>
 <div class="col-lg-3 mt-2" >
     
@@ -15,14 +20,10 @@
     
     <input   class="form-control" type="text"  name="nome_vitima" id="nome_vitima">
     
-    <button class="envolvido_btn" id="incluir" >
-        <b class="label_envolvido">Incluir mais envolvidos</b>
-        <img  style="width:50px" src="{{ asset('image/perfil.png') }}" alt="">
-    </button>
+    
     <div id="nomesIDs">
 
     </div>
-    
     
 </div>
 
@@ -36,17 +37,8 @@
         <option value="Envolvido">Envolvido (vitima ou portador)</option>
     </select>
 </div>
-<div class="col-lg-3 mt-2" >
-<table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Nome do Envolvido</th>
-                <th>Perfil</th>
-            </tr>
-        </thead>
-        <tbody id="tabelaEnvolvidos"></tbody>
-</table>
-<button id="limpar" class="btn btn-danger">Limpar Lista</button>
- </div>  
+
+
+  
     
 
