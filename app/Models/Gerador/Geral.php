@@ -192,11 +192,6 @@ class Geral extends Tabelas
 
     }
 
-    
-    
-
-
- 
     public function addFinalText($laudo)
     {   
          //Verefica se for um tecnico fazendo o laudo o $perito vai ser o nome do perito do caso
@@ -315,9 +310,6 @@ class Geral extends Tabelas
             
         }
         
-          
-
-       
         if($laudo->sinab=='1'&& count($laudo->armas)>0){
             $consideracaoFinaisSinab=" Cumpre ressaltar que os padrões balísticos elegíveis para inclusão no Banco Nacional de Perfis Balísticos (BNPB) devem ser armazenados pelo prazo de 20 anos conforme definido no Procedimento Operacional do Sistema Nacional de Análise Balística (SINAB), independentemente de futura destruição da arma.";
         }

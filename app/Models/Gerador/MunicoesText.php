@@ -46,9 +46,10 @@ class MunicoesText extends Tabelas
              if(count($laudo->componentes)>0){ 
                 //caso tenha componentes(orjetil) no exame adiciona um ao item do subtitulo
                 $tituloCartucho=3;
-            }else{
+            }elseif(count($laudo->armas)>0){
                 $tituloCartucho=2;
-            }
+            }else{
+                $tituloCartucho=1;}
              if($ligaTituloCartucho){
                 $this->section->addText('3.'.$tituloCartucho.' DOS CARTUCHOS ', $this->config->arial12Bold(), $this->config->paragraphJustify());
              }
@@ -860,6 +861,10 @@ class MunicoesText extends Tabelas
         //Função para a criação do texto e da tabela de estojo          
     public function tabelaEstojo($laudo,$item,$identificacaoEstojo,$numeroTabela){
         $ligaItemCartucho=false;//verefica se tem algum exame de cartucho
+        $ligaItemArma=false;
+        if(count($laudo->armas)>0){
+            $ligaItemArma=true;
+        }
             foreach($laudo->municoes as $municao){  
                 if($municao->tipo_municao=='cartucho'){ 
                     $ligaItemCartucho=true;//verefica se tem algum exame de cartucho e passa a variavel para true
@@ -890,8 +895,10 @@ class MunicoesText extends Tabelas
         //caso o cartuchos exista ele adiciona 
         if($ligaItemCartucho){
             $itemEstojo=3;
-        }else{
+        }elseif($ligaItemArma){
             $itemEstojo=2;
+        }else{
+            $itemEstojo=1;
         }
         if(count($laudo->componentes)>0){ 
             //adiciona mais um caso tenha projetil 
