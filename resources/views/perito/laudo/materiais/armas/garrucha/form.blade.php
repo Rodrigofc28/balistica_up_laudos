@@ -76,7 +76,7 @@
         @include('perito.laudo.materiais.attributes.municaoFornecidaPela')
         
     </div>
-    @include('perito.laudo.materiais.attributes.imagemArmas')
+    @include('perito.laudo.materiais.attributes.imagemArmas',['tipo'=>'armaCurta'])
     <div id="btnAcao" class="row justify-content-between mb-4">
         <div class="col-lg-4 mt-1">
             <a class="btn btn-secondary btn-block" href="{!! URL::previous() !!}">

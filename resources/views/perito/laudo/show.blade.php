@@ -149,8 +149,9 @@
                     <th>Marca</th>
                     <th>Calibre</th>
                     <th>Quantidade</th>
-                    
+                    <th>Número do Lacre de Entrada</th>
                     <th>Número do Lacre de Saída</th>
+
                     <th colspan="2">Ações</th>
                 </tr>
             </thead>

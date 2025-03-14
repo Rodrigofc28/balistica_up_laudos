@@ -87,7 +87,7 @@
 
 
     </div>
-    @include('perito.laudo.materiais.attributes.imagemArmas')
+    @include('perito.laudo.materiais.attributes.imagemArmas',['tipo'=>'armaCurta'])
     
 
     <div id="btnAcao" class="row justify-content-between mb-4">

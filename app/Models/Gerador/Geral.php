@@ -150,7 +150,7 @@ class Geral extends Tabelas
             $textrun->addText($intCrim, $this->config->arial12Bold()),
             $textrun->addText(", foi designado(a)", $this->config->arial12()),
             
-            $textrun->addText(" o(a) Perito(a) Criminal ", $this->config->arial12()),
+            $textrun->addText(" o(a) Perito(a) Oficial Criminal ", $this->config->arial12()),
             $textrun->addText($perito, $this->config->arial12Bold()),
             $textrun->addText(", para proceder ao exame dos ".$requisicaoOficio[0]."recebidos nesta Seção em $data_rec", $this->config->arial12()),
             
@@ -192,11 +192,6 @@ class Geral extends Tabelas
 
     }
 
-    
-    
-
-
- 
     public function addFinalText($laudo)
     {   
          //Verefica se for um tecnico fazendo o laudo o $perito vai ser o nome do perito do caso
@@ -258,23 +253,26 @@ class Geral extends Tabelas
             $arrayEstojo=[];
             
             $verifica=[];
-            
+            //for para pegar os lacres de saida dos cartuchos
             foreach($laudo->municoes as $municao){
+                
                 if($municao->funcionamento!='intacto'){
-                if($municao->funcionamentoCartucho==null){
-                    array_push($verifica,$municao);   
+                    
+                    if($municao->funcionamentoCartucho==null){
+                        array_push($verifica,$municao);   
+                    }
+                    $cartuchoNome=ucfirst($municao->tipo_municao);
+                    $cartuchoNome="($cartuchoNome";
+                    $funcionamentoCondicao="$municao->funcionamento),";
+                
+                    array_push($cartuchosEstojosTipo,'número',$municao->lacrecartucho,$cartuchoNome,$funcionamentoCondicao);
                 }
-                $cartuchoNome=ucfirst($municao->tipo_municao);
-                $cartuchoNome="($cartuchoNome";
-               $funcionamentoCondicao="$municao->funcionamento),";
-               
-                array_push($cartuchosEstojosTipo,' número',$municao->lacre_saida,$cartuchoNome,$funcionamentoCondicao);}
-
+                //for para pegar os lacres de saida dos estojos
                 if($municao->tipo_municao=="estojo"){
                   
-                array_push($arrayEstojo,$municao->tipo_municao);
-                $cartuchoNome=ucfirst($municao->tipo_municao);
-                $funcionamentoCondicao="($municao->funcionamento)";
+                    array_push($arrayEstojo,$municao->tipo_municao);
+                    $cartuchoNome=ucfirst($municao->tipo_municao);
+                    $funcionamentoCondicao="($municao->funcionamento)";
                  
                     
                 }}}
@@ -312,9 +310,6 @@ class Geral extends Tabelas
             
         }
         
-       
-
-       
         if($laudo->sinab=='1'&& count($laudo->armas)>0){
             $consideracaoFinaisSinab=" Cumpre ressaltar que os padrões balísticos elegíveis para inclusão no Banco Nacional de Perfis Balísticos (BNPB) devem ser armazenados pelo prazo de 20 anos conforme definido no Procedimento Operacional do Sistema Nacional de Análise Balística (SINAB), independentemente de futura destruição da arma.";
         }
@@ -327,22 +322,27 @@ class Geral extends Tabelas
 
         
        
-        $consideracaoFinais="O material descrito neste documento, após examinado, foi devidamente identificado, embalado e lacrado com o(s) lacre(s) de saída".implode($arrayNumeroLacre).''.implode(' ',$cartuchosEstojosTipo)." conforme requerido pelos artigos 158-A a 158-F do Código de Processo Penal (Lei nº 13.964/2019), e encaminhado para a Central de Custódia da Polícia Científica do Paraná.".$consideracaoFinaisSinab;
-         
-          
+        $consideracaoFinais="O material descrito neste documento, após examinado, foi devidamente identificado, embalado e lacrado com o(s) lacre(s) de saída";
+        $numeroLacresArmas=implode($arrayNumeroLacre);
+        $numeroLacresMunicoes=implode(' ',$cartuchosEstojosTipo);
+        $consideracaoFinais2=" conforme requerido pelos artigos 158-A a 158-F do Código de Processo Penal (Lei nº 13.964/2019), e encaminhado para a Central de Custódia da Polícia Científica do Paraná.".$consideracaoFinaisSinab;
        
        
-    
+    //verefica se tem numero de lacre tanto para arma quanto para munição
         if($cartuchosEstojosTipo==null&&$arrayNumeroLacre==null){
             $finalConsideracoesTexto=null;
         }else{
             $finalConsideracoesTexto=[  
             $this->section->addTextBreak(1),
             $this->section->addText(($tituloConclusao=='')?"4. CONSIDERAÇÕES FINAIS:":"5. CONSIDERAÇÕES FINAIS:", $this->config->arial12Bold(), $this->config->paragraphJustify()),//consideracão final
-            $this->section->addText($consideracaoFinais, $this->config->arial12(), $this->config->paragraphJustify()),
-                                     
+            
+            $textrunConsideracoes = $this->section->addTextRun($this->config->paragraphJustify()),
+            $textrunConsideracoes->addText($consideracaoFinais, $this->config->arial12()),
+            $textrunConsideracoes->addText("$numeroLacresArmas $numeroLacresMunicoes", $this->config->arial12Bold()),
+            $textrunConsideracoes->addText($consideracaoFinais2, $this->config->arial12()),                        
             $this->section->addTextBreak(1) ];
-        }                           
+        }  
+                     
         $styleTable = array('borderColor'=>'777777','borderSize'=>10, 'cellMarginTop'=>10,'cellMarginLeft'=>0,'cellMarginRight'=>0,'cellSpacing'=>10000); //configuração da tabela
         $styleFirstRow = array('bgColor'=>' #F0FFFF');
         $this->phpWord->addTableStyle('tabela', $styleTable, $styleFirstRow);
@@ -350,7 +350,7 @@ class Geral extends Tabelas
         $unidade=(!empty($laudo->secao->nome)?$laudo->secao->nome:$laudo->unidadeGdl);
 
         $final = [
-            $this->section->addText(($tituloConclusao=='')?'4. ENCERRAMENTO:':'5. ENCERRAMENTO: ', $this->config->arial12Bold(), $this->config->paragraphJustify()),//encerramento
+            $this->section->addText(($tituloConclusao=='')?'4. ENCERRAMENTO:':'6. ENCERRAMENTO: ', $this->config->arial12Bold(), $this->config->paragraphJustify()),//encerramento
             $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
             
             $textrun->addText("Este laudo foi redigido pelo(a) Perito(a) que realizou o exame e que o subscreve digitalmente em ", $this->config->arial12(), $this->config->paragraphJustify()),
@@ -367,7 +367,7 @@ class Geral extends Tabelas
             $cell->addText($perito,array('bold' => true,
             'size' =>14 ), array('alignment' => Jc::CENTER)),
             
-            $cell->addText('Perito(a) Criminal – Seção de Balística Forense',array('bold' => true,
+            $cell->addText('Perito(a) Oficial – Seção de Balística Forense',array('bold' => true,
             'size' =>14 ), array('alignment' => Jc::CENTER)),
             
             $cell->addText('UETC '.$unidade.' – Polícia Científica do Paraná',array('bold' => true,

@@ -38,9 +38,10 @@
       position: absolute;
     }
     .btnNext{
+      
       border-radius:5px;
       padding:1%;
-      color:#e7dbdb;
+      color:#635c5c;
       text-decoration:underline ;
       background-color:rgb(255, 253, 253);
     }
@@ -71,6 +72,10 @@
                     <img id="image" >
                 </div>
             </div>
+            
+            <button class="btnNext" id="retanguloPlus"  >4:3</button>
+            <button class="btnNext" id="retangulo" >16:9</button>
+            <button class="btnNext"   id="quadrado"  >1:1</button>
             <button class="btnNext" onclick="next('seta_frente')" id="seta_frente"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
             <button class="btnNext"  id="rotateButton"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
             <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b> 
@@ -85,6 +90,9 @@
                     <img id="image1" >
                 </div>
             </div>
+            <button class="btnNext" id="retanguloPlusVerso"  >4:3</button>
+            <button class="btnNext" id="retanguloVerso" >16:9</button>
+            <button class="btnNext"   id="quadradoVerso"  >1:1</button>
             <button class="btnNext"  onclick="next('seta_verso')"  id="seta_verso"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
             <button class="btnNext"  id="rotateButton1"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
             <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b>
@@ -112,7 +120,7 @@
         
         <button type="button" onclick="salvaContinuar('upImage', 'upImage2')" class="btn btn-success btn-block embalagemFoto">
             <svg class="svg-inline--fa fa-save fa-w-14" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="save" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M433.941 129.941l-83.882-83.882A48 48 0 0 0 316.118 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V163.882a48 48 0 0 0-14.059-33.941zM224 416c-35.346 0-64-28.654-64-64 0-35.346 28.654-64 64-64s64 28.654 64 64c0 35.346-28.654 64-64 64zm96-304.52V212c0 6.627-5.373 12-12 12H76c-6.627 0-12-5.373-12-12V108c0-6.627 5.373-12 12-12h228.52c3.183 0 6.235 1.264 8.485 3.515l3.48 3.48A11.996 11.996 0 0 1 320 111.48z"></path></svg>
-            Salva e continua
+            Salvar e continuar
         </button>
     </form>
 
@@ -132,8 +140,13 @@
             let upImage = document.getElementById('upImage'); // Seu input de arquivo
             let prevFrente = "#preview"
             let rotateButton = document.getElementById('rotateButton');
+            let scale = 2;
+            let quadradoBtn = document.getElementById('quadrado');
+            let retanguloBtn = document.getElementById('retangulo');
+            let retanguloPlusBtn = document.getElementById('retanguloPlus');
             let cropper;
-            carrega(inputFile,image,cropper,preview,upImage,rotateButton,prevFrente)
+            //funcao que carrega o cropper
+            carrega(inputFile,image,cropper,preview,upImage,rotateButton,prevFrente,scale,quadradoBtn,retanguloBtn,retanguloPlusBtn)
         
        
     }
@@ -147,11 +160,16 @@
             let preVerso = "#prev"
             let upImage = document.getElementById('upImage2'); // Seu input de arquivo
             let rotateButton = document.getElementById('rotateButton1');
+            let scale = 2;
+            let quadradoBtn = document.getElementById('quadradoVerso');
+            let retanguloBtn = document.getElementById('retanguloVerso');
+            let retanguloPlusBtn = document.getElementById('retanguloPlusVerso');
             let cropper;
-            carrega(inputFile,image,cropper,preview1,upImage,rotateButton,preVerso)
+            carrega(inputFile,image,cropper,preview1,upImage,rotateButton,preVerso,scale,quadradoBtn,retanguloBtn,retanguloPlusBtn)
         
        
     }
+    //função de carregamento da imagem passando a posição
      function next(arg){
         if(arg=="seta_verso"){
             

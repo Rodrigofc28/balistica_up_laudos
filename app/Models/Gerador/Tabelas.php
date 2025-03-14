@@ -309,103 +309,42 @@ $tabelaNecropsia=DB::select('select lacrecartucho,origem_coletaPerito,rep_materi
             }
     return $table;
 }
+//Tabela de nomes de envolvidos
+public function nomes($table, $laudo, $hideShowDataOcorrencia)
+{
+    // Verifica se nomeIncluir não está vazio e decodifica caso seja JSON
+    if (!empty($laudo->nomeIncluir)) {
+        $envolvidos = is_string($laudo->nomeIncluir) ? json_decode($laudo->nomeIncluir, true) : $laudo->nomeIncluir;
 
-public function nomes($table,$laudo,$hideShowDataOcorrencia){
+        if (is_array($envolvidos)) {
+            foreach ($envolvidos as $item) {
+                $nome = mb_strtoupper($item['nome']);
+                $perfil = mb_strtoupper($item['perfil']);
 
-    
-if($laudo->nomeIncluir!=''){
-    $armazenanomes=explode(',',$laudo->nomeIncluir);
-    $filtar= array_filter($armazenanomes, function ($number){
-        
+                // Define o título com switch (para compatibilidade com PHP 7.x)
+                $titulo = 'Outro';
+                switch ($perfil) {
+                    case 'VITIMA':
+                        $titulo = 'Nome da Vítima';
+                        break;
+                    case 'EM PODER DE':
+                        $titulo = 'Em Poder de';
+                        break;
+                    case 'ENVOLVIDO':
+                        $titulo = 'Envolvido';
+                        break;
+                }
 
-        return $number % 2 != 0;
-    },  ARRAY_FILTER_USE_KEY);
-    
-    $filtarnome= array_filter($armazenanomes, function ($number){
-        
-
-        return $number % 2 == 0;
-    },  ARRAY_FILTER_USE_KEY);
-
-$combinar=array_combine($filtar,$filtarnome);
-
-foreach ($combinar as $envolvidos=>$perfil){
-
-    if($envolvidos=="Em poder de"){
-        $table->addRow(50);                         
-            $table->addCell(3052,[$this->styleFirstRow])->addText($envolvidos, $this->fontStyle,$this->paraStyle); 
-            $table->addCell($hideShowDataOcorrencia)->addText($perfil,null,$this->paraStyle);
-        
-    }
-    if($envolvidos=="Vitima"){
-        $nomeVitima="Nome da vítima";
-        $table->addRow(50);                         
-            $table->addCell(3052,[$this->styleFirstRow])->addText($nomeVitima, $this->fontStyle,$this->paraStyle); 
-            $table->addCell($hideShowDataOcorrencia)->addText($perfil,null,$this->paraStyle);
-
-    }
-    if($envolvidos=="Envolvido"){
-        $table->addRow(50);                         
-            $table->addCell(3052,[$this->styleFirstRow])->addText($envolvidos, $this->fontStyle,$this->paraStyle);
-            $table->addCell($hideShowDataOcorrencia)->addText($perfil,null,$this->paraStyle);
-        
-    }
-    
-
-}}
-if(!empty($laudo->envolvidoGdl)){
-    $envolve = str_replace(',,',',',$laudo->envolvidoGdl);
-    $indiciados=explode(',',$envolve);
- 
-    $a=0;
-    $b=1;
-    $new_arr = [];
-    $v=[];
-    for ($i = 0; $i < count($indiciados)/2-1; $i++) {
-      
-        $key = (!empty($indiciados[$a]))?$indiciados[$a]:'';
-        $value = (!empty($indiciados[$b]))?$indiciados[$b]:'';
-        $new_arr = array_push($v,array($key => $value));
-        
-        
-        
-      $a+=2;
-      $b+=2;
-      
-    }
-    
-    
-    
-    foreach($v as $n){
-        foreach($n as $envolvidosGDL=>$extensao){
-            $table->addRow(50,);                         
-            $table->addCell(3052,[$this->styleFirstRow])->addText(ucfirst(mb_strtolower($envolvidosGDL)), $this->fontStyle,$this->paraStyle); 
-            $table->addCell($hideShowDataOcorrencia)->addText(mb_strtoupper($extensao),null,$this->paraStyle);
+                $table->addRow(50);
+                $table->addCell(3052, [$this->styleFirstRow])->addText($titulo, $this->fontStyle, $this->paraStyle);
+                $table->addCell($hideShowDataOcorrencia)->addText($nome, null, $this->paraStyle);
+            }
         }
-
-        }}
-if($laudo->perfil_envolvido=='Vitima'){
-    $suspeito='Nome da vítima';
-    $table->addRow(50,);                         
-            $table->addCell(3052,[$this->styleFirstRow])->addText($suspeito, $this->fontStyle,$this->paraStyle); 
-            $table->addCell($hideShowDataOcorrencia)->addText(mb_strtoupper($laudo->nome_vitima),null,$this->paraStyle);
-
-}else if($laudo->perfil_envolvido=='Em poder de'){
-    $suspeito='Em poder de';
-    $table->addRow(50,);                        
-            $table->addCell(3052,[$this->styleFirstRow])->addText($suspeito, $this->fontStyle,$this->paraStyle); 
-            $table->addCell($hideShowDataOcorrencia)->addText(mb_strtoupper($laudo->nome_vitima),null,$this->paraStyle);
-
-}else if($laudo->perfil_envolvido=='Envolvido'){
-    $suspeito='Envolvido';
-    $table->addRow(50,);                         
-            $table->addCell(3052,[$this->styleFirstRow])->addText($suspeito, $this->fontStyle,$this->paraStyle); 
-            $table->addCell($hideShowDataOcorrencia)->addText(mb_strtoupper($laudo->nome_vitima),null,$this->paraStyle);
-
-
+    }
 }
 
-}
+
+
 
 
 
