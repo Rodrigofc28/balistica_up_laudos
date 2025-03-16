@@ -20,6 +20,7 @@ class ComponentesController extends Controller
      */
     public function store(ComponenteRequest $request, $laudo)
     {
+     
         $request->validate([
             'up_image' => 'required|image|mimes:jpeg,png,jpg,gif',
             'up_image2' => 'required|image|mimes:jpeg,png,jpg,gif',
@@ -55,7 +56,9 @@ class ComponentesController extends Controller
             'deformacaoAcidental' => $requ,
             'aderencia' => $requestAderencia,
         ]);
-    
+        session()->put('projetil', Componente::where('laudo_id', $laudo->id)
+        ->get()); 
+       
         return redirect()->back()
             ->with('success', __('flash.create_m', ['model' => 'projéteis']))
             ->with('lacre_projetil_entrada', $request->lacrecartucho)

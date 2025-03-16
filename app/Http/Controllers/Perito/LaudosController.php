@@ -156,6 +156,7 @@ class LaudosController extends Controller
         
         session()->forget('municoes');//limpa a sessao de municoes criado no controller MunicoesController
         session()->forget('estojo');//limpa a sessao de municoes criado no controller MunicoesController
+        session()->forget('projetil');//limpa a sessao de projetil criado no controller ComponentesController
         $arma=Arma::all();
         
         $laudo = Laudo::config_laudo_info($request);
