@@ -125,7 +125,7 @@ class LaudosController extends Controller
             $reps="";
             $armasGdl="";
             return view('perito.laudo.create',
-            compact('secoes', 'cidades', 'diretores','reps','tipo_exame'));
+            compact('secoes', 'cidades', 'diretores','reps','tipo_exame','userAll','usertecnico'));
         }
         if(count($request->request)>0||session('gdl')==true){
            
