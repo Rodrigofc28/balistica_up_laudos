@@ -265,7 +265,7 @@ class Geral extends Tabelas
                     $cartuchoNome="($cartuchoNome";
                     $funcionamentoCondicao="$municao->funcionamento),";
                 
-                    array_push($cartuchosEstojosTipo,'número',$municao->lacrecartucho,$cartuchoNome,$funcionamentoCondicao);
+                    array_push($cartuchosEstojosTipo,'número',$municao->lacre_saida,$cartuchoNome,$funcionamentoCondicao);
                 }
                 //for para pegar os lacres de saida dos estojos
                 if($municao->tipo_municao=="estojo"){

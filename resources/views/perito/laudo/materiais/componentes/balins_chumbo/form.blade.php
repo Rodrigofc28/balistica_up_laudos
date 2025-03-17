@@ -15,7 +15,10 @@
 @else
 {!! Form::open() !!}
 @endif
-
+{{--B602 remover tipo de projetil, calibre medio, altura, aderencia, deformações,localidade, origem, qtd de raias, cavados e resaltos.
+incluir marca e modelo, massa,const formato, calibre nominal caso nao tenha diametro e altura maxima qunt de projetil fixo lacres incluir texto 
+B601 tipo antes de tipo de raiamento, quantidade fixa, numeros de cavados e numeros de resaltos, numero de coleta remover, dito no oficio incluir
+--}}
 
 <input type="hidden" name="laudo_id" id="laudo_id" value="{{ $laudo->id }}">
 <input type="hidden" name="componente" id="componente" value="Projetil">
@@ -25,11 +28,11 @@
         @php
             //dd($laudo->laudoEfetConst);
         @endphp
-        
-            @include('perito.laudo.materiais.attributes.tipo_raiamento', ['tipo_raiamento2' =>
-            $componente->tipo_raiamento ?? old('tipo_raiamento')])
             @include('perito.laudo.materiais.attributes.tipo_projetil', ['tipo_projetil2' =>
             $componente->tipo_projetil ?? old('tipo_projetil')])
+            @include('perito.laudo.materiais.attributes.tipo_raiamento', ['tipo_raiamento2' =>
+            $componente->tipo_raiamento ?? old('tipo_raiamento')])
+            
        
         @include('perito.laudo.materiais.attributes.massa', ['massa' =>(isset($componente))? $componente->massa:'','calibreReal'=>(isset($componente))?$componente->calibreReal:'','calibreNominal'=>(isset($componente))?$componente->calibreNominal:''
          ?? old('massa'), old('calibreReal'),old('calibreNominal') ])
@@ -42,7 +45,7 @@
         old('sentido_raias')])
         @include('perito.laudo.materiais.attributes.quantidade_raias_projetil', ['quantidade_raias' => $componente->quantidade_raias
         ?? old('quantidade_raias')])
-        @include('perito.laudo.materiais.attributes.quantidadeProjetil',['quantidadeProjetil'=>$componente->quantidade_frascos??old('quantidadeProjetil')])
+        @include('perito.laudo.materiais.attributes.quantidadeProjetil',['quantidadeProjetil'=>$componente->quantidade_frascos??old('quantidadeProjetil')]) 
         @include('perito.laudo.materiais.attributes.cavados',['cavados'=>$componente->cavados??old('cavados')])
         @include('perito.laudo.materiais.attributes.ressaltos',['ressaltos'=>$componente->ressaltos??old('ressaltos')])
         @include('perito.laudo.materiais.attributes.projetil_observacao')
