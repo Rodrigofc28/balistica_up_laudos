@@ -2,6 +2,7 @@
 @section('js')
 {!! Html::script('js/selectProjeteis.js') !!} 
 {!! Html::script('js/projetil.js') !!}
+{!! Html::script('js/form_componentes.js') !!}
 @if($acao == 'Cadastrar')
 {!! Html::script('js/sessionProjet.js') !!}
 @endif
@@ -65,14 +66,16 @@ B601 tipo antes de tipo de raiamento, quantidade fixa, numeros de cavados e nume
         @endif
     <div class="row mb-3">
         @php
-            //dd($laudo->laudoEfetConst);
+           // dd($laudo->laudoEfetConst);
         @endphp
-            @include('perito.laudo.materiais.attributes.tipo_projetil', ['tipo_projetil2' =>
-            $componente->tipo_projetil ?? old('tipo_projetil')])
-            @include('perito.laudo.materiais.attributes.tipo_raiamento', ['tipo_raiamento2' =>
-            $componente->tipo_raiamento ?? old('tipo_raiamento')])
+        @include('perito.laudo.materiais.attributes.tipo_projetil', ['tipo_projetil2' =>
+        $componente->tipo_projetil ?? old('tipo_projetil')])
+        @include('perito.laudo.materiais.attributes.tipo_raiamento', ['tipo_raiamento2' =>
+        $componente->tipo_raiamento ?? old('tipo_raiamento')])
             
-       
+        @include('perito.laudo.materiais.attributes.dito_oficio')
+        @include('perito.laudo.materiais.attributes.provavelCalibre', ['obrigatorio' => 'true', 'calibre2' =>
+        $municao->calibre->id ?? old('calibre_id')])
         @include('perito.laudo.materiais.attributes.massa', ['massa' =>(isset($componente))? $componente->massa:'','calibreReal'=>(isset($componente))?$componente->calibreReal:'','calibreNominal'=>(isset($componente))?$componente->calibreNominal:''
          ?? old('massa'), old('calibreReal'),old('calibreNominal') ])
        
@@ -84,7 +87,7 @@ B601 tipo antes de tipo de raiamento, quantidade fixa, numeros de cavados e nume
         old('sentido_raias')])
         @include('perito.laudo.materiais.attributes.quantidade_raias_projetil', ['quantidade_raias' => $componente->quantidade_raias
         ?? old('quantidade_raias')])
-        @include('perito.laudo.materiais.attributes.quantidadeProjetil',['quantidadeProjetil'=>$componente->quantidade_frascos??old('quantidadeProjetil')]) 
+        
         @include('perito.laudo.materiais.attributes.cavados',['cavados'=>$componente->cavados??old('cavados')])
         @include('perito.laudo.materiais.attributes.ressaltos',['ressaltos'=>$componente->ressaltos??old('ressaltos')])
         @include('perito.laudo.materiais.attributes.projetil_observacao')
@@ -94,16 +97,13 @@ B601 tipo antes de tipo de raiamento, quantidade fixa, numeros de cavados e nume
         old('lacre')])
         @include('perito.laudo.materiais.attributes.lacrecartucho', [$name = 'lacreSaida', $label ="N° lacre de saida",'lacre'=>empty($componente->lacreSaida)?session('lacre_projetil_saida'):$componente->lacreSaida ??
         old('lacre')])
-        @include('perito.laudo.materiais.attributes.material_coletado_projetil',['origem'=>empty($componente->origemcoletadaPerito)?session('origem'):$componente->origem_coletaPerito,'rep'=>empty($componente->rep_materialColetado)?session('rep_coleta'):$componente->rep_materialColetado??old('origem'),old('rep')])
-        
-        
-       
+        @if($laudo->laudoEfetConst=="B602")
+            @include('perito.laudo.materiais.attributes.material_coletado_projetil',['origem'=>empty($componente->origemcoletadaPerito)?session('origem'):$componente->origem_coletaPerito,'rep'=>empty($componente->rep_materialColetado)?session('rep_coleta'):$componente->rep_materialColetado??old('origem'),old('rep')])
+        @endif
         
         @include('perito.laudo.materiais.attributes.detalharlocalidade',['detalharlocalidade'=>empty($componente->detalharLocalizacao)?session('detalhe_localizacao'):$componente->detalharLocalizacao??old('detalharlocalidade')])
         @include('perito.laudo.materiais.attributes.deformacaoAcidental',['deformacoes2'=>$componente->deformacaoAcidental??old('deformacoes2')])
        
-        
-
     </div>
      @include('perito.laudo.materiais.attributes.imagem_municao',['tipo'=>'DOS PROJÉTEIS'])
     

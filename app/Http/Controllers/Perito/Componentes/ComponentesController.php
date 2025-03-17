@@ -21,6 +21,9 @@ class ComponentesController extends Controller
     public function store(ComponenteRequest $request, $laudo)
     {
      
+        if($request->input('calibreNominal') == 'sem'){
+            $request->merge(['calibreNominal' => null]);
+        }
         $request->validate([
             'up_image' => 'required|image|mimes:jpeg,png,jpg,gif',
             'up_image2' => 'required|image|mimes:jpeg,png,jpg,gif',

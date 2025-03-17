@@ -106,5 +106,9 @@
 .btn-cancel:hover {
   background-color: #c82333;
 }
-
-
+/* Estilo do projetil */
+.subTituloCadastroCartucho{
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+}

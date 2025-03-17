@@ -105,7 +105,9 @@ class ComponentesText
             
             
         }
+        
         $stringQuantidade=array_sum($quantidade);
+        
         $extenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);
         $nomecartucho=$extenso->format($stringQuantidade).' projétil';
         

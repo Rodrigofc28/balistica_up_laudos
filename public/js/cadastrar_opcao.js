@@ -90,12 +90,16 @@ $(function () {
 
     /*------Cadastro de calibre---------------*/
     var calibre = $('#calibre');
+    
     $('#cadastrar_calibre').on('click', function () {
+        
         $("#calibre-modal").modal();
     });
 
     $('#cadastroCalibre').on('click', function () {
+        
         var nome_calibre = $('#nome_calibre').val();
+        
         var tipo = $("input[name='calibres_armas[]']:checked") 
         .map(function () {
             return $(this).val(); 
