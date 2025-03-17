@@ -19,22 +19,26 @@
 @endif
 
 {{--Tabela de envolvidos--}}
-<div >
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Nome do Envolvido</th>
-                <th>Perfil</th>
-            </tr>
-        </thead>
-        <tbody id="tabelaEnvolvidos">
-            
-        </tbody>
-        <td colspan="2" >
-            <button type="button" id="limpar" class="btn btn-danger">Limpar Lista de Envolvidos</button>
-        </td>
-    </table>
-</div> 
+ {{--Opção e somente para balistica--}}
+@if($tipo_exame=='balistica')
+        <div >
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nome do Envolvido</th>
+                        <th>Perfil</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaEnvolvidos">
+                    
+                </tbody>
+                <td colspan="2" >
+                    <button type="button" id="limpar" class="btn btn-danger ">Limpar Lista de Envolvidos <i class="far fa-trash-alt"></i></button>
+                    
+                </td>
+            </table>
+        </div> 
+@endif
 <div class="row m-auto">
     @php
     
@@ -69,9 +73,10 @@
          
     
     @endif
-
-    @include('perito.laudo.attributes.envolvidos')
-    
+    {{--Opção e somente para balistica--}}
+    @if($tipo_exame=='balistica')
+        @include('perito.laudo.attributes.envolvidos')
+    @endif  
 
     @include('perito.laudo.attributes.rep', ['rep' => $reps['rep'] ?? old('rep')])
     @include('perito.laudo.attributes.oficio', ['oficio' => $reps['oficio'] ?? old('oficio')])
@@ -101,8 +106,10 @@
     @include('shared.attributes.cidades', ['size' => '4', 'cidade2' => $laudo->cidade_id ?? old('cidade_id')])
     
     @include('perito.laudo.attributes.solicitante', ['solicitante2' => $laudo->solicitante_id ?? old('solicitante_id')])
-   
-    @include('perito.laudo.attributes.repExameComplementar', ['rep' => $laudo->rep ?? old('')])
+   {{--Opção e somente para balistica--}}
+    @if($tipo_exame=='balistica')
+        @include('perito.laudo.attributes.repExameComplementar', ['rep' => $laudo->rep ?? old('')])
+    @endif
     @include('perito.laudo.materiais.attributes.sinab',['tipo_exame'=>$tipo_exame])
     @include('perito.laudo.attributes.material_coletado',[$laudoMaterial="1",'tipo_exame'=>$tipo_exame])
     

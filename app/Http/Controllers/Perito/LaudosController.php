@@ -125,7 +125,7 @@ class LaudosController extends Controller
             $reps="";
             $armasGdl="";
             return view('perito.laudo.create',
-            compact('secoes', 'cidades', 'diretores','reps','tipo_exame'));
+            compact('secoes', 'cidades', 'diretores','reps','tipo_exame','userAll','usertecnico'));
         }
         if(count($request->request)>0||session('gdl')==true){
            
@@ -156,6 +156,7 @@ class LaudosController extends Controller
         
         session()->forget('municoes');//limpa a sessao de municoes criado no controller MunicoesController
         session()->forget('estojo');//limpa a sessao de municoes criado no controller MunicoesController
+        session()->forget('projetil');//limpa a sessao de projetil criado no controller ComponentesController
         $arma=Arma::all();
         
         $laudo = Laudo::config_laudo_info($request);

@@ -20,10 +20,49 @@ incluir marca e modelo, massa,const formato, calibre nominal caso nao tenha diam
 B601 tipo antes de tipo de raiamento, quantidade fixa, numeros de cavados e numeros de resaltos, numero de coleta remover, dito no oficio incluir
 --}}
 
+
 <input type="hidden" name="laudo_id" id="laudo_id" value="{{ $laudo->id }}">
 <input type="hidden" name="componente" id="componente" value="Projetil">
 
 <div class="col-lg-12" style="padding: 0 5% 0">
+ @if (session('projetil')&&$acao == 'Cadastrar')
+            @php
+                $projetil = collect(session('projetil', []))->map(fn($item) => (object) $item);
+            @endphp
+
+            <div class="itemCartuchoCadastro">
+                <span class="subTituloCadastroCartucho">Itens Cadastrados nesta Sessão</span>   
+                <div class="marcasCadastradasCartuchos">
+                    <table border="1" width="100%" style="border-collapse: collapse; text-align: left;">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Constituição e Formato</th>
+                                <th>Quantidade</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($projetil as $item)
+                                <tr>
+                                    <td style="text-align:center">{{ $item->componente ?? 'N/A' }}</td>
+                                    <td style="text-align:center">{{ $item->constituicao_formato ?? 'N/A' }}</td>
+                                    <td style="text-align:center">{{ $item->quantidade_frascos ?? 0 }}</td>
+                                    <td style="text-align:center">
+                                        <button value="{{ route('componentes.destroy', [$laudo, $item]) }}" type="submit" class="btn btn-danger delete">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                    
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div> 
+        @else
+            
+        @endif
     <div class="row mb-3">
         @php
             //dd($laudo->laudoEfetConst);

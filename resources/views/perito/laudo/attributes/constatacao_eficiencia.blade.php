@@ -13,22 +13,23 @@
     @if($tipo_exame=='balistica')
         
         <select class="form-control" name="laudoEfetConst" id="">
-            <option value="B602">B602 - Exame de eficiência e prestabilidade</option>
+            <option selected value="B602">B602 - Exame de eficiência e prestabilidade</option>
             <option value="B601">B601 -  Exame de constatação</option>
             {{-- <option value="B603">Coleta de Padrão</option>
                 <option value="B612">B612 - Exame de confronto balístico</option>--}}
         </select>
-       
+        
     @endif
     <!--Exame de Chassi-->
     @if($tipo_exame=='chassi')
         <select class="form-control" name="laudoEfetConst" id="">
-        <option value="I801">I801 - Numerações Identificadoras</option>
-        <option value="I802">I802 - Compartimentos</option>
-        <option value="I806">I806 - Constatação</option>
-        <option value="I812">I812 - Numerações Identificadoras + compartimentos</option>
-      
-    </select>
+            <option selected value="I801">I801 - Numerações Identificadoras </option>
+            <option value="I802">I802 - Compartimentos</option>
+            <option value="I806">I806 - Constatação</option>
+            <option value="I812">I812 - Numerações Identificadoras + compartimentos </option>
+           
+        </select>
+        
        
     @endif
 
