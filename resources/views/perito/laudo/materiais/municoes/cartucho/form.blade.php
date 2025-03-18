@@ -109,7 +109,7 @@
         </div>
     </div>
 </div>
-@include('perito.modals.calibre_modal')
+@include('perito.modals.calibre_modal'){{--Incluindo a modal do calibre --}}
 @include('perito.modals.marca_modal')
 
    

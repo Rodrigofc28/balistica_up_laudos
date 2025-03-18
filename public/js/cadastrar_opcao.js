@@ -15,7 +15,8 @@ $(function () {
     $('#cadastro_solicitante').on('click', function () {
         var nome2 = $('#nome_solicitante').val();
         var cidade_id2 = $("#cidade2").val();
-
+        let baseUrl = $('meta[name="base-url"]').attr('content'); // Obtém a base do site
+        let url = baseUrl + "/solicitantes"; // Concatena a URL correta
         if (nome2.length < 8) {
             swal.fire({
                 type: 'error',
@@ -24,7 +25,7 @@ $(function () {
             });
         } else {
             $.ajax({
-                url: "./../solicitantes/",
+                url: url,
                 type: "GET",
                 data: {
                     "nome": nome2,
@@ -64,12 +65,14 @@ $(function () {
     });
 
     $('#cadastroMarca').on('click', function () {
+        let baseUrl = $('meta[name="base-url"]').attr('content'); // Obtém a base do site
+        let url = baseUrl + "/marcas"; // Concatena a URL correta
         var nome_marca = $('#nome').val();
         var categoria = $("#categoria").val();
         var nome_pais = $('#nome_pais').val();
         var fabricacao = $("#fabricacao").val();
         $.ajax({
-            url: "../../../../marcas",
+            url: url,
             type: "GET",
             data: { 'nome': nome_marca, 'categoria': categoria, 'pais_origem':nome_pais,'fabricacao':fabricacao },
             success: function (data) {
@@ -94,10 +97,14 @@ $(function () {
     $('#cadastrar_calibre').on('click', function () {
         
         $("#calibre-modal").modal();
+       
+
     });
 
     $('#cadastroCalibre').on('click', function () {
-        
+        let baseUrl = $('meta[name="base-url"]').attr('content'); // Obtém a base do site
+        let url = baseUrl + "/calibres"; // Concatena a URL correta
+       
         var nome_calibre = $('#nome_calibre').val();
         
         var tipo = $("input[name='calibres_armas[]']:checked") 
@@ -108,7 +115,7 @@ $(function () {
 
     
             $.ajax({
-                url: "../../../../calibres/",
+                url: url,
                 type: "GET",
                 data: {
                     "nome": nome_calibre,

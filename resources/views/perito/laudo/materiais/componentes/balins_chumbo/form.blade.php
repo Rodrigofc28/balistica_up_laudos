@@ -105,7 +105,8 @@ B601 tipo antes de tipo de raiamento, quantidade fixa, numeros de cavados e nume
         @include('perito.laudo.materiais.attributes.deformacaoAcidental',['deformacoes2'=>$componente->deformacaoAcidental??old('deformacoes2')])
        
     </div>
-     @include('perito.laudo.materiais.attributes.imagem_municao',['tipo'=>'DOS PROJÉTEIS'])
+    @include('perito.modals.calibre_modal')
+    @include('perito.laudo.materiais.attributes.imagem_municao',['tipo'=>'DOS PROJÉTEIS'])
     
 
     <div id="btnAcao" class="row justify-content-between mb-4">
