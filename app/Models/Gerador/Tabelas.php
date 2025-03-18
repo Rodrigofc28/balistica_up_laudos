@@ -93,7 +93,7 @@ class Tabelas {
                                 $table->addCell()->addText(mb_strtoupper($naturezaMunicao),null,$this->paraStyle),
                                 $table->addCell()->addText($municao->{'sum(quantidade)'},null,$this->paraStyle),
                                 $table->addCell()->addText(mb_strtoupper($municao->tipo_municao),null,$this->paraStyle),
-                                $table->addCell()->addText(mb_strtoupper($marca),null,$this->paraStyle),
+                                $table->addCell()->addText(mb_strtoupper($municao->dito_oficio),null,$this->paraStyle),
                                 $table->addCell()->addText($municao->lacrecartucho,null,$this->paraStyle),
                                 
         
@@ -107,10 +107,11 @@ class Tabelas {
     
     if($laudo->componentes!=''){
 
-        $tabelaNecropsia=DB::select('select lacrecartucho,group_concat(calibreNominal),group_concat(tipo_projetil),sum(quantidade_frascos) from componentes where laudo_id = :id group by lacrecartucho',['id'=>$laudo->id]);
+        $tabelaNecropsia=DB::select('select dito_oficio,lacrecartucho,group_concat(calibreNominal),group_concat(tipo_projetil),sum(quantidade_frascos) from componentes where laudo_id = :id group by dito_oficio,lacrecartucho',['id'=>$laudo->id]);
        
 
         foreach($tabelaNecropsia as $projetil){
+          
             $ti_projetil=explode(',',$projetil->{'group_concat(tipo_projetil)'});
             $cali_projetil=explode(',',$projetil->{'group_concat(calibreNominal)'});
             [$table->addRow(10,['tblHeader'=>true]),
@@ -118,7 +119,7 @@ class Tabelas {
                     $table->addCell()->addText(mb_strtoupper('Projetil'),null,$this->paraStyle),
                     $table->addCell()->addText($projetil->{'sum(quantidade_frascos)'},null,$this->paraStyle),
                     $table->addCell()->addText(mb_strtoupper($ti_projetil[0]),null,$this->paraStyle),
-                    $table->addCell()->addText(mb_strtoupper($cali_projetil[0]),null,$this->paraStyle),
+                    $table->addCell()->addText(mb_strtoupper($projetil->dito_oficio),null,$this->paraStyle),
                     $table->addCell()->addText($projetil->lacrecartucho,null,$this->paraStyle),
                     
 

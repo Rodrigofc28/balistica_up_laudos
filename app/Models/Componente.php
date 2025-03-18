@@ -36,10 +36,17 @@ class Componente extends Model
     {
         return $this->belongsTo(Calibre::class)->withTrashed();
     }
+    public function getCalibreProjetilAttribute()
+    {
+        return Calibre::where('id', $this->calibreNominal)->first();
+    }
+    
+
     public function laudo()
     {
         return $this->belongsTo(Laudo::class);
     }
-
+    
+    
     
 }

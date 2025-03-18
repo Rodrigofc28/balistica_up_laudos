@@ -34,6 +34,7 @@
 <hr>
 
 <div id="showLaudo" class="col-lg-12">
+    <span><b>Natureza do Exame:</b> {{$laudo->laudoEfetConst}}</span><br>
         <span><strong>REP:</strong> {{$laudo->rep}}</span><br>
         <span><strong>Oficio:</strong> {{$laudo->oficio}}</span><br>
         <span><strong>Cidade:</strong> {{$laudo->cidade_id}}</span><br>
