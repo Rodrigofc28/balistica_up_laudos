@@ -8,7 +8,7 @@ use App\Models\Componente;
 use Illuminate\Support\Facades\DB;
 use App\Models\Marca;
 use App\Models\Arma;
-
+use Illuminate\Http\Request;
 class ComponentesController extends Controller
 {
 
@@ -18,7 +18,7 @@ class ComponentesController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ComponenteRequest $request, $laudo)
+    public function store(Request $request, $laudo)
     {
      
         if($request->input('calibreNominal') == 'sem'){
@@ -28,9 +28,17 @@ class ComponentesController extends Controller
             'up_image' => 'required|image|mimes:jpeg,png,jpg,gif',
             'up_image2' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
-    
-        $requestAderencia = implode(', ', $request->aderencia);
-        $requ = implode(', ', $request->deformacaoAcidental);
+        if($request->input('aderencia')){
+            $requestAderencia = implode(', ', $request->aderencia);
+        }else{
+            $requestAderencia = '';
+        }
+        if($request->input('deformacaoAcidental')){
+            $requ = implode(', ', $request->deformacaoAcidental);
+        }else{
+            $requ = "";
+        }
+        
     
         if ($request->hasFile('up_image') && $request->file('up_image')->isValid() &&
             $request->hasFile('up_image2') && $request->file('up_image2')->isValid()) {
