@@ -32,6 +32,9 @@
         
 {{--        <link rel="stylesheet" href="{{ URL::asset('css/dropzone_custom.css') }}">--}}
 
+        <!-- Styles Chassi -->
+        <link rel="stylesheet" href="{{ URL::asset('css/index-chassi.css') }}">
+
         @yield('style')
     </head>
     <body>
