@@ -5,7 +5,7 @@
                 name="estojo" id="estojo">
                 
             <option value=""></option>
-            @foreach ([' Latonado', ' Niquelado' ,' Aço','Alumínio','Cobre',' Plástico',' Papelão'] as $estojo)
+            @foreach ([' Latonado', ' Niquelado' ,' Aço','Alumínio','Cobre',' Plástico com Culote Metálico',' Papelão com Culote Metálico'] as $estojo)
                 <option value="{{ mb_strtolower($estojo)}}" {{ (mb_strtolower($estojo) == mb_strtolower($estojo2)) ? 'selected=selected' : '' }}>
                     {{mb_strtoupper($estojo)}}
                 </option>

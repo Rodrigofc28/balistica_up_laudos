@@ -126,17 +126,21 @@ class ComponentesText
                 $table->addRow(10,['cantSplit'=>false]),
                 $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Características', $this->fontStyle,$this->paraStyle),
                 $this->caracteristica($componentes,$table,$pQ),
-                $table->addRow(10),
-                $table->addCell()->addText('Origem', $this->fontStyle,$this->paraStyle),
-                $this->origem($componentes,$table),
-                
-                $table->addRow(10),
-                $table->addCell()->addText('Tipo', $this->fontStyle,$this->paraStyle),
-                $this->tipoProjetil($componentes,$table),
-                $table->addRow(10),
+                //Origem---------------------------------------------------------------------------------------------------------------------------------------
+                $laudo->laudoEfetConst=="B601"?$table->addRow(10):null,
+                $laudo->laudoEfetConst=="B601"?$table->addCell()->addText('Origem', $this->fontStyle,$this->paraStyle):null,
+                $laudo->laudoEfetConst=="B601"?$this->origem($componentes,$table):null,
+                //tipo------------------------------------------------------------------------------------------------------------------------------------------
 
-                $table->addCell()->addText('Constituição e formato', $this->fontStyle,$this->paraStyle),
-                $this->constituicao($componentes,$table),
+                $laudo->laudoEfetConst=="B601"?$table->addRow(10):null,
+                $laudo->laudoEfetConst=="B601"?$table->addCell()->addText('Tipo', $this->fontStyle,$this->paraStyle):null,
+                $laudo->laudoEfetConst=="B601"?$this->tipoProjetil($componentes,$table):null,
+                //constituição e formato------------------------------------------------------------------------------------------------------------------------------------------
+                $laudo->laudoEfetConst=="B601"?$table->addRow(10):null,
+
+                $laudo->laudoEfetConst=="B601"?$table->addCell()->addText('Constituição e formato', $this->fontStyle,$this->paraStyle):null,
+                $laudo->laudoEfetConst=="B601"?$this->constituicao($componentes,$table):null,
+                //-------------------------------------------------------------------------------------------------------------------------------------------------
                 $table->addRow(10),
                 $table->addCell()->addText('Massa (g)', $this->fontStyle,$this->paraStyle),
                 $this->massa($componentes,$table),

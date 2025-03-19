@@ -8,6 +8,7 @@ use App\Models\Componente;
 use Illuminate\Support\Facades\DB;
 use App\Models\Marca;
 use App\Models\Arma;
+use App\Models\Calibre;
 use Illuminate\Http\Request;
 class ComponentesController extends Controller
 {
@@ -89,11 +90,11 @@ class ComponentesController extends Controller
      */
     public function edit($laudo, Componente $componente)
     {
-        
+        $calibres = Calibre::whereNotArmas();
        
       
         return view('perito.laudo.materiais.componentes.balins_chumbo.edit',
-            compact( 'laudo', 'componente'));
+            compact( 'laudo', 'componente','calibres'));
 
     }
 

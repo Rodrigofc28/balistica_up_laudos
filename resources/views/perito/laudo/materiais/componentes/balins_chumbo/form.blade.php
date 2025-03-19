@@ -16,7 +16,7 @@
 @else
 {!! Form::open() !!}
 @endif
-,
+
 <input type="hidden" name="laudo_id" id="laudo_id" value="{{ $laudo->id }}">
 <input type="hidden" name="componente" id="componente" value="Projetil">
 {{------------------------------------------------------------------------------------------------------------------------------}}

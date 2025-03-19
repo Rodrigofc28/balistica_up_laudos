@@ -64,30 +64,43 @@
         
             
     <div class="row mb-3">
-        
+        {{--Marca e origem-----------------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.marca', ['marca2' => $municao->marca->id ?? old('marca_id')])
         @include('perito.laudo.materiais.attributes.origem', ['origem2' => $municao->marca->id ?? old('origem_id')])
-        
+        {{--Tipo de calibre Nominal--------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.calibre', ['obrigatorio' => 'true', 'calibre2' =>
         $municao->calibre->id ?? old('calibre_id')])
+        {{--Quantidade---------------------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.quantidade', ['quantidade' => $municao->quantidade ??
         old('quantidade')])
+        {{--Tipo de Estojo do cartucho---------------------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.estojo', ['estojo2' => $municao->estojo ?? old('estojo')])
+        {{--Tipo de Projétil do cartucho---------------------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.projetil_arma_curta', ['projetil2' => $municao->projetil ??
         old('projetil')])
+        {{--Tipo de espoleta do cartucho---------------------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.tipo_espoleta', ['tipo_espoleta2' => $municao->tipo_projetil ??
         old('tipo_projetil')])
+        {{--Condição cartucho---------------------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.condicao_cartucho', ['funcionamento2' => $municao->funcionamento ??
         old('funcionamento')])
+        {{--Observação---------------------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.municao_observacao',['observacao'=>$municao->observacao??old('observacao')])
+        {{--Funcionamento---------------------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.funcionamentoCartucho',['funcionamentoCartucho'=>$municao->funcionamentoCartucho??old('funcionamentoCartucho')])
-        @include('perito.laudo.materiais.attributes.material_coletado_municao',['rep'=>empty($municao->rep_materialColetado)?session('rep_coleta'):$municao->rep_materialColetado ?? old('rep')])
+        {{--Nº de exame de coleta---------------------------------------------------------------------------------------------------------------}}
+        @if($laudo->laudoEfetConst=="B601")
+            @include('perito.laudo.materiais.attributes.material_coletado_municao',['rep'=>empty($municao->rep_materialColetado)?session('rep_coleta'):$municao->rep_materialColetado ?? old('rep')])
+        @endif
+        {{--Lote---------------------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.lote',['lote'=>$municao->lote ??old('lote')])
+         {{--Lacre de entrada e saida---------------------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.lacrecartucho', [$name='lacrecartucho',$label='Nº lacre de entrada','lacre'=>empty($municao->lacrecartucho)?session('lacre_entrada'):$municao->lacrecartucho ?? old('lacre')])
         @include('perito.laudo.materiais.attributes.lacrecartucho', [$name='lacre_saida',$label='N° lacre de saida','lacre'=>empty($municao->lacre_saida)?session('lacre_entrada'):$municao->lacre_saida ?? old('lacre') ])
-       
-        @include('perito.laudo.materiais.attributes.cartuchoPadrao')
-       
+        {{--Checkbox da coleta padrão---------------------------------------------------------------------------------------------------------------}}
+        @if($laudo->laudoEfetConst=="B602")
+            @include('perito.laudo.materiais.attributes.cartuchoPadrao')
+        @endif
     </div>
     
        @include('perito.laudo.materiais.attributes.imagem_municao',['tipo'=>'DA MUNIÇÃO'])
