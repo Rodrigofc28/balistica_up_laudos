@@ -70,7 +70,7 @@ img {
 .back-button {
     margin-top: 30px;
     padding: 10px 20px;
-    background-color: #28a745;  
+    background-color: #6c757d;
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -79,8 +79,8 @@ img {
 }
 
 .back-button:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
+    background-color: #5a6268;
+    border-color: #545b62;
     color: #fff;
     text-decoration: none;
 }

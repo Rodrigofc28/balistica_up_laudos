@@ -84,7 +84,10 @@
 
         </div>
 
-        <a href="javascript:history.back()" class="back-button">Voltar</a>
+        <a href="javascript:history.back()" class="back-button">
+            <i class="fas fa-arrow-circle-left"></i>
+            Voltar
+        </a>
     </div>
 
 @endsection
