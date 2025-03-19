@@ -4,7 +4,7 @@
         <label for="calibre_id"><strong>Provável Calibre Nominal </strong></label>
         
         <button type="button" class="btn-cadastro float-right" id="cadastrar_calibre">
-            <i class="fas fa-plus" aria-hidden="true"></i> Cadastrar
+            <i class="fas fa-plus" ></i> Cadastrar
         </button>
         
         <select  class="js-single-calibres form-control{{ $errors->has('calibre_id') ? ' is-invalid' : '' }}"
