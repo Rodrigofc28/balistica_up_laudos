@@ -63,6 +63,10 @@
         {{--Calibre--------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.calibre', ['obrigatorio' => 'true', 'calibre2' =>
         $municao->calibre->id ?? old('calibre_id')])
+        {{--Dito no oficio--------------------------------------------------------------------------------------------------}}
+        @if($laudo->laudoEfetConst=="B602"){{--Incluido no B602 dito no oficio--}}
+            @include('perito.laudo.materiais.attributes.dito_oficio')
+        @endif
         {{--Quantidade--------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.quantidade', ['quantidade' => $municao->quantidade ??
         old('quantidade')])
@@ -82,6 +86,10 @@
         @endif
         {{--lote--------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.lote',['lote'=>$municao->lote ??old('lote')])
+        @if($laudo->laudoEfetConst=="B601"){{--Incluido localidade e origem no B601--}}
+            @include('perito.laudo.materiais.attributes.detalharlocalidade',['detalharlocalidade'=>empty($componente->detalharLocalizacao)?session('detalhe_localizacao'):$componente->detalharLocalizacao??old('detalharlocalidade')])
+            @include('perito.laudo.materiais.attributes.material_coletado_projetil',['origem'=>empty($componente->origemcoletadaPerito)?session('origem'):$componente->origem_coletaPerito,'rep'=>empty($componente->rep_materialColetado)?session('rep_coleta'):$componente->rep_materialColetado??old('origem'),old('rep')])
+        @endif
         {{--lacre de entrada e saida--------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.lacrecartucho', [$name='lacrecartucho',$label='Nº lacre de entrada','lacre'=>empty($municao->lacrecartucho)?session('lacre_entrada'):$municao->lacrecartucho ?? old('lacre')])
         @include('perito.laudo.materiais.attributes.lacrecartucho', [$name='lacre_saida',$label='N° lacre de saida','lacre'=>empty($municao->lacre_saida)?session('lacre_entrada'):$municao->lacre_saida ?? old('lacre') ])

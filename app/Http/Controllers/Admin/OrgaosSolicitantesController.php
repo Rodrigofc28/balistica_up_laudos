@@ -25,9 +25,10 @@ class OrgaosSolicitantesController extends Controller
      */
     public function index()
     {
+        $cidades = Cidade::all();
         $solicitantes = OrgaoSolicitante::paginate(10);
         return view('admin/orgaos_solicitantes/index',
-            compact('solicitantes'));
+            compact('solicitantes','cidades'));
     }
 
     /**

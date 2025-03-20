@@ -17,11 +17,13 @@
 
     <tr align="center">
         <td> {{ mb_strtoupper($componente->componente) }} </td>
-        <td></td>
-        <td>{{$componente->calibreNominal}}</td>
+        <td>{{ isset($componente->marca->nome) ? $componente->marca->nome : '' }}</td>
+
+
+        <td>{{$componente->getCalibreProjetilAttribute()->nome}}</td>
         <td> {{ $componente->quantidade_frascos }}
              </td>
-             <td>{{$componente->lacre_saida}}</td>
+             <td>{{$componente->lacreSaida}}</td>
         <td>{{$componente->lacrecartucho}}</td>
         <td>
         

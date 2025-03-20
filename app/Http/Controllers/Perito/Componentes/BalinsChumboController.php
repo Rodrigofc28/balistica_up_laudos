@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Componente;
 use App\Models\Armas_Gdl;
 use App\Models\Calibre;
+use App\Models\Marca;
 class BalinsChumboController extends Controller
 {
     /**
@@ -15,6 +16,7 @@ class BalinsChumboController extends Controller
      */
     public function create(Request $request,$laudo)
     {
+        $marcas = Marca::categoria('municoes');
         $calibres = Calibre::whereNotArmas();
         $arma_projetil_gdl=Armas_Gdl::find($request->id);
         if ($arma_projetil_gdl) {
@@ -25,7 +27,7 @@ class BalinsChumboController extends Controller
         
         }
         return view('perito.laudo.materiais.componentes.balins_chumbo.create',
-            compact('laudo','arma_projetil_gdl','calibres'));
+            compact('laudo','arma_projetil_gdl','calibres','marcas'));
     }
 
     /**

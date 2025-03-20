@@ -164,18 +164,22 @@ class ComponentesText
                 $table->addRow(10),
                 $table->addCell()->addText('Tipo de Raiamento', $this->fontStyle,$this->paraStyle),
                 $this->tipo_raiamento($componentes,$table),
-                $table->addRow(10),
-                $table->addCell()->addText('Deformações Acidentais', $this->fontStyle,$this->paraStyle),
-                $this->deformacaoAcidental($componentes,$table),
-                $table->addRow(10),
-                $table->addCell()->addText('Aderências ', $this->fontStyle,$this->paraStyle),
-                $this->aderencia($componentes,$table),
+                //Adiciona resaltos e cavados caso seja B601----------------------------------------------------------------------------------------
+                $laudo->laudoEfetConst=="B601"?$table->addRow(10):null,
+                $laudo->laudoEfetConst=="B601"?$table->addCell()->addText('Deformações Acidentais', $this->fontStyle,$this->paraStyle):null,
+                $laudo->laudoEfetConst=="B601"?$this->deformacaoAcidental($componentes,$table):null,
+                //Adeerencias----------------------------------------------------------------------------------------------------------------------------------
+                $laudo->laudoEfetConst=="B601"?$table->addRow(10):null,
+                $laudo->laudoEfetConst=="B601"?$table->addCell()->addText('Aderências ', $this->fontStyle,$this->paraStyle):null,
+                $laudo->laudoEfetConst=="B601"?$this->aderencia($componentes,$table):null,
+                //----------------------------------------------------------------------------------------------------------------------------------------
                 $table->addRow(10),
                 $cell=$table->addCell(),
                 $cell->addText('Legenda:',['bold'=>true,'size'=>9]),
                 $this->legenda($componentes,$cell,$table)
 
         ];
+                
         
         $numTab++;
         $arrayImageProjetil=[];

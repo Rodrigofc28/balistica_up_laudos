@@ -9,10 +9,11 @@ class Municao extends Model
 {
     
 
-    protected $fillable = ['marca_id', 'origem_id', 'calibre_id', 'laudo_id', 'estojo',
+    protected $fillable = ['marca_id', 'origem_id', 'calibre_id', 'laudo_id','dito_oficio', 'estojo',
         'projetil', 'funcionamento', 'quantidade', 'tipo_municao', 'tipo_projetil',
         'nao_deflagrado', 'municao_de','lacrecartucho','observacao','institutoArma',
-        'coleta','percutidos','lacre_saida','rep_materialColetado','lote',
+        'detalharLocalizacao',
+        'coleta','percutidos','lacre_saida','rep_materialColetado','lote','origem_projetil',
         'origem_coletaPerito','funcionamentoCartucho','qtEficiente','qtIneficiente','up_image','up_image2'];
 
     protected $table = 'municoes';

@@ -42,16 +42,16 @@
 <div class="row m-auto">
     @php
     
-    if(!empty($reps)){
-        
-        $dataSolicitacao=$reps['data_solicitacao'];
-        $dataDesignacao=$reps['data_designacao'];
-        $dataRecebimento=$reps['data_recebimento'];
-    }else{
-        $dataSolicitacao='';
-        $dataDesignacao='';
-        $dataRecebimento='';
-    }
+        if(!empty($reps)){
+            
+            $dataSolicitacao=$reps['data_solicitacao'];
+            $dataDesignacao=$reps['data_designacao'];
+            $dataRecebimento=$reps['data_recebimento'];
+        }else{
+            $dataSolicitacao='';
+            $dataDesignacao='';
+            $dataRecebimento='';
+        }
     @endphp
 
     
@@ -125,7 +125,7 @@
 </div>
 <div class="row m-auto justify-content-between">
     <div class="col-lg-4 mt-3 mb-4">
-        <a class="btn btn-secondary btn-block" href="{{ route('laudos.index') }}">
+        <a class="btn btn-secondary btn-block" href="{{ route('dashboard') }}">
             <i class="fas fa-arrow-circle-left"></i> Voltar</a>
     </div>
     <div class="col-lg-4 mt-3 mb-4">
