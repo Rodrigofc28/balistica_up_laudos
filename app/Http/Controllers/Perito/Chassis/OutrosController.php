@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Perito\Chassis;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class OutorsController extends Controller
+class OutrosController extends Controller
 {
    public function index(){
       return view('perito.chassi.veiculos.semireboque.index');
