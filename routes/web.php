@@ -15,6 +15,9 @@ Route::get('unauthorized', function () {
 /* Admin routes */
 Route::prefix('admin')->middleware('cargo:Administrador')->group(function () {
     Route::resource('solicitantes', 'Admin\OrgaosSolicitantesController')->except(['show']);
+    //Busca pela cidade 
+    Route::get('solicitantes/search', 'Admin\OrgaosSolicitantesController@search')->name('solicitantes.search');
+
     Route::resource('users', 'Admin\UsersController')->except(['show']);
     Route::delete('users/destroy/{user}', 'Admin\UsersController@destroy')->name('usuarios.destroy');
         
