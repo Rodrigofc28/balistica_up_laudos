@@ -6,7 +6,7 @@
 'route_search_name' => 'laudos',
 'route_create_name' => 'laudos.create',
 'dados' => $laudos,
-'ths' => ['Data','REP', 'Ofício', 'Cidade', 'Órgão Solicitante','Perito','Tempo de execução']])
+'ths' => ['Data','Natureza do Exame','REP', 'Ofício', 'Cidade', 'Órgão Solicitante','Perito','Tempo de execução']])
 
 @section('table-content')
 
@@ -20,6 +20,7 @@
 @foreach ($laudos as $laudo)
 <tr>
     <td class="tabelaTodosLaudosTd">{{$laudo->created_at->format('d/m/Y')}}</td>
+    <td class="tabelaTodosLaudosTd"> {{ $laudo->laudoEfetConst }}</td>
     <td class="tabelaTodosLaudosTd"> {{ $laudo->rep }}</td>
     <td class="tabelaTodosLaudosTd"> {{ $laudo->oficio }}</td>
     <td class="tabelaTodosLaudosTd"> {{ $laudo->cidade_id }}</td>

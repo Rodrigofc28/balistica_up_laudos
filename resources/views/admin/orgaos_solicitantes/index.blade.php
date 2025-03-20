@@ -10,6 +10,8 @@
 
 @section('table-content')
 @if (count($solicitantes) > 0)
+{{--Busca Pela cidade--}}
+@include('shared.attributes.buscaCidade', ['size' => '4', 'cidade2' => $laudo->cidade_id ?? old('cidade_id')])
 @foreach ($solicitantes as $solicitante)
 <tr>
 

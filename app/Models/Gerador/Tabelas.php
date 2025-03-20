@@ -71,10 +71,10 @@ class Tabelas {
             
             
             }
-    //caso munição B602           
+    //caso munição B602--------------------------------------------------------------------------------------------------------------------------------------------           
     if($municaolaudo!=''){
          
-        $tabelaNecropsia=DB::select('select lacrecartucho,tipo_municao,calibre_id,sum(quantidade),marca_id from municoes where laudo_id = :id group by lacrecartucho,tipo_municao,marca_id,calibre_id ',['id'=>$laudo->id]); 
+        $tabelaNecropsia=DB::select('select dito_oficio,lacrecartucho,tipo_municao,calibre_id,sum(quantidade),marca_id from municoes where laudo_id = :id group by dito_oficio,lacrecartucho,tipo_municao,marca_id,calibre_id ',['id'=>$laudo->id]); 
        
        
        
@@ -92,6 +92,7 @@ class Tabelas {
                             $modelo=$tableX[0]->nome;
                         } 
                     $naturezaMunicao="munição";
+                    
                         [$table->addRow(10,['tblHeader'=>true]),
                                 //$table->addCell()->addText($item,null,$this->paraStyle),
                                 $table->addCell()->addText(mb_strtoupper($naturezaMunicao),null,$this->paraStyle),
@@ -108,7 +109,7 @@ class Tabelas {
 
    
             }
-    //caso projetil
+    //caso projetil--------------------------------------------------------------------------------------------------------------------------------
     if($laudo->componentes!=''){
 
         $tabelaNecropsia=DB::select('select dito_oficio,lacrecartucho,group_concat(calibreNominal),group_concat(tipo_projetil),sum(quantidade_frascos) from componentes where laudo_id = :id group by dito_oficio,lacrecartucho',['id'=>$laudo->id]);
@@ -129,15 +130,9 @@ class Tabelas {
 
                     ];
                     $item++;
-                    
-                 
-                    
-                     
-                    
+                                 
     }
-
-
-        
+  
     }
                
     return $table;
@@ -259,9 +254,6 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
                     $table->addCell()->addText($laudo->rep,null,$this->paraStyle),
                     $table->addCell()->addText($arma->num_lacre_saida,null,$this->paraStyle),
                     
-                    
-                    
-
                     ];
                 $item++;
 

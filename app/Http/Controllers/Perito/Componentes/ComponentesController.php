@@ -90,11 +90,12 @@ class ComponentesController extends Controller
      */
     public function edit($laudo, Componente $componente)
     {
+        $marcas = Marca::categoria('municoes');
         $calibres = Calibre::whereNotArmas();
        
       
         return view('perito.laudo.materiais.componentes.balins_chumbo.edit',
-            compact( 'laudo', 'componente','calibres'));
+            compact( 'laudo', 'componente','calibres','marcas'));
 
     }
 

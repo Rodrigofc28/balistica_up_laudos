@@ -93,9 +93,9 @@ $arrayReverte=array_reverse($armaArray,true);
    
     <td>
         @if($arma->status=='1')
-            <img src="{{asset('image/verificar.png')}}" alt="">
+            <img  src="{{asset('image/verificar.png')}}" alt="">
         @else
-            <img src="{{asset('image/check.png')}}" alt="">
+            <img  src="{{asset('image/check.png')}}" alt="">
     @endif
     </td>
     <td>{{ optional($arma->laudo)->perito->nome ?? 'N/A' }}</td>
@@ -128,3 +128,4 @@ $arrayReverte=array_reverse($armaArray,true);
 @endif
 
 @endsection
+

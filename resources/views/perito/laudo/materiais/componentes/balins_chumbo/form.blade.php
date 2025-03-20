@@ -72,13 +72,24 @@
            @include('perito.laudo.materiais.attributes.tipo_projetil', ['tipo_projetil2' =>
             $componente->tipo_projetil ?? old('tipo_projetil')])
         @endif
+        {{--Marca e origem-----------------------------------------------------------------------------------------------------------}}
+        @if($laudo->laudoEfetConst=="B602")
+            @include('perito.laudo.materiais.attributes.marca', ['marca2' => $municao->marca->id ?? old('marca_id')])
+            @include('perito.laudo.materiais.attributes.origem', ['origem2' => $municao->marca->id ?? old('origem_id')])
+        @endif
         {{------------------------------------------------------------------------------------------------------------------------------}}
         {{--Tipo de raiamento--}}
         @include('perito.laudo.materiais.attributes.tipo_raiamento', ['tipo_raiamento2' =>
         $componente->tipo_raiamento ?? old('tipo_raiamento')])
+        {{--Sentido da raias--}}
+        
+        @include('perito.laudo.materiais.attributes.sentido_raias', ['sentido_raias2' => $componente->sentido_raias ??
+        old('sentido_raias')])
         {{------------------------------------------------------------------------------------------------------------------------------}}
         {{--dito no oficio--}}
-        @include('perito.laudo.materiais.attributes.dito_oficio')
+        @if($laudo->laudoEfetConst=="B602"){{--Incluido no B602 dito no oficio--}}
+            @include('perito.laudo.materiais.attributes.dito_oficio')
+        @endif
         {{------------------------------------------------------------------------------------------------------------------------------}}
         {{--provavel calibre nominal--}}
         @include('perito.laudo.materiais.attributes.provavelCalibre', ['obrigatorio' => 'true', 'calibre2' =>
@@ -100,11 +111,8 @@
             @include('perito.laudo.materiais.attributes.aderencia',['aderencia2'=> $componente->aderencia ?? old('aderencia2')])
         @endif
         {{------------------------------------------------------------------------------------------------------------------------------}}
-        {{--Sentido da raias--}}
-        @if($laudo->laudoEfetConst=="B601"){{--Incluido Sentido da raias B601--}}
-            @include('perito.laudo.materiais.attributes.sentido_raias', ['sentido_raias2' => $componente->sentido_raias ??
-            old('sentido_raias')])
-        @endif
+        
+        
         {{------------------------------------------------------------------------------------------------------------------------------}}
         {{--Quantidade de raias--}}
         @if($laudo->laudoEfetConst=="B601"){{--Incluido quantidade de raias B601--}}
@@ -148,8 +156,9 @@
         {{--Imagens --}}
      @include('perito.laudo.materiais.attributes.imagem_municao',['tipo'=>'DOS PROJÉTEIS'])
     {{------------------------------------------------------------------------------------------------------------------------------}}
-        {{--Modal de cadastrado de calibres--}}
+        {{--Modal de cadastrado de calibres e marcas--}}
      @include('perito.modals.calibre_modal')
+     @include('perito.modals.marca_modal')
 
     <div id="btnAcao" class="row justify-content-between mb-4">
         <div class="col-lg-4 mt-1">

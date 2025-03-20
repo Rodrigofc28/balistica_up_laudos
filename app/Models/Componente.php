@@ -15,7 +15,7 @@ class Componente extends Model
 
     protected $table = 'componentes';
 
-    protected $fillable = ['laudo_id', 'quantidade_frascos', 'componente',
+    protected $fillable = ['laudo_id','marca_id', 'quantidade_frascos', 'componente',
         'tipo_raiamento', 'quantidade', 'tamanho','altura_projetil','constituicao_formato','massa','quantidade_raias',
         'detalharLocalizacao','tipo_projetil','calibreReal','calibreNominal',
         'aderencia','sentido_raias','origem_projetil','deformacaoAcidental','cavados','ressaltos','dito_oficio', 
