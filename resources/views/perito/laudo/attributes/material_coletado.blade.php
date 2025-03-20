@@ -38,7 +38,7 @@
 
     @else
        
-        <b >O veículo foi periciado no patio da instituição?</b>
+        <b >O veículo foi periciado no pátio da instituição?</b>
         <div class="conteiner_sinb">
             <div style="padding: 5px">
                 <label for="periciaVeiculono">
