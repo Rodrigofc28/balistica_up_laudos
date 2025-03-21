@@ -199,9 +199,10 @@ Route::get('/notifications', function() {
 //Rotas de chassi
 //Exibe a Tela para escolha dos veiculos
 Route::post('chassi','Perito\Chassis\ChassisController@store')->name('chassi.index');
-Route::get('motocicleta.index','Perito\Chassis\MotocicletasController@index')->name('motocicleta.index');
+
 
 //Rotas Motocicleta Tela 1 da Motocicleta--------------------------------------------------------------------------
+Route::get('motocicleta.index','Perito\Chassis\MotocicletasController@index')->name('motocicleta.index');
 Route::get('motocicleta.tela2/{laudo}', 'Perito\Chassis\MotocicletasController@tela2')->name('motocicletas.tela2');
 //exibe a tela 2 de fotos
 Route::post('motocicleta.tela3', 'Perito\Chassis\MotocicletasController@tela3')->name('motocicletas.tela3');

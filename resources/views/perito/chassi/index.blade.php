@@ -1,8 +1,5 @@
 @extends('layout.component')
 @section('page')
-    <style>
-
-    </style>
 
     <div class="container">
         <header>

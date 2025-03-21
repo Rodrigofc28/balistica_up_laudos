@@ -190,7 +190,6 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
     </head>
     <header>
         <h1>Exame de Identificação Veicular</h1>
@@ -212,16 +211,6 @@
         {{ csrf_field() }}
         <input hidden  name="laudo_id" value="{{$laudo->id}}" type="text">
         <input type="text" name="veiculo_id" value="motocicleta" hidden>
-        <div class="form-group">
-            <label for="estado-conservacao">Estado de conservação:</label>
-            <select id="estado-conservacao" name="estado_conservacao" required>
-                <option>Selecione</option>      
-                <option>MAU</option>
-                <option>BOM</option>
-                <option>REGULAR</option>
-                <option>ÓTIMO</option>
-            </select>
-        </div>
 
         <div class="form-group">
             <label for="marca">Marca:</label>
@@ -250,6 +239,18 @@
             <input type="text" id="placa" name="placa"maxlength="7" placeholder="XXX0X00" >
             <label><input type="checkbox" id="nao-tem-placa" name="nao-tem-placa"> Não tem placa</label>
         </div>
+
+        <div class="form-group">
+            <label for="estado-conservacao">Estado de conservação:</label>
+            <select id="estado-conservacao" name="estado_conservacao" required>
+                <option>Selecione</option>      
+                <option>MAU</option>
+                <option>BOM</option>
+                <option>REGULAR</option>
+                <option>ÓTIMO</option>
+            </select>
+        </div>
+        
             <div class="form-group">
                 <label><input type="radio" name="cor" value="Vermelho" required> Vermelho</label>
                 <label><input type="radio" name="cor" value="Azul"> Azul</label>
