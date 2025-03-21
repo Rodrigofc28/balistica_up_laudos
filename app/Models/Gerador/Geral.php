@@ -43,16 +43,18 @@ class Geral extends Tabelas
     }
     
     public function vereficaTabela($laudo){
-        
+       
         if($laudo->oficio==true || $laudo->oficio==false){
             if($laudo->material_coletado=="sim"){
                 $this->tabelaExameLocalNecropsia($this->phpWord,$this->section,$this->config,$laudo);
                 
+            }else if($laudo->laudoEfetConst=="B601"){
+                $this->tabelaExameB601($this->phpWord,$this->section,$this->config,$laudo);
             }else{
                 
-                $this->tabelaExame($this->phpWord,$this->section,$this->config,$laudo);
+                $this->tabelaExameB602($this->phpWord,$this->section,$this->config,$laudo);
         
-        }
+            }
         }
         
         return $this;

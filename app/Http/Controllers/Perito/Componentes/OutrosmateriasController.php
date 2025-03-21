@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Perito\Componentes;
 use App\Http\Controllers\Controller;
 use App\Models\Componente;
 
-class PolvoraController extends Controller
+class OutrosmateriasController extends Controller
 {
     /**
      * Show the form for creating a new resource.
@@ -14,7 +14,8 @@ class PolvoraController extends Controller
      */
     public function create($laudo)
     {
-        return view('perito.laudo.materiais.componentes.polvora.create',
+        
+        return view('perito.laudo.materiais.componentes.outros.create',
             compact('laudo'));
     }
 

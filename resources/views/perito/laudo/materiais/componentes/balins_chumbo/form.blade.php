@@ -2,6 +2,7 @@
 @section('js')
 {!! Html::script('js/selectProjeteis.js') !!} 
 {!! Html::script('js/projetil.js') !!}
+{!! Html::script('js/form_componentes.js') !!}
 @if($acao == 'Cadastrar')
 {!! Html::script('js/sessionProjet.js') !!}
 @endif
@@ -16,11 +17,10 @@
 {!! Form::open() !!}
 @endif
 
-
-
 <input type="hidden" name="laudo_id" id="laudo_id" value="{{ $laudo->id }}">
 <input type="hidden" name="componente" id="componente" value="Projetil">
-
+{{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--Tabela de cadastro de projetil--}}
 <div class="col-lg-12" style="padding: 0 5% 0">
  @if (session('projetil')&&$acao == 'Cadastrar')
             @php
@@ -60,50 +60,105 @@
         @else
             
         @endif
+        {{--Texto de observação--}}
+        @if($laudo->laudoEfetConst=="B602"){{--Incluido no B601 tipo de projétil--}}
+            <span class="obsTipoExame">OBS: Para exames de constatação deve-se utilizar o formulário contido na natureza B601</span>
+        @endif
     <div class="row mb-3">
-        @php
-            //dd($laudo->laudoEfetConst);
-        @endphp
         
-            @include('perito.laudo.materiais.attributes.tipo_raiamento', ['tipo_raiamento2' =>
-            $componente->tipo_raiamento ?? old('tipo_raiamento')])
-            @include('perito.laudo.materiais.attributes.tipo_projetil', ['tipo_projetil2' =>
+        {{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--Tipo de projétil--}}
+        @if($laudo->laudoEfetConst=="B601"){{--Incluido no B601 tipo de projétil--}}
+           @include('perito.laudo.materiais.attributes.tipo_projetil', ['tipo_projetil2' =>
             $componente->tipo_projetil ?? old('tipo_projetil')])
-       
-        @include('perito.laudo.materiais.attributes.massa', ['massa' =>(isset($componente))? $componente->massa:'','calibreReal'=>(isset($componente))?$componente->calibreReal:'','calibreNominal'=>(isset($componente))?$componente->calibreNominal:''
-         ?? old('massa'), old('calibreReal'),old('calibreNominal') ])
-       
-         @include('perito.laudo.materiais.attributes.altura_projetil', ['altura' =>  $componente->altura_projetil ?? old('altura')])
-         @include('perito.laudo.materiais.attributes.constituicao_formato',['constituicao_formato2' => $componente->constituicao_formato ?? old('constituicao_formato2')])
-         @include('perito.laudo.materiais.attributes.aderencia',['aderencia2'=> $componente->aderencia ?? old('aderencia2')])
-         
-         @include('perito.laudo.materiais.attributes.sentido_raias', ['sentido_raias2' => $componente->sentido_raias ??
-        old('sentido_raias')])
-        @include('perito.laudo.materiais.attributes.quantidade_raias_projetil', ['quantidade_raias' => $componente->quantidade_raias
-        ?? old('quantidade_raias')])
-        @include('perito.laudo.materiais.attributes.quantidadeProjetil',['quantidadeProjetil'=>$componente->quantidade_frascos??old('quantidadeProjetil')])
-        @include('perito.laudo.materiais.attributes.cavados',['cavados'=>$componente->cavados??old('cavados')])
-        @include('perito.laudo.materiais.attributes.ressaltos',['ressaltos'=>$componente->ressaltos??old('ressaltos')])
-        @include('perito.laudo.materiais.attributes.projetil_observacao')
+        @endif
+        {{--Marca e origem-----------------------------------------------------------------------------------------------------------}}
+        @if($laudo->laudoEfetConst=="B602")
+            @include('perito.laudo.materiais.attributes.marca', ['marca2' => $municao->marca->id ?? old('marca_id')])
+            @include('perito.laudo.materiais.attributes.origem', ['origem2' => $municao->marca->id ?? old('origem_id')])
+        @endif
+        {{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--Tipo de raiamento--}}
+        @include('perito.laudo.materiais.attributes.tipo_raiamento', ['tipo_raiamento2' =>
+        $componente->tipo_raiamento ?? old('tipo_raiamento')])
+        {{--Sentido da raias--}}
         
-         
+        @include('perito.laudo.materiais.attributes.sentido_raias', ['sentido_raias2' => $componente->sentido_raias ??
+        old('sentido_raias')])
+        {{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--dito no oficio--}}
+        @if($laudo->laudoEfetConst=="B602"){{--Incluido no B602 dito no oficio--}}
+            @include('perito.laudo.materiais.attributes.dito_oficio')
+        @endif
+        {{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--provavel calibre nominal--}}
+        @include('perito.laudo.materiais.attributes.provavelCalibre', ['obrigatorio' => 'true', 'calibre2' =>
+        $municao->calibre->id ?? old('calibre_id')])
+        {{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--calibre medio e altura--}}
+        
+            @include('perito.laudo.materiais.attributes.massa', ['massa' =>(isset($componente))? $componente->massa:'','calibreReal'=>(isset($componente))?$componente->calibreReal:'','calibreNominal'=>(isset($componente))?$componente->calibreNominal:''
+             ?? old('massa'), old('calibreReal'),old('calibreNominal') ])
+        
+            @include('perito.laudo.materiais.attributes.altura_projetil', ['altura' =>  $componente->altura_projetil ?? old('altura')])
+        
+        {{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--Constituição e formato--}}
+         @include('perito.laudo.materiais.attributes.constituicao_formato',['constituicao_formato2' => $componente->constituicao_formato ?? old('constituicao_formato2')])
+         {{------------------------------------------------------------------------------------------------------------------------------}}
+         {{--Aderencias--}}
+        @if($laudo->laudoEfetConst=="B601"){{--Incluido aderencia no B601--}}
+            @include('perito.laudo.materiais.attributes.aderencia',['aderencia2'=> $componente->aderencia ?? old('aderencia2')])
+        @endif
+        {{------------------------------------------------------------------------------------------------------------------------------}}
+        
+        
+        {{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--Quantidade de raias--}}
+        @if($laudo->laudoEfetConst=="B601"){{--Incluido quantidade de raias B601--}}
+            @include('perito.laudo.materiais.attributes.quantidade_raias_projetil', ['quantidade_raias' => $componente->quantidade_raias
+            ?? old('quantidade_raias')])
+        @endif
+        {{--Quantidade --}}
+        @if($laudo->laudoEfetConst=="B602"){{--Incluido quantidade de raias B601--}}
+            @include('perito.laudo.materiais.attributes.quantidadeProjetil',['quantidadeProjetil'=>$componente->quantidade_frascos??old('quantidadeProjetil')])
+        @endif
+        {{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--Resaltos e cavados--}}
+        @if($laudo->laudoEfetConst=="B601"){{--Incluido cavados e resaltos no B601--}}
+            @include('perito.laudo.materiais.attributes.cavados',['cavados'=>$componente->cavados??old('cavados')])
+            @include('perito.laudo.materiais.attributes.ressaltos',['ressaltos'=>$componente->ressaltos??old('ressaltos')])
+        @endif
+        {{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--Observação--}}
+        @include('perito.laudo.materiais.attributes.projetil_observacao')
+        {{------------------------------------------------------------------------------------------------------------------------------}}
+         {{--Lacre de entrada e de saida--}}
          @include('perito.laudo.materiais.attributes.lacrecartucho', [$name = 'lacrecartucho', $label ="Nº lacre de entrada",'lacre'=>empty($componente->lacrecartucho)?session('lacre_projetil_entrada'):$componente->lacrecartucho ??
         old('lacre')])
         @include('perito.laudo.materiais.attributes.lacrecartucho', [$name = 'lacreSaida', $label ="N° lacre de saida",'lacre'=>empty($componente->lacreSaida)?session('lacre_projetil_saida'):$componente->lacreSaida ??
         old('lacre')])
-        @include('perito.laudo.materiais.attributes.material_coletado_projetil',['origem'=>empty($componente->origemcoletadaPerito)?session('origem'):$componente->origem_coletaPerito,'rep'=>empty($componente->rep_materialColetado)?session('rep_coleta'):$componente->rep_materialColetado??old('origem'),old('rep')])
+        {{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--Material coletado--}}
+        @if($laudo->laudoEfetConst=="B601"){{--Incluido no B602 matérial coletado --}}
+            @include('perito.laudo.materiais.attributes.material_coletado_projetil',['origem'=>empty($componente->origemcoletadaPerito)?session('origem'):$componente->origem_coletaPerito,'rep'=>empty($componente->rep_materialColetado)?session('rep_coleta'):$componente->rep_materialColetado??old('origem'),old('rep')])
+        @endif
+        {{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--Defomações--}}
+        @if($laudo->laudoEfetConst=="B601"){{--Incluido Deformações no B601--}}
+            @include('perito.laudo.materiais.attributes.detalharlocalidade',['detalharlocalidade'=>empty($componente->detalharLocalizacao)?session('detalhe_localizacao'):$componente->detalharLocalizacao??old('detalharlocalidade')])
         
-        
-       
-        
-        @include('perito.laudo.materiais.attributes.detalharlocalidade',['detalharlocalidade'=>empty($componente->detalharLocalizacao)?session('detalhe_localizacao'):$componente->detalharLocalizacao??old('detalharlocalidade')])
-        @include('perito.laudo.materiais.attributes.deformacaoAcidental',['deformacoes2'=>$componente->deformacaoAcidental??old('deformacoes2')])
-       
-        
-
+            @include('perito.laudo.materiais.attributes.deformacaoAcidental',['deformacoes2'=>$componente->deformacaoAcidental??old('deformacoes2')])
+        @endif
+        {{------------------------------------------------------------------------------------------------------------------------------}}
     </div>
+    {{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--Imagens --}}
      @include('perito.laudo.materiais.attributes.imagem_municao',['tipo'=>'DOS PROJÉTEIS'])
-    
+    {{------------------------------------------------------------------------------------------------------------------------------}}
+        {{--Modal de cadastrado de calibres e marcas--}}
+     @include('perito.modals.calibre_modal')
+     @include('perito.modals.marca_modal')
 
     <div id="btnAcao" class="row justify-content-between mb-4">
         <div class="col-lg-4 mt-1">

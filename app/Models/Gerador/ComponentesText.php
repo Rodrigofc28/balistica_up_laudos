@@ -94,7 +94,7 @@ class ComponentesText
         $this->i++;
        
        
-    
+        
         $this->phpWord->addTableStyle('tabela', $this->styleTable, $this->styleFirstRow);
         
          //colocar
@@ -105,7 +105,9 @@ class ComponentesText
             
             
         }
+        
         $stringQuantidade=array_sum($quantidade);
+        
         $extenso = new NumberFormatter('pt_BR',NumberFormatter::SPELLOUT);
         $nomecartucho=$extenso->format($stringQuantidade).' projétil';
         
@@ -124,17 +126,21 @@ class ComponentesText
                 $table->addRow(10,['cantSplit'=>false]),
                 $table->addCell(null,['bgColor'=>'d3d3d3'])->addText('Características', $this->fontStyle,$this->paraStyle),
                 $this->caracteristica($componentes,$table,$pQ),
-                $table->addRow(10),
-                $table->addCell()->addText('Origem', $this->fontStyle,$this->paraStyle),
-                $this->origem($componentes,$table),
-                
-                $table->addRow(10),
-                $table->addCell()->addText('Tipo', $this->fontStyle,$this->paraStyle),
-                $this->tipoProjetil($componentes,$table),
-                $table->addRow(10),
+                //Origem---------------------------------------------------------------------------------------------------------------------------------------
+                $laudo->laudoEfetConst=="B601"?$table->addRow(10):null,
+                $laudo->laudoEfetConst=="B601"?$table->addCell()->addText('Origem', $this->fontStyle,$this->paraStyle):null,
+                $laudo->laudoEfetConst=="B601"?$this->origem($componentes,$table):null,
+                //tipo------------------------------------------------------------------------------------------------------------------------------------------
 
-                $table->addCell()->addText('Constituição e formato', $this->fontStyle,$this->paraStyle),
-                $this->constituicao($componentes,$table),
+                $laudo->laudoEfetConst=="B601"?$table->addRow(10):null,
+                $laudo->laudoEfetConst=="B601"?$table->addCell()->addText('Tipo', $this->fontStyle,$this->paraStyle):null,
+                $laudo->laudoEfetConst=="B601"?$this->tipoProjetil($componentes,$table):null,
+                //constituição e formato------------------------------------------------------------------------------------------------------------------------------------------
+                $laudo->laudoEfetConst=="B601"?$table->addRow(10):null,
+
+                $laudo->laudoEfetConst=="B601"?$table->addCell()->addText('Constituição e formato', $this->fontStyle,$this->paraStyle):null,
+                $laudo->laudoEfetConst=="B601"?$this->constituicao($componentes,$table):null,
+                //-------------------------------------------------------------------------------------------------------------------------------------------------
                 $table->addRow(10),
                 $table->addCell()->addText('Massa (g)', $this->fontStyle,$this->paraStyle),
                 $this->massa($componentes,$table),
@@ -147,28 +153,33 @@ class ComponentesText
                 $table->addRow(10),
                 $table->addCell()->addText('Provável calibre nominal', $this->fontStyle,$this->paraStyle),
                 $this->calibreNominal($componentes,$table),
-                $table->addRow(10),
-                
-                $table->addCell()->addText('Cavados e Ressaltos', $this->fontStyle,$this->paraStyle),
-                $this->cavadosRessaltos($componentes,$table),
+                //Adiciona resaltos e cavados caso seja B601----------------------------------------------------------------------------------------
+                $laudo->laudoEfetConst=="B601"?$table->addRow(10):null,
+                $laudo->laudoEfetConst=="B601"?$table->addCell()->addText('Cavados e Ressaltos', $this->fontStyle,$this->paraStyle):null,
+                $laudo->laudoEfetConst=="B601"?$this->cavadosRessaltos($componentes,$table,$laudo):null,
+                //----------------------------------------------------------------------------------------------------------------------------------
                 $table->addRow(10),
                 $table->addCell()->addText('Raiamento e Orientação', $this->fontStyle,$this->paraStyle),
                 $this->quantidadeRaias($componentes,$table),
                 $table->addRow(10),
                 $table->addCell()->addText('Tipo de Raiamento', $this->fontStyle,$this->paraStyle),
                 $this->tipo_raiamento($componentes,$table),
-                $table->addRow(10),
-                $table->addCell()->addText('Deformações Acidentais', $this->fontStyle,$this->paraStyle),
-                $this->deformacaoAcidental($componentes,$table),
-                $table->addRow(10),
-                $table->addCell()->addText('Aderências ', $this->fontStyle,$this->paraStyle),
-                $this->aderencia($componentes,$table),
+                //Adiciona resaltos e cavados caso seja B601----------------------------------------------------------------------------------------
+                $laudo->laudoEfetConst=="B601"?$table->addRow(10):null,
+                $laudo->laudoEfetConst=="B601"?$table->addCell()->addText('Deformações Acidentais', $this->fontStyle,$this->paraStyle):null,
+                $laudo->laudoEfetConst=="B601"?$this->deformacaoAcidental($componentes,$table):null,
+                //Adeerencias----------------------------------------------------------------------------------------------------------------------------------
+                $laudo->laudoEfetConst=="B601"?$table->addRow(10):null,
+                $laudo->laudoEfetConst=="B601"?$table->addCell()->addText('Aderências ', $this->fontStyle,$this->paraStyle):null,
+                $laudo->laudoEfetConst=="B601"?$this->aderencia($componentes,$table):null,
+                //----------------------------------------------------------------------------------------------------------------------------------------
                 $table->addRow(10),
                 $cell=$table->addCell(),
                 $cell->addText('Legenda:',['bold'=>true,'size'=>9]),
                 $this->legenda($componentes,$cell,$table)
 
         ];
+                
         
         $numTab++;
         $arrayImageProjetil=[];
@@ -240,7 +251,7 @@ for($i=0;$i<count($arrayImageProjetil);$i++){
      protected function massa($componentes,$table){foreach($componentes as $componente){$teste=[$table->addCell()->addText($componente->massa,null,$this->paraStyle)];}}                            
      protected function calibreReal($componentes,$table){foreach($componentes as $componente){$teste=[$table->addCell()->addText($componente->calibreReal,null,$this->paraStyle)];}}       
      protected function alturaProjetil($componentes,$table){foreach($componentes as $componente){$teste=[$table->addCell()->addText(strtoupper($componente->altura_projetil),null,$this->paraStyle)];}}       
-     protected function calibreNominal($componentes,$table){foreach($componentes as $componente){$teste=[$table->addCell()->addText(strtoupper($componente->calibreNominal),null,$this->paraStyle)];}}
+     protected function calibreNominal($componentes,$table){foreach($componentes as $componente){$teste=[$table->addCell()->addText(strtoupper($componente->calibreProjetil->nome),null,$this->paraStyle)];}}
      protected function cavadosRessaltos($componentes,$table){foreach($componentes as $componente){ $naoSeAplica='NÃO SE APLICA';$teste=[$table->addCell()->addText(($componente->tipo_projetil=="Núcleo")?$naoSeAplica:"$componente->cavados/$componente->ressaltos",null,$this->paraStyle)];}}    
      protected function quantidadeRaias($componentes,$table){foreach($componentes as $componente){$naoSeAplica='NÃO SE APLICA';$quntidadeRaias=($componente->sentido_raias=='')?'':$componente->quantidade_raias.' RAIAS ';$teste=[$table->addCell()->addText(($componente->tipo_projetil=="Núcleo")?$naoSeAplica:$quntidadeRaias.''.mb_strtoupper($componente->sentido_raias),null,$this->paraStyle)];}}
      protected function tipo_raiamento($componentes,$table){foreach($componentes as $componente){$teste=[$table->addCell()->addText(($componente->tipo_projetil=="Núcleo")?'NÃO SE APLICA':mb_strtoupper($componente->tipo_raiamento),null,$this->paraStyle)];}}
@@ -302,20 +313,21 @@ for($i=0;$i<count($arrayImageProjetil);$i++){
         { 
             
             $aderenciaArray=explode(', ',$componente->aderencia);
-
-            foreach($aderenciaArray as $aderenciaString){
- 
-            if(($aderenciaString=='MADEIRA')||($aderenciaString=='CALIÇA')||($aderenciaString=='TERRA')||($aderenciaString=='OUTROS')){
+            if($aderenciaArray[0]!=''){
                 
-                array_push($material,$aderencias[$aderenciaString]);
-            }else{
-                
-                $aderenciaString=trim($aderenciaString);
-                array_push($material,$aderenciaString,$aderencias[$aderenciaString]);
+                foreach($aderenciaArray as $aderenciaString){
+    
+                    if(($aderenciaString=='MADEIRA')||($aderenciaString=='CALIÇA')||($aderenciaString=='TERRA')||($aderenciaString=='OUTROS')){
+                        
+                        array_push($material,$aderencias[$aderenciaString]);
+                    }else{
+                        
+                        $aderenciaString=trim($aderenciaString);
+                        array_push($material,$aderenciaString,$aderencias[$aderenciaString]);
+                    }
+    
+                }
             }
-  
-        }
-        
         $lengContForm=$arrayLegenda[$componente->constituicao_formato]==''?'':$componente->constituicao_formato;
         
        array_push($constituicaoFormato,$lengContForm,$arrayLegenda[$componente->constituicao_formato]);

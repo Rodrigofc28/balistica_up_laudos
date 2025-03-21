@@ -18,12 +18,3 @@
                    value="{{old('calibreReal',$calibreReal)}}" min="0" id="calibre_real_medio" required/>
     </div>
 </div>
-<div class="col-lg-3">
-    <div class="form-group">
-
-    <label><strong>Provável calibre nominal<code>*</code></strong></label>
-            <input class="form-control {{ $errors->has('calibreNominal') ? ' is-invalid' : '' }}"
-                   name="calibreNominal" autocomplete="off" id="provavel_calibre" type="text"
-                   value="{{old('calibreNominal',$calibreNominal)}}" min="0" required/>
-    </div>
-</div>

@@ -15,7 +15,8 @@ $(function () {
     $('#cadastro_solicitante').on('click', function () {
         var nome2 = $('#nome_solicitante').val();
         var cidade_id2 = $("#cidade2").val();
-
+        let baseUrl = $('meta[name="base-url"]').attr('content'); // Obtém a base do site
+        let url = baseUrl + "/solicitantes"; // Concatena a URL correta
         if (nome2.length < 8) {
             swal.fire({
                 type: 'error',
@@ -24,7 +25,7 @@ $(function () {
             });
         } else {
             $.ajax({
-                url: "./../solicitantes/",
+                url: url,
                 type: "GET",
                 data: {
                     "nome": nome2,
@@ -64,12 +65,14 @@ $(function () {
     });
 
     $('#cadastroMarca').on('click', function () {
+        let baseUrl = $('meta[name="base-url"]').attr('content'); // Obtém a base do site
+        let url = baseUrl + "/marcas"; // Concatena a URL correta
         var nome_marca = $('#nome').val();
         var categoria = $("#categoria").val();
         var nome_pais = $('#nome_pais').val();
         var fabricacao = $("#fabricacao").val();
         $.ajax({
-            url: "../../../../marcas",
+            url: url,
             type: "GET",
             data: { 'nome': nome_marca, 'categoria': categoria, 'pais_origem':nome_pais,'fabricacao':fabricacao },
             success: function (data) {
@@ -90,12 +93,20 @@ $(function () {
 
     /*------Cadastro de calibre---------------*/
     var calibre = $('#calibre');
+    
     $('#cadastrar_calibre').on('click', function () {
+        
         $("#calibre-modal").modal();
+       
+
     });
 
     $('#cadastroCalibre').on('click', function () {
+        let baseUrl = $('meta[name="base-url"]').attr('content'); // Obtém a base do site
+        let url = baseUrl + "/calibres"; // Concatena a URL correta
+       
         var nome_calibre = $('#nome_calibre').val();
+        
         var tipo = $("input[name='calibres_armas[]']:checked") 
         .map(function () {
             return $(this).val(); 
@@ -104,7 +115,7 @@ $(function () {
 
     
             $.ajax({
-                url: "../../../../calibres/",
+                url: url,
                 type: "GET",
                 data: {
                     "nome": nome_calibre,
@@ -182,7 +193,7 @@ var buscaCadastro=$('#busca_cadastro').val();
 buscaCadastro = JSON.parse(buscaCadastro);
  
 var objetoBuscaCadastro=buscaCadastro;
-
+console.log(objetoBuscaCadastro)
 $('#marca').val(objetoBuscaCadastro.marca_id);
 $('#marca').trigger('change');
 $('#tipo_arma').val(objetoBuscaCadastro.tipo_arma);
@@ -249,6 +260,8 @@ $('#sistema_percussao').val(objetoBuscaCadastro.sistema_percussao);
 $('#sistema_percussao').trigger('change');
 $('#tambor_rebate').val(objetoBuscaCadastro.tambor_rebate);
 $('#tambor_rebate').trigger('change');
+$('#tipo_tambor').val(objetoBuscaCadastro.tipo_tambor);
+$('#tipo_tambor').trigger('change');
 $('#teclas_gatilho').val(objetoBuscaCadastro.teclas_gatilho);
 $('#teclas_gatilho').trigger('change');
 $('#telha').val(objetoBuscaCadastro.telha);

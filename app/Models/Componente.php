@@ -15,10 +15,10 @@ class Componente extends Model
 
     protected $table = 'componentes';
 
-    protected $fillable = ['laudo_id', 'quantidade_frascos', 'componente',
+    protected $fillable = ['laudo_id','marca_id', 'quantidade_frascos', 'componente',
         'tipo_raiamento', 'quantidade', 'tamanho','altura_projetil','constituicao_formato','massa','quantidade_raias',
         'detalharLocalizacao','tipo_projetil','calibreReal','calibreNominal',
-        'aderencia','sentido_raias','origem_projetil','deformacaoAcidental','cavados','ressaltos',
+        'aderencia','sentido_raias','origem_projetil','deformacaoAcidental','cavados','ressaltos','dito_oficio', 
         'lacrecartucho','tipo_prjetil','projetil','origem_coletaPerito','rep_materialColetado','lacreSaida','recoberto','up_image','up_image2'];
 
     protected $dates = ['deleted_at'];
@@ -36,10 +36,17 @@ class Componente extends Model
     {
         return $this->belongsTo(Calibre::class)->withTrashed();
     }
+    public function getCalibreProjetilAttribute()
+    {
+        return Calibre::where('id', $this->calibreNominal)->first();
+    }
+    
+
     public function laudo()
     {
         return $this->belongsTo(Laudo::class);
     }
-
+    
+    
     
 }

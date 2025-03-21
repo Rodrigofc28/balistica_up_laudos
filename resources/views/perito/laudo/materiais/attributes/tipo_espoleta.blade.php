@@ -4,7 +4,7 @@
         <select required class="js-single-select form-control{{ $errors->has('tipo_projetil') ? ' is-invalid' : '' }}"
                 name="tipo_projetil" id="tipo_projetil">
             <option value=""></option>
-            @foreach (['Latonada', 'Niquelada', 'Aço','Cobre'] as $tipo_espoleta)   
+            @foreach (['Latonada', 'Niquelada', 'Aço','Cobre','Ausente'] as $tipo_espoleta)   
                 <option value="{{ mb_strtolower($tipo_espoleta)}}" {{ (mb_strtolower($tipo_espoleta) == mb_strtolower($tipo_espoleta2)) ? 'selected=selected' : '' }}>
                     {{mb_strtoupper($tipo_espoleta)}}
                 </option>

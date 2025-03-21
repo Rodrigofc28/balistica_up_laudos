@@ -4,7 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        
+        <!-- base url -->
+        <meta name="base-url" content="{{ url('/') }}">
+
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -31,6 +33,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
         
 {{--        <link rel="stylesheet" href="{{ URL::asset('css/dropzone_custom.css') }}">--}}
+
+        <!-- Styles Chassi -->
+        <link rel="stylesheet" href="{{ URL::asset('css/index-chassi.css') }}">
 
         @yield('style')
     </head>

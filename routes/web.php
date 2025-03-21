@@ -15,6 +15,9 @@ Route::get('unauthorized', function () {
 /* Admin routes */
 Route::prefix('admin')->middleware('cargo:Administrador')->group(function () {
     Route::resource('solicitantes', 'Admin\OrgaosSolicitantesController')->except(['show']);
+    //Busca pela cidade 
+    Route::get('solicitantes/search', 'Admin\OrgaosSolicitantesController@search')->name('solicitantes.search');
+
     Route::resource('users', 'Admin\UsersController')->except(['show']);
     Route::delete('users/destroy/{user}', 'Admin\UsersController@destroy')->name('usuarios.destroy');
         
@@ -59,26 +62,14 @@ Route::get('/show_materias/{laudo_id}', 'Perito\LaudosController@show_materias')
 Route::get('/meus_laudos/', 'Perito\LaudosController@meusLaudos')->name('meus_laudos');
 Route::get('/atualiza/{exame}', 'Perito\LaudosController@atualiza')->name('laudos.atualiza');
 Route::get('laudos/search/{rep}', 'Perito\LaudosController@search');
-
+//Filtrando as cidades------------------------------------------------------------------------------------------
 Route::get('laudos/solicitantes/cidade/{cidade_id}',
     'Perito\OrgaosSolicitantesController@filtrar_por_cidade')->name('solicitantes.filtrar');
 
 
-
 Route::post('laudos/armas/{arma}/images', 'Perito\ArmasController@store_image')->name('armas.images');
 Route::delete('laudos/armas/{arma}/images', 'Perito\ArmasController@delete_image')->name('armas.images.delete');
-/* Passando dois parametros a rota laudo e arma, para ser editado */
-Route::prefix('laudos/{laudo}/{arma}')->group(function () {
-    Route::get('espingardas.edit_gdl', 'Perito\Armas\EspingardasController@edit_gdl')->name('edit_gdl_espingarda');
-    Route::get('revolveres.edit_gdl', 'Perito\Armas\RevolveresController@edit_gdl')->name('edit_gdl_revolver');
-    Route::get('pistolas.edit_gdl', 'Perito\Armas\PistolasController@edit_gdl')->name('edit_gdl_pistola');
-    Route::get('fuzils.edit_gdl', 'Perito\Armas\FuzilsController@edit_gdl')->name('edit_gdl_fuzil');
-    Route::get('garruchas.edit_gdl', 'Perito\Armas\GarruchasController@edit_gdl')->name('edit_gdl_garrucha');
-    Route::get('metralhadoras.edit_gdl', 'Perito\Armas\MetralhadorasController@edit_gdl')->name('edit_gdl_metralhadora');
-    Route::get('submetralhadoras.edit_gdl', 'Perito\Armas\SubmetralhadorasController@edit_gdl')->name('edit_gdl_submetralhadora');
-    Route::get('pistoletes.edit_gdl', 'Perito\Armas\PistoletesController@edit_gdl')->name('edit_gdl_pistolete');
-    Route::get('carabinas.edit_gdl', 'Perito\Armas\CarabinasController@edit_gdl')->name('edit_gdl_carabina');
-});
+
 
 Route::prefix('laudos/{laudo}')->group(function () {
     Route::get('materiais', 'Perito\LaudosController@materiais')->name('laudos.materiais');
@@ -117,23 +108,22 @@ Route::prefix('laudos/{laudo}')->group(function () {
     Route::resource('municoes/armas_longas', 'Perito\Municoes\EstojosController')
         ->parameters(['armas_longas' => 'municao'])->only(['create', 'edit', 'show']);
 
+//Routa usada para projeteis.---------------------------------------------------------------------------------------------------------------        
     Route::resource('componentes', 'Perito\Componentes\ComponentesController')
         ->except(['create', 'index']);
 
     Route::resource('componentes/balins_chumbo', 'Perito\Componentes\BalinsChumboController')
         ->parameters(['balins_chumbo' => 'componente'])->only(['create', 'edit']);
 
-    
-
-    
-        
+//Routa usada para simulacros.---------------------------------------------------------------------------------------------------------------      
 
     Route::resource('componentes/simulacros', 'Perito\Componentes\SimulacroController')
         ->parameters(['simulacros' => 'componente'])->only(['create', 'edit']);
 
-
-    Route::resource('componentes/polvora', 'Perito\Componentes\PolvoraController')
+//Routa usada para outros materias como coldres polvoras e etc...-----------------------------------------------------------------------------
+    Route::resource('componentes/outro', 'Perito\Componentes\OutrosmateriasController')
         ->parameters(['polvora' => 'componente'])->only(['create', 'edit']);
+//--------------------------------------------------------------------------------------------------------------------------------------------
 });
 
 Route::get('solicitantes', 'Perito\OrgaosSolicitantesController@store')->name('perito.solicitante.store');
@@ -196,9 +186,10 @@ Route::get('/notifications', function() {
 //Rotas de chassi
 //Exibe a Tela para escolha dos veiculos
 Route::post('chassi','Perito\Chassis\ChassisController@store')->name('chassi.index');
-Route::get('motocicleta.index','Perito\Chassis\MotocicletasController@index')->name('motocicleta.index');
+
 
 //Rotas Motocicleta Tela 1 da Motocicleta--------------------------------------------------------------------------
+Route::get('motocicleta.index','Perito\Chassis\MotocicletasController@index')->name('motocicleta.index');
 Route::get('motocicleta.tela2/{laudo}', 'Perito\Chassis\MotocicletasController@tela2')->name('motocicletas.tela2');
 //exibe a tela 2 de fotos
 Route::post('motocicleta.tela3', 'Perito\Chassis\MotocicletasController@tela3')->name('motocicletas.tela3');
@@ -216,7 +207,7 @@ Route::post('carro.tela1', 'Perito\Chassis\CarroController@tela1') -> name ('car
 Route::get('carro/tela1', 'Perito\Chassis\CarroController@tela1')->name('carro.tela1');
 
 //Rota para a tela Chassi/Motor
-Route::post('carro.tela2', 'Perito\Chassi\CarroController@tela2') -> name ('carro.tela2');
+Route::post('carro.tela2', 'Perito\Chassis\CarroController@tela2') -> name ('carro.tela2');
 //Rota para a tela final de Carro
 Route::post('carro.tela3', 'Perito\Chassis\CarroController@tela3') -> name ('carro.tela3');
 //-----------------------------------------------------------------------------------------------------------------
@@ -256,7 +247,7 @@ Route::post('onibus.tela3', 'Perito\Chassis\OnibusController@tela3') -> name ('o
 
 
 //Rotas de Outros (Está funcionando) Tela 1------------------------------------------------------------------------
-Route::get('outros.index', 'Perito\Chassi\OutrosController@index') -> name ('outros.index');
+Route::get('outros.index', 'Perito\Chassis\OutrosController@index') -> name ('outros.index');
 //Rota para a tela de fotos
 Route::post('outros.tela1', 'Perito\Chassis\OutrosController@tela1') -> name ('outros.tela1');
 //Rota para a tela Chassi/Motor
