@@ -60,7 +60,7 @@
         
         @include('perito.laudo.materiais.attributes.coronha_fuste', ['coronha_fuste2' => $espingarda->coronha_fuste ??
         old('coronha_fuste')])
-        @include('perito.laudo.materiais.attributes.telha',['telha'=>$espingarda->telha ?? old('telha')])
+        @include('perito.laudo.materiais.attributes.telha',['telha2'=>$espingarda->telha ?? old('telha')])
         
         @include('perito.laudo.materiais.attributes.comprimento', ['comprimento_total' => $espingarda->comprimento_total
         ?? old('comprimento_total')])

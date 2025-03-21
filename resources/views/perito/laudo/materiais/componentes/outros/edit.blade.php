@@ -4,5 +4,5 @@
         <h4>Atualizar Pólvora</h4>
     </div>
     <hr>
-    @include('perito.laudo.materiais.componentes.polvora.form', ['acao' => 'Atualizar'])
+    @include('perito.laudo.materiais.componentes.outros.form', ['acao' => 'Atualizar'])
 @endsection

@@ -15,6 +15,9 @@ Route::get('unauthorized', function () {
 /* Admin routes */
 Route::prefix('admin')->middleware('cargo:Administrador')->group(function () {
     Route::resource('solicitantes', 'Admin\OrgaosSolicitantesController')->except(['show']);
+    //Busca pela cidade 
+    Route::get('solicitantes/search', 'Admin\OrgaosSolicitantesController@search')->name('solicitantes.search');
+
     Route::resource('users', 'Admin\UsersController')->except(['show']);
     Route::delete('users/destroy/{user}', 'Admin\UsersController@destroy')->name('usuarios.destroy');
         
@@ -59,26 +62,14 @@ Route::get('/show_materias/{laudo_id}', 'Perito\LaudosController@show_materias')
 Route::get('/meus_laudos/', 'Perito\LaudosController@meusLaudos')->name('meus_laudos');
 Route::get('/atualiza/{exame}', 'Perito\LaudosController@atualiza')->name('laudos.atualiza');
 Route::get('laudos/search/{rep}', 'Perito\LaudosController@search');
-
+//Filtrando as cidades------------------------------------------------------------------------------------------
 Route::get('laudos/solicitantes/cidade/{cidade_id}',
     'Perito\OrgaosSolicitantesController@filtrar_por_cidade')->name('solicitantes.filtrar');
 
 
-
 Route::post('laudos/armas/{arma}/images', 'Perito\ArmasController@store_image')->name('armas.images');
 Route::delete('laudos/armas/{arma}/images', 'Perito\ArmasController@delete_image')->name('armas.images.delete');
-/* Passando dois parametros a rota laudo e arma, para ser editado */
-Route::prefix('laudos/{laudo}/{arma}')->group(function () {
-    Route::get('espingardas.edit_gdl', 'Perito\Armas\EspingardasController@edit_gdl')->name('edit_gdl_espingarda');
-    Route::get('revolveres.edit_gdl', 'Perito\Armas\RevolveresController@edit_gdl')->name('edit_gdl_revolver');
-    Route::get('pistolas.edit_gdl', 'Perito\Armas\PistolasController@edit_gdl')->name('edit_gdl_pistola');
-    Route::get('fuzils.edit_gdl', 'Perito\Armas\FuzilsController@edit_gdl')->name('edit_gdl_fuzil');
-    Route::get('garruchas.edit_gdl', 'Perito\Armas\GarruchasController@edit_gdl')->name('edit_gdl_garrucha');
-    Route::get('metralhadoras.edit_gdl', 'Perito\Armas\MetralhadorasController@edit_gdl')->name('edit_gdl_metralhadora');
-    Route::get('submetralhadoras.edit_gdl', 'Perito\Armas\SubmetralhadorasController@edit_gdl')->name('edit_gdl_submetralhadora');
-    Route::get('pistoletes.edit_gdl', 'Perito\Armas\PistoletesController@edit_gdl')->name('edit_gdl_pistolete');
-    Route::get('carabinas.edit_gdl', 'Perito\Armas\CarabinasController@edit_gdl')->name('edit_gdl_carabina');
-});
+
 
 Route::prefix('laudos/{laudo}')->group(function () {
     Route::get('materiais', 'Perito\LaudosController@materiais')->name('laudos.materiais');
@@ -117,23 +108,22 @@ Route::prefix('laudos/{laudo}')->group(function () {
     Route::resource('municoes/armas_longas', 'Perito\Municoes\EstojosController')
         ->parameters(['armas_longas' => 'municao'])->only(['create', 'edit', 'show']);
 
+//Routa usada para projeteis.---------------------------------------------------------------------------------------------------------------        
     Route::resource('componentes', 'Perito\Componentes\ComponentesController')
         ->except(['create', 'index']);
 
     Route::resource('componentes/balins_chumbo', 'Perito\Componentes\BalinsChumboController')
         ->parameters(['balins_chumbo' => 'componente'])->only(['create', 'edit']);
 
-    
-
-    
-        
+//Routa usada para simulacros.---------------------------------------------------------------------------------------------------------------      
 
     Route::resource('componentes/simulacros', 'Perito\Componentes\SimulacroController')
         ->parameters(['simulacros' => 'componente'])->only(['create', 'edit']);
 
-
-    Route::resource('componentes/polvora', 'Perito\Componentes\PolvoraController')
+//Routa usada para outros materias como coldres polvoras e etc...-----------------------------------------------------------------------------
+    Route::resource('componentes/outro', 'Perito\Componentes\OutrosmateriasController')
         ->parameters(['polvora' => 'componente'])->only(['create', 'edit']);
+//--------------------------------------------------------------------------------------------------------------------------------------------
 });
 
 Route::get('solicitantes', 'Perito\OrgaosSolicitantesController@store')->name('perito.solicitante.store');

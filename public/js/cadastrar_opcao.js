@@ -193,7 +193,7 @@ var buscaCadastro=$('#busca_cadastro').val();
 buscaCadastro = JSON.parse(buscaCadastro);
  
 var objetoBuscaCadastro=buscaCadastro;
-
+console.log(objetoBuscaCadastro)
 $('#marca').val(objetoBuscaCadastro.marca_id);
 $('#marca').trigger('change');
 $('#tipo_arma').val(objetoBuscaCadastro.tipo_arma);
@@ -260,6 +260,8 @@ $('#sistema_percussao').val(objetoBuscaCadastro.sistema_percussao);
 $('#sistema_percussao').trigger('change');
 $('#tambor_rebate').val(objetoBuscaCadastro.tambor_rebate);
 $('#tambor_rebate').trigger('change');
+$('#tipo_tambor').val(objetoBuscaCadastro.tipo_tambor);
+$('#tipo_tambor').trigger('change');
 $('#teclas_gatilho').val(objetoBuscaCadastro.teclas_gatilho);
 $('#teclas_gatilho').trigger('change');
 $('#telha').val(objetoBuscaCadastro.telha);

@@ -50,9 +50,9 @@
         $espingardamista->sistema_percussao ?? old('sistema_percussao')])
         @include('perito.laudo.materiais.attributes.cabo', ['cabo2' => $espingardamista->cabo ?? old('cabo')])
         @include('perito.laudo.materiais.attributes.cabo_outra_opcao', ['cabo2' => $espingardamista->cabo ?? old('cabo')])
-        @include('perito.laudo.materiais.attributes.coronha', ['coronha_fuste2' => $espingardamista->coronha_fuste ??
+        @include('perito.laudo.materiais.attributes.coronha_fuste', ['coronha_fuste2' => $espingarda->coronha_fuste ??
         old('coronha_fuste')])
-        @include('perito.laudo.materiais.attributes.telha',['telha'=>$espingardamista->telha ?? old('telha')])
+        @include('perito.laudo.materiais.attributes.telha',['telha2'=>$espingardamista->telha ?? old('telha')])
         @include('perito.laudo.materiais.attributes.comprimento', ['comprimento_total' => $espingardamista->comprimento_total
         ?? old('comprimento_total')])
         @include('perito.laudo.materiais.attributes.comprimento_cano', ['comprimento_cano' =>

@@ -24,6 +24,7 @@
         old('calibre_real')])
         @include('perito.laudo.materiais.attributes.coronha_fuste', ['coronha_fuste2' => $espingarda->coronha_fuste ??
         old('coronha_fuste')])
+        @include('perito.laudo.materiais.attributes.telha',['telha2'=>$espingarda->telha ?? old('telha')])
         @include('perito.laudo.materiais.attributes.bandoleira', ['bandoleira2' => $espingarda->bandoleira ??
         old('bandoleira')])
         @include('perito.laudo.materiais.attributes.estado_geral', ['estado_geral2' => $espingarda->estado_geral ??

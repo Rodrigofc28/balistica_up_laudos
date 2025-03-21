@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrgaoSolicitanteRequest;
 use App\Models\Cidade;
 use App\Models\OrgaoSolicitante;
-
+use Illuminate\Http\Request;
 class OrgaosSolicitantesController extends Controller
 {
     public function __construct()
@@ -26,7 +26,7 @@ class OrgaosSolicitantesController extends Controller
     public function index()
     {
         $cidades = Cidade::all();
-        $solicitantes = OrgaoSolicitante::paginate(10);
+        $solicitantes = OrgaoSolicitante::paginate(20);
         return view('admin/orgaos_solicitantes/index',
             compact('solicitantes','cidades'));
     }
@@ -57,7 +57,19 @@ class OrgaosSolicitantesController extends Controller
         return redirect()->route('solicitantes.index')
             ->with('success', __('flash.create_m', ['model' => 'Órgão Solicitante']));
     }
+    public function search(Request $request){
+      
+        
+    
+    $query = $request->input('cidade');
+    $solicitantes = OrgaoSolicitante::where('cidade_id', 'like', "%{$query}%")->paginate(20);
 
+    $cidades = Cidade::all();
+        return view('admin/orgaos_solicitantes/index',
+            compact('solicitantes','cidades'));
+        
+    
+    }
     /**
      * Show the form for editing the specified resource.
      *
