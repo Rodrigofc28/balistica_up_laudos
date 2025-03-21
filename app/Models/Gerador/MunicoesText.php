@@ -679,12 +679,12 @@ class MunicoesText extends Tabelas
             $table->addCell(450)->addText('Item', $this->fontStyle,$this->paraStyle),
             $table->addCell(400)->addText('Qtd', $this->fontStyle,$this->paraStyle),
             $table->addCell(1100)->addText('Calibre Nominal', $this->fontStyle,$this->paraStyle),
-            $table->addCell(1187)->addText('Marca', $this->fontStyle,$this->paraStyle),
+            $table->addCell(1070)->addText('Marca', $this->fontStyle,$this->paraStyle),
             $table->addCell(1550)->addText('Procedência', $this->fontStyle,$this->paraStyle),
             $table->addCell(1200)->addText('Espoleta', $this->fontStyle,$this->paraStyle),
             $table->addCell(1400)->addText('Estojo (Lote)', $this->fontStyle,$this->paraStyle),
             $table->addCell(820)->addText('Projétil', $this->fontStyle,$this->paraStyle),
-            $table->addCell(1250)->addText('Condição Observação', $this->fontStyle,$this->paraStyle)];
+            $table->addCell(1220)->addText('Condição Observação', $this->fontStyle,$this->paraStyle)];
                 
             $table->addRow();   
             foreach($arraymunicao as $municao){
@@ -692,7 +692,7 @@ class MunicoesText extends Tabelas
                 $table->addCell(400)->addText($itensCartucho,null,$this->paraStyle);
                 $table->addCell(400)->addText($municao->quantidade,null,$this->paraStyle);
                 $table->addCell(1100)->addText($municao->calibre->nome,null,$this->paraStyle);
-                $table->addCell(1187)->addText(mb_strtoupper($municao->marca->nome),null,$this->paraStyle);
+                $table->addCell(1070)->addText(mb_strtoupper($municao->marca->nome),null,$this->paraStyle);
                 $table->addCell(1600)->addText(mb_strtoupper($municao->marca->fabricacao),null,$this->paraStyle);
                 $table->addCell(1100)->addText(mb_strtoupper($municao->tipo_projetil),null,$this->paraStyle);
                 $estojoCell=$table->addCell(1400);
