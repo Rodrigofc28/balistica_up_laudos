@@ -402,7 +402,12 @@ class ArmasText
             $table->addCell(2000,['vMerge'=>'restart'])->addText('Outras Características', $fontStyle,$paraStyle); 
             //Cabo
             $caboArma!=''?[$table->addCell(3050)->addText('Cabo:', $fontStyle,$paraStyle),
-            $table->addCell(5050)->addText(mb_strtoupper($caboArma),null,$paraStyle)]:'';                     
+            $table->addCell(5050)->addText(mb_strtoupper($caboArma),null,$paraStyle)]:'';
+            //Telha
+            $arma->telha!=''?[$table->addRow(50,['cantSplit'=>true]),
+            $table->addCell(2000,['vMerge'=>'continue'])->addText(''),
+            $table->addCell(1000)->addText('Telha:', $fontStyle,$paraStyle), 
+            $table->addCell(5050)->addText(mb_strtoupper($arma->telha),null,$paraStyle)]:'';                     
             //Acabamento
             $arma->tipo_acabamento!=''?[$table->addRow(50,['cantSplit'=>true]),
             $table->addCell(2000,['vMerge'=>'continue'])->addText(''),

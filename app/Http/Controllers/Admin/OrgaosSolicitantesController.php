@@ -26,7 +26,7 @@ class OrgaosSolicitantesController extends Controller
     public function index()
     {
         $cidades = Cidade::all();
-        $solicitantes = OrgaoSolicitante::paginate(10);
+        $solicitantes = OrgaoSolicitante::paginate(20);
         return view('admin/orgaos_solicitantes/index',
             compact('solicitantes','cidades'));
     }
@@ -62,7 +62,7 @@ class OrgaosSolicitantesController extends Controller
         
     
     $query = $request->input('cidade');
-    $solicitantes = OrgaoSolicitante::where('cidade_id', 'like', "%{$query}%")->paginate(10);
+    $solicitantes = OrgaoSolicitante::where('cidade_id', 'like', "%{$query}%")->paginate(20);
 
     $cidades = Cidade::all();
         return view('admin/orgaos_solicitantes/index',
