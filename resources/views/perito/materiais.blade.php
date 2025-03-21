@@ -82,6 +82,16 @@
         
     </div>
 </div>
+<h5><strong>Outros</strong></h5>
+<div class="col-12">
+    <div class="row border mb-3 mt-3">
+        <div class="col-lg-3 mt-3">
+           @include('shared.block_button', ['col_name' => 'outros',
+            'value' => 'outros', 'route' => 'outro.create'])
+        </div>
+        
+    </div>
+</div>
 @if($laudo->laudoEfetConst!='constatacao')
 <h5><strong>Armas de pressão/simulacro</strong></h5>
 <div class="col-12">
