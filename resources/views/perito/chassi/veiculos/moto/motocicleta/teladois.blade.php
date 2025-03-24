@@ -366,6 +366,7 @@
                             <input type="text" id="chassiAtual" name="chassi_numero" maxlength="17"
                                 placeholder="Exemplo: 9BD12345678901234" class="chassi-input"
                                 oninput="updateChassiDisplay(this, 'chassiAtualDisplay')"
+                                required
                             >
                             <div id="chassiAtualDisplay" class="chassi-display"></div>
                         </div>

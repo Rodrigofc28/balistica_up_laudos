@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Models\GeradorChassi;
 
 use PhpOffice\PhpWord\SimpleType\Jc;
@@ -21,17 +19,14 @@ class Geral
 {
     public $section, $config, $phpWord;//mudei de private para public
 
-    public function __construct($section, $config, $phpWord)
-    {
-        
+    public function __construct($section, $config, $phpWord){
         $this->section = $section;
         $this->config = $config;
         $this->phpWord = $phpWord;
     }
+    
     //Função para titulo e codigo do laudo
-    private function titulo_e_exame($laudo)
-    { 
-        
+    private function titulo_e_exame($laudo){ 
         switch ($laudo) {
             case 'I801':
                 $titulo = "LAUDO DE EXAME DE VEÍCULO A MOTOR";
@@ -39,45 +34,47 @@ class Geral
                 $exame = "(NUMERAÇÕES IDENTIFICADORAS)";
                 $linha3preambulo='ao exame no veículo adiante descrito';
                 $tipoExame='ao exame nas numerações identificadoras do veículo apresentado.';
-
-                break;
+            break;
+            
             case 'I802':
                 $titulo = "LAUDO DE EXAME DE COMPARTIMENTOS";
                 $codigo = "Código: I802";
                 $exame = "(COMPARTIMENTOS)";
                 $linha3preambulo='ao exame no veículo adiante descrito';
                 $tipoExame='ao exame para verificação de presença de compartimentos ocultos no veículo apresentado.';
-                break;
+            break;
+            
             case 'I806':
                 $titulo = "LAUDO DE EXAME DE CONSTATAÇÃO";
                 $codigo = "Código: I806";
                 $exame = "(CONSTATAÇÃO)";
                 $linha3preambulo='ao exame nas peças adiante descritas,';
                 $tipoExame='ao exame de constatação nas peças apresentadas para perícia.';
-                break;
+            break;
+            
             case 'I812':
                 $titulo = "LAUDO DE EXAME DE VEÍCULO A MOTOR";
                 $codigo = "Código: I812";
                 $exame = "(NUMERAÇÕES IDENTIFICADORAS + COMPARTIMENTOS)";
                 $linha3preambulo='ao exame no veículo adiante descrito';
                 $tipoExame='ao exame nas numerações identificadoras do veículo acima mencionado, bem como constatar no mesmo a existência de compartimentos ocultos.';
-                break;
+            break;
+            
             default:
                 $titulo = "";
                 $codigo = "";
                 $linha3preambulo="";
                 $tipoExame='';
                 $exame='';
-                break;
+            break;
         }
         
-        return [ 'titulo' => $titulo,'codigo'=>$codigo,'linha3preambulo'=>$linha3preambulo,'tipoExame'=>$tipoExame,'exame'=>$exame];
+        return ['titulo' => $titulo,'codigo'=>$codigo,'linha3preambulo'=>$linha3preambulo,'tipoExame'=>$tipoExame,'exame'=>$exame];
     }
     
         //Corpo do laudo
     public function addText($laudo)
     {
-        
         $chassi = Chassi::where('laudo_id', $laudo->id)->first();
          
         //pegando as imagens e alocando na variavel
@@ -87,11 +84,13 @@ class Geral
         $header = $this->section->addHeader();
         $header->addTextBreak(1);
         $header->addPreserveText('FLS. {PAGE}', array('bold' => true,
-            'size' => 10, 'name' => 'arial'), $this->config->paragraphRight());
+            'size' => 10, 'name' => 'arial'),
+            $this->config->paragraphRight());
 
         $num_laudo = "LAUDO Nº $laudo->rep";
         $header->addText($num_laudo, array('bold' => true,
-            'size' => 10, 'name' => 'arial'), array('alignment' => Jc::END));
+            'size' => 10, 'name' => 'arial'),
+            array('alignment' => Jc::END));
 
         $intCrim = "POLÍCIA CIENTÍFICA DO PARANÁ";
         
@@ -101,6 +100,9 @@ class Geral
         $data_desig = data($laudo->data_designacao);
 
         $perito = $laudo->perito->nome;
+        $cidadeGdl=$laudo->cidadeGdl;
+        $orgaoGdl=$laudo->orgaoGdl;
+        $unidadeGdl=$laudo->unidadeGdl;
         
         $delegacia = (!empty($laudo->solicitante->nome))?$laudo->solicitante->nome:$orgaoGdl;
         $oficio = $laudo->oficio;
@@ -110,7 +112,7 @@ class Geral
         
         $consequencia = "Em consequência, o Perito procedeu ao exame solicitado, relatando-o com a verdade e com todas as circunstâncias relevantes, da forma como segue:";
 
-        //configuração da tabela  cabeçalho
+        //configuração da tabela cabeçalho
         $fontStyle = array ('bold' => true); 
         $paraStyle = array ('align' =>'center');
         $styleTable = array('borderColor'=>'777777','borderSize'=>10, 'cellMarginTop'=>10,'cellMarginLeft'=>0,'cellMarginRight'=>0,'cellSpacing'=>10000); //configuração da borda
@@ -172,9 +174,9 @@ class Geral
             $table = $this->section->addTable('tabela2img');
             $table->addRow(); 
             $img2=$table->addCell();
-            $img2->addImage($image1, array('alignment' => Jc::CENTER, 'width' => 220));
+            //$img2->addImage($image1, array('alignment' => Jc::CENTER, 'width' => 220));
             $img3= $table->addCell();
-            $img3->addImage($image2, array('alignment' => Jc::CENTER, 'width' => 220));
+           // $img3->addImage($image2, array('alignment' => Jc::CENTER, 'width' => 220));
 
             $this->section->addText(strtoupper($chassi['veiculo_id']).' PERICIADA', $this->config->arial12Bold(),$this->config->paragraphCenter());
         //Do exame chassi
