@@ -62,7 +62,7 @@
         @include('perito.laudo.materiais.attributes.cabo_outra_opcao', ['cabo2' => $fuzil->cabo ?? old('cabo')])
         @include('perito.laudo.materiais.attributes.coronha', ['coronha_fuste2' => $fuzil->coronha_fuste ??
         old('coronha_fuste')])
-        @include('perito.laudo.materiais.attributes.telha',['telha'=>$fuzil->telha ?? old('telha')])
+        @include('perito.laudo.materiais.attributes.telha',['telha2'=>$fuzil->telha ?? old('telha')])
         @include('perito.laudo.materiais.attributes.comprimento', ['comprimento_total' => $fuzil->comprimento_total
         ?? old('comprimento_total')])
         @include('perito.laudo.materiais.attributes.diametro_cano', ['diametro_cano2' =>
@@ -77,7 +77,7 @@
         $fuzil->quantidade_raias ?? old('quantidade_raias')])
         @include('perito.laudo.materiais.attributes.estado_geral', ['estado_geral2' => $fuzil->estado_geral ??
         old('estado_geral')])
-        @include('perito.laudo.attributes.material_coletado')
+        
         @include('perito.laudo.materiais.attributes.lacresaida', ['num_lacre_saida' => $fuzil->num_lacre_saida ?? old('num_lacre_saida')])
         @include('perito.laudo.materiais.attributes.lacre', ['num_lacre' => $fuzil->num_lacre ?? old('num_lacre')])
         

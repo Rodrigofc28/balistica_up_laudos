@@ -58,7 +58,7 @@
         @include('perito.laudo.materiais.attributes.cabo_outra_opcao', ['cabo2' => $submetralhadora->cabo ?? old('cabo')])
         @include('perito.laudo.materiais.attributes.coronha', ['coronha_fuste2' => $submetralhadora->coronha_fuste ??
         old('coronha_fuste')])
-        @include('perito.laudo.materiais.attributes.telha',['telha'=>$submetralhadora->telha ?? old('telha')])
+        @include('perito.laudo.materiais.attributes.telha',['telha2'=>$submetralhadora->telha ?? old('telha')])
         @include('perito.laudo.materiais.attributes.comprimento', ['comprimento_total' => $submetralhadora->comprimento_total
         ?? old('comprimento_total')])
         @include('perito.laudo.materiais.attributes.comprimento_cano', ['comprimento_cano' =>
@@ -71,7 +71,7 @@
         old('funcionamento')])
         @include('perito.laudo.materiais.attributes.estado_geral', ['estado_geral2' => $submetralhadora->estado_geral ??
         old('estado_geral')])
-        @include('perito.laudo.attributes.material_coletado')
+       
         @include('perito.laudo.materiais.attributes.lacre', ['num_lacre' => $submetralhadora->num_lacre ?? old('num_lacre')])
         @include('perito.laudo.materiais.attributes.lacresaida', ['num_lacre_saida' => $submetralhadora->num_lacre_saida ?? old('num_lacre_saida')])
         @include('perito.laudo.materiais.attributes.salva_modelo_cadastro')
