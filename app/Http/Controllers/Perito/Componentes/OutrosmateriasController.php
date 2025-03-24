@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Perito\Componentes;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Componente;
 
@@ -18,7 +18,18 @@ class OutrosmateriasController extends Controller
         return view('perito.laudo.materiais.componentes.outros.create',
             compact('laudo'));
     }
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  $laudo
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        dd($request);
+        return view('perito.laudo.materiais.componentes.outros.create',
+            compact('laudo'));
+    }
     /**
      * Show the form for editing the specified resource.
      *

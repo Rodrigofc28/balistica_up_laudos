@@ -122,7 +122,7 @@ Route::prefix('laudos/{laudo}')->group(function () {
 
 //Routa usada para outros materias como coldres polvoras e etc...-----------------------------------------------------------------------------
     Route::resource('componentes/outro', 'Perito\Componentes\OutrosmateriasController')
-        ->parameters(['polvora' => 'componente'])->only(['create', 'edit']);
+        ->parameters(['polvora' => 'componente'])->only(['create','store', 'edit']);
 //--------------------------------------------------------------------------------------------------------------------------------------------
 });
 

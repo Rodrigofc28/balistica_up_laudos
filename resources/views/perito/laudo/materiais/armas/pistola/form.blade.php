@@ -76,7 +76,7 @@
         old('estado_geral')])
         @include('perito.laudo.materiais.attributes.funcionamento', ['funcionamento2' => $pistola->funcionamento ??
         old('funcionamento')])
-        @include('perito.laudo.attributes.material_coletado')
+        
         @include('perito.laudo.materiais.attributes.lacresaida', ['num_lacre_saida' => $pistola->num_lacre_saida ?? old('num_lacre_saida')])
         @include('perito.laudo.materiais.attributes.lacre', ['num_lacre' => $pistola->num_lacre ?? old('num_lacre')])
        

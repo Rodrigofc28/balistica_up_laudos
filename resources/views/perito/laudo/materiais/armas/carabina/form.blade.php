@@ -63,7 +63,7 @@
         @include('perito.laudo.materiais.attributes.cabo_outra_opcao', ['cabo2' => $carabina->cabo ?? old('cabo')])
         @include('perito.laudo.materiais.attributes.coronha', ['coronha_fuste2' => $carabina->coronha_fuste ??
         old('coronha_fuste')])
-        @include('perito.laudo.materiais.attributes.telha',['telha'=>$carabina->telha ?? old('telha')])
+        @include('perito.laudo.materiais.attributes.telha',['telha2'=>$carabina->telha ?? old('telha')])
         @include('perito.laudo.materiais.attributes.comprimento', ['comprimento_total' => $carabina->comprimento_total ??
         old('comprimento_total')])
         
@@ -81,7 +81,7 @@
         old('funcionamento')])
         @include('perito.laudo.materiais.attributes.estado_geral', ['estado_geral2' => $carabina->estado_geral ??
         old('estado_geral')])
-        @include('perito.laudo.attributes.material_coletado')
+        
         @include('perito.laudo.materiais.attributes.lacresaida', ['num_lacre_saida' => $carabina->num_lacre_saida ?? old('num_lacre_saida')])
         @include('perito.laudo.materiais.attributes.lacre', ['num_lacre' => $carabina->num_lacre ?? old('num_lacre')])
         @include('perito.laudo.materiais.attributes.salva_modelo_cadastro')

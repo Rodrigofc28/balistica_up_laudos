@@ -58,7 +58,12 @@
     <input style="display:none"  type="file" id="inputFileLateral" accept="image/*">
     
    <div id="cont_frente">
-        <b class="posicao">FOTO DA BASE</b>
+        
+        @if ($tipo=='OUTROS MATERIAIS')
+            <b class="posicao">FOTO DA LATERAL DIREITA</b>
+        @else 
+            <b class="posicao">FOTO DA BASE</b>  
+        @endif
         <div class="preview" hidden id="previewBase"></div>
         <div style="display:flex">
             
@@ -76,7 +81,12 @@
    </div> 
    <hr>
     <div  id="cont_tras">
-        <b class="posicao">FOTO DA LATERAL</b>
+        @if ($tipo=='OUTROS MATERIAIS')
+            <b class="posicao">FOTO DA LATERAL ESQUERDA</b>
+        @else 
+            <b class="posicao">FOTO DA LATERAL</b> 
+        @endif
+        
         <div class="preview" hidden id="previewLateral"></div>
         <div style="display:flex">
             <div class="preview" id="previewLateral"></div>

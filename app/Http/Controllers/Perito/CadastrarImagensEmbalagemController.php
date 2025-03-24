@@ -38,7 +38,7 @@ class CadastrarImagensEmbalagemController extends Controller
        
        
        
-        
+        //para adicionar mais fotos as embalagens
          if($request->status=='adicionar'){
             foreach($request->fotoEmbalagem as $imagensEmbalagem){
        
@@ -55,9 +55,10 @@ class CadastrarImagensEmbalagemController extends Controller
                     $imagensEmbalagem->move(storage_path('app/public/imagensEmbalagem'),$converte);
                 };
          };
-            return view('perito.laudo.create_embalagem_foto', compact('laudo_id'));
+      
+            return view('perito.laudo.create_embalagem_foto', compact('laudo_id'))->with('msg', 'Imagem substituída com sucesso!');
         }else if($request->status=='cadastrar'){
-           
+        // para cadastrar as fotos das embalagens
             foreach($request->fotoEmbalagem as $imagensEmbalagem){
        
                 $converte=md5($imagensEmbalagem.strtotime("now")).'.'.'jpg';
