@@ -10,12 +10,7 @@
 @if(isset($laudo))
 
 
-<div class="col-lg-3 ">
 
-    <label   id="label_rep" for=""><strong>Nº Exame Coleta (xxxxx/ano) </strong></label>
-    <input  type="text" class="form-control rep" name="rep_materialColetado" value="{{ old('rep', $rep) }}" id="rep_materialColetado"><br>
-
-</div>
 @if($laudo->material_coletado=="sim")
 <div class="col-lg-3 ">
 

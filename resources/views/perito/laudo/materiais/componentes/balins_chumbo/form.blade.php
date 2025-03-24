@@ -142,6 +142,7 @@
         {{--Material coletado--}}
         @if($laudo->laudoEfetConst=="B601"){{--Incluido no B602 matérial coletado --}}
             @include('perito.laudo.materiais.attributes.material_coletado_projetil',['origem'=>empty($componente->origemcoletadaPerito)?session('origem'):$componente->origem_coletaPerito,'rep'=>empty($componente->rep_materialColetado)?session('rep_coleta'):$componente->rep_materialColetado??old('origem'),old('rep')])
+            @include('perito.laudo.materiais.attributes.rep_de_coleta')
         @endif
         {{------------------------------------------------------------------------------------------------------------------------------}}
         {{--Defomações--}}

@@ -286,7 +286,7 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
                  $table->addCell()->addText(array_sum($somaCartucho),null,$this->paraStyle),
                  $origemColeta=!''?$table->addCell()->addText($origemColeta,null,$this->paraStyle):'',
                  $materialColetado!=''?$table->addCell()->addText($materialColetado,null,$this->paraStyle):'',
-                 $table->addCell()->addText($laudo->rep,null,$this->paraStyle),
+                
                  $table->addCell()->addText($lacreCartucho,null,$this->paraStyle),
                  ];
                 }
@@ -319,7 +319,7 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
                               $table->addCell()->addText(array_sum($somaEstojo),null,$this->paraStyle),
                               $origemColeta=!''?$table->addCell()->addText($origemColeta,null,$this->paraStyle):'',
                               $materialColetado!=''?$table->addCell()->addText($materialColetado,null,$this->paraStyle):'',
-                              $table->addCell()->addText($laudo->rep,null,$this->paraStyle),
+                             
                               $table->addCell()->addText($municao->lacrecartucho,null,$this->paraStyle),
                               
       
@@ -350,7 +350,7 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
                 $table->addCell()->addText(array_sum($somaProjetil),null,$this->paraStyle),
                 $origemColeta=!''?$table->addCell()->addText($origemColeta,null,$this->paraStyle):'',
                 $materialColetado!=''?$table->addCell()->addText($materialColetado,null,$this->paraStyle):'',
-                $table->addCell()->addText($laudo->rep,null,$this->paraStyle),
+              
                 $table->addCell()->addText($lacreProjetil,null,$this->paraStyle),
                 
     

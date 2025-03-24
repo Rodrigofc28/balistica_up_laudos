@@ -178,7 +178,7 @@ class Geral
 
             $this->section->addText(strtoupper($chassi['veiculo_id']).' PERICIADA', $this->config->arial12Bold(),$this->config->paragraphCenter());
         //Do exame chassi
-           $this->doExameChassi($laudo);
+         //  $this->doExameChassi($laudo); está com erro
         // imagens numeração do chassi
         //    $table2 = $this->section->addTable('tabela2img');
          //   $table2->addRow(); 
