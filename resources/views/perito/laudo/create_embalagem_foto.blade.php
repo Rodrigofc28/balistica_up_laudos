@@ -39,6 +39,7 @@
     }
     .btnNext{
       
+    
       border-radius:5px;
       padding:1%;
       color:#635c5c;
@@ -53,9 +54,15 @@
 @section('page')
 
 
-  
+
     
  <div class="conteinerImagemRecebida">
+    @if(session()->has('msg'))
+        <div class="alert alert-success">
+            {{ session('msg') }}
+        </div>
+    @endif
+
     <div>
         <h4 class="titulo">IMAGENS DA EMBALAGEM </h4>
        
@@ -76,8 +83,8 @@
             <button class="btnNext" id="retanguloPlus"  >4:3</button>
             <button class="btnNext" id="retangulo" >16:9</button>
             <button class="btnNext"   id="quadrado"  >1:1</button>
-            <button class="btnNext" onclick="next('seta_frente')" id="seta_frente"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
-            <button class="btnNext"  id="rotateButton"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
+            <button class="btnNext" onclick="next('seta_frente')" id="seta_frente"><img style="width: 25px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
+            <button class="btnNext"  id="rotateButton"><img style="width: 25px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
             <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b> 
        </div> 
        <hr>
@@ -93,8 +100,8 @@
             <button class="btnNext" id="retanguloPlusVerso"  >4:3</button>
             <button class="btnNext" id="retanguloVerso" >16:9</button>
             <button class="btnNext"   id="quadradoVerso"  >1:1</button>
-            <button class="btnNext"  onclick="next('seta_verso')"  id="seta_verso"><img style="width: 20px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
-            <button class="btnNext"  id="rotateButton1"><img style="width: 20px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
+            <button class="btnNext"  onclick="next('seta_verso')"  id="seta_verso"><img style="width: 25px" src="{{ asset('image/add-image.png') }}" alt="adiciona foto"></button>
+            <button class="btnNext"  id="rotateButton1"><img style="width: 25px" src="{{ asset('image/rotate.png') }}" alt="rotacionar"> </button>
             <img style="width:30px" src="{{asset('image/scroll.png')}}" alt="zoom"><b>ZOOM</b>
             
         </div>
