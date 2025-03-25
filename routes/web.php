@@ -270,13 +270,11 @@ Route::post('/inspecaoVeiculo', [MotocicletasController::class, 'inspecaoVeiculo
 
 
 
-
+//Gera o arquivo docx
 Route::get('laudosChassi.docx/{laudo}', 'Perito\Chassis\ChassisController@generate_docx')->name('laudosChassi.docx');
 
 //Rotas de editar e deletar
-
 Route::get('/editar/{id}', [MotocicletasController::class, 'edite'])->name('editar');
-
 Route::delete('/deletar/{id}', [MotocicletasController::class, 'delete'])->name('deletar');
 
 
