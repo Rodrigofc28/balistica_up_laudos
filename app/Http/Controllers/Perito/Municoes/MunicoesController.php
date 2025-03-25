@@ -17,6 +17,7 @@ class MunicoesController extends Controller
      */
     public function store(MunicaoRequest $request, $laudo)
 {   
+    
     $request->validate([
         'up_image' => 'image|mimes:jpeg,png,jpg',
         'up_image2' => 'image|mimes:jpeg,png,jpg',

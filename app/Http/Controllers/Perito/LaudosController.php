@@ -180,9 +180,10 @@ class LaudosController extends Controller
         $secoes = Secao::all();
         $diretores = Diretor::allOrdered();
         $solicitantes = OrgaoSolicitante::fromCity($laudo->cidade_id);
-        $armas = $laudo->armas;
-        $municoes = $laudo->municoes;
-        $componentes = $laudo->componentes;
+        $armas = $laudo->armas;             //armas
+        $outros = $laudo->outros;           //outros materiais
+        $municoes = $laudo->municoes;       //cartucho e estojo
+        $componentes = $laudo->componentes;//projetil
         
         $users_img_project = DB::select('select lacrecartucho,lacreSaida, group_concat(id) from componentes where laudo_id = ? group by lacrecartucho,lacreSaida', [$laudo->id]);
         $obj=(object) $users_img_project;
@@ -194,14 +195,14 @@ class LaudosController extends Controller
          if(count($armasGdl)==0){
             return view('perito.laudo.show',
                 compact('laudo', 'cidades', 'solicitantes',
-                    'diretores', 'secoes', 'armas', 'municoes', 'componentes','obj','objMuni'));
+                    'diretores', 'secoes', 'armas', 'municoes','outros', 'componentes','obj','objMuni'));
                 }
         else{
             
             
             return view('perito.laudo.show_gdl_laudo',
                 compact('laudo', 'cidades', 'solicitantes',
-                    'diretores', 'secoes', 'armas', 'municoes', 'componentes','obj','objMuni','armasGdl','id_gdl_armas'));
+                    'diretores', 'secoes', 'armas', 'municoes','outros', 'componentes','obj','objMuni','armasGdl','id_gdl_armas'));
         }
     }
 

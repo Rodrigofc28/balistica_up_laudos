@@ -87,9 +87,7 @@ class CarabinasController extends Controller
      */
     public function show(Arma $carabina)
     {
-//        $marcas = Marca::marcasWithTrashed('armas', $pistola->marca);
-//        $origens = Origem::origensWithTrashed($pistola->origem);
-//        $calibres = Calibre::calibresWithTrashed('revólver', $pistola->calibre);
+
       
         return view('perito.laudo.materiais.armas.carabina.show',
             compact('arma'));
