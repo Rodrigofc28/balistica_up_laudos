@@ -160,6 +160,7 @@
                 @includeWhen(count($armas) > 0, 'perito.laudo.partials.arma')
                 @includeWhen(count($municoes) > 0, 'perito.laudo.partials.municao')
                 @includeWhen(count($componentes) > 0, 'perito.laudo.partials.componente')
+                @includeWhen(count($outros) > 0, 'perito.laudo.partials.outro')
             </tbody>
         </table>
     </div>

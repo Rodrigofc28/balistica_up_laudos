@@ -89,12 +89,12 @@
             
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <a class="dropdown-item" href="{{ route('secoes.index') }}"><img class="notification uni"  src="{{asset('image/bell.png')}}" alt="">Unidades </a>
-                <a class="dropdown-item" href="{{ route('diretores.index') }}"><img class="notification"  src="{{asset('image/bell.png')}}" alt="">Diretores </a>
+                
                 <a class="dropdown-item" href="{{ route('solicitantes.index') }}"><img class="notification os" src="{{asset('image/bell.png')}}" alt="">Órgãos Solicitantes </a>
                 <a class="dropdown-item" href="{{ route('marcas.index') }}"><img class="notification mar"  src="{{asset('image/bell.png')}}" alt="">Marcas </a>
                 <a class="dropdown-item" href="{{ route('calibres.index') }} "><img class="notification cal"  src="{{asset('image/bell.png')}}" alt="">Calibres </a>
-                <a class="dropdown-item" href="{{ route('cadastro_armas.index') }}" style="display: flex; align-items: center;"> Modelos salvos <img class="notification ms" src="{{asset('image/bell.png')}}" alt=""></a>
-                
+                <a class="dropdown-item" href="{{ route('cadastro_armas.index') }}" style="display: flex; align-items: center;"> Modelos de Armas<img class="notification ms" src="{{asset('image/bell.png')}}" alt=""></a>
+                <a class="dropdown-item" href="{{ route('outrosmodelos.index') }}"><img class="notification"  src="{{asset('image/bell.png')}}" alt="">Modelos de Outros </a>
                 <a class="dropdown-item" href="{{ route('users.index') }}"style="display: flex; align-items: center;">Usuários <img class="notification us"  src="{{asset('image/bell.png')}}" alt=""></a>
             </div>
         </li>

@@ -28,9 +28,11 @@ Route::prefix('admin')->middleware('cargo:Administrador')->group(function () {
     Route::resource('origens', 'Admin\OrigensController')
         ->parameters(['origens' => 'origem'])->except(['show']);
     Route::resource('cadastro_armas', 'Admin\CadastroarmasController');
-        
-    Route::resource('diretores', 'Admin\DiretoresController')
-        ->parameters(['diretores' => 'diretor'])->except(['show']);
+    //Rota para cadastro de modelos de outros materiais---------------------------------------------------------------------------------------------------
+    Route::resource('outrosmodelos', 'Admin\ModeloOutrosController')->except(['show']);
+    Route::get('outrosmodelos/delete/{outro}', 'Admin\ModeloOutrosController@delete')->name('outrosmodelos.delete');
+    
+    //-----------------------------------------------------------------------------------------------------------------------------------------------------
     Route::get('relatorios/index', 'Admin\RelatoriosController@index')
         ->name('admin.relatorios.index');
     Route::get('relatorios/todos_laudos', 'Admin\RelatoriosController@relatorio_completo')

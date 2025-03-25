@@ -66,6 +66,10 @@ class Laudo extends Model
     {
         return $this->hasMany(Componente::class);
     }
+    public function outros()
+    {
+        return $this->hasMany(Outros_balistica::class);
+    }
 
     // this is a recommended way to declare event handlers
     public static function boot()
