@@ -211,7 +211,7 @@
 
         <h2 style="text-decoration: underline;"> Motocicleta </h2>
 
-        <form id="form" action="{{route('motocicletas.tela3')}}" method="POST">
+        <form id="form" action="{{route('motocicleta.tela2', ['laudo' => $laudo->id])}}" method="POST">
             {{ csrf_field() }}
             <input hidden name="laudo_id" value="{{$laudo->id}}" type="text">
             <input type="text" name="veiculo_id" value="motocicleta" hidden>

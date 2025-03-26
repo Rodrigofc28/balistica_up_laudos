@@ -12,12 +12,13 @@ use App\Models\Marca;
 
 class MotocicletasController extends Controller
 {
-    public function index(Laudo $laudo)
+    /* O que essa função faz? */
+    /*public function index(Laudo $laudo)
     {
         return view('perito.chassi.index', compact('laudo'));
-    }
+    }*/
 
-    public function tela2(Laudo $laudo)
+    public function tela1(Laudo $laudo)
     {
         return view('perito.chassi.veiculos.moto.motocicleta.index', compact('laudo'));
     }    
@@ -31,8 +32,6 @@ class MotocicletasController extends Controller
     if ($veiculo) {
         $veiculo->update($request->all());
     }
-
-
 
     $dadosRequest = $request->all();
     $dadosRequestJson = json_encode($dadosRequest);
@@ -48,7 +47,7 @@ class MotocicletasController extends Controller
 
 */
 
-    public function tela3(Request $request)
+    public function tela2(Request $request, $laudo)
     {
         $laudo = Laudo::find($request->laudo_id);
 

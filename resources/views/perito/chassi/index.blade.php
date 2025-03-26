@@ -20,7 +20,7 @@
                 </div>
             </a>
 
-            <a href="{{route('motocicletas.tela2', $laudo_id)}}">
+            <a href="{{route('motocicleta.index', $laudo_id)}}">
                 <div class="option">
                     <!-- ICON -->
                     <svg class="veiculo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
