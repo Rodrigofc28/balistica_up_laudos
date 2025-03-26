@@ -187,10 +187,10 @@
             <div class="conteinerImagemRecebida">
                 <div>
                     <input style="display: none" type="file" id="inputFile" accept="image/*">
-                    <input style="display:none" type="file" id="inputFile1" accept="image/*">
+                    <input style="display: none" type="file" id="inputFile1" accept="image/*">
 
 
-                    <form class="uploadForm" action="{{ route('motocicleta.tela4') }}" method="POST"
+                    <form class="uploadForm" action="{{ route('motocicleta.tela3', ['laudo' => $laudo->id]) }}" method="POST"
                         enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <input type="text" hidden name="laudo_id" value="{{ $laudo->id }}">
