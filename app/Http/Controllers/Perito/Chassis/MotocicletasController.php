@@ -60,7 +60,7 @@ class MotocicletasController extends Controller
             $chassi->update($request->all());
         }
 
-        return view('perito.chassi.veiculos.moto.motocicleta.telaum', compact('laudo', 'chassi'));
+        return view('perito.chassi.veiculos.moto.motocicleta.motocicleta1', compact('laudo', 'chassi'));
     }
 
     public function tela4(Request $request)
