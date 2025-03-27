@@ -174,9 +174,9 @@ class Geral
             $table = $this->section->addTable('tabela2img');
             $table->addRow(); 
             $img2=$table->addCell();
-            //$img2->addImage($image1, array('alignment' => Jc::CENTER, 'width' => 220));
+            $img2->addImage($image1, array('alignment' => Jc::CENTER, 'width' => 220));
             $img3= $table->addCell();
-           // $img3->addImage($image2, array('alignment' => Jc::CENTER, 'width' => 220));
+            $img3->addImage($image2, array('alignment' => Jc::CENTER, 'width' => 220));
 
             $this->section->addText(strtoupper($chassi['veiculo_id']).' PERICIADA', $this->config->arial12Bold(),$this->config->paragraphCenter());
         //Do exame chassi

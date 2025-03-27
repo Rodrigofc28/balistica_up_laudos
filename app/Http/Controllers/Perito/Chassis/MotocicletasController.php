@@ -12,12 +12,13 @@ use App\Models\Marca;
 
 class MotocicletasController extends Controller
 {
-    public function index(Laudo $laudo)
+    /* O que essa função faz? */
+    /*public function index(Laudo $laudo)
     {
         return view('perito.chassi.index', compact('laudo'));
-    }
+    }*/
 
-    public function tela2(Laudo $laudo)
+    public function index(Laudo $laudo)
     {
         return view('perito.chassi.veiculos.moto.motocicleta.index', compact('laudo'));
     }    
@@ -31,8 +32,6 @@ class MotocicletasController extends Controller
     if ($veiculo) {
         $veiculo->update($request->all());
     }
-
-
 
     $dadosRequest = $request->all();
     $dadosRequestJson = json_encode($dadosRequest);
@@ -48,7 +47,7 @@ class MotocicletasController extends Controller
 
 */
 
-    public function tela3(Request $request)
+    public function tela2(Request $request, $laudo)
     {
         $laudo = Laudo::find($request->laudo_id);
 
@@ -61,10 +60,10 @@ class MotocicletasController extends Controller
             $chassi->update($request->all());
         }
 
-        return view('perito.chassi.veiculos.moto.motocicleta.telaum', compact('laudo', 'chassi'));
+        return view('perito.chassi.veiculos.moto.motocicleta.motocicleta2', compact('laudo', 'chassi'));
     }
 
-    public function tela4(Request $request)
+    public function tela3(Request $request, $laudo)
     {
         $laudo = Laudo::find($request->laudo_id);
         $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();
@@ -88,7 +87,7 @@ class MotocicletasController extends Controller
 
     //Bug do relogar na tela 4 resolvido V
 //-------------------------------------------------------------------------------
-    public function exame(Request $request)
+    public function exame(Request $request, $laudo)
     {
         $laudo = Laudo::find($request->laudo_id);
         $chassi = Chassi::where('laudo_id', $request->laudo_id)->first();

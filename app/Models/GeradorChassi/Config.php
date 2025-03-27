@@ -1,35 +1,28 @@
 <?php
-
-
 namespace App\Models\GeradorChassi;
 
 use PhpOffice\PhpWord\Shared\Converter;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\JcTable;
 
-class Config
-{
+class Config{
     private $phpWord;
     private $section;
 
-    public function __construct($phpWord)
-    {
+    public function __construct($phpWord){
         $this->phpWord = $phpWord;
         $this->section = $this->sectionConfig();
     }
 
-    public function getPHPWord()
-    {
+    public function getPHPWord(){
         return $this->phpWord;
     }
 
-    public function getSection()
-    {
+    public function getSection(){
         return $this->section;
     }
 
-    private function sectionConfig()
-    {
+    private function sectionConfig(){
         $this->section = $this->phpWord->addSection(
             array(
                 'marginLeft' => Converter::cmToTwip(3),
@@ -42,87 +35,92 @@ class Config
         return $this->section;
     }
 
-    public function arial12()
-    {
+    public function arial12(){
         return array('bold' => false, 'size' => 12, 'name' => 'Arial');
     }
 
-    public function arial14Bold()
-    {
+    public function arial14Bold(){
         return array('bold' => true, 'size' => 14, 'name' => 'Arial');
     }
 
-    public function arial12Bold()
-    {
+    public function arial12Bold(){
         return array('bold' => true, 'size' => 12, 'name' => 'Arial');
     }
 
-    public function arial12Underline()
-    {
-        return array('bold' => false, 'size' => 12, 'name' => 'Arial', 'underline' => 'single','bold' => true);
+    public function arial12Underline(){
+        return array('bold' => false, 'size' => 12, 'name' => 'Arial', 'underline' => 'single');
     }
 
-    public function paragraphJustify()
-    {
+    public function paragraphJustify(){
         $paragraphJustify = 'justify';
-        $this->phpWord->addParagraphStyle($paragraphJustify, array('alignment' => Jc::BOTH,
+        $this->phpWord->addParagraphStyle($paragraphJustify, array(
+            'alignment' => Jc::BOTH,
             'spaceAfter' => Converter::cmToTwip(0.0),
             'spacing' => Converter::cmToTwip(0.10),
-            'indentation' => array('firstLine' => Converter::cmToTwip(2.0))));
+            'indentation' => array('firstLine' => Converter::cmToTwip(2.0))
+        ));
 
         return $paragraphJustify;
     }
 
-    public function paragraphCenter()
-    {
+    public function paragraphCenter(){
         $paragraphCenter = 'center';
-        $this->phpWord->addParagraphStyle($paragraphCenter, array('alignment' => Jc::CENTER,
+        $this->phpWord->addParagraphStyle($paragraphCenter, array(
+            'alignment' => Jc::CENTER,
             'spaceAfter' => Converter::cmToTwip(0.85),
-            'spaceBefore' => Converter::cmToTwip(1.27)));
+            'spaceBefore' => Converter::cmToTwip(1.27)
+        ));
         return $paragraphCenter;
     }
 
-    public function paragraphRight()
-    {
+    public function paragraphRight(){
         $paragraphRight = 'right';
-        $this->phpWord->addParagraphStyle($paragraphRight, array('alignment' => Jc::END,
-            'spaceAfter' => Converter::cmToTwip(0.0)));
+        $this->phpWord->addParagraphStyle($paragraphRight, array(
+            'alignment' => Jc::END,
+            'spaceAfter' => Converter::cmToTwip(0.0)
+        ));
         return $paragraphRight;
     }
 
-    public function paragraphJustifyExam()
-    {
+    public function paragraphJustifyExam(){
         $paragraphJustifyExam = 'justifyExam';
-        $this->phpWord->addParagraphStyle($paragraphJustifyExam,
-            array('alignment' => Jc::BOTH,
+        $this->phpWord->addParagraphStyle(
+            $paragraphJustifyExam,
+            array(
+                'alignment' => Jc::BOTH,
                 'indentation' => array('firstLine' => Converter::cmToTwip(2.0)),
                 'spaceAfter' => Converter::cmToTwip(0.35),
-                'spaceBefore' => Converter::cmToTwip(0.35)));
+                'spaceBefore' => Converter::cmToTwip(0.35)
+            )
+        );
         return $paragraphJustifyExam;
     }
 
-    public function tabelaConfig()
-    {
+    public function tabelaConfig(){
         $tabelaConfig = 'tabelaConfig';
-        $this->phpWord->addTableStyle($tabelaConfig, array('borderSize' => 11,
-            'borderColor' => '171819', 'alignment' => JcTable::CENTER,
-            'valign' => Jc::CENTER),
-            array('bgColor' => 'cecece'));
+        $this->phpWord->addTableStyle(
+            $tabelaConfig,
+            array(
+                'borderSize' => 11,
+                'borderColor' => '171819',
+                'alignment' => JcTable::CENTER,
+                'valign' => Jc::CENTER
+            ),
+            array('bgColor' => 'cecece')
+        );
         return $tabelaConfig;
     }
 
-    public function cellCenter()
-    {
-        return array('alignment' => Jc::CENTER, 'spaceAfter' => 150,'spaceBefore' => 150);
+    public function cellCenter(){
+        return array('alignment' => Jc::CENTER, 'spaceAfter' => 150, 'spaceBefore' => 150);
     }
 
-    public function fonteTabela()
-    {
+    public function fonteTabela(){
         return array('bold' => false, 'size' => 12, 'name' => 'Arial');
     }
-    public function confTabela()
-    {
+    
+    public function confTabela(){
         return array('boderTopColor' => '009900');
     }
-    
+
 }

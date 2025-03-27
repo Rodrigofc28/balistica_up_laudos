@@ -1,4 +1,8 @@
 @extends('layout.component')
+<!-- Adicionar CSS específico para essa página -->
+<!--@section('style')
+    <link rel="stylesheet" href="{{ asset('./css/index-chassi.css') }}">
+@endsection-->
 @section('page')
     <div class="container">
         <style>
@@ -22,13 +26,13 @@
             }
 
             /* Estilos para o progresso */
-            .progress-bar {
+            /*.progress-bar {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 margin: 15px 0;
                 color: #4bb2c4;
-            }
+            }*/
 
             .form-group {
                 display: flex;
@@ -201,13 +205,13 @@
             <div class="progress-bar"></div>
             <div class="step active"> 1 </div>
             <div class="step"> 2 </div>
-            <div class="step "> 3 </div>
+            <div class="step"> 3 </div>
             <div class="step"> 4 </div>
         </div>
 
         <h2 style="text-decoration: underline;"> Motocicleta </h2>
 
-        <form id="form" action="{{route('motocicletas.tela3')}}" method="POST">
+        <form id="form" action="{{route('motocicleta.tela2', ['laudo' => $laudo->id])}}" method="POST">
             {{ csrf_field() }}
             <input hidden name="laudo_id" value="{{$laudo->id}}" type="text">
             <input type="text" name="veiculo_id" value="motocicleta" hidden>
