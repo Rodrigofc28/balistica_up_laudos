@@ -14,7 +14,7 @@ use App\Models\Cadastroarmas;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Notifications\Bellnotification;
-
+use Intervention\Image\Facades\Image;
 use App\Models\Armas_Gdl;
 class PistolasController extends Controller
 {

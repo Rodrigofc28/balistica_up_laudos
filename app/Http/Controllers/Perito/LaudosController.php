@@ -281,7 +281,7 @@ class LaudosController extends Controller
 //Gera o laudo Balistico----------------------------------------------------------------------
     public function generate_docx(Laudo $laudo)
     {
-        if ($laudo->armas->isEmpty() && $laudo->municoes->isEmpty() && $laudo->componentes->isEmpty()) {
+        if ($laudo->armas->isEmpty() && $laudo->municoes->isEmpty() && $laudo->componentes->isEmpty() && $laudo->outros->isEmpty()) {
             return redirect()->route('laudos.show', compact('laudo'))
                 ->with('warning', 'É preciso ter ao menos 1 (um) material cadastrado para gerar o laudo!');
         } else {

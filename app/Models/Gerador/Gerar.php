@@ -23,6 +23,7 @@ class Gerar
         $this->conf = new Config($this->phpWord);
         $this->section = $this->conf->getSection();
         $this->phpW = $this->phpWord;
+        $this->section->getSettings()->setFooterHeight(\PhpOffice\PhpWord\Shared\Converter::cmToTwip(1.5));// AJUSTE DO RODA PÉ PARA 1,5 CM
     }
 
     public function create_docx($laudo)

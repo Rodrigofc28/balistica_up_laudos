@@ -18,29 +18,37 @@
 </style>
 <input type="hidden" name="laudo_id" id="laudo_id" value="{{ $laudo->id }}">
 <input type="hidden" name="material" id="material" value="outros">
-
+    
 <div class="col-lg-12" style="padding: 0 5% 0">
     <div class="row mb-5">
-        <label for="descricaoOutros">Descrição do Item Periciado</label>
-        <textarea name="descricao_item" class="form-control"  id="" cols="30" rows="5"></textarea>
-        <div class="col-lg-3">
-            <label for="marca">Marca:</label>
-            <input class="form-control" name="marca" id="marca" type="text"> 
-        </div>
+        <label for="modelossalvos">Descrição de Outros Materiais Salvos </label>
+        <select class="form-control"  id="modelossalvos">
+            <option value=""></option>
+            @foreach ($outrosMateriais as $item)
+                <option value="{{$item}}">{{$item->modeloSalvo}}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="row mb-5">
         <div class="col-lg-3">
             <label for="marca">Nome do Objeto:</label>
-            <input class="form-control" name="nome" id="nome" type="text"> 
+            <input class="form-control" oninput="atualizarTexto()" name="nome" id="nome" type="text"> 
         </div>
         <div class="col-lg-3">
+            <label for="marca">Marca:</label>
+            <input class="form-control" oninput="atualizarTexto()" name="marca" id="marca" type="text"> 
+        </div>
+        
+        <div class="col-lg-3">
             <label for="quantidadeOutros">Quantidade:</label>
-            <input class="form-control" name="quantidade" id="quantidadeOutros" type="number"> 
+            <input class="form-control" oninput="atualizarTexto()" name="quantidade" id="quantidadeOutros" type="number"> 
         </div>
         <div class="col-lg-3">
               <label for="quantidadeOutros">Unidade:</label>
-            <select class="form-control" name="medida" id="medidaOutros">
+            <select onchange="atualizarTexto()" class="form-control" name="medida" id="medidaOutros">
                 <option ></option>
                 @foreach ([ 'GRAMAS (g)', 'QUILOGRAMAS (Kg)', 'MILILITROS (ml)', 'LITROS (L)'] as $item)
-                    <option value="{{$item}}">{{$item}}</option>
+                    <option  value="{{$item}}">{{$item}}</option>
                 @endforeach
             </select>
         </div>    
@@ -54,6 +62,7 @@
             <input class="form-control" name="lacre_saida" id="lacreSaidaOutros" type="text">
             
         </div> 
+        
         <div class="col-lg-3">  
             
             <label  for="salvaModelo">Deseja salvar esse modelo</label>
@@ -65,12 +74,15 @@
                 <span>Não</span>
                 <input type="radio" value="nao" name="modelo" id="modelo">
             </div>
+
             
             
         </div> 
         <div class="col-lg-3"> 
             <input class="form-control" style="margin-top: 10%" placeholder="Nome do modelo" name="modeloSalvo" id="modeloSalvo" type="text">
         </div> 
+        <label for="descricaoOutros">Descrição do Item Periciado</label>
+        <textarea required name="descricao_item" class="form-control"  id="descricao_item" cols="30" rows="5" ></textarea>
     </div>
     @include('perito.laudo.materiais.attributes.imagem_municao',['tipo'=>'OUTROS MATERIAIS'])
     <div class="row justify-content-between mb-4">
@@ -87,8 +99,10 @@
     </div>
     <script src="{{asset('js/redimensionando_foto.js')}}"></script>
     <script src="{{asset('js/municaoImagem.js')}}"></script>
+    <script  src="{{asset('js/form_modelos_outros.js')}}"></script>
     <script>
-        //Aparece o modelo para ser o nome do modelo
+        //Aparece o modelo para ser o nome do modelo -----------------------------------------------------------------------------
+
         document.addEventListener("DOMContentLoaded", function () {
             const inputSim = document.querySelector("input[value='sim']");
             const inputNao = document.querySelector("input[value='nao']");
@@ -108,5 +122,33 @@
             // Ocultar o input no início
             modeloSalvo.style.display = "none";
         });
+        // Adicionando um texto padrão ao campo de descrição ----------------------------------------------------------------------
+        function atualizarTexto() {
+            let marca = document.getElementById("marca").value;
+            let objeto = document.getElementById("nome").value;
+            let quantidade = document.getElementById("quantidadeOutros").value;
+            let unidade = document.getElementById("medidaOutros").value;
+
+            let textoGenerico = "Trata-se de um ";
+
+            
+
+            if (objeto) {
+                textoGenerico += `${objeto} `;
+            }
+
+            if (marca) {
+                textoGenerico += `da marca ${marca}`;
+            }
+            if (quantidade) {
+                textoGenerico += ` com ${quantidade} `;
+            }
+
+            if (unidade) {
+                textoGenerico += `${unidade}`;
+            }
+
+            document.getElementById("descricao_item").value = textoGenerico.trim();
+        }
     </script>
 </div>

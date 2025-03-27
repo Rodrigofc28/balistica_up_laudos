@@ -23,11 +23,16 @@ $(".model-outro").on('click',async function () {
           <input id="swal-input1" class="form-control"   value="${outro.marca || ''}">
           <label for="swal-input1">Marca</label>
         </div>
-        <div class="input-container" ${outro.descricao_item !== null ? '' : "hidden"}> 
-          <input id="swal-input2" class="form-control"   value="${outro.descricao_item || ''}">
-        <label for="swal-input2">Descrição do item</label>
+       <div class="input-container" ${outro.descricao_item !== null ? '' : "hidden"}> 
+            <span>Descrição do Item</span>
+            <textarea id="swal-input2" class="form-control">${outro.descricao_item || ''}</textarea>
+            
+        </div>
+
+        <div class="input-container" ${outro.modeloSalvo !== null ? '' : "hidden"}> 
+          <input id="swal-input3" class="form-control"   value="${outro.modeloSalvo || ''}">
+          <label for="swal-input3">Nome a ser salvo</label>
         </div>  
-        
            
        
       `,
@@ -37,11 +42,11 @@ $(".model-outro").on('click',async function () {
       cancelButtonText: "Cancelar",
       preConfirm: () => {
         return {
-          arma_id:arma.id,
+          id:outro.id,
           nome: document.getElementById("swal-input0").value,
           marca: document.getElementById("swal-input1").value,
           descricao_item: document.getElementById("swal-input2").value || null,
-          
+          modeloSalvo: document.getElementById("swal-input3").value || null,
           
          
          
@@ -54,14 +59,14 @@ $(".model-outro").on('click',async function () {
           type: "POST", // Método da requisição
           data: formValues ,
           success: function (response) {
-              Swal.fire("Sucesso", "Arma cadastrada com sucesso!", "success")
+              Swal.fire("Sucesso", "Outro material cadastrado com sucesso!", "success")
               .then(() => {
                       location.reload(); // Recarrega a página
                   });
               
           },
           error: function (xhr) {
-              Swal.fire("Erro", "Não foi possível cadastrar a arma.", "error");
+              Swal.fire("Erro", "Não foi possível cadastrar a esse material.", "error");
               console.error(xhr.responseText); // Debug do erro
           },
           });
