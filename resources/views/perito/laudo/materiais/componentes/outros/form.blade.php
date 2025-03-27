@@ -21,7 +21,7 @@
     
 <div class="col-lg-12" style="padding: 0 5% 0">
     <div class="row mb-5">
-        <label for="modelossalvos">Descrição de Outros Materiais Salvos </label>
+        <label for="modelossalvos"><b> Descrição de Outros Materiais Salvos </b></label>
         <select class="form-control"  id="modelossalvos">
             <option value=""></option>
             @foreach ($outrosMateriais as $item)
@@ -31,20 +31,20 @@
     </div>
     <div class="row mb-5">
         <div class="col-lg-3">
-            <label for="marca">Nome do Objeto:</label>
+            <label for="marca"><b>Nome do Objeto:</b></label>
             <input class="form-control" oninput="atualizarTexto()" name="nome" id="nome" type="text"> 
         </div>
         <div class="col-lg-3">
-            <label for="marca">Marca:</label>
+            <label for="marca"><b>Marca:</b></label>
             <input class="form-control" oninput="atualizarTexto()" name="marca" id="marca" type="text"> 
         </div>
         
         <div class="col-lg-3">
-            <label for="quantidadeOutros">Quantidade:</label>
+            <label for="quantidadeOutros"><b>Quantidade:</b></label>
             <input class="form-control" oninput="atualizarTexto()" name="quantidade" id="quantidadeOutros" type="number"> 
         </div>
         <div class="col-lg-3">
-              <label for="quantidadeOutros">Unidade:</label>
+              <label for="quantidadeOutros"><b>Unidade:</b></label>
             <select onchange="atualizarTexto()" class="form-control" name="medida" id="medidaOutros">
                 <option ></option>
                 @foreach ([ 'GRAMAS (g)', 'QUILOGRAMAS (Kg)', 'MILILITROS (ml)', 'LITROS (L)'] as $item)
@@ -53,19 +53,32 @@
             </select>
         </div>    
         <div class="col-lg-3">
-            <label for="lacreEntradaOutros">Lacre de Entrada</label>
+            <label for="lacreEntradaOutros"><b>Lacre de Entrada</b></label>
             <input class="form-control" name="lacre_entrada" id="lacreEntradaOutros" type="text">
         </div> 
         <div class="col-lg-3">  
             
-            <label for="lacreSaidaOutros">Lacre de Saída</label>
+            <label for="lacreSaidaOutros"><b>Lacre de Saída</b></label>
             <input class="form-control" name="lacre_saida" id="lacreSaidaOutros" type="text">
-            
+           
         </div> 
+        {{--Dito no Oficio--}}
+        @if ($laudo->laudoEfetConst=="B602")
+            <div class="col-lg-3">  
+                <label for="dito_oficio"><b>Dito no Oficio</b></label>
+                <input class="form-control" name="dito_oficio" id="dito_oficio" type="text">
+            </div> 
+        @endif
+        {{--Material Coletado--}}
+        @if($laudo->laudoEfetConst=="B601")
+            @include('perito.laudo.materiais.attributes.material_coletado_projetil')
+            @include('perito.laudo.materiais.attributes.rep_de_coleta')
+        @endif
+                
         
         <div class="col-lg-3">  
             
-            <label  for="salvaModelo">Deseja salvar esse modelo</label>
+            <label  for="salvaModelo"><b>Deseja salvar esse modelo</b></label>
             <div class="radioModelo">
                 <span>Sim</span>
                 <input type="radio" value="sim" name="modelo" id="modelo">
@@ -81,9 +94,11 @@
         <div class="col-lg-3"> 
             <input class="form-control" style="margin-top: 10%" placeholder="Nome do modelo" name="modeloSalvo" id="modeloSalvo" type="text">
         </div> 
-        <label for="descricaoOutros">Descrição do Item Periciado</label>
-        <textarea required name="descricao_item" class="form-control"  id="descricao_item" cols="30" rows="5" ></textarea>
+        
     </div>
+    <label for="descricaoOutros"><b>Descrição do Item Periciado</b></label>
+        <textarea required name="descricao_item" class="form-control"  id="descricao_item" cols="30" rows="5" ></textarea>
+
     @include('perito.laudo.materiais.attributes.imagem_municao',['tipo'=>'OUTROS MATERIAIS'])
     <div class="row justify-content-between mb-4">
         <div class="col-lg-4 mt-1">
