@@ -23,6 +23,7 @@ class Gerar
         $this->conf = new Config($this->phpWord);
         $this->section = $this->conf->getSection();
         $this->phpW = $this->phpWord;
+        $this->section->getSettings()->setFooterHeight(\PhpOffice\PhpWord\Shared\Converter::cmToTwip(1.5));// AJUSTE DO RODA PÉ PARA 1,5 CM
     }
 
     public function create_docx($laudo)
@@ -80,7 +81,10 @@ class Gerar
         //estojo   
         $estojosText = new MunicoesText($this->section, $this->conf,$i, $this->phpWord);
         $estojosText = $estojosText->addTextEstojo($laudo->municoes,$laudo);        
-  
+        
+        //texto para adicionar outros materiais
+        $outrosText = new OutrosText($this->section, $this->conf,$i,$this->phpWord);
+        $outrosText = $outrosText->addText($laudo->outros,$laudo);
        
         //texto final
         $this->geral->addFinalText($laudo);

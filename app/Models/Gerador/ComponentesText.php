@@ -92,7 +92,14 @@ class ComponentesText
     protected function tabelaProjetil($phpWord,$section,$config,$componentes,$pQ,$laudo){ //tabela de cartuchos
         global $numTab;
         $this->i++;
-       
+        $contIncdice=$this->i;
+       if(count($laudo->municoes)==0&&count($laudo->armas)==0){
+            $contIncdice=1;
+       }else if(count($laudo->municoes)==0){
+            $contIncdice=1;
+       }else if(count($laudo->armas)==0){
+            $contIncdice=1;
+       }
        
         
         $this->phpWord->addTableStyle('tabela', $this->styleTable, $this->styleFirstRow);
@@ -114,7 +121,7 @@ class ComponentesText
         
         $text=[
                 
-                $this->section->addText('3.'.$this->i.' DOS PROJÉTEIS:', $this->config->arial12Bold(), $this->config->paragraphJustify()) ,
+                $this->section->addText('3.'.$contIncdice.' DOS PROJÉTEIS:', $this->config->arial12Bold(), $this->config->paragraphJustify()) ,
                 $textrun = $this->section->addTextRun($this->config->paragraphJustify()), 
                 $textrun->addText('Trata-se de ',$this->config->arial12()),
                 $textrun->addText($nomecartucho,$this->config->arial12Underline()),
@@ -251,7 +258,7 @@ for($i=0;$i<count($arrayImageProjetil);$i++){
      protected function massa($componentes,$table){foreach($componentes as $componente){$teste=[$table->addCell()->addText($componente->massa,null,$this->paraStyle)];}}                            
      protected function calibreReal($componentes,$table){foreach($componentes as $componente){$teste=[$table->addCell()->addText($componente->calibreReal,null,$this->paraStyle)];}}       
      protected function alturaProjetil($componentes,$table){foreach($componentes as $componente){$teste=[$table->addCell()->addText(strtoupper($componente->altura_projetil),null,$this->paraStyle)];}}       
-     protected function calibreNominal($componentes,$table){foreach($componentes as $componente){$teste=[$table->addCell()->addText(strtoupper($componente->calibreProjetil->nome),null,$this->paraStyle)];}}
+     protected function calibreNominal($componentes,$table){foreach($componentes as $componente){$teste=[$table->addCell()->addText(strtoupper(isset($componente->calibreProjetil->nome)?$componente->calibreProjetil->nome:''),null,$this->paraStyle)];}}
      protected function cavadosRessaltos($componentes,$table){foreach($componentes as $componente){ $naoSeAplica='NÃO SE APLICA';$teste=[$table->addCell()->addText(($componente->tipo_projetil=="Núcleo")?$naoSeAplica:"$componente->cavados/$componente->ressaltos",null,$this->paraStyle)];}}    
      protected function quantidadeRaias($componentes,$table){foreach($componentes as $componente){$naoSeAplica='NÃO SE APLICA';$quntidadeRaias=($componente->sentido_raias=='')?'':$componente->quantidade_raias.' RAIAS ';$teste=[$table->addCell()->addText(($componente->tipo_projetil=="Núcleo")?$naoSeAplica:$quntidadeRaias.''.mb_strtoupper($componente->sentido_raias),null,$this->paraStyle)];}}
      protected function tipo_raiamento($componentes,$table){foreach($componentes as $componente){$teste=[$table->addCell()->addText(($componente->tipo_projetil=="Núcleo")?'NÃO SE APLICA':mb_strtoupper($componente->tipo_raiamento),null,$this->paraStyle)];}}

@@ -15,9 +15,9 @@ class OutrosmateriasController extends Controller
      */
     public function create($laudo)
     {
-        
+        $outrosMateriais = Outros_balistica::where('status', 1)->get();
         return view('perito.laudo.materiais.componentes.outros.create',
-            compact('laudo'));
+            compact('laudo','outrosMateriais'));
     }
     /**
      * Store a newly created resource in storage.

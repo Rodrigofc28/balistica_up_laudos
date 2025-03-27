@@ -27,16 +27,16 @@ class CadastroarmasController extends Controller
         $armas = Arma::all();
         return view('admin/cadastro_armas/index', compact('armas'));
     }
+    //modificar status
     public function store(Request $request)
     {
         //ajusta para ver se foi cadastrado
         Arma::where('id', $request->arma_id)->update($request->except('arma_id'));
          
-        
-       
         return response()->json(['message' => 'Arma cadastrada com sucesso!']);
         
     }
+    //deletar
     public function delete($arma)
     {
        
