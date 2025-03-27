@@ -134,7 +134,29 @@ class Tabelas {
     }
   
     }
-               
+    //caso outros materias 
+    if($laudo->outros!=''){
+       
+       
+        foreach($laudo->outros as $outro){
+            
+              [$table->addRow(10,['tblHeader'=>true]),
+                    //$table->addCell()->addText($item,null,$this->paraStyle),
+                    $table->addCell()->addText(mb_strtoupper('Outros'),null,$this->paraStyle),
+                    $table->addCell()->addText("$outro->quantidade $outro->medida",null,$this->paraStyle),
+                    $table->addCell()->addText(mb_strtoupper($outro->nome),null,$this->paraStyle),
+                    $table->addCell()->addText(mb_strtoupper($outro->dito_oficio),null,$this->paraStyle),
+                    $table->addCell()->addText($outro->lacre_entrada,null,$this->paraStyle),
+                    
+
+                    ];
+                    $item++;
+                                 
+                }
+                  
+
+  
+    }
     return $table;
 }
 
@@ -356,7 +378,8 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
     
                 ];
             }
-
+        //Caso outros materiais
+        
            
             }
     return $table;

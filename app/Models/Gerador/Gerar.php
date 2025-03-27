@@ -81,7 +81,10 @@ class Gerar
         //estojo   
         $estojosText = new MunicoesText($this->section, $this->conf,$i, $this->phpWord);
         $estojosText = $estojosText->addTextEstojo($laudo->municoes,$laudo);        
-  
+        
+        //texto para adicionar outros materiais
+        $outrosText = new OutrosText($this->section, $this->conf,$i,$this->phpWord);
+        $outrosText = $outrosText->addText($laudo->outros,$laudo);
        
         //texto final
         $this->geral->addFinalText($laudo);

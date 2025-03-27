@@ -12,7 +12,7 @@ class Outros_balistica extends Model
 
     protected $table = 'outros'; //tabela marcas
 
-    protected $fillable = ['descricao_item','laudo_id', 'quantidade','medida','nome','marca','lacre_entrada','lacre_saida','modelo','modeloSalvo','up_image','up_image2']; //campos
+    protected $fillable = ['descricao_item','dito_oficio','laudo_id', 'quantidade','medida','nome','marca','lacre_entrada','lacre_saida','modelo','modeloSalvo','up_image','up_image2']; //campos
 
     public function laudo()
     {
