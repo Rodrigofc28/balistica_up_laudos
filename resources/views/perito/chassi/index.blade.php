@@ -1,4 +1,9 @@
 @extends('layout.component')
+<!--
+@section('style')
+    <link rel="stylesheet" href="{{ asset('./css/index-chassi.css') }}">
+@endsection
+-->
 @section('page')
 
     <div class="container">

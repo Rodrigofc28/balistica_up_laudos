@@ -92,7 +92,14 @@ class ComponentesText
     protected function tabelaProjetil($phpWord,$section,$config,$componentes,$pQ,$laudo){ //tabela de cartuchos
         global $numTab;
         $this->i++;
-       
+        $contIncdice=$this->i;
+       if(count($laudo->municoes)==0&&count($laudo->armas)==0){
+            $contIncdice=1;
+       }else if(count($laudo->municoes)==0){
+            $contIncdice=1;
+       }else if(count($laudo->armas)==0){
+            $contIncdice=1;
+       }
        
         
         $this->phpWord->addTableStyle('tabela', $this->styleTable, $this->styleFirstRow);
@@ -114,7 +121,7 @@ class ComponentesText
         
         $text=[
                 
-                $this->section->addText('3.'.$this->i.' DOS PROJÉTEIS:', $this->config->arial12Bold(), $this->config->paragraphJustify()) ,
+                $this->section->addText('3.'.$contIncdice.' DOS PROJÉTEIS:', $this->config->arial12Bold(), $this->config->paragraphJustify()) ,
                 $textrun = $this->section->addTextRun($this->config->paragraphJustify()), 
                 $textrun->addText('Trata-se de ',$this->config->arial12()),
                 $textrun->addText($nomecartucho,$this->config->arial12Underline()),

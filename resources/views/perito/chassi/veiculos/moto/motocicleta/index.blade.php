@@ -454,7 +454,7 @@
         </script>
 
         <script>
-            // Função para adicionar marca
+            // Função para adicionar marca -> VERIFICAR FUNCIONAMENTO (não funciona, aparentemente)
             document.getElementById('add-marca').addEventListener('click', function() {
                 const marca = document.getElementById('marca').value;
                 if (marca !== '') {

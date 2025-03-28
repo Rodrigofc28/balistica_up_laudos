@@ -271,9 +271,9 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
                     //$table->addCell()->addText($item,null,$this->paraStyle),
                     $table->addCell()->addText(mb_strtoupper($arma->tipo_arma),null,$this->paraStyle),
                     $table->addCell()->addText($quantidade,null,$this->paraStyle),
-                    $arma->origem_coletaPerito=!''?$table->addCell()->addText($arma->origem_coletaPerito,null,$this->paraStyle):'',
-                    $arma->rep_materialColetado!=''?$table->addCell()->addText($arma->rep_materialColetado,null,$this->paraStyle):'',
-                    $table->addCell()->addText($laudo->rep,null,$this->paraStyle),
+                    $arma->origem_coletaPerito=!''?$table->addCell()->addText($arma->origem_coletaPerito,null,$this->paraStyle):$table->addCell()->addText('',null,$this->paraStyle),
+                    $arma->rep_materialColetado!=''?$table->addCell()->addText($arma->rep_materialColetado,null,$this->paraStyle):$table->addCell()->addText('',null,$this->paraStyle),
+                    
                     $table->addCell()->addText($arma->num_lacre_saida,null,$this->paraStyle),
                     
                     ];
@@ -306,8 +306,8 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
                 // $table->addCell()->addText($item,null,$this->paraStyle),
                  $table->addCell()->addText(mb_strtoupper('cartucho'),null,$this->paraStyle),
                  $table->addCell()->addText(array_sum($somaCartucho),null,$this->paraStyle),
-                 $origemColeta=!''?$table->addCell()->addText($origemColeta,null,$this->paraStyle):' ',
-                 $materialColetado!=''?$table->addCell()->addText($materialColetado,null,$this->paraStyle):' ',
+                 $origemColeta=!''?$table->addCell()->addText($origemColeta,null,$this->paraStyle):$table->addCell()->addText('',null,$this->paraStyle),
+                 $materialColetado!=''?$table->addCell()->addText($materialColetado,null,$this->paraStyle):$table->addCell()->addText('',null,$this->paraStyle),
                 
                  $table->addCell()->addText($lacreCartucho,null,$this->paraStyle),
                  ];
@@ -339,8 +339,8 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
                             //  $table->addCell()->addText($item,null,$this->paraStyle),
                               $table->addCell()->addText(mb_strtoupper('estojo'),null,$this->paraStyle),
                               $table->addCell()->addText(array_sum($somaEstojo),null,$this->paraStyle),
-                              $origemColeta=!''?$table->addCell()->addText($origemColeta,null,$this->paraStyle):' ',
-                              $materialColetado!=''?$table->addCell()->addText($materialColetado,null,$this->paraStyle):' ',
+                              $origemColeta=!''?$table->addCell()->addText($origemColeta,null,$this->paraStyle):$table->addCell()->addText('',null,$this->paraStyle),
+                              $materialColetado!=''?$table->addCell()->addText($materialColetado,null,$this->paraStyle):$table->addCell()->addText('',null,$this->paraStyle),
                              
                               $table->addCell()->addText($municao->lacrecartucho,null,$this->paraStyle),
                               
@@ -370,8 +370,8 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
                // $table->addCell()->addText($item,null,$this->paraStyle),
                 $table->addCell()->addText(mb_strtoupper('Projétil'),null,$this->paraStyle),
                 $table->addCell()->addText(array_sum($somaProjetil),null,$this->paraStyle),
-                $origemColeta=!''?$table->addCell()->addText($origemColeta,null,$this->paraStyle):' ',
-                $materialColetado!=''?$table->addCell()->addText($materialColetado,null,$this->paraStyle):' ',
+                $origemColeta=!''?$table->addCell()->addText($origemColeta,null,$this->paraStyle):$table->addCell()->addText('',null,$this->paraStyle),
+                $materialColetado!=''?$table->addCell()->addText($materialColetado,null,$this->paraStyle):$table->addCell()->addText('',null,$this->paraStyle),
               
                 $table->addCell()->addText($lacreProjetil,null,$this->paraStyle),
                 

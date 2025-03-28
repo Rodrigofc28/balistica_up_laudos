@@ -82,7 +82,7 @@ class MotocicletasController extends Controller
             $chassi->update($data);
         }
 
-        return view('perito.chassi.veiculos.moto.motocicleta.teladois', compact('laudo'));
+        return view('perito.chassi.veiculos.moto.motocicleta.motocicleta3', compact('laudo'));
     }
 
     //Bug do relogar na tela 4 resolvido V

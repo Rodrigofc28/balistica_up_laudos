@@ -273,7 +273,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <!-- Redimensionar Foto -->
-        <script src="./js/redimensionando_foto.js"></script>
+        <script src="{{asset('js/redimensionando_foto.js')}}"></script>
         <script>
             
             //Para o que serve???
