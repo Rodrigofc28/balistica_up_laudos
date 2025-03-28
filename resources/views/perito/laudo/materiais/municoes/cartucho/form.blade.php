@@ -73,10 +73,7 @@
         {{--Quantidade---------------------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.quantidade', ['quantidade' => $municao->quantidade ??
         old('quantidade')])
-        {{--Dito no oficio--------------------------------------------------------------------------------------------------}}
-        @if($laudo->laudoEfetConst=="B602"){{--Incluido no B602 dito no oficio--}}
-            @include('perito.laudo.materiais.attributes.dito_oficio')
-        @endif
+        
         {{--Tipo de Estojo do cartucho---------------------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.estojo', ['estojo2' => $municao->estojo ?? old('estojo')])
         {{--Tipo de Projétil do cartucho---------------------------------------------------------------------------------------------------------------}}

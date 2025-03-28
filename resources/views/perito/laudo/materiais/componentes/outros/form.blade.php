@@ -62,13 +62,7 @@
             <input class="form-control" name="lacre_saida" id="lacreSaidaOutros" type="text">
            
         </div> 
-        {{--Dito no Oficio--}}
-        @if ($laudo->laudoEfetConst=="B602")
-            <div class="col-lg-3">  
-                <label for="dito_oficio"><b>Dito no Oficio</b></label>
-                <input class="form-control" name="dito_oficio" id="dito_oficio" type="text">
-            </div> 
-        @endif
+       
         {{--Material Coletado--}}
         @if($laudo->laudoEfetConst=="B601")
             @include('perito.laudo.materiais.attributes.material_coletado_projetil')

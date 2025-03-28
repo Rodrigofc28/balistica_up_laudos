@@ -42,7 +42,7 @@
         $metralhadora->calibre->id ?? old('calibre_id')])
         @include('perito.laudo.materiais.attributes.calibre_real', ['calibre_real' => $metralhadora->calibre_real ??
         old('calibre_real')])
-        @include('perito.laudo.materiais.attributes.dito_oficio')
+       
         
         @include('perito.laudo.materiais.attributes.sistema_funcionamento', ['sistema_funcionamento2' =>
         $metralhadora->sistema_funcionamento ?? old('sistema_funcionamento')])

@@ -396,7 +396,7 @@ class MunicoesText extends Tabelas
     // verifica as condições de cada cartucho e chama a função tabela2 passando o array correspondente
     if(count($arraymunicao1)>0){
         
-        $instituto='usando arma fornecida por este Instituto';
+        $instituto='usando arma fornecida por esta Unidade de Execução Técnico Científica';
         $coleta='e/ou utilizados no procedimento de coleta de padrão balístico abaixo citado. ';
         $eficiencia="munição eficiente para a realização de tiros.";
         $percutido=["",""];
@@ -416,7 +416,7 @@ class MunicoesText extends Tabelas
         
         $coleta='';
         $eficiencia="munição eficiente para a realização de tiros.";
-        $instituto='usando arma fornecida por este Instituto';
+        $instituto='usando arma fornecida por esta Unidade de Execução Técnico Científica';
         $percutido=["",""];
         $condicoes='eficiente';
         $this->tabela2($arraymunicao3,$this->i,$laudo,$instituto,$coleta,$eficiencia,$percutido,$condicoes);
@@ -433,7 +433,7 @@ class MunicoesText extends Tabelas
     if(count($arraymunicao5)>0){
         
         $percutido=['',''];
-        $instituto='usando arma fornecida por este Instituto';
+        $instituto='usando arma fornecida por esta Unidade de Execução Técnico Científica';
         $coleta='e/ou utilizados no procedimento de coleta de padrão balístico abaixo citado. ';
         $eficiencia="munição eficiente para a realização de tiros.";
         $condicoes='eficiente';
@@ -451,7 +451,7 @@ class MunicoesText extends Tabelas
     if(count($arraymunicao7)>0){
         
         $coleta='';
-        $instituto='usando arma fornecida por este Instituto';
+        $instituto='usando arma fornecida por esta Unidade de Execução Técnico Científica';
         $percutido=['',''];
         $eficiencia="munição eficiente para a realização de tiros.";
         $condicoes='eficiente';
@@ -471,7 +471,7 @@ class MunicoesText extends Tabelas
         $eficiencia="munição Ineficiente para a realização de tiros.";
         $percutido=[" "," "];
         $coleta='e/ou utilizados no procedimento de coleta de padrão balístico abaixo citado. ';
-        $instituto='usando arma fornecida por este Instituto';
+        $instituto='usando arma fornecida por esta Unidade de Execução Técnico Científica';
         $condicoes='Ineficiente';
         $this->tabela2($arraymunicao9,$this->i,$laudo,$instituto,$coleta,$eficiencia,$percutido,$condicoes);
     }
@@ -486,7 +486,7 @@ class MunicoesText extends Tabelas
     }
     if(count($arraymunicao11)>0){
     
-        $instituto='usando arma fornecida por este Instituto';
+        $instituto='usando arma fornecida por esta Unidade de Execução Técnico Científica';
         $coleta='';
         $eficiencia="munição Ineficiente para a realização de tiros.";
         $percutido=[" "," "];
@@ -504,7 +504,7 @@ class MunicoesText extends Tabelas
     }
     if(count($arraymunicao13)>0){
         
-        $instituto='usando arma fornecida por este Instituto';
+        $instituto='usando arma fornecida por esta Unidade de Execução Técnico Científica';
         $percutido=['',''];
         $eficiencia="munição Ineficiente para a realização de tiros.";
         $coleta='e/ou utilizados no procedimento de coleta de padrão balístico abaixo citado. ';
@@ -522,7 +522,7 @@ class MunicoesText extends Tabelas
     }
     if(count($arraymunicao15)>0){
         
-        $instituto='usando arma fornecida por este Instituto';
+        $instituto='usando arma fornecida por esta Unidade de Execução Técnico Científica';
         $coleta='';
         $percutido=['',''];
         $eficiencia="munição Ineficiente para a realização de tiros.";
@@ -551,7 +551,7 @@ class MunicoesText extends Tabelas
     //----------
     if(count($arraymunicao18)>0){
         
-        $instituto='usando arma fornecida por este Instituto';
+        $instituto='usando arma fornecida por esta Unidade de Execução Técnico Científica';
         $eficiencia="munição parcialmente eficiente para a realização de tiros.";
         $percutido=[" "," "];
         $coleta='e/ou utilizados no procedimento de coleta de padrão balístico abaixo citado. ';
@@ -569,7 +569,7 @@ class MunicoesText extends Tabelas
     }
     if(count($arraymunicao20)>0){
         
-        $instituto='usando arma fornecida por este Instituto';
+        $instituto='usando arma fornecida por esta Unidade de Execução Técnico Científica';
         $coleta='';
         $eficiencia="munição parcialmente eficiente para a realização de tiros.";
         $percutido=[" "," "];
@@ -587,7 +587,7 @@ class MunicoesText extends Tabelas
     }
     if(count($arraymunicao22)>0){
         
-        $instituto='usando arma fornecida por este Instituto';
+        $instituto='usando arma fornecida por esta Unidade de Execução Técnico Científica';
         $percutido=['',''];
         $eficiencia="munição parcialmente eficiente para a realização de tiros.";
         $coleta='e/ou utilizados no procedimento de coleta de padrão balístico abaixo citado. ';
@@ -605,7 +605,7 @@ class MunicoesText extends Tabelas
     }
     if(count($arraymunicao24)>0){
     
-        $instituto='usando arma fornecida por este Instituto';
+        $instituto='usando arma fornecida por esta Unidade de Execução Técnico Científica';
         $coleta='';
         $percutido=['',''];
         $eficiencia="munição parcialmente eficiente para a realização de tiros.";

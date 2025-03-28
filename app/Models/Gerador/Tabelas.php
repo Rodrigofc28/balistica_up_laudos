@@ -33,7 +33,7 @@ class Tabelas {
             $table->addCell()->addText('Natureza', $this->fontStyle,$this->paraStyle),
             $table->addCell()->addText('Quantidade', $this->fontStyle,$this->paraStyle),
             $table->addCell()->addText('Tipo', $this->fontStyle,$this->paraStyle),
-            $table->addCell()->addText('Dito no ofício', $this->fontStyle,$this->paraStyle),
+            
             $table->addCell()->addText('Lacre de Entrada', $this->fontStyle,$this->paraStyle),
             //chama a função tabelaMaterialExame
             $this->tabelaMaterialExame($laudo->armas,$laudo->municoes,$table,$laudo)
@@ -60,7 +60,7 @@ class Tabelas {
                     $table->addCell()->addText(mb_strtoupper($naturezaArma),null,$this->paraStyle),
                     $table->addCell()->addText($quantidade,null,$this->paraStyle),
                     $table->addCell()->addText(mb_strtoupper($arma->tipo_arma),null,$this->paraStyle),
-                    $table->addCell()->addText(mb_strtoupper($arma->dito_oficio),null,$this->paraStyle),
+                   
                     $table->addCell()->addText($arma->num_lacre_saida,null,$this->paraStyle),
                     
 
@@ -98,7 +98,7 @@ class Tabelas {
                                 $table->addCell()->addText(mb_strtoupper($naturezaMunicao),null,$this->paraStyle),
                                 $table->addCell()->addText($municao->{'sum(quantidade)'},null,$this->paraStyle),
                                 $table->addCell()->addText(mb_strtoupper($municao->tipo_municao),null,$this->paraStyle),
-                                $table->addCell()->addText(mb_strtoupper($municao->dito_oficio),null,$this->paraStyle),
+                               
                                 $table->addCell()->addText($municao->lacrecartucho,null,$this->paraStyle),
                                 
         
@@ -124,7 +124,7 @@ class Tabelas {
                     $table->addCell()->addText(mb_strtoupper('Projetil'),null,$this->paraStyle),
                     $table->addCell()->addText($projetil->{'sum(quantidade_frascos)'},null,$this->paraStyle),
                     $table->addCell()->addText(mb_strtoupper($ti_projetil[0]),null,$this->paraStyle),
-                    $table->addCell()->addText(mb_strtoupper($projetil->dito_oficio),null,$this->paraStyle),
+                    
                     $table->addCell()->addText($projetil->lacrecartucho,null,$this->paraStyle),
                     
 
@@ -145,7 +145,7 @@ class Tabelas {
                     $table->addCell()->addText(mb_strtoupper('Outros'),null,$this->paraStyle),
                     $table->addCell()->addText("$outro->quantidade $outro->medida",null,$this->paraStyle),
                     $table->addCell()->addText(mb_strtoupper($outro->nome),null,$this->paraStyle),
-                    $table->addCell()->addText(mb_strtoupper($outro->dito_oficio),null,$this->paraStyle),
+                   
                     $table->addCell()->addText($outro->lacre_entrada,null,$this->paraStyle),
                     
 

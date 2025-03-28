@@ -87,7 +87,7 @@
     <div class="row border mb-3 mt-3">
         <div class="col-lg-3 mt-3">
            @include('shared.block_button', ['col_name' => 'outros',
-            'value' => 'outros', 'route' => 'outro.create'])
+            'value' => 'Outros', 'route' => 'outro.create'])
         </div>
         
     </div>

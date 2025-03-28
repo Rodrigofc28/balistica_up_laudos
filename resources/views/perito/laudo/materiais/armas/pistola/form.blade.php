@@ -38,7 +38,7 @@
         @include('perito.laudo.materiais.attributes.serie', ['tipo_serie2' => $pistola->tipo_serie ?? old('tipo_serie'),   
         'num_serie' => $pistola->num_serie ?? old('num_serie')])
         @include('perito.laudo.materiais.attributes.numero_patrimonio',['numero_patrimonio'=>$pistola->numero_patrimonio ?? old ('numero_patrimonio')]) 
-        @include('perito.laudo.materiais.attributes.dito_oficio')
+        
                                                                                                                                
         @include('perito.laudo.materiais.attributes.sistema_carregamento', ['sistema_carregamento2' =>                                              
         $pistola->sistema_carregamento ?? old('sistema_carregamento')])

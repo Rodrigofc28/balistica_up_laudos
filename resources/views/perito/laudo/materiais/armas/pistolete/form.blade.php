@@ -43,7 +43,7 @@
         
         @include('perito.laudo.materiais.attributes.calibre_real', ['calibre_real' => $pistolete->calibre_real ??
         old('calibre_real')])
-        @include('perito.laudo.materiais.attributes.dito_oficio')
+        
         @include('perito.laudo.materiais.attributes.sistema_percussao', ['sistema_percussao2' =>
         $pistolete->sistema_percussao ?? old('sistema_percussao')])
         @include('perito.laudo.materiais.attributes.sistema_disparo',['sistema_disparo2'=>$pistolete->sistema_disparo ?? old('sistema_disparo')])

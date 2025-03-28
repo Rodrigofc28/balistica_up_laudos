@@ -39,7 +39,7 @@
         @include('perito.laudo.materiais.attributes.numero_patrimonio',['numero_patrimonio'=>$revolver->numero_patrimonio ?? old ('numero_patrimonio')]) 
         @include('perito.laudo.materiais.attributes.numeracao_montagem', ['numeracao_montagem' =>
         $revolver->numeracao_montagem ?? old('numeracao_montagem')])
-        @include('perito.laudo.materiais.attributes.dito_oficio')
+        
         @include('perito.laudo.materiais.attributes.sistema_carregamento', ['sistema_carregamento2' =>                                              
         $revolver->sistema_carregamento ?? old('sistema_carregamento')])
 

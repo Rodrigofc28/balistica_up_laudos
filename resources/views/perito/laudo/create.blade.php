@@ -3,7 +3,7 @@
 {!! Html::script('js/calendar.js') !!}
 {!! Html::script('js/filtrar_solicitantes.js') !!}
 {!! Html::script('js/laudo_habilit.js') !!}
-
+{!!Html::script('js/adicionarTipoDocumento.js')!!}
 @endsection
 @section('page')
 <div class="col-8">
@@ -34,6 +34,23 @@
                 </tbody>
                 <td colspan="2" >
                     <button type="button" id="limpar" class="btn btn-danger ">Limpar Lista de Envolvidos <i class="far fa-trash-alt"></i></button>
+                    
+                </td>
+            </table>
+        </div> 
+        <div >
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Tipo de Documento</th>
+                        <th>Número do Documento</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaDocumentos">
+                    
+                </tbody>
+                <td colspan="2" >
+                    <button type="button" id="limparDocs" class="btn btn-danger ">Limpar Tipo de Documento <i class="far fa-trash-alt"></i></button>
                     
                 </td>
             </table>
@@ -80,10 +97,10 @@
 
     @include('perito.laudo.attributes.rep', ['rep' => $reps['rep'] ?? old('rep')])
     @include('perito.laudo.attributes.oficio', ['oficio' => $reps['oficio'] ?? old('oficio')])
+    @include('perito.laudo.attributes.inquerito', ['inquerito' => '' ?? old('inquerito')])
     
     @include('perito.laudo.attributes.tipo_inquerito', ['tipo_inquerito2' => $laudo->tipo_inquerito ??
     old('tipo_inquerito')])
-    @include('perito.laudo.attributes.inquerito', ['inquerito' => '' ?? old('inquerito')])
     
     @include('shared.input_calendar', ['label' => 'Data da Solicitação', 'name' => 'data_solicitacao', 'size' => '3',
     'value' => $dataRecebimento])
@@ -100,7 +117,7 @@
     <input class="form-control" type="hidden" name="perito_id" autocomplete="off" value="{{ Auth::id() }}" />
     @include('shared.attributes.secao', ['secao2' => $laudo->secao_id ?? old('secao_id')])
     
-    
+    <input hidden type="text" name="docs" id="docs">
     <input type="text" name="nomeIncluir" hidden id="nomeIncluir">
     
     @include('shared.attributes.cidades', ['size' => '4', 'cidade2' => $laudo->cidade_id ?? old('cidade_id')])

@@ -38,7 +38,7 @@
         $garrucha->calibre->id ?? old('calibre_id')])
         @include('perito.laudo.materiais.attributes.serie', ['tipo_serie2' => $garrucha->tipo_serie ??
         old('tipo_serie'), 'num_serie' => $garrucha->num_serie ?? old('num_serie')])
-        @include('perito.laudo.materiais.attributes.dito_oficio')
+        
         @include('perito.laudo.materiais.attributes.numero_canos', ['num_canos2' => $garrucha->num_canos ??
         old('num_canos')])
         @include('perito.laudo.materiais.attributes.sistema_carregamento', ['sistema_carregamento2' =>

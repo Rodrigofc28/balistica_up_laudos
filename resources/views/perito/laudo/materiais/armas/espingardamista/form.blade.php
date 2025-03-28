@@ -37,7 +37,7 @@
         
         @include('perito.laudo.materiais.attributes.calibre_real', ['calibre_real' => $espingardamista->calibre_real ??
         old('calibre_real')])
-        @include('perito.laudo.materiais.attributes.dito_oficio')
+        
         @include('perito.laudo.materiais.attributes.capacidade_carregador', ['capacidade_carregador' =>
         $espingardamista->capacidade_carregador ?? old('capacidade_carregador')])
         

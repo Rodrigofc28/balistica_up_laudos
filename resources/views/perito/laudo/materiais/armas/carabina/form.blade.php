@@ -43,7 +43,7 @@
         $carabina->sistema_carregamento ?? old('sistema_carregamento')])
         @include('perito.laudo.materiais.attributes.calibre', ['obrigatorio' => true,'calibre2' => $carabina->calibre->id
         ?? old('calibre_id')])
-        @include('perito.laudo.materiais.attributes.dito_oficio')
+        
         
         @include('perito.laudo.materiais.attributes.sistema_funcionamento', ['sistema_funcionamento2' =>
         $carabina->sistema_funcionamento ?? old('sistema_funcionamento')])

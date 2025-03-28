@@ -88,7 +88,10 @@ class Gerar
        
         //texto final
         $this->geral->addFinalText($laudo);
-
+        //footer para a margin do roda pé -------------------------------------------------------------------------------------------
+        $footer = $this->section->addFooter();
+        $footer->addTextBreak(7);
+        //---------------------------------------------------------------------------------------------------------------------------
         $objWriter = IOFactory::createWriter($this->phpW, 'Word2007');
 
         $nome_arquivo = 'Laudo ' . str_replace("/", "-", $laudo->rep) . '.docx';

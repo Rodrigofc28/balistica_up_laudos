@@ -54,10 +54,39 @@ class OutrosText
             
             $this->section->addText($value['descricao_item'], $this->config->arial12(),$this->config->paragraphJustify());
             $this->section->addTextBreak(1);
+           
+           // $image1 = 'app/public/'.$value['up_image'];
+           // $image2 = 'app/public/'.$value['up_image2'];
+           // $tempFilePath = storage_path('app/public/imagensOutros');
+            
 
+           
+            //Adicionando imagens ao documento
+            $table = $this->section->addTable('tabela2img');
+            $table->addRow(); 
+            $img2=$table->addCell();
+            $img2->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\storage\imagensOutros\514e83767d0062d0292d67906cbefb93.jpg', array('alignment' => Jc::CENTER, 'width' => 220));
+            $img3= $table->addCell();
+            $img3->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\storage\imagensOutros\514e83767d0062d0292d67906cbefb93.jpg', array('alignment' => Jc::CENTER, 'width' => 220));
             $indice++;
             $contador++;
         }
         
+    }
+    //trnasformar a imagem em base64
+    public function img64base($a){
+        
+        $imageR = $a; // decodifica do banco a image em base 64
+        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $imageR)); // tira #^data:image/\w+;base64,#i
+        
+        $tempFilePath = storage_path('app/public/imagensOutros'). '/' . uniqid() . '.jpg'; // cria um diretorio temporariosys_get_temp_dir() 
+         file_put_contents($tempFilePath, $imageData);//colocar arquivo
+         
+        // quando a image vêm de um input do tipo file não precisa transforma em um objeto porque ela já é, porem quando ta em base64 sim ae se usa o UploadedFile
+          $imageConvertida = new UploadedFile($tempFilePath, 'diario_num_one.jpg', 'image/jpeg', null, true);
+       
+            
+        $fileC = file_get_contents($imageConvertida); //pegar arquivo
+        return $fileC;
     }
 }
