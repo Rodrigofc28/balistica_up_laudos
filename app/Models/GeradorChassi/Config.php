@@ -5,6 +5,8 @@ use PhpOffice\PhpWord\Shared\Converter;
 use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\JcTable;
 
+define('DEFAULT_FONT', 'Arial');
+
 class Config{
     private $phpWord;
     private $section;
@@ -36,19 +38,19 @@ class Config{
     }
 
     public function arial12(){
-        return array('bold' => false, 'size' => 12, 'name' => 'Arial');
+        return array('bold' => false, 'size' => 12);
     }
 
     public function arial14Bold(){
-        return array('bold' => true, 'size' => 14, 'name' => 'Arial');
+        return array('bold' => true, 'size' => 14);
     }
 
     public function arial12Bold(){
-        return array('bold' => true, 'size' => 12, 'name' => 'Arial');
+        return array('bold' => true, 'size' => 12);
     }
 
     public function arial12Underline(){
-        return array('bold' => false, 'size' => 12, 'name' => 'Arial', 'underline' => 'single');
+        return array('bold' => false, 'size' => 12, 'underline' => 'single');
     }
 
     public function paragraphJustify(){
