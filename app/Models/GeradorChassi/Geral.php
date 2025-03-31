@@ -73,24 +73,21 @@ class Geral
     }
     
         //Corpo do laudo
-    public function addText($laudo)
-    {
+    public function addText($laudo){
+        //Busca dados do Chassi
         $chassi = Chassi::where('laudo_id', $laudo->id)->first();
          
-        //pegando as imagens e alocando na variavel
+        //Pegando as imagens e alocando na variavel
         $image1 = $this->img64base($chassi['image1']);
         $image2 = $this->img64base($chassi['image2']);
 
+        //Cria o cabeçalho
         $header = $this->section->addHeader();
         $header->addTextBreak(1);
-        $header->addPreserveText('FLS. {PAGE}', array('bold' => true,
-            'size' => 10, 'name' => 'arial'),
-            $this->config->paragraphRight());
+        $header->addPreserveText('FLS. {PAGE}', array('bold' => true, 'size' => 10, 'name' => 'arial'), $this->config->paragraphRight());
 
         $num_laudo = "LAUDO Nº $laudo->rep";
-        $header->addText($num_laudo, array('bold' => true,
-            'size' => 10, 'name' => 'arial'),
-            array('alignment' => Jc::END));
+        $header->addText($num_laudo, array('bold' => true, 'size' => 10, 'name' => 'arial'), array('alignment' => Jc::END));
 
         $intCrim = "POLÍCIA CIENTÍFICA DO PARANÁ";
         
@@ -126,7 +123,7 @@ class Geral
         
         //Laudo CHASSI
         $text = [
-            //Titulo e codigo
+            //Adiciona Titulo e Codigo
             $textrun = $this->section->addTextRun($this->config->paragraphCenter()),
             $textrun->addText($aux['titulo'], $this->config->arial14Bold()),
             $textrun->addTextBreak(),
