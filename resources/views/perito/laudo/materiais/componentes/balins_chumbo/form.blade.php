@@ -86,7 +86,12 @@
         @include('perito.laudo.materiais.attributes.sentido_raias', ['sentido_raias2' => $componente->sentido_raias ??
         old('sentido_raias')])
         {{------------------------------------------------------------------------------------------------------------------------------}}
-       
+       {{--dito no oficio--}}
+        @if($laudo->laudoEfetConst=="B602"){{--Incluido no B602 dito no oficio--}}
+            @include('perito.laudo.materiais.attributes.dito_oficio')
+        @endif
+
+
         {{--provavel calibre nominal--}}
         @include('perito.laudo.materiais.attributes.provavelCalibre', ['obrigatorio' => 'true', 'calibre2' =>
         $municao->calibre->id ?? old('calibre_id')])

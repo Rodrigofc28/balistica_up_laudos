@@ -43,7 +43,7 @@
         old('num_canos')])
         @include('perito.laudo.materiais.attributes.sistema_carregamento', ['sistema_carregamento2' =>
         $garrucha->sistema_carregamento ?? old('sistema_carregamento')])
-        
+        @include('perito.laudo.materiais.attributes.dito_oficio')
         @include('perito.laudo.materiais.attributes.sistema_percussao', ['sistema_percussao2' =>
         $garrucha->sistema_percussao ?? old('sistema_percussao')])
         @include('perito.laudo.materiais.attributes.sistema_disparo',['sistema_disparo2'=>$garrucha->sistema_disparo ?? old('sistema_disparo')])

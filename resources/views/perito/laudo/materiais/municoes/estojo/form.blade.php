@@ -63,7 +63,10 @@
         {{--Calibre--------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.calibre', ['obrigatorio' => 'true', 'calibre2' =>
         $municao->calibre->id ?? old('calibre_id')])
-       
+       {{--Dito no oficio--------------------------------------------------------------------------------------------------}}
+        @if($laudo->laudoEfetConst=="B602"){{--Incluido no B602 dito no oficio--}}
+            @include('perito.laudo.materiais.attributes.dito_oficio')
+        @endif
         {{--Quantidade--------------------------------------------------------------------------------------------------}}
         @include('perito.laudo.materiais.attributes.quantidade', ['quantidade' => $municao->quantidade ??
         old('quantidade')])

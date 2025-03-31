@@ -13,11 +13,11 @@ class Laudo extends Model
     protected $fillable = [
         'oficio', 'rep', 'data_designacao', 'data_solicitacao',
         'secao_id', 'cidade_id', 'solicitante_id', 'perito_id',
-         'indiciado', 'inquerito', 'tipo_inquerito','diretor_id',
+         'indiciado', 'diretor_id',
          'laudoEfetConst','nome_vitima','perfil_envolvido','bairro',
          'num_ip','material_coletado','sinab','data_ocorrencia','boletim_ocorrencia',
          'nomeIncluir','data_recebimento','rep_exame_complementar','envolvidoGdl',
-         'cidadeGdl','orgaoGdl','unidadeGdl','Perito_do_caso'
+         'cidadeGdl','orgaoGdl','unidadeGdl','Perito_do_caso','docs'
          
     ];
 
