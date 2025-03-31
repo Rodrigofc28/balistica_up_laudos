@@ -21,7 +21,7 @@ class ComponentesController extends Controller
      */
     public function store(Request $request, $laudo)
     {
-     
+    
         if($request->input('calibreNominal') == 'sem'){
             $request->merge(['calibreNominal' => null]);
         }

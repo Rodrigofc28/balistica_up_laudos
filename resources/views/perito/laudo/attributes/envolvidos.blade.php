@@ -35,6 +35,9 @@
         <option value="Vitima">Vitima</option>
         <option value="Em poder de"> Portador (caso arma)</option>
         <option value="Envolvido">Envolvido (vitima ou portador)</option>
+        <option value="Autor">Autor</option>
+        <option value="Investigado">Investigado</option>
+        <option value="Indiciado">Indiciado</option>
     </select>
 </div>
 

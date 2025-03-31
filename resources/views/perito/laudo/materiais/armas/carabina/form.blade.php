@@ -66,7 +66,7 @@
         @include('perito.laudo.materiais.attributes.telha',['telha2'=>$carabina->telha ?? old('telha')])
         @include('perito.laudo.materiais.attributes.comprimento', ['comprimento_total' => $carabina->comprimento_total ??
         old('comprimento_total')])
-        
+        @include('perito.laudo.materiais.attributes.dito_oficio')
         @include('perito.laudo.materiais.attributes.comprimento', ['comprimento_total' => $carabina->comprimento_total ??
         old('comprimento_total')])
         @include('perito.laudo.materiais.attributes.sentido_raias', ['sentido_raias2' => $carabina->sentido_raias ??

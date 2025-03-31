@@ -44,7 +44,7 @@
         $pistola->sistema_carregamento ?? old('sistema_carregamento')])
         @include('perito.laudo.materiais.attributes.calibre', ['obrigatorio' => true,'calibre2' => $pistola->calibre->id                            
         ?? old('calibre_id')])
-        
+        @include('perito.laudo.materiais.attributes.dito_oficio')
         @include('perito.laudo.materiais.attributes.sistema_funcionamento', ['sistema_funcionamento2' =>
         $pistola->sistema_funcionamento ?? old('sistema_funcionamento')])                                                                             
         @include('perito.laudo.materiais.attributes.tipo_carregador', ['tipo_carregador2' =>

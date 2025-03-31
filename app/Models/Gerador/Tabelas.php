@@ -195,12 +195,8 @@ public function tabelaDadosInvestigacao($phpWord,$section,$config,$laudo){
             
             $table->addCell(1000)->addText('Local:', $this->fontStyle,$this->paraStyle); 
             $table->addCell(3050)->addText(mb_strtoupper($cidadeGdl),null,$this->paraStyle); 
-            $table->addRow(50);
-            $laudo->boletim_ocorrencia!=""?[$table->addCell(2000)->addText('Boletim de Ocorrência:', $this->fontStyle,$this->paraStyle),
-            $table->addCell(2500)->addText( $laudo->boletim_ocorrencia, null,$this->paraStyle)]:"";
-             
-            $table->addCell(1000)->addText( "Nº do $laudo->tipo_inquerito:", $this->fontStyle,$this->paraStyle);
-            $table->addCell($tamanhoCell)->addText( $laudo->inquerito,null,$this->paraStyle);
+            $this->inqueritos($table,$laudo,$hideShowDataOcorrencia);
+            
             $table->addRow(50);
             $table->addCell(3052)->addText( 'Unidade Policial:', $this->fontStyle,$this->paraStyle);
             $table->addCell(3000)->addText(mb_strtoupper($orgaoGdl),null,$this->paraStyle);
@@ -351,14 +347,15 @@ protected function tabelaExameLocalNecropsia($phpWord,$section,$config,$laudo){
 
            //Caso Projétil----------------------------------------------------------------------------------------------------------------------------------------------------- 
             if(isset($laudo->componentes[0])){
-        
+                
                
             $tabelaNecropsia=DB::select('select lacrecartucho,origem_coletaPerito,rep_materialColetado,sum(quantidade_frascos) from componentes where laudo_id = :id group by lacrecartucho,origem_coletaPerito,rep_materialColetado ',['id'=>$laudo->id]);
-
+            
             $lacreProjetil='';
             $somaProjetil=[];
             foreach($tabelaNecropsia as $tabela){
                     $origemColeta=$tabela->origem_coletaPerito;
+                    
                     $materialColetado=$tabela->rep_materialColetado;
                     $somaProjetil[]=$tabela->{'sum(quantidade_frascos)'};
                     $lacreProjetil=$tabela->lacrecartucho;
@@ -408,11 +405,43 @@ public function nomes($table, $laudo, $hideShowDataOcorrencia)
                     case 'ENVOLVIDO':
                         $titulo = 'Envolvido';
                         break;
+                    case 'AUTOR':
+                        $titulo = 'Autor';
+                        break;
+                    case 'INDICIADO':
+                        $titulo = 'Indiciado';
+                        break;
+                    case 'INVESTIGADO':
+                        $titulo = 'Investigado';
+                        break;
                 }
 
                 $table->addRow(50);
                 $table->addCell(3052, [$this->styleFirstRow])->addText($titulo, $this->fontStyle, $this->paraStyle);
                 $table->addCell($hideShowDataOcorrencia)->addText($nome, null, $this->paraStyle);
+            }
+        }
+    }
+}
+//Tabela de inqueritos
+public function inqueritos($table, $laudo, $hideShowDataOcorrencia)
+{
+    // Verifica se nomeIncluir não está vazio e decodifica caso seja JSON
+    if (!empty($laudo->docs)) {
+        $docs = is_string($laudo->docs) ? json_decode($laudo->docs, true) : $laudo->docs;
+
+        if (is_array($docs)) {
+            foreach ($docs as $item) {
+                $inqueritoDC = mb_strtoupper($item['inqueritoDC']);
+                $numeroInq = mb_strtoupper($item['numeroInq']);
+
+             
+                $titulo = $inqueritoDC;
+               
+
+                $table->addRow(50);
+                $table->addCell(3052, [$this->styleFirstRow])->addText($titulo, $this->fontStyle, $this->paraStyle);
+                $table->addCell($hideShowDataOcorrencia)->addText($numeroInq, null, $this->paraStyle);
             }
         }
     }
