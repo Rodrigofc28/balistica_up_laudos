@@ -23,6 +23,8 @@ $(document).ready(function () {
         placeholder: "Selecione um Calibre",
         language: 'pt-BR'
     });
+    
+
     $('.js-single-origens').select2({
         placeholder: "Selecione um País de Origem",
         language: 'pt-BR'
