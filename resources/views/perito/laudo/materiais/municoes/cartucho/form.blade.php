@@ -39,10 +39,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
                             @foreach ($municoes as $item)
-                                <input  name="item" id="item" type="text" value="{{$item->item }}">
+                                
                                 <tr>
-                                    <td class="item{{$item->id}}" style="text-align:center">{{$item->item ?? 'N/A' }}</td>
+                                    
+                                    <td class="item{{$item->id}}" style="text-align:center">{{$item->item }}</td>
                                     <td style="text-align:center">{{ $item->marca->nome ?? 'N/A' }}</td>
                                     <td style="text-align:center">{{ $item->calibre->nome ?? 'N/A' }}</td>
                                     <td style="text-align:center">{{ $item->quantidade ?? 0 }}</td>
@@ -119,16 +121,17 @@
         </div>
         <div   class="col-lg-3 mt-1">
             <button type="submit"  class="btn btn-success btn-block submit_arma_form"><strong>
-                    <i class="fas fa-plus" aria-hidden="true"></i> {{ $acao }}</strong>
+                    <i class="fas fa-plus" aria-hidden="true"></i> Cadastrar Peça</strong>
             </button>
             {{ Form::close() }}
         </div>
-        <div  class="col-lg-3 mt-1">
-            <a style="color: rgb(250, 250, 250)" id="itensAdd" class="btn btn-success btn-block" >
-                <svg xmlns="http://www.w3.org/2000/svg" width="15px"  viewBox="0 0 448 512">
-                    <path fill="aliceblue" d="M64 80c-8.8 0-16 7.2-16 16l0 320c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-320c0-8.8-7.2-16-16-16L64 80zM0 96C0 60.7 28.7 32 64 32l320 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96zM200 344l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/>
-                </svg> Incluir Novo Item
-            </a>
+            {{-- <div  class="col-lg-3 mt-1">
+                <a style="color: rgb(250, 250, 250)" id="itensAdd" class="btn btn-success btn-block" >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15px"  viewBox="0 0 448 512">
+                        <path fill="aliceblue" d="M64 80c-8.8 0-16 7.2-16 16l0 320c0 8.8 7.2 16 16 16l320 0c8.8 0 16-7.2 16-16l0-320c0-8.8-7.2-16-16-16L64 80zM0 96C0 60.7 28.7 32 64 32l320 0c35.3 0 64 28.7 64 64l0 320c0 35.3-28.7 64-64 64L64 480c-35.3 0-64-28.7-64-64L0 96zM200 344l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/>
+                    </svg> Cadastrar Novo Item
+                </a>
+            --}} 
         </div>
         <div  class="col-lg-3 mt-1">
             <a class="btn btn-secondary btn-block" href="{{route('laudos.show', ['id' => $laudo->id])}}">

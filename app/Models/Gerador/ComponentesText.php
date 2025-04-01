@@ -402,8 +402,8 @@ for($i=0;$i<count($arrayImageProjetil);$i++){
         {
                 $table->addCell()->addImage($contagem[$cont], array('alignment' => Jc::CENTER, 'width' => 220)); 
                  $table->addRow(1,['cantSplit'=>false]);
-                $table->addCell()->addText('Projétil Base PQ 0'.$pq,$this->fontStyle, $this->paraStyle);
-                $table->addCell()->addText('Projétil Lateral PQ 0'.$pq,$this->fontStyle, $this->paraStyle);
+                $table->addCell()->addText('Projétil Posição 1 PQ 0'.$pq,$this->fontStyle, $this->paraStyle);
+                $table->addCell()->addText('Projétil Posição 2 PQ 0'.$pq,$this->fontStyle, $this->paraStyle);
                 $cont++;
         }
        

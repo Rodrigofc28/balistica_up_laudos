@@ -414,6 +414,9 @@ public function nomes($table, $laudo, $hideShowDataOcorrencia)
                     case 'INVESTIGADO':
                         $titulo = 'Investigado';
                         break;
+                    case 'VITIMA FATAL':
+                        $titulo = 'Vitima Fatal';
+                        break;
                 }
 
                 $table->addRow(50);
