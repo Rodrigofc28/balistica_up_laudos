@@ -3,8 +3,8 @@ namespace App\Models\Gerador;
 
 use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\Border;
-use App\Models\Componente;
 use Illuminate\Support\Facades\DB;
+
 class Tabelas{
     //configuração da tabela
     private $fontStyle = array('bold' => true);

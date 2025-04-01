@@ -14,6 +14,7 @@ use App\Models\Laudo;
 use App\Models\VeiculoInspecao;
 use NumberFormatter;
 use App\Models\GeradorChassi\Textos;
+use App\Models\GeradorChassi\Tabelas1;
 
 
 class Geral {
@@ -28,6 +29,7 @@ class Geral {
     //Corpo do laudo
     public function addText($laudo){
         $textos = new Textos();
+        $tabelas = new Tabelas1();
         //Busca dados do Chassi
         $chassi = Chassi::where('laudo_id', $laudo->id)->first();
          
@@ -154,6 +156,8 @@ class Geral {
         //$img5->addImage('C:\xampp\htdocs\LaudosApp\copy_Balistica\public\image\carabina.png', array('alignment' => Jc::CENTER, 'width' => 440, 'height'=>100));
         //$this->section->addText('NUMERAÇÃO DO MOTOR', $this->config->arial12Bold(),$this->config->paragraphCenter());
         
+        $tabelas->criarTabela($this->section, $this->config, $this->phpWord);
+
         return $this->section;
     } 
 

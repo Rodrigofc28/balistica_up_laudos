@@ -29,7 +29,7 @@ class Config{
             array(
                 'marginLeft' => Converter::cmToTwip(3),
                 'marginRight' => Converter::cmToTwip(2),
-                'marginBottom' => Converter::cmToTwip(0),
+                'marginBottom' => Converter::cmToTwip(2),
                 'headerHeight' => Converter::cmToTwip(4.3),
                 'footerHeight' => Converter::cmToTwip(4),
             )
@@ -37,6 +37,7 @@ class Config{
         return $this->section;
     }
 
+    // ----------------- FONTES ------------------
     public function arial12(){
         return array('bold' => false, 'size' => 12);
     }
@@ -48,11 +49,21 @@ class Config{
     public function arial12Bold(){
         return array('bold' => true, 'size' => 12);
     }
-
+    
     public function arial12Underline(){
         return array('bold' => false, 'size' => 12, 'underline' => 'single');
     }
+    
+    public function arial10Bold(){
+        return array('bold' => true, 'size' => 10);
+    }
+    
+    public function arial10(){
+        return array('bold' => false, 'size' => 10);
+    }
 
+
+    // ----------------- PARÁGRAFOS - ALINHAMENTO ------------------
     public function paragraphJustify(){
         $paragraphJustify = 'justify';
         $this->phpWord->addParagraphStyle($paragraphJustify, array(
@@ -98,6 +109,8 @@ class Config{
         return $paragraphJustifyExam;
     }
 
+
+    // ----------------- TABELA ------------------
     public function tabelaConfig(){
         $tabelaConfig = 'tabelaConfig';
         $this->phpWord->addTableStyle(
@@ -114,7 +127,7 @@ class Config{
     }
 
     public function cellCenter(){
-        return array('alignment' => Jc::CENTER, 'spaceAfter' => 150, 'spaceBefore' => 150);
+        return array('alignment' => Jc::CENTER, 'spaceAfter' => 50, 'spaceBefore' => 50);
     }
 
     public function fonteTabela(){
