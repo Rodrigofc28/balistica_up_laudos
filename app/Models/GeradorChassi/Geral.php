@@ -48,7 +48,7 @@ class Geral {
         //$exame = "2. MATERIAL APRESENTADO A EXAME";
         $data_rec=formatar_data_do_bd($laudo->data_recebimento);
         $data_solic =formatar_data_do_bd($laudo->data_solicitacao);
-        $data_desig = data($laudo->data_designacao);
+        $data_desig = data($laudo->data_designacao); //data por extenso
 
         $perito = $laudo->perito->nome;
         $cidadeGdl = $laudo->cidadeGdl;
@@ -137,7 +137,7 @@ class Geral {
         $this->section->addText(strtoupper($chassi['veiculo_id']).' PERICIADA', $this->config->arial12Bold(),$this->config->paragraphCenter());
         
         //Do exame chassi
-        //$this->doExameChassi($laudo); está com erro
+        //$this->doExameChassi($laudo); //está com erro
         //imagens numeração do chassi
         //$table2 = $this->section->addTable('tabela2img');
         //$table2->addRow(); 
@@ -175,7 +175,7 @@ class Geral {
     }
 
     //função para exame de chassi
-   public function doExameChassi($laudo){
+    public function doExameChassi($laudo){
         $laudo = Laudo::find($laudo->id);
         $exameChassi=VeiculoInspecao::where('laudo_id', $laudo->id)->first();
     
@@ -184,9 +184,7 @@ class Geral {
         switch ($laudo->laudoEfetConst) {
             case 'I801':
                 $exame = 'numerações identificadoras';
-            
                 if($exameChassi->chassi_status=='integro'&& $exameChassi->chassi_tipo_adulteracao==NULL){
-                
                     $texto2= "Ao exame de referido suporte, após a devida limpeza, foi verificada a gravação da sequência alfanumérica $exameChassi->chassi_numero, a qual apresenta-se íntegra, sem sinais ou vestígios de adulteração.";
                 }else if($exameChassi->chassi_status=='adulterado' && $exameChassi->chassi_tipo_adulteracao=='desbaste_regravação_revelado'){
                     $texto2= "Ao exame de referido suporte, após a devida limpeza, verificou o perito evidentes sinais deixados pela operação ali procedida, que consistiu no desbaste, por ação abrasiva, o que ocasionou a destruição da numeração original, possibilitando a gravação da atual $exameChassi->chassi_revelado_numero. Submetida à superfície em referência a tratamento químico-metalográfico, destinado a revelar remanescentes da gravação original, foi obtida a sequência alfanumérica $exameChassi->chassi_adulterado_numero.";
@@ -196,7 +194,7 @@ class Geral {
                     $texto2= 'Ao exame de referido suporte, após a devida limpeza, verificou o perito evidentes sinais deixados pela operação ali procedida, que consistiu na aplicação de ação contundente, o que ocasionou a destruição da numeração original. Submetida à superfície em referência a '. ($exameChassi->chassi_metodologia=='tratamento_quimico')?'químico-metalográfico':'instrumento óptico'.", destinado a revelar remanescentes da gravação original, foi obtida a sequência alfanumérica $exameChassi->chassi_adulterado_numero.";
                 }
             break;
-            
+            /*/
             case 'I802':
             
             break;
@@ -208,27 +206,30 @@ class Geral {
             case 'I812':
             
             break;
-            
+            */
             default:
-            
+                $exame = 'xxxxxxx';
+                $texto2= 'xxxxxxx';
             break;
-    }
+        }
      
-    $text4 = [
-        $this->section->addText('DO EXAME', $this->config->arial12Bold(), $this->config->paragraphJustify()),
-        $this->section->addTextBreak(1),
-        $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
-        $textrun->addText('Com relação às '.$exame.' da '.$dadosVeiculo['veiculo_id']. ' foram observados:', $this->config->arial12()),
-        $this->section->addTextBreak(1),
-        $textrun2 = $this->section->addTextRun($this->config->paragraphJustify()),
-        $textrun2->addText('a) '.$texto2, $this->config->arial12()),
+        $text4 = [
+            $this->section->addText('DO EXAME', $this->config->arial12Bold(), $this->config->paragraphJustify()),
+            $this->section->addTextBreak(1),
+            $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
+            $textrun->addText('Com relação às '.$exame.' da '.$dadosVeiculo['veiculo_id']. ' foram observados:', $this->config->arial12()),
+            $this->section->addTextBreak(1),
+            $textrun2 = $this->section->addTextRun($this->config->paragraphJustify()),
+            $textrun2->addText('a) '.$texto2, $this->config->arial12()),
         
-        $this->section->addTextBreak(1),
-        $this->section->addText(''),'phpWord' => $this->phpWord]; 
+            $this->section->addTextBreak(1),
+            $this->section->addText(''),'phpWord' => $this->phpWord
+        ]; 
        
         return $this->section;
-   }
-       //função para exame de motor      
+    }
+    
+    //função para exame de motor      
     public function exameMotor($laudo){
         $laudo = Laudo::find($laudo->id);
         $exameMotor=VeiculoInspecao::where('laudo_id', $laudo->id)->first();
@@ -246,23 +247,24 @@ class Geral {
                     $texto2= "Ao exame de referido suporte, após a devida limpeza, verificou o perito evidentes sinais deixados pela operação ali procedida, que consistiu no desbaste, por ação abrasiva, o que ocasionou a destruição da numeração original, possibilitando a gravação da atual $exameMotor->motor_revelado_numero. Submetida à superfície em referência a tratamento químico-metalográfico, destinado a revelar remanescentes da gravação original, foi obtida a sequência alfanumérica $exameMotor->motor_adulterado_numero.";
                 }
                     
-                   
                 break;
+            /*
             case 'I802':
                 
-                break;
+            break;
             case 'I806':
                 
-                break;
+            break;
             case 'I812':
                 
-                break;
+            break;
+            */
             default:
-                
-                break;
+                $exame = 'xxxxxxx';
+                $texto2= 'xxxxxxx';
+            break;
         }
         $text5 = [
-           
             $this->section->addTextBreak(1),
             $textrun = $this->section->addTextRun($this->config->paragraphJustify()),
             $textrun->addText('b) número do motor: '.$exameMotor->motor_numero, $this->config->arial12()),
@@ -272,8 +274,7 @@ class Geral {
     }       
             
             
-           
-       
+   
     
 }
 

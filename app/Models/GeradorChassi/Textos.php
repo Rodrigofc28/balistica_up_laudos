@@ -13,7 +13,7 @@ class Textos {
                 $titulo = "LAUDO DE EXAME DE VEÍCULO A MOTOR";
                 $exame = "(NUMERAÇÕES IDENTIFICADORAS)";
                 $codigo = "Código: I801";
-                $linha3preambulo=' no(s) veículo(s) adiante descrito';
+                //$linha3preambulo=' no(s) veículo(s) adiante descrito'; //já consta no Geral.php
                 $tipoExame='ao exame nas numerações identificadoras do veículo apresentado.'; //Objetivo
             break;
             
@@ -21,7 +21,7 @@ class Textos {
                 $titulo = "LAUDO DE EXAME DE COMPARTIMENTOS";
                 $exame = "(COMPARTIMENTOS)";
                 $codigo = "Código: I802";
-                $linha3preambulo='ao exame no veículo adiante descrito';
+                //$linha3preambulo='ao exame no veículo adiante descrito';
                 $tipoExame='ao exame para verificação de presença de compartimentos ocultos no veículo apresentado.';
             break;
             
@@ -29,7 +29,7 @@ class Textos {
                 $titulo = "LAUDO DE EXAME DE CONSTATAÇÃO";
                 $exame = "(CONSTATAÇÃO)";
                 $codigo = "Código: I806";
-                $linha3preambulo='ao exame nas peças adiante descritas,';
+                //$linha3preambulo='ao exame nas peças adiante descritas,';
                 $tipoExame='ao exame de constatação nas peças apresentadas para perícia.';
             break;
             
@@ -37,12 +37,12 @@ class Textos {
                 $titulo = "LAUDO DE EXAME DE VEÍCULO A MOTOR";
                 $exame = "(NUMERAÇÕES IDENTIFICADORAS + COMPARTIMENTOS)";
                 $codigo = "Código: I812";
-                $linha3preambulo='ao exame no veículo adiante descrito';
+                //$linha3preambulo='ao exame no veículo adiante descrito';
                 $tipoExame='ao exame nas numerações identificadoras do veículo acima mencionado, bem como constatar no mesmo a existência de compartimentos ocultos.';
             break;
         }
         
-        return ['titulo'=>$titulo,'exame'=>$exame,'codigo'=>$codigo,'linha3preambulo'=>$linha3preambulo,'tipoExame'=>$tipoExame];
+        return ['titulo'=>$titulo,'exame'=>$exame,'codigo'=>$codigo /*,'linha3preambulo'=>$linha3preambulo*/,'tipoExame'=>$tipoExame];
     }
 
 
