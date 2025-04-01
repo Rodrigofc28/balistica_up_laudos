@@ -39,10 +39,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            
                             @foreach ($municoes as $item)
-                                <input  name="item" id="item" type="text" value="{{$item->item }}">
+                                
                                 <tr>
-                                    <td class="item{{$item->id}}" style="text-align:center">{{$item->item ?? 'N/A' }}</td>
+                                    <input  name="item" id="item" type="text" value="{{$item->item ?? 1 }}">
+                                    <td class="item{{$item->id}}" style="text-align:center">{{$item->item }}</td>
                                     <td style="text-align:center">{{ $item->marca->nome ?? 'N/A' }}</td>
                                     <td style="text-align:center">{{ $item->calibre->nome ?? 'N/A' }}</td>
                                     <td style="text-align:center">{{ $item->quantidade ?? 0 }}</td>

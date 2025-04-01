@@ -1054,14 +1054,14 @@ class MunicoesText extends Tabelas
             }else{
                 $tabelaImg=$table->addCell();
                 $tabelaImg->addImage($this->imagem($municao)[0], array('alignment' => Jc::CENTER, 'width' => 220)); 
-                $tabelaImg->addText('Base-Cartucho(s) calibre '.$municao->calibre->nome,$this->fontStyle,$this->paraStyle);
+                $tabelaImg->addText('Posição 1 -Cartucho(s) calibre '.$municao->calibre->nome,$this->fontStyle,$this->paraStyle);
                 
                 
                 
                 if(!empty($this->imagem($municao)[1])){
                     $tabelaImg=$table->addCell();
                     $tabelaImg->addImage($this->imagem($municao)[1], array('alignment' => Jc::CENTER, 'width' => 220)); 
-                    $tabelaImg->addText('Lateral-Cartucho(s) calibre '.$municao->calibre->nome,$this->fontStyle,$this->paraStyle);
+                    $tabelaImg->addText('Posição 2 -Cartucho(s) calibre '.$municao->calibre->nome,$this->fontStyle,$this->paraStyle);
                 }
                 
                

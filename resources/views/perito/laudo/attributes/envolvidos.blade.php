@@ -33,6 +33,7 @@
     <select  class="form-control" name="perfil_envolvido"  id="perfil_envolvido">
         <option ></option>
         <option value="Vitima">Vitima</option>
+        <option value="Vitima Fatal">Vitima Fatal</option>
         <option value="Em poder de"> Portador (caso arma)</option>
         <option value="Envolvido">Envolvido (vitima ou portador)</option>
         <option value="Autor">Autor</option>

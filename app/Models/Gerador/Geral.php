@@ -126,7 +126,7 @@ class Geral extends Tabelas
         $fileContent = file_get_contents($source);
         //oficio requisitante
         
-        if($laudo->laudoEfetConst!="B601"){//$oficio!=null
+        if($laudo->oficio!=null||$laudo->oficio!=''){//$oficio!=null
             $paragrafo_material="Foi encaminhado a esta Unidade de Execução Técnico-científica, em embalagens plásticas transparentes lacradas, conforme ofício recebido, o seguinte material:";
             $requisicaoOficio=['materiais abaixo discriminados ',' a fim de ser atendida solicitação contida no Ofício nº '.$oficio.', datado de '.$data_solic.', oriundo da '.$delegacia.'.'];
         }else{
@@ -154,7 +154,7 @@ class Geral extends Tabelas
             
             $textrun->addText(" o(a) Perito(a) Oficial Criminal ", $this->config->arial12()),
             $textrun->addText($perito, $this->config->arial12Bold()),
-            $textrun->addText(", para proceder ao exame dos ".$requisicaoOficio[0]."recebidos nesta Seção em $data_rec", $this->config->arial12()),
+            $textrun->addText(", para proceder ao exame dos ".$requisicaoOficio[0]."recebidos nesta Unidade de Execução Técnico Científica em $data_rec", $this->config->arial12()),
             
             $textrun->addText($requisicaoOficio[1], $this->config->arial12()),
             
